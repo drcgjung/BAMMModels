@@ -1,0 +1,21 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix : <urn:bamm:com.catenax:0.0.1#>.
+
+:ProductUsage a bamm:Aspect;
+    bamm:name "ProductUsage";
+    bamm:properties (:mileage);
+    bamm:operations ();
+    bamm:preferredName "Product Usage"@en.
+:mileage a bamm:Property;
+    bamm:name "mileage";
+    bamm:characteristic :Mileage;
+    bamm:description "The mileage stated by the vehicle"@en.
+:Mileage a bamm-c:Quantifiable;
+    bamm:name "Mileage";
+    bamm:dataType xsd:double;
+    bamm-c:unit unit:kilometre.

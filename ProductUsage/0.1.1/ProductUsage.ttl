@@ -1,0 +1,27 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix : <urn:bamm:com.catenax:0.0.1#>.
+
+:ProductUsage a bamm:Aspect;
+    bamm:name "ProductUsage";
+    bamm:properties (:lifeSpan :lifeSpanAsPlanned);
+    bamm:operations ();
+    bamm:preferredName "Product Usage"@en.
+:lifeSpan a bamm:Property;
+    bamm:name "lifeSpan";
+    bamm:preferredName "lifeSpan"@en;
+    bamm:characteristic :LifeSpan.
+:LifeSpan a bamm-c:Quantifiable;
+    bamm:name "LifeSpan";
+    bamm:preferredName "LifeSpan"@en;
+    bamm:dataType xsd:double;
+    bamm:description "The Life Span"@en;
+    bamm-c:unit unit:year.
+:lifeSpanAsPlanned a bamm:Property;
+    bamm:name "lifeSpanAsPlanned";
+    bamm:characteristic :LifeSpan;
+    bamm:description "as planned lifeSpan for one specific vehicle"@en.

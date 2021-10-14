@@ -8,24 +8,12 @@
 
 :ProductUsage a bamm:Aspect;
     bamm:name "ProductUsage";
-    bamm:properties (:lifeSpan :stateOfHealth :stateOfCharge :mileage :numberOfChargingCycles :voltage :residualCurrentHazard :lifeSpanAsPlanned :numberOfChargingCyclesAsPlanned);
+    bamm:properties (:stateOfCharge :numberOfChargingCycles :voltage :residualCurrentHazard :numberOfChargingCyclesAsPlanned);
     bamm:operations ();
     bamm:preferredName "Product Usage"@en.
-:lifeSpan a bamm:Property;
-    bamm:name "lifeSpan";
-    bamm:preferredName "lifeSpan"@en;
-    bamm:characteristic :LifeSpan.
-:stateOfHealth a bamm:Property;
-    bamm:name "stateOfHealth";
-    bamm:preferredName "State of Health"@en;
-    bamm:characteristic :PercentOfSomething.
 :stateOfCharge a bamm:Property;
     bamm:name "stateOfCharge";
     bamm:characteristic :PercentOfSomething.
-:mileage a bamm:Property;
-    bamm:name "mileage";
-    bamm:characteristic :Mileage;
-    bamm:description "The mileage stated by the vehicle"@en.
 :numberOfChargingCycles a bamm:Property;
     bamm:name "numberOfChargingCycles";
     bamm:characteristic :NumberOfCycles;
@@ -38,20 +26,10 @@
     bamm:characteristic :Current;
     bamm:description "The residual current still present."@en;
     bamm:exampleValue "40"^^xsd:double.
-:LifeSpan a bamm-c:Quantifiable;
-    bamm:name "LifeSpan";
-    bamm:preferredName "LifeSpan"@en;
-    bamm:dataType xsd:double;
-    bamm:description "The Life Span"@en;
-    bamm-c:unit unit:year.
 :PercentOfSomething a bamm-c:Quantifiable;
     bamm:name "PercentOfSomething";
     bamm:dataType xsd:double;
     bamm-c:unit unit:percent.
-:Mileage a bamm-c:Quantifiable;
-    bamm:name "Mileage";
-    bamm:dataType xsd:double;
-    bamm-c:unit unit:kilometre.
 :NumberOfCycles a bamm:Characteristic;
     bamm:name "NumberOfCycles";
     bamm:dataType xsd:long.
@@ -63,10 +41,6 @@
     bamm:name "Current";
     bamm:dataType xsd:double;
     bamm-c:unit unit:ampere.
-:lifeSpanAsPlanned a bamm:Property;
-    bamm:name "lifeSpanAsPlanned";
-    bamm:characteristic :LifeSpan;
-    bamm:description "as planned lifeSpan for one specific vehicle"@en.
 :numberOfChargingCyclesAsPlanned a bamm:Property;
     bamm:name "numberOfChargingCyclesAsPlanned";
     bamm:characteristic :NumberOfCycles;

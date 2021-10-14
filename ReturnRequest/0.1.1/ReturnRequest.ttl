@@ -8,11 +8,15 @@
 
 :ReturnRequest a bamm:Aspect;
     bamm:name "ReturnRequest";
-    bamm:properties (:return);
+    bamm:properties (:returnFlag :productID);
     bamm:operations ();
     bamm:description "Aspect to indicate if there is a return request for a material"@en.
-:return a bamm:Property;
-    bamm:name "return";
+:returnFlag a bamm:Property;
+    bamm:name "returnFlag";
     bamm:characteristic bamm-c:Boolean;
     bamm:description "Describes the fact whether a vehicle, assembly or part needs to be returned to requestor."@en;
-    bamm:exampleValue "yes"^^xsd:boolean.
+    bamm:exampleValue "true"^^xsd:boolean.
+:productID a bamm:Property;
+    bamm:name "productID";
+    bamm:description "identification of the product"@en;
+    bamm:characteristic bamm-c:Text.
