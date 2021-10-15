@@ -6,11 +6,11 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix : <urn:bamm:com.catenax:0.1.1#>.
 
-:ProductUsage a bamm:Aspect;
-    bamm:name "ProductUsage";
-    bamm:properties (:mileage);
+:ProductUsageVehicle a bamm:Aspect;
+    bamm:name "ProductUsageVehicle";
+    bamm:properties (:mileage :equipmentvariants :KBA :firstRegistration);
     bamm:operations ();
-    bamm:preferredName "Product Usage"@en.
+    bamm:preferredName "Product Usage of Vehicle"@en.
 :mileage a bamm:Property;
     bamm:name "mileage";
     bamm:characteristic :Mileage;
@@ -19,3 +19,33 @@
     bamm:name "Mileage";
     bamm:dataType xsd:double;
     bamm-c:unit unit:kilometre.
+:equipmentvariants a bamm:Property;
+    bamm:name "equipmentvariants";
+    bamm:characteristic :EquipmentCharacteristic.
+:EquipmentCharacteristic a bamm:Characteristic;
+    bamm:name "EquipmentCharacteristic";
+    bamm:dataType :VariantEntity.
+:VariantEntity a bamm:Entity;
+    bamm:name "VariantEntity";
+    bamm:properties (:variantID);
+    bamm:operations ();
+    bamm:preferredName "Equipment Variants"@en.
+:variantID a bamm:Property;
+    bamm:name "variantID";
+    bamm:description "The equipment variants codes"@en;
+    bamm:characteristic :Variant.
+:Variant a bamm:Characteristic;
+    bamm:name "Variant";
+    bamm:dataType xsd:string.
+:KBA a bamm:Property;
+    bamm:name "KBA";
+    bamm:description "The equipment variants codes"@en;
+    bamm:characteristic :Identifier.
+:Identifier a bamm:Characteristic;
+    bamm:name "Identifier";
+    bamm:dataType xsd:string.
+:firstRegistration a bamm:Property;
+    bamm:name "firstRegistration";
+    bamm:description "the first registration of the vehicle in GMT time zone"@en;
+    bamm:exampleValue "2021-09-30"^^xsd:dateTime;
+    bamm:characteristic bamm-c:Timestamp.
