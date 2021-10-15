@@ -36,6 +36,14 @@
     bamm:property :classificationValueName;
     bamm:optional "true"^^xsd:boolean
     ] 
+    [
+    bamm:property :recyclingStatus;
+    bamm:optional "true"^^xsd:boolean
+    ] 
+     [
+    bamm:property :recyclingPercentage;
+    bamm:optional "true"^^xsd:boolean
+    ] 
     ).
 :materialName a bamm:Property;
     bamm:name "materialName";
@@ -93,3 +101,18 @@
 :Value a bamm:Characteristic;
     bamm:name "Value";
     bamm:dataType xsd:string.
+:recyclingStatus a bamm:Property;
+    bamm:name "recyclingStatus";
+    bamm:preferredName "recycling status"@en;
+    bamm:description "Indicates if the material was is recycled"@en;
+    bamm:characteristic bamm-c:Boolean;
+    bamm:exampleValue "true"^^xsd:boolean.
+:recyclingPercentage a bamm:Property;
+    bamm:name "recyclingPercentage";
+    bamm:preferredName "percentage of recycling"@en;
+    bamm:description "percentage of how much of the material was recycled"@en;
+    bamm:characteristic :Percentage.
+:Percentage a bamm-c:Quantifiable;
+    bamm:name "PercentOfSomething";
+    bamm:dataType xsd:double;
+    bamm-c:unit unit:percent.
