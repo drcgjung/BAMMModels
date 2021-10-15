@@ -20,16 +20,8 @@
     bamm:name "MaterialEntity";
     bamm:properties (:materialName :materialType :aggregateState
     
-    [
-    bamm:property :chemicalComposition;
-    bamm:optional "true"^^xsd:boolean
-    ] 
-    [
+[
     bamm:property :materialIdentifier;
-    bamm:optional "true"^^xsd:boolean
-    ] 
-    [
-    bamm:property :chemicalCompositionFraction;
     bamm:optional "true"^^xsd:boolean
     ] 
     [
@@ -38,6 +30,10 @@
     ] 
     [
     bamm:property :classificationValue;
+    bamm:optional "true"^^xsd:boolean
+    ] 
+    [
+    bamm:property :classificationValueName;
     bamm:optional "true"^^xsd:boolean
     ] 
     ).
@@ -70,29 +66,14 @@
     bamm:characteristic :AggregateStates;
     bamm:description "The aggregate state of a material at ambient conditions"@en;
     bamm:exampleValue "solid".
-:chemicalComposition a bamm:Property;
-    bamm:name "chemicalComposition";
-    bamm:characteristic :materialCollection.
-:materialCollection a bamm-c:Collection;
-    bamm:name "materialCollection";
-    bamm-c:elementCharacteristic :MaterialCharacteristic.
 :AggregateStates a bamm-c:Enumeration;
     bamm:name "AggregateStates";
     bamm:dataType xsd:string;
     bamm:description "An enumeration of possible aggregate states"@en;
     bamm-c:values ("gas" "liquid" "solid").
-:chemicalCompositionFraction a bamm:Property;
-    bamm:name "chemicalCompositionFraction";
-    bamm:characteristic :Fraction;
-    bamm:description "Fraction of the material in a chemical composition. Is not set if material is not part of a material composition."@en;
-    bamm:exampleValue "0.23"^^xsd:double.
-:Fraction a bamm-c:Quantifiable;
-    bamm:name "Fraction";
-    bamm:dataType xsd:double;
-    bamm-c:unit unit:percent.
 :classificationName a bamm:Property;
     bamm:name "classificationName";
-    bamm:description "The name of the classification system"@en;
+    bamm:description "The name of the classification system which is used to describe the material"@en;
     bamm:exampleValue "IMDS"^^xsd:string;
     bamm:characteristic :Classification.
 :Classification a bamm:Characteristic;
@@ -105,7 +86,10 @@
 :Value a bamm:Characteristic;
     bamm:name "Value";
     bamm:dataType xsd:string.
-:Constraint1 a bamm:Constraint;
-    bamm:name "Constraint1".
-:Constraint2 a bamm:Constraint;
-    bamm:name "Constraint2".
+:classificationValueName a bamm:Property;
+    bamm:name "classificationValue";
+    bamm:description "The name of the material in the classification"@en;
+    bamm:characteristic :Value.
+:Value a bamm:Characteristic;
+    bamm:name "Value";
+    bamm:dataType xsd:string.
