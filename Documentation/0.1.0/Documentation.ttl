@@ -8,7 +8,7 @@
 
 :ManufacturerDocumentation a bamm:Aspect;
     bamm:name "ManufacturerDocumentation";
-    bamm:preferredName "ManufacturerDocumentation HURRA"@en;
+    bamm:preferredName "ManufacturerDocumentation"@en;
     bamm:description "The Submodel defines a set of manufacturer documentation to bring about information from manufacturer to operator of industrial equipment."@en;
     bamm:see <http://admin-shell.io/vdi/2770/1/0/Documentation>;
     bamm:properties (:documents);
