@@ -39,7 +39,7 @@
     bamm:dataType xsd:string.
 :KBA a bamm:Property;
     bamm:name "KBA";
-    bamm:description "The equipment variants codes"@en;
+    bamm:description "The explicit number which is provided from the Federal Motor Vehicle Transport Authority (German = Kraftfahrt-Bundesamt)"@en;
     bamm:characteristic :Identifier.
 :Identifier a bamm:Characteristic;
     bamm:name "Identifier";
