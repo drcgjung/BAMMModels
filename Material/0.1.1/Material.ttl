@@ -9,15 +9,6 @@
 :Material a bamm:Aspect;
     bamm:name "Material";
     bamm:operations ();
-    bamm:properties (:materialDetails).
-:materialDetails a bamm:Property;
-    bamm:name "materialDetails";
-    bamm:characteristic :MaterialCharacteristic.
-:MaterialCharacteristic a bamm:Characteristic;
-    bamm:name "MaterialCharacteristic";
-    bamm:dataType :MaterialEntity.
-:MaterialEntity a bamm:Entity;
-    bamm:name "MaterialEntity";
     bamm:properties (:materialName :materialType :aggregateState
     
 [
