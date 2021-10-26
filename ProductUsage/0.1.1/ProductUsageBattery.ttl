@@ -6,8 +6,8 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix : <urn:bamm:com.catenax:0.1.1#>.
 
-:ProductUsage a bamm:Aspect;
-    bamm:name "ProductUsage";
+:ProductUsageBattery a bamm:Aspect;
+    bamm:name "ProductUsageBattery";
     bamm:properties (:stateOfCharge :numberOfChargingCycles :voltage :residualCurrentHazard :numberOfChargingCyclesAsPlanned);
     bamm:operations ();
     bamm:preferredName "Product Usage"@en.
