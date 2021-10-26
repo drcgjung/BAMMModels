@@ -6,10 +6,10 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix : <urn:bamm:com.catenax:0.1.1#>.
 
-:EoLStory a bamm:Aspect;
-    bamm:name "EoLStory";
-    bamm:preferredName "End of Life Story"@en;
-    bamm:description "Aspect for End of Life Story"@en;
+:Dismantler a bamm:Aspect;
+    bamm:name "Dismantler";
+    bamm:preferredName "Dismantler"@en;
+    bamm:description "Aspect for End of Life Story for the Dismantler"@en;
     bamm:properties (:disassemblyStatus :healthStatus :recyclingStatus :dateOfAdmissionGMT :certificateOfDestruction 
         [
         bamm:property :lastMileage;

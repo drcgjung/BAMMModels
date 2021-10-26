@@ -111,19 +111,7 @@
     bamm:description "A data element with multiple elements with datatype xsd:langstring"@en;
     bamm:see <http://admin-shell.io/aas/MultiLanguageProperty>;
     bamm:dataType rdf:langString.
-						
-:InReview a :TypeOfStatusValue;
-    :status "InReview";
-	:index 1;
-    :description "InReview (under review)"@en;
-    :see <http://admin-shell.io/vdi/2770/1/0/LifeCycleStatus/StatusValue/InReview>.
-	
-:Released a :TypeOfStatusValue;
-    :status "Released";
-	:index 2;
-    :description "Released (released)"@en;
-    :see <http://admin-shell.io/vdi/2770/1/0/LifeCycleStatus/StatusValue/Released>.
-	
+
 
 
 
