@@ -9,9 +9,27 @@
 :Material a bamm:Aspect;
     bamm:name "Material";
     bamm:operations ();
+    bamm:properties (:materialDetails).
+:materialDetails a bamm:Property;
+    bamm:name "materialDetails";
+    bamm:characteristic :MaterialCharacteristic.
+:MaterialCharacteristic a bamm:Characteristic;
+    bamm:name "MaterialCharacteristic";
+    bamm:dataType :MaterialEntity.
+:MaterialEntity a bamm:Entity;
+    bamm:name "MaterialEntity";
+    bamm:operations ();
     bamm:properties (:materialName :materialType :aggregateState
     
-[
+    [  
+    bamm:property :Composition;
+    bamm:optional "true"^^xsd:boolean
+    ]
+    [
+    bamm:property :CompositionFraction;
+    bamm:optional "true"^^xsd:boolean
+    ]
+    [
     bamm:property :materialIdentifier;
     bamm:optional "true"^^xsd:boolean
     ] 
@@ -45,12 +63,12 @@
     bamm:name "MaterialName";
     bamm:dataType xsd:string.
 :materialIdentifier a bamm:Property;
-    bamm:name "materialIdentifier";
+    bamm:name "materialAbbreviation";
     bamm:description "A short abbreviation of the materialName"@en;
-    bamm:exampleValue "PA66"^^xsd:string;
+    bamm:exampleValue "PA66G40"^^xsd:string;
     bamm:characteristic :MaterialIdentifier.
 :MaterialIdentifier a bamm:Characteristic;
-    bamm:name "MaterialIdentifier";
+    bamm:name "materialAbbreviation";
     bamm:dataType xsd:string.
 :materialType a bamm:Property;
     bamm:name "materialType";
@@ -101,9 +119,20 @@
 :recyclingPercentage a bamm:Property;
     bamm:name "recyclingPercentage";
     bamm:preferredName "percentage of recycling"@en;
-    bamm:description "percentage of how much of the material was recycled"@en;
+    bamm:description "Percentage of how much of the material was recycled. This can be an aggregation regarding the materials below."@en;
     bamm:characteristic :Percentage.
 :Percentage a bamm-c:Quantifiable;
     bamm:name "PercentOfSomething";
     bamm:dataType xsd:double;
     bamm-c:unit unit:percent.
+:CompositionFraction a bamm:Property;
+    bamm:name "CompositionFraction";
+    bamm:characteristic :Percentage;
+    bamm:description "Fraction of the material in a composition. Is not set if material is not part of a material composition."@en;
+    bamm:exampleValue "0.23"^^xsd:double.
+:Composition a bamm:Property;
+    bamm:name "Composition";
+    bamm:characteristic :materialCollection.
+:materialCollection a bamm-c:Collection;
+    bamm:name "materialCollection";
+    bamm-c:elementCharacteristic :MaterialCharacteristic.
