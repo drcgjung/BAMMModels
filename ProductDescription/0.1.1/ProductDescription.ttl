@@ -8,16 +8,6 @@
 
 :ProductDescription a bamm:Aspect;
     bamm:name "ProductDescription";
-    bamm:operations ();
-    bamm:properties (:productDetails).
-:productDetails a bamm:Property;
-    bamm:name "productDetails";
-    bamm:characteristic :productCharacteristic.
-:productCharacteristic a bamm:Characteristic;
-    bamm:name "productCharacteristic";
-    bamm:dataType :ProductEntity.
-:ProductEntity a bamm:Entity;
-    bamm:name "ProductEntity";
     bamm:properties (:productID :productName :productDescription :productionDateGMT 
     [
         bamm:property :buildPosition;
@@ -37,10 +27,6 @@
     ]
     [
         bamm:property :productDimension;
-        bamm:optional "true"^^xsd:boolean
-    ]
-      [
-        bamm:property :Composition;
         bamm:optional "true"^^xsd:boolean
     ]
 
@@ -116,11 +102,3 @@
     bamm:description "A length measurement value"@en;
     bamm-c:unit unit:centimetre;
     bamm:dataType xsd:double .
-
-
-:Composition a bamm:Property;
-    bamm:name "Composition";
-    bamm:characteristic :productCollection.
-:productCollection a bamm-c:Collection;
-    bamm:name "productCollection";
-    bamm-c:elementCharacteristic :productCharacteristic.
