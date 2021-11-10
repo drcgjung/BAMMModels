@@ -9,26 +9,8 @@
 :Material a bamm:Aspect;
     bamm:name "Material";
     bamm:operations ();
-    bamm:properties (:materialDetails).
-:materialDetails a bamm:Property;
-    bamm:name "materialDetails";
-    bamm:characteristic :MaterialCharacteristic.
-:MaterialCharacteristic a bamm:Characteristic;
-    bamm:name "MaterialCharacteristic";
-    bamm:dataType :MaterialEntity.
-:MaterialEntity a bamm:Entity;
-    bamm:name "MaterialEntity";
-    bamm:operations ();
     bamm:properties (:materialName :materialType :aggregateState
     
-    [  
-    bamm:property :Composition;
-    bamm:optional "true"^^xsd:boolean
-    ]
-    [
-    bamm:property :CompositionFraction;
-    bamm:optional "true"^^xsd:boolean
-    ]
     [
     bamm:property :materialAbbreviation;
     bamm:optional "true"^^xsd:boolean
@@ -125,14 +107,3 @@
     bamm:name "PercentOfSomething";
     bamm:dataType xsd:double;
     bamm-c:unit unit:percent.
-:CompositionFraction a bamm:Property;
-    bamm:name "CompositionFraction";
-    bamm:characteristic :Percentage;
-    bamm:description "Fraction of the material in a composition. Is not set if material is not part of a material composition."@en;
-    bamm:exampleValue "0.23"^^xsd:double.
-:Composition a bamm:Property;
-    bamm:name "Composition";
-    bamm:characteristic :materialCollection.
-:materialCollection a bamm-c:Collection;
-    bamm:name "materialCollection";
-    bamm-c:elementCharacteristic :MaterialCharacteristic.
