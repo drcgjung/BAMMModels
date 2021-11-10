@@ -30,7 +30,7 @@
     bamm:optional "true"^^xsd:boolean
     ]
     [
-    bamm:property :materialIdentifier;
+    bamm:property :materialAbbreviation;
     bamm:optional "true"^^xsd:boolean
     ] 
     [
@@ -62,12 +62,12 @@
 :MaterialName a bamm:Characteristic;
     bamm:name "MaterialName";
     bamm:dataType xsd:string.
-:materialIdentifier a bamm:Property;
+:materialAbbreviation a bamm:Property;
     bamm:name "materialAbbreviation";
     bamm:description "A short abbreviation of the materialName"@en;
     bamm:exampleValue "PA66G40"^^xsd:string;
-    bamm:characteristic :MaterialIdentifier.
-:MaterialIdentifier a bamm:Characteristic;
+    bamm:characteristic :MaterialAbbreviation.
+:MaterialAbbreviation a bamm:Characteristic;
     bamm:name "materialAbbreviation";
     bamm:dataType xsd:string.
 :materialType a bamm:Property;
