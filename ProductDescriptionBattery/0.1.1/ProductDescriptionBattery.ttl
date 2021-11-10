@@ -1,0 +1,37 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#> .
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#> .
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#> .
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix : <urn:bamm:com.catenaX:0.1.1#>.
+
+:ProductDescriptionBattery a bamm:Aspect;
+    bamm:name "ProductDescriptionBattery";
+    bamm:properties (:performanceIndicator);
+    bamm:operations ();
+    bamm:preferredName "Product Description Battery"@en.
+
+:performanceIndicator a bamm:Property;
+    bamm:name "performanceIndicator";
+    bamm:description "The performance indicator"@en;
+    bamm:characteristic :PerformanceIndicatorCharacteristic .
+:PerformanceIndicatorCharacteristic a bamm-c:SingleEntity;
+    bamm:name "performanceIndicatorCharacteristic";
+    bamm:dataType :PerformanceIndicatorEntity .
+:PerformanceIndicatorEntity a bamm:Entity;
+    bamm:name "performanceIndicatorEntity";
+    bamm:properties (:electrictiyCapacityMin :electrictiyCapacityMax) .
+:electrictiyCapacityMin a bamm:Property;
+    bamm:name "electricCapacityMin";
+    bamm:description "The minimal electric capacity"@en;
+    bamm:characteristic :Capacity .
+:electrictiyCapacityMax a bamm:Property;
+    bamm:name "electricCapacityMax";
+    bamm:description "The maximal electric capacity"@en;
+    bamm:characteristic :Capacity .
+:Capacity a bamm-c:Measurement;
+    bamm:name "capacity";
+    bamm:description "A capacity value"@en;
+    bamm-c:unit unit:farad;
+    bamm:dataType xsd:double.
