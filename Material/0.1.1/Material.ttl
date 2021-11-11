@@ -11,8 +11,8 @@
     bamm:operations ();
     bamm:properties (:materialName :materialType :aggregateState
     
-[
-    bamm:property :materialIdentifier;
+    [
+    bamm:property :materialAbbreviation;
     bamm:optional "true"^^xsd:boolean
     ] 
     [
@@ -44,13 +44,13 @@
 :MaterialName a bamm:Characteristic;
     bamm:name "MaterialName";
     bamm:dataType xsd:string.
-:materialIdentifier a bamm:Property;
-    bamm:name "materialIdentifier";
+:materialAbbreviation a bamm:Property;
+    bamm:name "materialAbbreviation";
     bamm:description "A short abbreviation of the materialName"@en;
-    bamm:exampleValue "PA66"^^xsd:string;
-    bamm:characteristic :MaterialIdentifier.
-:MaterialIdentifier a bamm:Characteristic;
-    bamm:name "MaterialIdentifier";
+    bamm:exampleValue "PA66G40"^^xsd:string;
+    bamm:characteristic :MaterialAbbreviation.
+:MaterialAbbreviation a bamm:Characteristic;
+    bamm:name "materialAbbreviation";
     bamm:dataType xsd:string.
 :materialType a bamm:Property;
     bamm:name "materialType";
@@ -101,7 +101,7 @@
 :recyclingPercentage a bamm:Property;
     bamm:name "recyclingPercentage";
     bamm:preferredName "percentage of recycling"@en;
-    bamm:description "percentage of how much of the material was recycled"@en;
+    bamm:description "Percentage of how much of the material was recycled. This can be an aggregation regarding the materials below."@en;
     bamm:characteristic :Percentage.
 :Percentage a bamm-c:Quantifiable;
     bamm:name "PercentOfSomething";
