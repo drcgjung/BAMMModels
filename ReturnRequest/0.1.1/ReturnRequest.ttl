@@ -8,11 +8,68 @@
 
 :ReturnRequest a bamm:Aspect;
     bamm:name "ReturnRequest";
-    bamm:properties (:returnFlag);
+    bamm:properties (:returnFlag
+    
+    [
+    bamm:property :returnReason;
+    bamm:optional "true"^^xsd:boolean
+    ] 
+    [
+    bamm:property :returnPeriod;
+    bamm:optional "true"^^xsd:boolean
+    ]
+
+    [
+    bamm:property :desiredPrice;
+    bamm:optional "true"^^xsd:boolean
+    ]
+    [
+    bamm:property :requestorID;
+    bamm:optional "true"^^xsd:boolean
+    ]
+    [
+    bamm:property :requestDate;
+    bamm:optional "true"^^xsd:boolean
+    ]
+    );
     bamm:operations ();
-    bamm:description "Aspect to indicate if there is a return request for a material"@en.
+    bamm:description "Aspect to indicate if there is a return request for a product"@en.
+
 :returnFlag a bamm:Property;
     bamm:name "returnFlag";
     bamm:characteristic bamm-c:Boolean;
     bamm:description "Describes the fact whether a vehicle, assembly or part needs to be returned to requestor."@en;
     bamm:exampleValue "true"^^xsd:boolean.
+:returnReason a bamm:Property;
+    bamm:name "returnReason";
+    bamm:characteristic :Description;
+    bamm:description "Describes WHY a vehicle, assembly or part needs to be returned to the requestor."@en;
+    bamm:exampleValue "Wishes to buy"^^xsd:string.
+:returnPeriod a bamm:Property;
+    bamm:name "returnPeriod";
+    bamm:description "Describes until when the return request is valid in GMT timezone."@en;
+    bamm:exampleValue "2025-01-01"^^xsd:dateTime;
+    bamm:characteristic bamm-c:Timestamp.
+:requestDate a bamm:Property;
+    bamm:name "requestDate";
+    bamm:description "Describes when the return request was placed in GMT timezone."@en;
+    bamm:exampleValue "2022-01-01"^^xsd:dateTime;
+    bamm:characteristic bamm-c:Timestamp.
+:desiredPrice a bamm:Property;
+    bamm:name "desiredPrice";
+    bamm:description "desired price"@en;
+    bamm:exampleValue "50.45€"^^xsd:string;
+    bamm:characteristic :Price.
+:requestorID a bamm:Property;
+    bamm:name "requestorID";
+    bamm:description "Indicates who requested the product."@en;
+    bamm:characteristic :requestor.
+:Description a bamm:Characteristic;
+    bamm:name "Description";
+    bamm:dataType xsd:string.
+:Price a bamm:Characteristic;
+    bamm:name "Price";
+    bamm:dataType xsd:string.
+:requestor a bamm:Characteristic;
+    bamm:name "requestor";
+    bamm:dataType xsd:string.
