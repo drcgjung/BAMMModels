@@ -25,16 +25,16 @@
 :variantNumber a bamm:Property;
     bamm:name "variantNumber";
     bamm:description "The equipment variants code"@en;
-    bamm:characteristic :Variant.
+    bamm:characteristic :VariantCharacteristic.
 :variantDescription a bamm:Property;
     bamm:name "variantDescription";
     bamm:description "The equipment variants description"@en;
-    bamm:characteristic :Variant.
+    bamm:characteristic :VariantCharacteristic.
 :variantGroup a bamm:Property;
     bamm:name "variantGroup";
     bamm:description "The equipment variants group"@en;
     bamm:exampleValue "Karosserie"^^xsd:string;
-    bamm:characteristic :Variant.
-:Variant a bamm:Characteristic;
-    bamm:name "Variant";
+    bamm:characteristic :VariantCharacteristic.
+:VariantCharacteristic a bamm:Characteristic;
+    bamm:name "VariantCharacteristic";
     bamm:dataType xsd:string.
