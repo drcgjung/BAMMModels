@@ -15,7 +15,7 @@
     bamm:optional "true"^^xsd:boolean
     ] 
     [
-    bamm:property :returnPeriod;
+    bamm:property :latestReturnDate;
     bamm:optional "true"^^xsd:boolean
     ]
 
@@ -42,11 +42,11 @@
     bamm:exampleValue "true"^^xsd:boolean.
 :returnReason a bamm:Property;
     bamm:name "returnReason";
-    bamm:characteristic :Description;
+    bamm:characteristic :DescriptionCharacteristic;
     bamm:description "Describes WHY a vehicle, assembly or part needs to be returned to the requestor."@en;
     bamm:exampleValue "Wishes to buy"^^xsd:string.
-:returnPeriod a bamm:Property;
-    bamm:name "returnPeriod";
+:latestReturnDate a bamm:Property;
+    bamm:name "latestReturnDate";
     bamm:description "Describes until when the return request is valid in GMT timezone."@en;
     bamm:exampleValue "2025-01-01"^^xsd:dateTime;
     bamm:characteristic bamm-c:Timestamp.
@@ -64,8 +64,8 @@
     bamm:name "requestorID";
     bamm:description "Indicates who requested the product."@en;
     bamm:characteristic :requestor.
-:Description a bamm:Characteristic;
-    bamm:name "Description";
+:DescriptionCharacteristic a bamm:Characteristic;
+    bamm:name "DescriptionCharacteristic";
     bamm:dataType xsd:string.
 :Price a bamm:Characteristic;
     bamm:name "Price";
