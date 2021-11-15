@@ -59,17 +59,17 @@
     bamm:name "desiredPrice";
     bamm:description "desired price"@en;
     bamm:exampleValue "50.45€"^^xsd:string;
-    bamm:characteristic :Price.
+    bamm:characteristic :PriceCharacteristic.
 :requestorID a bamm:Property;
     bamm:name "requestorID";
     bamm:description "Indicates who requested the product."@en;
-    bamm:characteristic :requestor.
+    bamm:characteristic :RequestorCharacteristic.
 :DescriptionCharacteristic a bamm:Characteristic;
     bamm:name "DescriptionCharacteristic";
     bamm:dataType xsd:string.
-:Price a bamm:Characteristic;
+:PriceCharacteristic a bamm:Characteristic;
     bamm:name "Price";
     bamm:dataType xsd:string.
-:requestor a bamm:Characteristic;
-    bamm:name "requestor";
+:RequestorCharacteristic a bamm:Characteristic;
+    bamm:name "RequestorCharacteristic";
     bamm:dataType xsd:string.
