@@ -6,11 +6,11 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix : <urn:bamm:com.catenax:0.1.1#>.
 
-:Dismantler a bamm:Aspect;
-    bamm:name "Dismantler";
-    bamm:preferredName "Dismantler"@en;
+:EndOfLife a bamm:Aspect;
+    bamm:name "EndOfLife";
+    bamm:preferredName "End of life"@en;
     bamm:description "Aspect for End of Life Story for the Dismantler"@en;
-    bamm:properties (:disassemblyStatus :healthStatus :recyclingStatus :dateOfAdmissionGMT :certificateOfDestruction 
+    bamm:properties (:disassemblyStatus :healthStatus :recyclingStatus :dateOfReceptionGMT :certificateOfDestruction 
         [
         bamm:property :lastMileage;
         bamm:optional "true"^^xsd:boolean
@@ -24,7 +24,7 @@
         bamm:optional "true"^^xsd:boolean
     ]
     [
-        bamm:property :dateOfDissamblygGMT;
+        bamm:property :dateOfDissamblyGMT;
         bamm:optional "true"^^xsd:boolean
     ]
      );
@@ -60,14 +60,14 @@
     bamm:description "Possible status auf a vehicle or part"@en;
     bamm-c:values ("recycled" "not recycled");
     bamm:dataType xsd:string.
-:dateOfAdmissionGMT a bamm:Property;
-    bamm:name "dateOfAdmissionGMT";
-    bamm:preferredName "date of admission"@en;
-    bamm:description "Gives the date of admission of the vehicle in GMT time zone"@en;
+:dateOfReceptionGMT a bamm:Property;
+    bamm:name "dateOfReceptionGMT";
+    bamm:preferredName "date of reception"@en;
+    bamm:description "Gives the date of reception of the vehicle in GMT time zone"@en;
     bamm:exampleValue "2021-09-30"^^xsd:dateTime;
     bamm:characteristic bamm-c:Timestamp.
-:dateOfDissamblygGMT a bamm:Property;
-    bamm:name "dateOfDissamblygGMT";
+:dateOfDissamblyGMT a bamm:Property;
+    bamm:name "dateOfDissamblyGMT";
     bamm:preferredName "date of dissambly"@en;
     bamm:description "Gives the date of dissambly of the part in GMT time zone"@en;
     bamm:exampleValue "2021-09-30"^^xsd:dateTime;
