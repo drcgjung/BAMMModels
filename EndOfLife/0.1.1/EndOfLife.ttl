@@ -24,7 +24,7 @@
         bamm:optional "true"^^xsd:boolean
     ]
     [
-        bamm:property :dateOfDissamblygGMT;
+        bamm:property :dateOfDissamblyGMT;
         bamm:optional "true"^^xsd:boolean
     ]
      );
@@ -66,8 +66,8 @@
     bamm:description "Gives the date of reception of the vehicle in GMT time zone"@en;
     bamm:exampleValue "2021-09-30"^^xsd:dateTime;
     bamm:characteristic bamm-c:Timestamp.
-:dateOfDissamblygGMT a bamm:Property;
-    bamm:name "dateOfDissamblygGMT";
+:dateOfDissamblyGMT a bamm:Property;
+    bamm:name "dateOfDissamblyGMT";
     bamm:preferredName "date of dissambly"@en;
     bamm:description "Gives the date of dissambly of the part in GMT time zone"@en;
     bamm:exampleValue "2021-09-30"^^xsd:dateTime;
