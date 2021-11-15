@@ -1,0 +1,40 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#> .
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#> .
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#> .
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix : <urn:bamm:com.catenaX:0.1.1#>.
+
+:ProductDescriptionVehicle a bamm:Aspect;
+    bamm:name "ProductDescriptionVehicle";
+    bamm:properties (:equipmentvariants);
+    bamm:operations ();
+    bamm:preferredName "Product Description Vehicle"@en.
+:equipmentvariants a bamm:Property;
+    bamm:name "equipmentvariants";
+    bamm:characteristic :EquipmentCharacteristic.
+:EquipmentCharacteristic a bamm:Characteristic;
+    bamm:name "EquipmentCharacteristic";
+    bamm:dataType :VariantEntity.
+:VariantEntity a bamm:Entity;
+    bamm:name "VariantEntity";
+    bamm:properties (:variantNumber :variantDescription :variantGroup);
+    bamm:operations ();
+    bamm:preferredName "Equipment Variants"@en.
+:variantNumber a bamm:Property;
+    bamm:name "variantNumber";
+    bamm:description "The equipment variants code"@en;
+    bamm:characteristic :VariantCharacteristic.
+:variantDescription a bamm:Property;
+    bamm:name "variantDescription";
+    bamm:description "The equipment variants description"@en;
+    bamm:characteristic :VariantCharacteristic.
+:variantGroup a bamm:Property;
+    bamm:name "variantGroup";
+    bamm:description "The equipment variants group"@en;
+    bamm:exampleValue "Karosserie"^^xsd:string;
+    bamm:characteristic :VariantCharacteristic.
+:VariantCharacteristic a bamm:Characteristic;
+    bamm:name "VariantCharacteristic";
+    bamm:dataType xsd:string.

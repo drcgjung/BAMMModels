@@ -14,6 +14,10 @@
         bamm:optional "true"^^xsd:boolean
     ]
     [
+        bamm:property :buildDate;
+        bamm:optional "true"^^xsd:boolean
+    ]
+    [
         bamm:property :containsLiquid;
         bamm:optional "true"^^xsd:boolean
     ]
@@ -22,13 +26,10 @@
         bamm:optional "true"^^xsd:boolean
     ]
     [
-        bamm:property :performanceIndicator;
-        bamm:optional "true"^^xsd:boolean
-    ]
-    [
         bamm:property :productDimension;
         bamm:optional "true"^^xsd:boolean
     ]
+
 );
     bamm:operations ();
     bamm:preferredName "Product Description"@en.
@@ -48,35 +49,15 @@
     bamm:name "buildPosition";
     bamm:description "building position of the product in the parent-object"@en;
     bamm:characteristic bamm-c:Text .
+:buildDate a bamm:Property;
+    bamm:name "buildDate";
+    bamm:description "the build date in GMT time zone"@en;
+    bamm:exampleValue "2021-08-20"^^xsd:dateTime;
+    bamm:characteristic bamm-c:Timestamp .
 :containsLiquid a bamm:Property;
     bamm:name "containsLiquid";
     bamm:description "indicator whether a liquid is present in the product"@en;
-    bamm:characteristic bamm-c:Boolean .
-
-:performanceIndicator a bamm:Property;
-    bamm:name "performanceIndicator";
-    bamm:description "The performance indicator"@en;
-    bamm:characteristic :PerformanceIndicatorCharacteristic .
-:PerformanceIndicatorCharacteristic a bamm-c:SingleEntity;
-    bamm:name "performanceIndicatorCharacteristic";
-    bamm:dataType :PerformanceIndicatorEntity .
-:PerformanceIndicatorEntity a bamm:Entity;
-    bamm:name "performanceIndicatorEntity";
-    bamm:properties (:electrictiyCapacityMin :electrictiyCapacityMax) .
-:electrictiyCapacityMin a bamm:Property;
-    bamm:name "electricCapacityMin";
-    bamm:description "The minimal electric capacity"@en;
-    bamm:characteristic :Capacity .
-:electrictiyCapacityMax a bamm:Property;
-    bamm:name "electricCapacityMax";
-    bamm:description "The maximal electric capacity"@en;
-    bamm:characteristic :Capacity .
-:Capacity a bamm-c:Measurement;
-    bamm:name "capacity";
-    bamm:description "A capacity value"@en;
-    bamm-c:unit unit:farad;
-    bamm:dataType xsd:double .
-
+    bamm:characteristic bamm-c:Boolean.
 :productWeight a bamm:Property;
     bamm:name "productWeight";
     bamm:description "weight in gramm"@en;
@@ -121,4 +102,3 @@
     bamm:description "A length measurement value"@en;
     bamm-c:unit unit:centimetre;
     bamm:dataType xsd:double .
-
