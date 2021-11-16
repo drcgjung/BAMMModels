@@ -1,0 +1,29 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#> .
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#> .
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#> .
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#> .
+@prefix : <urn:bamm:com.catenaX:0.1.1#> .
+
+:QualityAlert a bamm:Aspect ;
+   bamm:name "QualityAlert";
+   bamm:preferredName "Quality Alert Data"@en; 
+   bamm:properties ( :qualityAlert :qualityType );
+   bamm:operations () .
+
+:qualityAlert a bamm:Property ;
+   bamm:name "qualityAlert" ;
+   bamm:preferredName "Quality Alert"@en ;
+   bamm:characteristic bamm-c:Boolean ;
+   bamm:exampleValue "true"^^xsd:boolean .
+
+:qualityType a bamm:Property ;
+   bamm:name "qualityType" ;
+   bamm:preferredName "Quality Type"@en ;
+   bamm:characteristic :QualityTypeEnum ;
+   bamm:exampleValue "major"^^xsd:string .
+
+:QualityTypeEnum a bamm-c:Enumeration ;
+   bamm:name "QualityTypeEnum" ;
+   bamm:dataType xsd:string ;
+   bamm-c:values ( "major" "minor" "critical" ) .
