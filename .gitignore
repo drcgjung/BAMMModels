@@ -7,7 +7,6 @@
 .idea
 .ttl-artifacts
 static
-generate.sh
 
 *-artifacts/
 
