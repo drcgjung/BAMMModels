@@ -8,7 +8,11 @@
 :QualityAlert a bamm:Aspect ;
    bamm:name "QualityAlert";
    bamm:preferredName "Quality Alert Data"@en; 
-   bamm:properties ( :qualityAlert :qualityType );
+   bamm:properties ( :qualityAlert 
+   [
+    bamm:property :qualityType;
+    bamm:optional "true"^^xsd:boolean
+    ]  );
    bamm:operations () .
 
 :qualityAlert a bamm:Property ;
