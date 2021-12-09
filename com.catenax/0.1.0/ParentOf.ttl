@@ -1,0 +1,87 @@
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix : <urn:bamm:com.catenax.traceability:0.1.0#>.
+
+:ParentOf a bamm:Aspect;
+    bamm:name "ParentOf";
+    bamm:properties (:parentCxUniqueID :childCxUniqueIDs);
+    bamm:operations ();
+    bamm:preferredName "Parent Of"@en;
+    bamm:description "This aspect provides the parentOf relationship between a parent part and child parts (\"BOM Aspect\")"@en.
+:parentCxUniqueID a bamm:Property;
+    bamm:name "parentCxUniqueID";
+    bamm:preferredName "Parent CXUniqueID"@en;
+    bamm:description "Cantena-X Unique ID of Parent Part"@en;
+    bamm:characteristic :Trait1;
+    bamm:exampleValue "055c1128-0375-47c8-98de-7cf802c3241d".
+:childCxUniqueIDs a bamm:Property;
+    bamm:name "childCxUniqueIDs";
+    bamm:description "List of Catena-X Unique IDs of related child parts"@en;
+    bamm:characteristic :CollectionofChildIDs.
+:CxUniqueId a bamm:Characteristic;
+    bamm:name "CxUniqueId";
+    bamm:preferredName "Catena-X Unique ID"@en;
+    bamm:description "The Catena-X Unique ID is a UUID v4, which is globally unique in Catena-X dataspace"@en.
+:CollectionofChildIDs a bamm-c:Set;
+    bamm:name "CollectionofChildIDs";
+    bamm:preferredName "Collection of Child IDs"@en;
+    bamm:dataType :ChildData.
+:ChildData a bamm:Entity;
+    bamm:name "ChildData";
+    bamm:properties (:childCxUniqueID :createdOn :quantity [
+  bamm:property :modifiedOn;
+  bamm:optional "true"^^xsd:boolean
+] :usage);
+    bamm:preferredName "ChildData"@en.
+:childCxUniqueID a bamm:Property;
+    bamm:name "childCxUniqueID";
+    bamm:preferredName "Child CxUniqueID"@en;
+    bamm:description "The Catena-X UUID of the child part"@en;
+    bamm:characteristic :Trait1;
+    bamm:exampleValue "4b1425cd-b639-4101-ad1b-20bea2ad56a8".
+:createdOn a bamm:Property;
+    bamm:name "createdOn";
+    bamm:preferredName "Creation Date"@en;
+    bamm:description "Date, when the relation between parent and child was created"@en;
+    bamm:characteristic :DateValue;
+    bamm:exampleValue "2021-12-01"^^xsd:date.
+:quantity a bamm:Property;
+    bamm:name "quantity";
+    bamm:preferredName "Quantity"@en;
+    bamm:description "Quantity of child parts. \"1\" for serialized parts"@en;
+    bamm:exampleValue "1".
+:modifiedOn a bamm:Property;
+    bamm:name "modifiedOn";
+    bamm:preferredName "Modification Date"@en;
+    bamm:description "date, when the relation between parent and child was last modified"@en;
+    bamm:characteristic :DateValue;
+    bamm:exampleValue "2021-12-02"^^xsd:date.
+:Trait1 a bamm-c:Trait;
+    bamm:name "Trait1";
+    bamm-c:baseCharacteristic :CxUniqueId;
+    bamm-c:constraint :CxUniqueIdRegEx.
+:CxUniqueIdRegEx a bamm-c:RegularExpressionConstraint;
+    bamm:name "CxUniqueIdRegEx";
+    bamm:preferredName "Catena-X UniqueId RegEx"@en;
+    bamm:description "Regular Expression for UUID v4"@en;
+    bamm:value "^[0-9a-fA-F]{8}\\\\b-[0-9a-fA-F]{4}\\\\b-[0-9a-fA-F]{4}\\\\b-[0-9a-fA-F]{4}\\\\b-[0-9a-fA-F]{12}$".
+:DateValue a bamm-c:TimeSeries;
+    bamm:name "DateValue";
+    bamm:preferredName "Date Value"@en;
+    bamm:description "Date without Time"@en;
+    bamm:dataType xsd:date.
+:usage a bamm:Property;
+    bamm:name "usage";
+    bamm:description "The usage of parentOf relationship"@en;
+    bamm:characteristic :Usage;
+    bamm:exampleValue "as-built".
+:Usage a bamm-c:Enumeration;
+    bamm:name "Usage";
+    bamm:description "as-required, as-designed, as-planned, as-built, as-maintained, as-recycled"@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("as-required" "as-designed" "as-planned" "as-built" "as-maintained" "as-recycled").
