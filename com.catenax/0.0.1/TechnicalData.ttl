@@ -188,7 +188,7 @@
 :textStatements a bamm:Property;
     bamm:name "textStatements";
     bamm:characteristic :TextStatementSet;
-    bamm:description "Statement by the manufacturer in text form, e.g. scope of validity of the statements, scopes of application, conditions of operation.\\n\n Note: Whenever possible, a multi-language definition is preferred."@en.
+    bamm:description "Statement by the manufacturer in text form, e.g. scope of validity of the statements, scopes of application, conditions of operation.\n\n Note: Whenever possible, a multi-language definition is preferred."@en.
 
 :TextStatementSet a bamm-c:Set;
     bamm:name "TextStatementSet";

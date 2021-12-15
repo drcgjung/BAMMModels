@@ -65,18 +65,6 @@ jobs:
                 echo "::set-output name=workspace::int"
                 echo "::set-output name=status::-draft"
              fi
-          elif [[ "${{github.repository}}" == catenax/ModelGovernanceDemo ]]; then
-             if [[ "${{github.ref}}" == refs/heads/main ]]; then
-                echo "Determined STAGING (dev042|RELEASED)"
-                echo "::set-output name=stage::STAGING"
-                echo "::set-output name=workspace::dev042"
-                echo "::set-output name=status::-release"
-             else
-                echo "Determined DEVELOPMENT (dev042|DRAFT)"
-                echo "::set-output name=stage::DEVELOPMENT"
-                echo "::set-output name=workspace::dev042"
-                echo "::set-output name=status::-draft"
-             fi
           else 
               echo "Unsupported Stage/Environment/Repository. Ommiting next job."
           fi
