@@ -53,7 +53,7 @@ jobs:
       - name: Set variables
         id: setvars
         run: |
-          if [[ "${{github.repository}}" == catenax/BAMMModels ]]; then
+          if [[ "${{github.repository}}" == catenax/BAMMmodels ]]; then
              if [[ "${{github.ref}}" == refs/heads/main ]]; then
                 echo "Determined STAGING (int|RELEASED)"
                 echo "::set-output name=stage::STAGING"
@@ -124,6 +124,7 @@ jobs:
     
     # Delete old aspects only if staging
     - name: Delete Redundant Models
+      if: ${{ env.STATUS == '-release' }}
       run: |
           .github/deploy.sh -delete ${{ steps.changes.outputs.removed }} 
 
