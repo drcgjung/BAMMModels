@@ -1,0 +1,65 @@
+#
+# Copyright (c) 2021 T-Systems International GmbH (Catena-X Consortium)
+#
+# See the AUTHORS file(s) distributed with this work for additional
+# information regarding authorship.
+#
+# See the LICENSE file(s) distributed with this work for
+# additional information regarding license terms.
+#
+
+#################################################################################################################
+# Github Workflow Implementing the Catena-X Modelling Governance Process
+#################################################################################################################
+# The following secrets are expected to be set
+#################################################################################################################
+# The following preconditions need to be made
+##################################################################################################################
+
+# name of workflow (as well as subordinate workflows and jobs) start with a "run-level" such that we can
+# depend on them in order to implement workflow dependencies
+name: 1 Branch
+
+on:
+  issues:
+    types:
+      - labeled
+
+jobs:
+  branch:
+    if: ${{ github.event.label.name == 'Q1-Approved' }}
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Get SHA from main
+        id: get_sha_main
+        run: |
+          echo "::set-output name=SHA::$(curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/git/refs/heads/main | jq -r '.object.sha')"
+
+      - name: Derive Branch name
+        id: derive_branch_name
+        run: |
+          BRANCH_NAME=$(echo feature/${{github.event.issue.number}}-${{github.event.issue.title}} | sed 's/ /-/g;s/[:\[]//g;s/\]//g')
+          BRANCH_LINK=$(echo /${{github.repository}}/tree/${BRANCH_NAME})
+          BRANCH_COMMENT=$(echo "[Development Branch](${BRANCH_LINK})")
+          echo "::set-output name=BRANCH_NAME::${BRANCH_NAME}"
+          echo "::set-output name=BRANCH_LINK::${BRANCH_LINK}"
+          echo "::set-output name=BRANCH_COMMENT::${BRANCH_COMMENT}"
+
+      - name: Derive Branch name
+        id: test_branch_existance
+        run: |
+          RESULT=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -w '%{http_code}' http://github.com${{steps.derive_branch_name.outputs.BRANCH_LINK}})
+          if [[ "${RESULT}" == *200 ]]; then
+            echo "Branch exists, nothing to do"
+          else
+            echo "::set-output name=BRANCH_EXISTS::false"
+          fi
+ 
+      - name: Create Issue Branch
+        if: ${{steps.test_branch_existance.outputs.BRANCH_EXISTS}}
+        run: |
+          echo "Creating new branch ${{steps.derive_branch_name.outputs.BRANCH_NAME}} on repository ${{ github.repository }}"
+          curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -d  "{\"ref\": \"refs/heads/${{steps.derive_branch_name.outputs.BRANCH_NAME}}\",\"sha\": \"${{steps.get_sha_main.outputs.SHA}}\"}" "https://api.github.com/repos/${{ github.repository }}/git/refs"
+          echo "Creating comment on issue ${{ github.event.issue.number }}"
+          curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments -d '{"body":"${{steps.derive_branch_name.outputs.BRANCH_COMMENT}}"}'

@@ -1,0 +1,143 @@
+#
+# Copyright (c) 2021 T-Systems International GmbH (Catena-X Consortium)
+#
+# See the AUTHORS file(s) distributed with this work for additional
+# information regarding authorship.
+#
+# See the LICENSE file(s) distributed with this work for
+# additional information regarding license terms.
+#
+
+#################################################################################################################
+# Github Workflow Implementing the Catena-X Modelling Governance Process
+#################################################################################################################
+# The following secrets are expected to be set
+#################################################################################################################
+# The following preconditions need to be made
+##################################################################################################################
+
+# name of workflow (as well as subordinate workflows and jobs) start with a "run-level" such that we can
+# depend on them in order to implement workflow dependencies
+name: 0 Governance
+
+##############################################################
+# Should trigger upon pushs (and pull requests? and dispatch?)
+##############################################################
+
+on: [push]
+
+###############################################################
+# Consists of two jobs, the first determines the environment
+# and the second one (doing the real work) only triggers
+# if such an environment can be detected (else the workflow is
+# green without doing something)
+###############################################################
+
+jobs:
+
+  ########################################
+  # First job to determine the environment
+  ########################################
+
+  environment:
+    # name of the job starts with a "run-level" subordinate to the workflow such that we can
+    # depend on them in order to implement workflow dependencies
+    name: 00 Determine Target Environment
+    runs-on: ubuntu-latest
+    outputs:
+      stage: ${{ steps.setvars.outputs.stage }}
+      workspace: ${{ steps.setvars.outputs.workspace }}
+      status: ${{ steps.setvars.outputs.status }}
+
+    steps:
+      - name: Set variables
+        id: setvars
+        run: |
+          if [[ "${{github.repository}}" == catenax/BAMMModels ]]; then
+             if [[ "${{github.ref}}" == refs/heads/main ]]; then
+                echo "Determined STAGING (int|RELEASED)"
+                echo "::set-output name=stage::STAGING"
+                echo "::set-output name=workspace::int"
+                echo "::set-output name=status::-release"
+             else
+                echo "Determined DEVELOPMENT (int|DRAFT)"
+                echo "::set-output name=stage::DEVELOPMENT"
+                echo "::set-output name=workspace::int"
+                echo "::set-output name=status::-draft"
+             fi
+          elif [[ "${{github.repository}}" == catenax/ModelGovernanceDemo ]]; then
+             if [[ "${{github.ref}}" == refs/heads/main ]]; then
+                echo "Determined STAGING (dev042|RELEASED)"
+                echo "::set-output name=stage::STAGING"
+                echo "::set-output name=workspace::dev042"
+                echo "::set-output name=status::-release"
+             else
+                echo "Determined DEVELOPMENT (dev042|DRAFT)"
+                echo "::set-output name=stage::DEVELOPMENT"
+                echo "::set-output name=workspace::dev042"
+                echo "::set-output name=status::-draft"
+             fi
+          else 
+              echo "Unsupported Stage/Environment/Repository. Ommiting next job."
+          fi
+  
+  ##########################################
+  # Second job does the real deployment
+  ##########################################
+ 
+  deploy:
+    # name of the job starts with a "run-level" subordinate to the workflow such that we can
+    # depend on them in order to implement workflow dependencies
+    name: 09 Deploy Semantic Models
+    runs-on: ubuntu-latest
+    # rely on the first job
+    needs: environment
+    # rely on successful detection of the workspace, ignore if empty
+    if: ${{needs.environment.outputs.workspace}}
+    # Set important environment vars
+    env:
+      STAGE: ${{needs.environment.outputs.stage}}
+      WORKSPACE: ${{needs.environment.outputs.workspace}}
+      STATUS: ${{needs.environment.outputs.status}}
+      SEMANTIC_HUB: catenax${{needs.environment.outputs.workspace}}akssrv.germanywestcentral.cloudapp.azure.com/semantics/api/v1/models
+      PUBLISHER: Catena-X Modelling Governance Body
+    steps:
+
+    # Analyze the commit
+    - name: Check Changes
+      id: changes
+      uses: jitterbit/get-changed-files@v1
+      with:
+        # Format of the steps output context.
+        # Can be 'space-delimited', 'csv', or 'json'.
+        # Default: 'space-delimited'
+        format: 'space-delimited'
+
+    # get the latest sources
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    # enable execution of scripts
+    - name: Execution Permission
+      run: |
+           chmod 777 .github/*.sh
+    
+    # Delete old aspects only if staging
+    - name: Delete Redundant Models
+      run: |
+          .github/deploy.sh -delete ${{ steps.changes.outputs.removed }} 
+
+    # Update existing aspects
+    - name: Update Existing Models
+      run: |
+          .github/deploy.sh ${{ env.STATUS }} ${{ steps.changes.outputs.modified }} 
+
+    # Create new aspects
+    - name: Create New Models
+      run: |
+          .github/deploy.sh ${{ env.STATUS }} ${{ steps.changes.outputs.added }} 
+
+    # Deprecate aspects
+    - name: Deprecate Aspects
+      run: |
+          .github/deploy.sh ${{ env.STATUS }} ${{ steps.changes.outputs.renamed }} 
