@@ -1,0 +1,88 @@
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix : <urn:bamm:com.catenax.traceability:0.1.0#>.
+
+:ChildData a bamm:Entity;
+    bamm:name "ChildData";
+    bamm:preferredName "ChildData"@en;
+    bamm:properties (:createdOn :quantity [
+  bamm:property :modifiedOn;
+  bamm:optional "true"^^xsd:boolean
+] :usage :catenaXUniqueID).
+:createdOn a bamm:Property;
+    bamm:name "createdOn";
+    bamm:description "Date, when the relation between parent and child was created"@en;
+    bamm:characteristic :DateValue;
+    bamm:preferredName "Creation Date"@en;
+    bamm:exampleValue "2021-12-01"^^xsd:date.
+:quantity a bamm:Property;
+    bamm:name "quantity";
+    bamm:description "Quantity of child parts. \"1\" for serialized parts"@en;
+    bamm:characteristic :Quantity;
+    bamm:preferredName "Quantity"@en;
+    bamm:exampleValue "1"^^xsd:double.
+:modifiedOn a bamm:Property;
+    bamm:name "modifiedOn";
+    bamm:description "date, when the relation between parent and child was last modified"@en;
+    bamm:characteristic :DateValue;
+    bamm:preferredName "Modification Date"@en;
+    bamm:exampleValue "2021-12-02"^^xsd:date.
+:usage a bamm:Property;
+    bamm:name "usage";
+    bamm:description "The usage of parentOf relationship"@en;
+    bamm:characteristic :Usage;
+    bamm:exampleValue "as-built".
+:catenaXUniqueID a bamm:Property;
+    bamm:name "catenaXUniqueID";
+    bamm:description "The Catena-X Unique ID of the given object, valid for the Catena-X dataspace."@en;
+    bamm:characteristic :CatenaXUniqueIDTrait;
+    bamm:preferredName "Catena-X Unique ID"@en;
+    bamm:exampleValue "055c1128-0375-47c8-98de-7cf802c3241d".
+:DateValue a bamm-c:TimeSeries;
+    bamm:name "DateValue";
+    bamm:description "Date without Time"@en;
+    bamm:preferredName "Date Value"@en;
+    bamm:dataType xsd:date.
+:Quantity a bamm-c:Quantifiable;
+    bamm:name "Quantity";
+    bamm:description "The quantity in which the child objects are assembled in the given object."@en;
+    bamm:dataType xsd:double;
+    bamm-c:unit unit:piece.
+:Usage a bamm-c:Enumeration;
+    bamm:name "Usage";
+    bamm:description "as-required, as-designed, as-planned, as-built, as-maintained, as-recycled"@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("as-required" "as-designed" "as-planned" "as-built" "as-maintained" "as-recycled").
+:AssemblyPartRelationship a bamm:Aspect;
+    bamm:name "AssemblyPartRelationship";
+    bamm:description "The aspect provides the information which parts the object assembles."@en;
+    bamm:preferredName "Assembly Part Relationship"@en;
+    bamm:properties (:catenaXUniqueID :catenaXChildIDs);
+    bamm:operations ().
+:CatenaXUniqueIDTrait a bamm-c:Trait;
+    bamm:name "CatenaXUniqueIDTrait";
+    bamm-c:baseCharacteristic :UUIDv4;
+    bamm-c:constraint :UUIDv4RegularExpression.
+:UUIDv4 a bamm:Characteristic;
+    bamm:name "UUIDv4";
+    bamm:description "A UUID is a 128-bit unique value expressed as string. UUID Version 4 is used to generate a Unique ID based on random number generation. "@en;
+    bamm:preferredName "UUID v4"@en;
+    bamm:dataType xsd:string.
+:UUIDv4RegularExpression a bamm-c:RegularExpressionConstraint;
+    bamm:name "UUIDv4RegularExpression";
+    bamm:description "Regular Expression for UUID v4"@en;
+    bamm:preferredName "Catena-X UniqueId Regular Expression"@en;
+    bamm:value "^[0-9a-fA-F]{8}\\\\b-[0-9a-fA-F]{4}\\\\b-[0-9a-fA-F]{4}\\\\b-[0-9a-fA-F]{4}\\\\b-[0-9a-fA-F]{12}$".
+:catenaXChildIDs a bamm:Property;
+    bamm:name "catenaXChildIDs";
+    bamm:description "List of Catena-X Unique IDs of assembled child parts"@en;
+    bamm:characteristic :SetofChildIDs.
+:SetofChildIDs a bamm-c:Set;
+    bamm:name "SetofChildIDs";
+    bamm:preferredName "Set of Child IDs"@en;
+    bamm:dataType :ChildData.
