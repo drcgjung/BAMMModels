@@ -1,0 +1,106 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
+@prefix : <urn:bamm:com.catenaX:0.1.0#>.
+
+:productionCountryCode a bamm:Property;
+    bamm:name "productionCountryCode";
+    bamm:preferredName "Country code of production"@en;
+    bamm:characteristic :ProductionCountryCodeTrait;
+    bamm:description "Country code of production"@en;
+    bamm:exampleValue "HUR".
+:ProductionCountryCodeTrait a bamm-c:Trait;
+    bamm:name "ProductionCountryCodeTrait";
+    bamm-c:constraint :CountryCodeConstraint;
+    bamm-c:baseCharacteristic :CountryCodeCharacteristic.
+:productionDateGMT a bamm:Property;
+    bamm:name "productionDateGMT";
+    bamm:preferredName "Production Date (GMT)"@en;
+    bamm:characteristic :DateWithoutTimestamp;
+    bamm:description "Production date without timestamp"@en;
+    bamm:exampleValue "2021-05-30"^^xsd:date.
+:DateWithoutTimestamp a bamm:Characteristic;
+    bamm:name "DateWithoutTimestamp";
+    bamm:preferredName "Date (without timestamp)"@en;
+    bamm:description "Date without timestamp conformant to ISO 8601"@en;
+    bamm:dataType xsd:date.
+:CountryCodeCharacteristic a bamm:Characteristic;
+    bamm:name "CountryCodeCharacteristic";
+    bamm:preferredName "Country Code Characteristic"@en;
+    bamm:description "ISO 3166-1 alpha-3 – three-letter country codes "@en;
+    bamm:dataType xsd:string.
+:QualityTypeEnum a bamm-c:Enumeration;
+    bamm:name "QualityTypeEnum";
+    bamm:dataType xsd:string;
+    bamm-c:values ("major" "minor" "critical").
+:partNameManufacturer a bamm:Property;
+    bamm:name "partNameManufacturer";
+    bamm:preferredName "Part Name Manufacturer"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:description "Name of the serialized part, as defined by the originator/producer"@en;
+    bamm:exampleValue "Mirror left".
+:catenaXUniqueID a bamm:Property;
+    bamm:name "catenaXUniqueID";
+    bamm:preferredName "Catena-X Unique Identifier"@en;
+    bamm:characteristic :CatenaXUniqueIDTrait;
+    bamm:description "The Catena-X Unique ID of the given object, valid for the Catena-X dataspace."@en.
+:localID a bamm:Property;
+    bamm:name "localID";
+    bamm:preferredName "local Identifier"@en;
+    bamm:characteristic :LocalID;
+    bamm:description "This is the local identifier, which is valid in the dataspace of the originator/producer"@en.
+:KeyValueList a bamm:Entity;
+    bamm:name "KeyValueList";
+    bamm:preferredName "Key Value List"@en;
+    bamm:description "A list of key values pairs, which compose the local id"@en;
+    bamm:properties (:key :value).
+:key a bamm:Property;
+    bamm:name "key";
+    bamm:preferredName "Identifier Key"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:description "The key (domain, namespace) component of an identifier."@en;
+    bamm:exampleValue "SerialNumber".
+:value a bamm:Property;
+    bamm:name "value";
+    bamm:preferredName "Identifier Value"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:description "The value (name) component of an identifier."@en;
+    bamm:exampleValue "SN12345678".
+:CatenaXUniqueIDTrait a bamm-c:Trait;
+    bamm:name "CatenaXUniqueIDTrait";
+    bamm-c:constraint :UUIDv4RegularExpression;
+    bamm-c:baseCharacteristic :UUIDv4.
+:UUIDv4RegularExpression a bamm-c:RegularExpressionConstraint;
+    bamm:name "UUIDv4RegularExpression";
+    bamm:preferredName "Catena-X UniqueId Regular Expression"@en;
+    bamm:description "Regular Expression for UUID v4"@en;
+    bamm:value "^[0-9a-fA-F]{8}\\\\\\\\b-[0-9a-fA-F]{4}\\\\\\\\b-[0-9a-fA-F]{4}\\\\\\\\b-[0-9a-fA-F]{4}\\\\\\\\b-[0-9a-fA-F]{12}$".
+:UUIDv4 a bamm:Characteristic;
+    bamm:name "UUIDv4";
+    bamm:preferredName "UUID v4"@en;
+    bamm:dataType xsd:string.
+:CountryCodeConstraint a bamm-c:RangeConstraint;
+    bamm:name "CountryCodeConstraint";
+    bamm:description "Ensures the ISO three-letter code for countries"@en;
+    bamm-c:minValue "3";
+    bamm-c:maxValue "3";
+    bamm-c:lowerBoundDefinition bamm-c:AT_LEAST;
+    bamm-c:upperBoundDefinition bamm-c:AT_MOST.
+:LocalID a bamm:Characteristic;
+    bamm:name "LocalID";
+    bamm:preferredName "Local Identifier"@en;
+    bamm:dataType :KeyValueList.
+:SerialPartTypization a bamm:Aspect;
+    bamm:name "SerialPartTypization";
+    bamm:preferredName "Serial Part Typization"@en;
+    bamm:description "A serialized part is an instantiation of a part"@en;
+    bamm:properties (:catenaXUniqueID :localID [
+  bamm:property :partNameManufacturer;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :productionCountryCode;
+  bamm:optional "true"^^xsd:boolean
+] :productionDateGMT);
+    bamm:operations ().
