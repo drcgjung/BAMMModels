@@ -3,8 +3,6 @@
 # Aspect Model Repository for Catena-X Project
 The repository contains the aspect models based on [BAMM](https://openmanufacturingplatform.github.io/sds-documentation/bamm-specification/snapshot/index.html) for the Catena-X project.
 
-Artifacts generated from the aspect models in this repository can be found [here](https://confluence.catena-x.net/display/ARTI/Semantic+Models).
-
 
 # How to contribute
 If you plan to add another model or apply changes to existing ones please create a new branch and file a pull request so the the changes can be reviewed.
