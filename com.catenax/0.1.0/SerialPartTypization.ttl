@@ -5,36 +5,28 @@
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
 @prefix : <urn:bamm:com.catenaX:0.1.0#>.
 
-:productionCountryCode a bamm:Property;
-    bamm:name "productionCountryCode";
-    bamm:preferredName "Country code of production"@en;
-    bamm:characteristic :ProductionCountryCodeTrait;
-    bamm:description "Country code of production"@en;
-    bamm:exampleValue "HUR".
 :ProductionCountryCodeTrait a bamm-c:Trait;
     bamm:name "ProductionCountryCodeTrait";
+    bamm:preferredName "Production Country Code Trait"@en;
+    bamm:description "Trait to ensure standard data format for country code"@en;
     bamm-c:constraint :CountryCodeConstraint;
     bamm-c:baseCharacteristic :CountryCodeCharacteristic.
-:productionDateGMT a bamm:Property;
-    bamm:name "productionDateGMT";
-    bamm:preferredName "Production Date (GMT)"@en;
-    bamm:characteristic :DateWithoutTimestamp;
-    bamm:description "Production date without timestamp"@en;
-    bamm:exampleValue "2021-05-30"^^xsd:date.
+:CountryCodeConstraint a bamm-c:LengthConstraint;
+    bamm:name "CountryCodeConstraint";
+    bamm:description "Ensures the ISO three-letter code for countries"@en;
+    bamm-c:minValue "3"^^xsd:nonNegativeInteger;
+    bamm-c:maxValue "3"^^xsd:nonNegativeInteger.
+:CountryCodeCharacteristic a bamm:Characteristic;
+    bamm:name "CountryCodeCharacteristic";
+    bamm:preferredName "Country Code Characteristic"@en;
+    bamm:description "ISO 3166-1 alpha-3 – three-letter country codes "@en;
+    bamm:dataType xsd:string;
+    bamm:see <https%3A%2F%2Fwww.iso.org%2Fiso-3166-country-codes.html>.
 :DateWithoutTimestamp a bamm:Characteristic;
     bamm:name "DateWithoutTimestamp";
     bamm:preferredName "Date (without timestamp)"@en;
     bamm:description "Date without timestamp conformant to ISO 8601"@en;
     bamm:dataType xsd:date.
-:CountryCodeCharacteristic a bamm:Characteristic;
-    bamm:name "CountryCodeCharacteristic";
-    bamm:preferredName "Country Code Characteristic"@en;
-    bamm:description "ISO 3166-1 alpha-3 – three-letter country codes "@en;
-    bamm:dataType xsd:string.
-:QualityTypeEnum a bamm-c:Enumeration;
-    bamm:name "QualityTypeEnum";
-    bamm:dataType xsd:string;
-    bamm-c:values ("major" "minor" "critical").
 :partNameManufacturer a bamm:Property;
     bamm:name "partNameManufacturer";
     bamm:preferredName "Part Name Manufacturer"@en;
@@ -46,11 +38,12 @@
     bamm:preferredName "Catena-X Unique Identifier"@en;
     bamm:characteristic :CatenaXUniqueIDTrait;
     bamm:description "The Catena-X Unique ID of the given object, valid for the Catena-X dataspace."@en.
-:localID a bamm:Property;
-    bamm:name "localID";
-    bamm:preferredName "local Identifier"@en;
-    bamm:characteristic :LocalID;
-    bamm:description "This is the local identifier, which is valid in the dataspace of the originator/producer"@en.
+:CatenaXUniqueIDTrait a bamm-c:Trait;
+    bamm:name "CatenaXUniqueIDTrait";
+    bamm:preferredName "Catena-X Unique ID Trait"@en;
+    bamm:description "Trait to ensure data format for Catena-X Unique ID"@en;
+    bamm-c:constraint :UUIDv4RegularExpression;
+    bamm-c:baseCharacteristic :UUIDv4.
 :KeyValueList a bamm:Entity;
     bamm:name "KeyValueList";
     bamm:preferredName "Key Value List"@en;
@@ -68,10 +61,6 @@
     bamm:characteristic bamm-c:Text;
     bamm:description "The value (name) component of an identifier."@en;
     bamm:exampleValue "SN12345678".
-:CatenaXUniqueIDTrait a bamm-c:Trait;
-    bamm:name "CatenaXUniqueIDTrait";
-    bamm-c:constraint :UUIDv4RegularExpression;
-    bamm-c:baseCharacteristic :UUIDv4.
 :UUIDv4RegularExpression a bamm-c:RegularExpressionConstraint;
     bamm:name "UUIDv4RegularExpression";
     bamm:preferredName "Catena-X UniqueId Regular Expression"@en;
@@ -81,26 +70,52 @@
     bamm:name "UUIDv4";
     bamm:preferredName "UUID v4"@en;
     bamm:dataType xsd:string.
-:CountryCodeConstraint a bamm-c:RangeConstraint;
-    bamm:name "CountryCodeConstraint";
-    bamm:description "Ensures the ISO three-letter code for countries"@en;
-    bamm-c:minValue "3";
-    bamm-c:maxValue "3";
-    bamm-c:lowerBoundDefinition bamm-c:AT_LEAST;
-    bamm-c:upperBoundDefinition bamm-c:AT_MOST.
-:LocalID a bamm:Characteristic;
-    bamm:name "LocalID";
-    bamm:preferredName "Local Identifier"@en;
-    bamm:dataType :KeyValueList.
 :SerialPartTypization a bamm:Aspect;
     bamm:name "SerialPartTypization";
     bamm:preferredName "Serial Part Typization"@en;
     bamm:description "A serialized part is an instantiation of a part"@en;
-    bamm:properties (:catenaXUniqueID :localID [
+    bamm:properties (:catenaXUniqueID :localIdentifier [
   bamm:property :partNameManufacturer;
   bamm:optional "true"^^xsd:boolean
-] [
-  bamm:property :productionCountryCode;
-  bamm:optional "true"^^xsd:boolean
-] :productionDateGMT);
+] :production);
     bamm:operations ().
+:production a bamm:Property;
+    bamm:name "production";
+    bamm:preferredName "Production"@en;
+    bamm:characteristic :ProductionCharacteristic;
+    bamm:description "This propoerty covers the production relevant attributes, such as production date and production country."@en.
+:ProductionEntity a bamm:Entity;
+    bamm:name "ProductionEntity";
+    bamm:preferredName "Production Entity"@en;
+    bamm:description "This entity capsulates the production relevant attributes"@en;
+    bamm:properties (:date [
+  bamm:property :country;
+  bamm:optional "true"^^xsd:boolean
+]).
+:ProductionCharacteristic a bamm:Characteristic;
+    bamm:name "ProductionCharacteristic";
+    bamm:preferredName "Production Characteristic"@en;
+    bamm:description "Characteristic to describe production related data"@en;
+    bamm:dataType :ProductionEntity.
+:date a bamm:Property;
+    bamm:name "date";
+    bamm:preferredName "Production Date (GMT)"@en;
+    bamm:characteristic :DateWithoutTimestamp;
+    bamm:description "Production date, converted into Greenwich Mean Time Zone (GMT); without time information; only day of production"@en;
+    bamm:exampleValue "2021-05-30"^^xsd:date.
+:country a bamm:Property;
+    bamm:name "country";
+    bamm:preferredName "Country code"@en;
+    bamm:characteristic :ProductionCountryCodeTrait;
+    bamm:description "Country code where the part is produced"@en;
+    bamm:exampleValue "HUR".
+:localIdentifier a bamm:Property;
+    bamm:name "localIdentifier";
+    bamm:preferredName "local Identifier"@en;
+    bamm:characteristic :LocalIdentifierCharacteristic;
+    bamm:description "This is the local identifier, which is valid in the dataspace of the originator/producer"@en.
+:LocalIdentifierCharacteristic a bamm:Characteristic;
+    bamm:name "LocalIdentifierCharacteristic";
+    bamm:preferredName "Local Identifier Characteristic"@en;
+    bamm:description "One part can have multiple attributes, the uniquely identify a serialized part in the  dataspace of the manufacturer/producer, e.g. production site + serial number"@en;
+    bamm:dataType :KeyValueList.
