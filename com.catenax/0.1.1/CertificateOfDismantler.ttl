@@ -3,11 +3,14 @@
 @prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
+@prefix catenax-c: <urn:bamm:com.catenaX.AdressCharacteristic:0.1.1#>.
 @prefix : <urn:bamm:com.catenaX:0.1.1#>.
 
 :dismantlingCompany a bamm:Property;
     bamm:name "dismantlingCompany";
-    bamm:characteristic :Dismantling.
+    bamm:characteristic :Dismantling;
+    bamm:preferredName "dismantling company"@en;
+    bamm:description "data for the dismantling company"@en.
 :Dismantling a bamm-c:SingleEntity;
     bamm:name "Dismantling";
     bamm:dataType :Dismantler.
@@ -16,22 +19,21 @@
     bamm:properties (:dismantlerAdress :licensedBy :licensedByPublicAuthority :contactInformation).
 :dismantlerAdress a bamm:Property;
     bamm:name "dismantlerAdress";
-    bamm:characteristic :Adress;
-    bamm:preferredName "dismantlerAdress"@en.
+    bamm:preferredName "dismantler adress"@en;
+    bamm:characteristic catenax-c:AdressCharacteristic.
 :licensedBy a bamm:Property;
     bamm:name "licensedBy";
     bamm:characteristic :Advisor;
-    bamm:preferredName "licensedBy"@en.
+    bamm:preferredName "licensed by"@en.
 :licensedByPublicAuthority a bamm:Property;
     bamm:name "licensedByPublicAuthority";
     bamm:characteristic :Authority;
-    bamm:preferredName "licensedByPublicAuthority"@en.
+    bamm:preferredName "licensed by public authority"@en.
 :contactInformation a bamm:Property;
     bamm:name "contactInformation";
-    bamm:characteristic :ContactInformation.
-:Adress a bamm-c:SingleEntity;
-    bamm:name "Adress";
-    bamm:dataType :PostalAdress.
+    bamm:characteristic :ContactInformation;
+    bamm:preferredName "contact information"@en;
+    bamm:description "the contact information via phone or fax"@en.
 :Advisor a bamm:Characteristic;
     bamm:name "Advisor";
     bamm:dataType :LegalPerson;
@@ -43,50 +45,6 @@
 :ContactInformation a bamm-c:SingleEntity;
     bamm:name "ContactInformation";
     bamm:dataType :Contact.
-:name a bamm:Property;
-    bamm:name "name";
-    bamm:characteristic :Name;
-    bamm:preferredName "name"@en;
-    bamm:description "Name of the private individual, company or authority"@en.
-:Name a bamm:Characteristic;
-    bamm:name "Name";
-    bamm:dataType xsd:string;
-    bamm:preferredName "Name"@en.
-:PostalAdress a bamm:Entity;
-    bamm:name "PostalAdress";
-    bamm:properties (:street :houseNumber :zip :location :name).
-:street a bamm:Property;
-    bamm:name "street";
-    bamm:characteristic bamm-c:Text;
-    bamm:preferredName "street"@en;
-    bamm:exampleValue "Bernstraße".
-:houseNumber a bamm:Property;
-    bamm:name "houseNumber";
-    bamm:characteristic :HouseNumber;
-    bamm:preferredName "houseNumber"@en;
-    bamm:exampleValue "45".
-:zip a bamm:Property;
-    bamm:name "zip";
-    bamm:characteristic :ZIP;
-    bamm:preferredName "zip"@en;
-    bamm:exampleValue "68161"^^xsd:float.
-:location a bamm:Property;
-    bamm:name "location";
-    bamm:characteristic bamm-c:Text;
-    bamm:preferredName "location"@en;
-    bamm:exampleValue "Mannheim".
-:HouseNumber a bamm:Characteristic;
-    bamm:name "HouseNumber";
-    bamm:dataType xsd:string;
-    bamm:preferredName "HouseNumber"@en.
-:ZIP a bamm:Characteristic;
-    bamm:name "ZIP";
-    bamm:dataType xsd:float;
-    bamm:preferredName "ZIP"@en.
-:Number a bamm:Characteristic;
-    bamm:name "Number";
-    bamm:dataType xsd:float;
-    bamm:preferredName "Number"@en.
 :LegalPerson a bamm:Entity;
     bamm:name "LegalPerson";
     bamm:properties (:contactInformation :advisorAdress).
@@ -94,26 +52,36 @@
     bamm:name "GovernmentOffice";
     bamm:properties (:governmentAdress);
     bamm:preferredName "GovernmentOffice"@en.
-:phoneNumber a bamm:Property;
-    bamm:name "phoneNumber";
-    bamm:characteristic :Number;
-    bamm:preferredName "phoneNumber"@en.
 :Contact a bamm:Entity;
     bamm:name "Contact";
     bamm:properties ([
   bamm:property :fax;
   bamm:optional "true"^^xsd:boolean
 ] :phoneNumber).
+:Number a bamm:Characteristic;
+    bamm:name "Number";
+    bamm:dataType xsd:float;
+    bamm:preferredName "Number"@en.
+:advisorAdress a bamm:Property;
+    bamm:name "advisorAdress";
+    bamm:preferredName "advisor adress"@en;
+    bamm:description "the adress of the advisor or inspector"@en;
+    bamm:characteristic catenax-c:AdressCharacteristic.
+:governmentAdress a bamm:Property;
+    bamm:name "governmentAdress";
+    bamm:preferredName "government adress"@en;
+    bamm:description "the adress of the public government"@en;
+    bamm:characteristic catenax-c:AdressCharacteristic.
+:phoneNumber a bamm:Property;
+    bamm:name "phoneNumber";
+    bamm:characteristic :Number;
+    bamm:preferredName "phoneNumber"@en;
+    bamm:exampleValue "01774639523"^^xsd:float.
 :fax a bamm:Property;
     bamm:name "fax";
     bamm:characteristic :Number;
-    bamm:preferredName "fax"@en.
-:advisorAdress a bamm:Property;
-    bamm:name "advisorAdress";
-    bamm:characteristic :Adress.
-:governmentAdress a bamm:Property;
-    bamm:name "governmentAdress";
-    bamm:characteristic :Adress.
+    bamm:preferredName "fax"@en;
+    bamm:exampleValue "05690234585"^^xsd:float.
 :CertificateOfDismantler a bamm:Aspect;
     bamm:name "CertificateOfDismantler";
     bamm:properties (:dismantlingCompany :licenseNumber :issueDate :expiryDate :erzeugernummer :befoerderernummer :entsorgernummer);
@@ -122,27 +90,33 @@
 :licenseNumber a bamm:Property;
     bamm:name "licenseNumber";
     bamm:characteristic :Identification;
-    bamm:preferredName "licenseNumber"@en.
+    bamm:preferredName "license number"@en;
+    bamm:exampleValue "HAL-FG123".
 :issueDate a bamm:Property;
     bamm:name "issueDate";
     bamm:characteristic bamm-c:Timestamp;
-    bamm:preferredName "issueDate"@en.
+    bamm:preferredName "issue date"@en;
+    bamm:exampleValue "01.11.2021"^^xsd:dateTime.
 :expiryDate a bamm:Property;
     bamm:name "expiryDate";
     bamm:characteristic bamm-c:Timestamp;
-    bamm:preferredName "expiryDate"@en.
+    bamm:preferredName "expiry date"@en;
+    bamm:exampleValue "12.02.2022"^^xsd:dateTime.
 :erzeugernummer a bamm:Property;
     bamm:name "erzeugernummer";
     bamm:characteristic :Identification;
-    bamm:preferredName "erzeugernummer"@en.
+    bamm:preferredName "erzeugernummer"@en;
+    bamm:exampleValue "S30E00529".
 :befoerderernummer a bamm:Property;
     bamm:name "befoerderernummer";
     bamm:characteristic :Identification;
-    bamm:preferredName "befoerderernummer"@en.
+    bamm:preferredName "befoerderernummer"@en;
+    bamm:exampleValue "S30T00026".
 :entsorgernummer a bamm:Property;
     bamm:name "entsorgernummer";
     bamm:characteristic :Identification;
-    bamm:preferredName "entsorgernummer"@en.
+    bamm:preferredName "entsorgernummer"@en;
+    bamm:exampleValue "S30A00065".
 :Identification a bamm:Characteristic;
     bamm:name "Identification";
     bamm:dataType xsd:string;
