@@ -3,7 +3,7 @@
 @prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
-@prefix catenax-c: <urn:bamm:com.catenaX.AdressCharacteristic:0.1.1#>.
+@prefix catenax-c: <urn:bamm:com.catenaX.adressCharacteristic:0.1.1#>.
 @prefix : <urn:bamm:com.catenaX:0.1.1#>.
 
 :dismantlingCompany a bamm:Property;
@@ -20,7 +20,7 @@
 :dismantlerAdress a bamm:Property;
     bamm:name "dismantlerAdress";
     bamm:preferredName "dismantler adress"@en;
-    bamm:characteristic catenax-c:AdressCharacteristic.
+    bamm:characteristic catenax-c:adressCharacteristic.
 :licensedBy a bamm:Property;
     bamm:name "licensedBy";
     bamm:characteristic :Advisor;
@@ -66,12 +66,12 @@
     bamm:name "advisorAdress";
     bamm:preferredName "advisor adress"@en;
     bamm:description "the adress of the advisor or inspector"@en;
-    bamm:characteristic catenax-c:AdressCharacteristic.
+    bamm:characteristic catenax-c:adressCharacteristic.
 :governmentAdress a bamm:Property;
     bamm:name "governmentAdress";
     bamm:preferredName "government adress"@en;
     bamm:description "the adress of the public government"@en;
-    bamm:characteristic catenax-c:AdressCharacteristic.
+    bamm:characteristic catenax-c:adressCharacteristic.
 :phoneNumber a bamm:Property;
     bamm:name "phoneNumber";
     bamm:characteristic :Number;
@@ -96,12 +96,12 @@
     bamm:name "issueDate";
     bamm:characteristic bamm-c:Timestamp;
     bamm:preferredName "issue date"@en;
-    bamm:exampleValue "01.11.2021"^^xsd:dateTime.
+    bamm:exampleValue "2021-08-20"^^xsd:dateTime.
 :expiryDate a bamm:Property;
     bamm:name "expiryDate";
     bamm:characteristic bamm-c:Timestamp;
     bamm:preferredName "expiry date"@en;
-    bamm:exampleValue "12.02.2022"^^xsd:dateTime.
+    bamm:exampleValue "2022-08-20"^^xsd:dateTime.
 :erzeugernummer a bamm:Property;
     bamm:name "erzeugernummer";
     bamm:characteristic :Identification;
