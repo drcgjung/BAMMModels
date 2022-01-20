@@ -19,7 +19,7 @@
 :vehicleRegistration a bamm:Property;
     bamm:name "vehicleRegistration";
     bamm:preferredName "vehicle registration"@en;
-    bamm:description "The first time this vehicle got registered with an initial license plate"@en;
+    bamm:description "the first time this vehicle got registered with an initial license plate"@en;
     bamm:characteristic :VehicleData.
 :Dismantling a bamm-c:SingleEntity;
     bamm:name "Dismantling";
