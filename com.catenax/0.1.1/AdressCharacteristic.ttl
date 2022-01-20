@@ -3,8 +3,18 @@
 @prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
-@prefix : <urn:bamm:com.catenaX.AdressCharacteristic:0.1.1#>.
+@prefix : <urn:bamm:com.catenaX.adressCharacteristic:0.1.1#>.
 
+:AdressCharacteristic a bamm:Aspect;
+    bamm:name "AdressCharacteristic";
+    bamm:preferredName "Adress Characteristic"@en;
+    bamm:description "Aspect used for the Characteristic :Adress to reference adress data"@en;
+    bamm:properties (:adress);
+    bamm:operations ().
+:adress a bamm:Property;
+    bamm:name "adress";
+    bamm:preferredName "adress"@en;
+    bamm:characteristic :Adress.
 :Adress a bamm-c:SingleEntity;
     bamm:name "Adress";
     bamm:dataType :PostalAdress.

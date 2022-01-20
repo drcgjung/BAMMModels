@@ -3,7 +3,7 @@
 @prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
-@prefix catenax-c: <urn:bamm:com.catenaX.AdressCharacteristic:0.1.1#>.
+@prefix catenax-c: <urn:bamm:com.catenaX.adressCharacteristic:0.1.1#>.
 @prefix : <urn:bamm:com.catenaX:0.1.1#>.
 
 :CertificateOfDestruction a bamm:Aspect;
@@ -37,9 +37,9 @@
     bamm:description "data to describe the vehicle"@en.
 :dismantlerAdress a bamm:Property;
     bamm:name "dismantlerAdress";
-    bamm:preferredName "dismantler adress"@en.
+    bamm:preferredName "dismantler adress"@en;
     bamm:description "adress for the dismantling company"@en;
-    bamm:characteristic catenax-c:AdressCharacteristic.
+    bamm:characteristic catenax-c:adressCharacteristic.
 :licensedBy a bamm:Property;
     bamm:name "licensedBy";
     bamm:preferredName "licensed by"@en;
@@ -193,12 +193,12 @@
     bamm:name "advisorAdress";
     bamm:preferredName "advisor adress"@en;
     bamm:description "the adress of the advisor or inspector"@en;
-    bamm:characteristic catenax-c:AdressCharacteristic.
+    bamm:characteristic catenax-c:adressCharacteristic.
 :governmentAdress a bamm:Property;
-    bamm:name "governmentAdress".
+    bamm:name "governmentAdress";
     bamm:preferredName "government adress"@en;
     bamm:description "the adress of the public government"@en;
-    bamm:characteristic catenax-c:AdressCharacteristic.
+    bamm:characteristic catenax-c:adressCharacteristic.
 :fax a bamm:Property;
     bamm:name "fax";
     bamm:preferredName "fax"@en;
@@ -230,9 +230,9 @@
     bamm:description "The last legal person / organization that is responsible for the car's disposal"@en.
 :ownerAdress a bamm:Property;
     bamm:name "ownerAdress";
-    bamm:preferredName "owner adress"@en.
+    bamm:preferredName "owner adress"@en;
     bamm:description "the adress of the last vehicle owner"@en;
-    bamm:characteristic catenax-c:AdressCharacteristic.
+    bamm:characteristic catenax-c:adressCharacteristic.
 :citizenship a bamm:Property;
     bamm:name "citizenship";
     bamm:description "the state of being vested with the rights, privileges, and duties of a citizen"@en;
