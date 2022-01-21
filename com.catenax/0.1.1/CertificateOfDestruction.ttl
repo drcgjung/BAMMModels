@@ -39,7 +39,7 @@
     bamm:name "dismantlerAdress";
     bamm:preferredName "dismantler adress"@en;
     bamm:description "adress for the dismantling company"@en;
-    bamm:characteristic catenax-c:adressCharacteristic.
+    bamm:characteristic catenax-c:Adress.
 :licensedBy a bamm:Property;
     bamm:name "licensedBy";
     bamm:preferredName "licensed by"@en;
@@ -193,12 +193,12 @@
     bamm:name "advisorAdress";
     bamm:preferredName "advisor adress"@en;
     bamm:description "the adress of the advisor or inspector"@en;
-    bamm:characteristic catenax-c:adressCharacteristic.
+    bamm:characteristic catenax-c:Adress.
 :governmentAdress a bamm:Property;
     bamm:name "governmentAdress";
     bamm:preferredName "government adress"@en;
     bamm:description "the adress of the public government"@en;
-    bamm:characteristic catenax-c:adressCharacteristic.
+    bamm:characteristic catenax-c:Adress.
 :fax a bamm:Property;
     bamm:name "fax";
     bamm:preferredName "fax"@en;
@@ -232,7 +232,7 @@
     bamm:name "ownerAdress";
     bamm:preferredName "owner adress"@en;
     bamm:description "the adress of the last vehicle owner"@en;
-    bamm:characteristic catenax-c:adressCharacteristic.
+    bamm:characteristic catenax-c:Adress.
 :citizenship a bamm:Property;
     bamm:name "citizenship";
     bamm:description "the state of being vested with the rights, privileges, and duties of a citizen"@en;
