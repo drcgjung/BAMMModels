@@ -15,7 +15,7 @@
     bamm:name "adress";
     bamm:preferredName "adress"@en;
     bamm:characteristic :Adress.
-:Adress a bamm-c:SingleEntity;
+:Adress a bamm:Characteristic;
     bamm:name "Adress";
     bamm:dataType :PostalAdress.
 :PostalAdress a bamm:Entity;
