@@ -20,7 +20,7 @@
 :dismantlerAdress a bamm:Property;
     bamm:name "dismantlerAdress";
     bamm:preferredName "dismantler adress"@en;
-    bamm:characteristic catenax-c:adressCharacteristic.
+    bamm:characteristic catenax-c:Adress.
 :licensedBy a bamm:Property;
     bamm:name "licensedBy";
     bamm:characteristic :Advisor;
@@ -66,12 +66,12 @@
     bamm:name "advisorAdress";
     bamm:preferredName "advisor adress"@en;
     bamm:description "the adress of the advisor or inspector"@en;
-    bamm:characteristic catenax-c:adressCharacteristic.
+    bamm:characteristic catenax-c:Adress.
 :governmentAdress a bamm:Property;
     bamm:name "governmentAdress";
     bamm:preferredName "government adress"@en;
     bamm:description "the adress of the public government"@en;
-    bamm:characteristic catenax-c:adressCharacteristic.
+    bamm:characteristic catenax-c:Adress.
 :phoneNumber a bamm:Property;
     bamm:name "phoneNumber";
     bamm:characteristic :Number;
