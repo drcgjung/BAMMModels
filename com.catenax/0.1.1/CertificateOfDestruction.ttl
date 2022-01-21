@@ -29,7 +29,7 @@
     bamm:dataType :Vehicle.
 :Dismantler a bamm:Entity;
     bamm:name "Dismantler";
-    bamm:properties (:dismantlerAdress :licensedBy :licensedByPublicAuthority :contactInformation :indentification :certified :dateOfHandover :handoverForDismantling :betriebsnummer).
+    bamm:properties (:dismantlerAdress :contactInformation :indentification :certified :dateOfHandover :handoverForDismantling :betriebsnummer).
 :Vehicle a bamm:Entity;
     bamm:name "Vehicle";
     bamm:preferredName "Vehicle"@en;
