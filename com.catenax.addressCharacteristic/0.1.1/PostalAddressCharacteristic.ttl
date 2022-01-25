@@ -1,0 +1,70 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
+@prefix : <urn:bamm:com.catenaX.addressCharacteristic:0.1.1#>.
+
+:AddressAspect a bamm:Aspect;
+    bamm:name "AddressAspect";
+    bamm:preferredName "Address Aspect"@en;
+    bamm:description "Aspect used for the Characteristic :PostalAddress to reference adress data"@en;
+    bamm:properties (:address);
+    bamm:operations ().
+:address a bamm:Property;
+    bamm:name "adress";
+    bamm:preferredName "adress"@en;
+    bamm:description "the adress of the data provider"@en;
+    bamm:characteristic :PostalAddress.
+:PostalAddress a bamm:Characteristic;
+    bamm:name "PostalAddress";
+    bamm:dataType :Adress.
+:Adress a bamm:Entity;
+    bamm:name "Adress";
+    bamm:properties (:street :houseNumber :zip :location :name).
+:street a bamm:Property;
+    bamm:name "street";
+    bamm:preferredName "street"@en;
+    bamm:description "the street name"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Bernstraße".
+:houseNumber a bamm:Property;
+    bamm:name "houseNumber";
+    bamm:preferredName "house number"@en;
+    bamm:description "the house number of the address"@en;
+    bamm:characteristic :HouseNumberCharacteristic;
+    bamm:exampleValue "45".
+:zip a bamm:Property;
+    bamm:name "zip";
+    bamm:preferredName "zip code"@en;
+    bamm:description "the postal code"@en;
+    bamm:characteristic :ZipTrait;
+    bamm:exampleValue "68161/12".
+:location a bamm:Property;
+    bamm:name "location";
+    bamm:preferredName "location"@en;
+    bamm:description "the location or city of the address"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Mannheim".
+:name a bamm:Property;
+    bamm:name "name";
+    bamm:preferredName "name"@en;
+    bamm:description "Name of the private individual, company or authority"@en;
+    bamm:characteristic bamm-c:Text.
+:HouseNumberCharacteristic a bamm:Characteristic;
+    bamm:name "HouseNumberCharacteristic";
+    bamm:preferredName "House Number Characteristic"@en;
+    bamm:dataType xsd:string.
+:Zip a bamm:Characteristic;
+    bamm:name "Zip";
+    bamm:preferredName "ZIP"@en;
+    bamm:dataType xsd:string.
+:ZipTrait a bamm-c:Trait;
+    bamm:name "ZipTrait";
+    bamm-c:baseCharacteristic :Zip;
+    bamm-c:constraint :ZipLength.
+:ZipLength a bamm-c:LengthConstraint;
+    bamm:name "ZipLength";
+    bamm:preferredName "Zip Length"@en;
+    bamm:description "the maximal lenght of the the postal code is restricted to 14 chracters"@en;
+    bamm-c:maxValue "14"^^xsd:nonNegativeInteger.
