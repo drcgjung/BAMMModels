@@ -3,7 +3,7 @@
 @prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
-@prefix catenax-c: <urn:bamm:com.catenaX.adressCharacteristic:0.1.1#>.
+@prefix catenax-c: <urn:bamm:com.catenaX.addressCharacteristic:0.1.1#>.
 @prefix : <urn:bamm:com.catenaX:0.1.1#>.
 
 :dismantlingCompany a bamm:Property;
@@ -20,7 +20,7 @@
 :dismantlerAdress a bamm:Property;
     bamm:name "dismantlerAdress";
     bamm:preferredName "dismantler adress"@en;
-    bamm:characteristic catenax-c:Adress.
+    bamm:characteristic catenax-c:PostalAdress.
 :licensedBy a bamm:Property;
     bamm:name "licensedBy";
     bamm:characteristic :Advisor;
@@ -66,12 +66,12 @@
     bamm:name "advisorAdress";
     bamm:preferredName "advisor adress"@en;
     bamm:description "the adress of the advisor or inspector"@en;
-    bamm:characteristic catenax-c:Adress.
+    bamm:characteristic catenax-c:PostalAdress.
 :governmentAdress a bamm:Property;
     bamm:name "governmentAdress";
     bamm:preferredName "government adress"@en;
     bamm:description "the adress of the public government"@en;
-    bamm:characteristic catenax-c:Adress.
+    bamm:characteristic catenax-c:PostalAdress.
 :phoneNumber a bamm:Property;
     bamm:name "phoneNumber";
     bamm:characteristic :Number;
