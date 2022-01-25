@@ -21,7 +21,16 @@
     bamm:dataType :Adress.
 :Adress a bamm:Entity;
     bamm:name "Adress";
-    bamm:properties (:street :houseNumber :zip :location :name).
+    bamm:properties (:street :houseNumber :zip :location :name 
+    [
+    bamm:property :completeData;
+    bamm:optional "true"^^xsd:boolean
+    ]).
+:completeData a bamm:Property;
+    bamm:name "completeData";
+    bamm:preferredName "complete data"@en;
+    bamm:description "Is the preceeding informationn is complete (true) or unknown (false)"@en;
+    bamm:characteristic bamm-c:Boolean.
 :street a bamm:Property;
     bamm:name "street";
     bamm:preferredName "street"@en;
