@@ -18,9 +18,10 @@
     bamm:characteristic :PostalAddress.
 :PostalAddress a bamm:Characteristic;
     bamm:name "PostalAddress";
-    bamm:dataType :Adress.
-:Adress a bamm:Entity;
-    bamm:name "Adress";
+    bamm:description "characteristic of the adress to describe the postal adress for a property used for example in an other aspect"@en;
+    bamm:dataType :AdressEntity.
+:AdressEntity a bamm:Entity;
+    bamm:name "Adress Entity";
     bamm:properties (:street :houseNumber :zip :location :name 
     [
     bamm:property :completeData;
@@ -41,7 +42,7 @@
     bamm:name "houseNumber";
     bamm:preferredName "house number"@en;
     bamm:description "the house number of the address"@en;
-    bamm:characteristic :HouseNumberCharacteristic;
+    bamm:characteristic bamm-c:Text;
     bamm:exampleValue "45".
 :zip a bamm:Property;
     bamm:name "zip";
@@ -60,18 +61,16 @@
     bamm:preferredName "name"@en;
     bamm:description "Name of the private individual, company or authority"@en;
     bamm:characteristic bamm-c:Text.
-:HouseNumberCharacteristic a bamm:Characteristic;
-    bamm:name "HouseNumberCharacteristic";
-    bamm:preferredName "House Number Characteristic"@en;
-    bamm:dataType xsd:string.
-:Zip a bamm:Characteristic;
+:ZipCharacteristic a bamm:Characteristic;
     bamm:name "Zip";
+    bamm:description "cchracteristic to describe the zip"@en;
     bamm:preferredName "ZIP"@en;
     bamm:dataType xsd:string.
 :ZipTrait a bamm-c:Trait;
     bamm:name "ZipTrait";
-    bamm-c:baseCharacteristic :Zip;
-    bamm-c:constraint :ZipLength.
+    bamm:description "constraint to limit the zip length"@en;
+    bamm-c:baseCharacteristic :ZipCharacteristic;
+    bamm-c:constraint :ZipLength. 
 :ZipLength a bamm-c:LengthConstraint;
     bamm:name "ZipLength";
     bamm:preferredName "Zip Length"@en;
