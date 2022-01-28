@@ -34,8 +34,8 @@
 :Vehicle a bamm:Entity;
     bamm:name "Vehicle";
     bamm:preferredName "Vehicle"@en;
-    bamm:properties (:dateOfHandover :handoverForDismantling :vehicleClass :brand :model :identification :emptyWeight :firstRegistration :licensePlate :licenseAbbrivation :lastOwner :completeData);
-    bamm:description "data to describe the vehicle"@en.
+    bamm:properties (:dateOfHandover :handoverForDismantling :vehicleClass :brand :model :identification :emptyWeight :firstRegistration :licensePlate :licenseAbbrivation :lastOwner :dealer :completeData);
+    bamm:description "data to describe the information which is connected to a specific vehicle"@en.
 :dismantlerAdress a bamm:Property;
     bamm:name "dismantlerAdress";
     bamm:preferredName "dismantler adress"@en;
@@ -134,6 +134,15 @@
     bamm:preferredName "last owner"@en;
     bamm:characteristic :LastOwner;
     bamm:description "The last legal person / organization that is responsible for the car's disposal"@en.
+:dealer a bamm:Property;
+    bamm:name "lastOwner";
+    bamm:preferredName "last owner"@en;
+    bamm:characteristic :Dealer;
+    bamm:description "The last legal person / organization that is responsible for the car's disposal"@en.
+:Dealer a bamm-c:SingleEntity;
+    bamm:name "Dealer";
+    bamm:preferredName "dealer"@en;
+    bamm:dataType :DealerEntity.
 :completeData a bamm:Property;
     bamm:name "completeData";
     bamm:preferredName "complete data"@en;
@@ -233,6 +242,16 @@
     bamm:name "ownerAdress";
     bamm:preferredName "owner adress"@en;
     bamm:description "the adress of the last vehicle owner"@en;
+    bamm:characteristic catenax-c:PostalAdress.
+:DealerEntity a bamm:Entity;
+    bamm:name "DealerEntity";
+    bamm:preferredName "dealer entity"@en;
+    bamm:properties (:dealerAdress :completeInformation);
+    bamm:description "The last legal person / organization that is responsible for the car's disposal. This can be the same company as the dismantling company, if the vehocle is directly submitted at the dimantling company"@en.
+:dealerAdress a bamm:Property;
+    bamm:name "dealerAdress";
+    bamm:preferredName "dealer Adress"@en;
+    bamm:description "the adress of the last vehicle dealer"@en;
     bamm:characteristic catenax-c:PostalAdress.
 :citizenship a bamm:Property;
     bamm:name "citizenship";
