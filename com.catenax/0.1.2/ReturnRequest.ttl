@@ -1,0 +1,56 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix : <urn:bamm:com.catenaX:0.1.1#>.
+
+:ReturnRequest a bamm:Aspect;
+    bamm:name "ReturnRequest";
+    bamm:properties (:returnFlag :requestor);
+    bamm:operations ();
+    bamm:description "Aspect to indicate if there is a return request for a product"@en.
+:returnFlag a bamm:Property;
+    bamm:name "returnFlag";
+    bamm:description "Describes the fact whether a vehicle, assembly or part needs to be returned to requestor."@en;
+    bamm:characteristic bamm-c:Boolean;
+    bamm:exampleValue "true"^^xsd:boolean.
+:returnConditions a bamm:Property;
+    bamm:name "returnConditions";
+    bamm:description "Describes WHY a vehicle, assembly or part needs to be returned to the requestor and under which conditions."@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Wishes to buy".
+:latestReturnDate a bamm:Property;
+    bamm:name "latestReturnDate";
+    bamm:description "Describes until when the return request is valid in GMT timezone."@en;
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:exampleValue "2025-01-01"^^xsd:dateTime.
+:desiredPrice a bamm:Property;
+    bamm:name "desiredPrice";
+    bamm:description "desired price"@en;
+    bamm:characteristic :PriceCharacteristic;
+    bamm:exampleValue "50.45€".
+:requestDate a bamm:Property;
+    bamm:name "requestDate";
+    bamm:description "Describes when the return request was placed in GMT timezone."@en;
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:exampleValue "2022-01-01"^^xsd:dateTime.
+:PriceCharacteristic a bamm:Characteristic;
+    bamm:name "PriceCharacteristic";
+    bamm:dataType xsd:string;
+    bamm:preferredName "Price Characteristic"@en.
+:RequestorCharacteristic a bamm-c:SingleEntity;
+    bamm:name "RequestorCharacteristic";
+    bamm:description "Requestor characterisitic"@en;
+    bamm:dataType :Company;
+    bamm:preferredName "Requestor Characteristic"@en.
+:Company a bamm:Entity;
+    bamm:name "Company";
+    bamm:properties (:returnConditions :requestDate :latestReturnDate :desiredPrice);
+    bamm:description "comany who requests a return\n"@en;
+    bamm:preferredName "Company"@en.
+:requestor a bamm:Property;
+    bamm:name "requestor";
+    bamm:description "Indicates who requested the product."@en;
+    bamm:characteristic :RequestorCharacteristic.
