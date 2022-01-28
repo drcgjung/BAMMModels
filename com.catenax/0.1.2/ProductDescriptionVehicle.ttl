@@ -1,0 +1,129 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix : <urn:bamm:com.catenaX:0.1.2#>.
+
+:ProductDescriptionVehicle a bamm:Aspect;
+    bamm:name "ProductDescriptionVehicle";
+    bamm:properties (:equipmentvariants :vin :productionDateGMT :engine :power :mileage :fuel 
+    [
+  bamm:property :vinVerification;
+  bamm:optional "true"^^xsd:boolean
+] );
+    bamm:operations ();
+    bamm:preferredName "Product Description Vehicle"@en.
+:equipmentvariants a bamm:Property;
+    bamm:name "equipmentvariants";
+    bamm:preferredName "equipment variants"@en;
+    bamm:description "equipment variants which are build into a specific vehicle"@en;
+    bamm:characteristic :EquipmentCharacteristic.
+:vin a bamm:Property;
+    bamm:name "vin";
+    bamm:preferredName "VIN"@en;
+    bamm:description "Vehicle Identification Number"@en;
+    bamm:characteristic :VinRestriction;
+    bamm:exampleValue "SMTTG730WT1134976".
+:productionDateGMT a bamm:Property;
+    bamm:name "productionDateGMT";
+    bamm:description "the production data in GMT time zone"@en;
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:exampleValue "2021-09-30"^^xsd:dateTime.
+:VinRestriction a bamm-c:Trait;
+    bamm:name "VinRestriction";
+    bamm:description "constraint to limit the vin length"@en;
+    bamm-c:baseCharacteristic :VinCharacteristic;
+    bamm-c:constraint :VinLength.
+:VinCharacteristic a bamm:Characteristic;
+    bamm:name "VinCharacteristic";
+    bamm:preferredName "VIN Characteristic"@en;
+    bamm:description "characteristic to describe the VIN"@en;
+    bamm:dataType xsd:string.
+:VinLength a bamm-c:LengthConstraint;
+    bamm:name "VinLength";
+    bamm:preferredName "VIN length"@en;
+    bamm:description "the maximal lenght of the the postal code is restricted to 17 chracters"@en;
+    bamm-c:maxValue "17"^^xsd:nonNegativeInteger.
+:EquipmentCharacteristic a bamm:Characteristic;
+    bamm:name "EquipmentCharacteristic";
+    bamm:preferredName "equipment characteristic"@en;
+    bamm:description "characteristic to describe the equipment codes"@en;
+    bamm:dataType :VariantEntity.
+:VariantEntity a bamm:Entity;
+    bamm:name "VariantEntity";
+    bamm:properties (:variantCode :variantDescription [
+  bamm:property :variantGroup;
+  bamm:optional "true"^^xsd:boolean
+]);
+    bamm:preferredName "Equipment Variants"@en.
+:variantDescription a bamm:Property;
+    bamm:name "variantDescription";
+    bamm:description "The equipment variants description"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Lenkradheizung".
+:variantGroup a bamm:Property;
+    bamm:name "variantGroup";
+    bamm:description "The equipment variants group"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Sonderausstattung".
+:variantCode a bamm:Property;
+    bamm:name "variantCode";
+    bamm:description "The equipment variants code"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "S248A".
+:vinVerification a bamm:Property;
+    bamm:name "vinVerification";
+    bamm:preferredName "vin verification"@en;
+    bamm:description "the verification number is usually created by the producing company of the vehicle and can be found in the vehicle registration document"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "07".
+:engine a bamm:Property;
+    bamm:name "engine";
+    bamm:preferredName "engine"@en;
+    bamm:description "engine size of the vehicle"@en;
+    bamm:characteristic :CubicCapacity;
+    bamm:exampleValue "1200"^^xsd:integer.
+:CubicCapacity a bamm-c:Measurement;
+    bamm:name "CubicCapacity";
+    bamm:preferredName "Cubic Capacity"@en;
+    bamm:description "cubic capacity of the engine"@en;
+    bamm:dataType xsd:integer;
+    bamm-c:unit unit:cubicCentimetre.
+:power a bamm:Property;
+    bamm:name "power";
+    bamm:preferredName "power"@en;
+    bamm:description "Engine power is the power that an engine can put out"@en;
+    bamm:characteristic :Kilowatt;
+    bamm:exampleValue "45"^^xsd:integer.
+:Kilowatt a bamm-c:Measurement;
+    bamm:name "Kilowatt";
+    bamm:preferredName "Kilowatt"@en;
+    bamm:description "engine power expressed in kilowatt"@en;
+    bamm:dataType xsd:integer;
+    bamm-c:unit unit:kilowatt.
+:mileage a bamm:Property;
+    bamm:name "mileage";
+    bamm:preferredName "mileage"@en;
+    bamm:description "mileage of the vehicle"@en;
+    bamm:characteristic :Distance;
+    bamm:exampleValue "120000"^^xsd:integer.
+:Distance a bamm-c:Measurement;
+    bamm:name "Distance";
+    bamm:preferredName "Distance"@en;
+    bamm:description "Distance the described vehicle has traveled"@en;
+    bamm:dataType xsd:integer;
+    bamm-c:unit unit:kilometre.
+:fuel a bamm:Property;
+    bamm:name "fuel";
+    bamm:preferredName "fuel"@en;
+    bamm:description "the fuel type of the vehicle"@en;
+    bamm:characteristic :FuelType;
+    bamm:exampleValue "diesel".
+:FuelType a bamm-c:Enumeration;
+    bamm:name "FuelType";
+    bamm:preferredName "fuel type"@en;
+    bamm:description "enumeration of possible fuel types of a vehicle"@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("diesel" "gasoline" "gas" "ethanol" "hydrogen" "hybrid" "fuel cell" "electric").
