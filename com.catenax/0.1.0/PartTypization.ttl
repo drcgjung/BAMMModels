@@ -5,10 +5,15 @@
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
 @prefix : <urn:bamm:com.catenaX:0.1.0#>.
 
-:LocalIdentifierCharacteristics a bamm:Characteristic;
+:LocalIdentifierCharacteristics a bamm-c:Set;
     bamm:name "LocalIdentifierCharacteristics";
     bamm:dataType :LocalIdentifierEntity;
     bamm:preferredName "Local Identifier Characteristics"@en.
+:LocalIdentifierEntity a bamm:Entity;
+    bamm:name "LocalIdentifierEntity";
+    bamm:preferredName "Local Identifier"@en;
+    bamm:description "The local identifier is a set of key value pairs. At least one key value pair must exist."@en;
+    bamm:properties (:key :value).
 :key a bamm:Property;
     bamm:name "key";
     bamm:preferredName "Identifier Key"@en;
@@ -30,6 +35,7 @@
 :PartTypization a bamm:Aspect;
     bamm:name "PartTypization";
     bamm:preferredName "Part"@en;
+    bamm:description "A part, i.e. a non-serialized object (\"Katalogteil\")"@en;
     bamm:properties (:catenaXUniqueId :localIdentifier :partName [
   bamm:property :partNameCustomer;
   bamm:optional "true"^^xsd:boolean
@@ -43,10 +49,9 @@
   bamm:property :type;
   bamm:optional "true"^^xsd:boolean
 ] :version [
-  bamm:property :usage;
+  bamm:property :context;
   bamm:optional "true"^^xsd:boolean
 ] :description);
-    bamm:description "A part, i.e. a non-serialized object (\"Katalogteil\")"@en;
     bamm:operations ().
 :catenaXUniqueId a bamm:Property;
     bamm:name "catenaXUniqueId";
@@ -57,7 +62,7 @@
     bamm:preferredName "local Identifiers"@en;
     bamm:description "The local identifier is valid in the manufacturers/producers dataspace und uniquly identifies a part e.g. via a part number"@en;
     bamm:characteristic :LocalIdentifierCharacteristics;
-    bamm:exampleValue "key: \"serial number\", value: \"SN12345\""^^:LocalIdentifierEntity.
+    bamm:exampleValue "key: \"com.t-systems.windchill.serialnumber\", value: \"SN12345\""^^:LocalIdentifierEntity.
 :partNameCustomer a bamm:Property;
     bamm:name "partNameCustomer";
     bamm:preferredName "Part Name Customer"@en;
@@ -79,20 +84,26 @@
     bamm:preferredName "Release Date"@en;
     bamm:characteristic :DateWithoutTime;
     bamm:exampleValue "2021-12-17"^^xsd:date.
+:type a bamm:Property;
+    bamm:name "type";
+    bamm:preferredName "Type"@en;
+    bamm:characteristic :Type;
+    bamm:exampleValue "piece part".
 :version a bamm:Property;
     bamm:name "version";
     bamm:preferredName "Version"@en;
     bamm:description "Version represents the identification of a specific version of the base Part."@en;
     bamm:characteristic :Version.
-:usage a bamm:Property;
-    bamm:name "usage";
-    bamm:preferredName "Usage"@en;
-    bamm:characteristic :Usage.
 :description a bamm:Property;
     bamm:name "description";
     bamm:preferredName "Description"@en;
     bamm:description "An expanded name or text that provides further information about the\nPart."@en;
     bamm:characteristic :Description.
+:CatenaXUniqueIdTrait a bamm-c:Trait;
+    bamm:name "CatenaXUniqueIdTrait";
+    bamm:preferredName "Catena-X UniqueID Trait"@en;
+    bamm-c:baseCharacteristic :UUIDv4;
+    bamm-c:constraint :UUIDv4RegEx.
 :DateWithoutTime a bamm-c:TimeSeries;
     bamm:name "DateWithoutTime";
     bamm:dataType xsd:date.
@@ -100,21 +111,10 @@
     bamm:name "Version";
     bamm:dataType xsd:string;
     bamm:preferredName "Version"@en.
-:Usage a bamm-c:Enumeration;
-    bamm:name "Usage";
-    bamm:dataType xsd:string;
-    bamm:preferredName "Usage"@en;
-    bamm:description "The lifecycle usage of the part"@en;
-    bamm-c:values ("as-designed" "as-planned" "as-built" "as-maintained" "as-recycled").
 :Description a bamm:Characteristic;
     bamm:name "Description";
     bamm:dataType xsd:string;
     bamm:preferredName "Description"@en.
-:CatenaXUniqueIdTrait a bamm-c:Trait;
-    bamm:name "CatenaXUniqueIdTrait";
-    bamm:preferredName "Catena-X UniqueID Trait"@en;
-    bamm-c:baseCharacteristic :UUIDv4;
-    bamm-c:constraint :UUIDv4RegEx.
 :UUIDv4 a bamm:Characteristic;
     bamm:name "UUIDv4";
     bamm:dataType xsd:string;
@@ -125,18 +125,19 @@
     bamm:preferredName "UUIDv4 Regular Expression"@en;
     bamm:description "Regular Expression for UUID v4"@en;
     bamm:value "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$".
-:type a bamm:Property;
-    bamm:name "type";
-    bamm:preferredName "Type"@en;
-    bamm:characteristic :Type;
-    bamm:exampleValue "piece part".
 :Type a bamm-c:Enumeration;
     bamm:name "Type";
     bamm:dataType xsd:string;
     bamm:preferredName "Type"@en;
     bamm-c:values ("Assembly" "Component" "Software" "Tool" "Raw Material" "Product" "Piece Part").
-:LocalIdentifierEntity a bamm:Entity;
-    bamm:name "LocalIdentifierEntity";
-    bamm:preferredName "Local Identifier"@en;
-    bamm:properties (:key :value);
-    bamm:description "The local identifier is a set of key value pairs. At least one key value pair must exist."@en.
+:context a bamm:Property;
+    bamm:name "context";
+    bamm:preferredName "Context"@en;
+    bamm:characteristic :Context;
+    bamm:exampleValue "as-designed".
+:Context a bamm-c:Enumeration;
+    bamm:name "Context";
+    bamm:dataType xsd:string;
+    bamm:preferredName "Context"@en;
+    bamm:description "The lifecycle context of the part"@en;
+    bamm-c:values ("as-designed" "as-planned" "as-built" "as-maintained" "as-recycled").
