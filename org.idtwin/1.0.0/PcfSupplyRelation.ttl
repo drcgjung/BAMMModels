@@ -1,0 +1,137 @@
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix : <urn:bamm:com.catenax:0.1.1#>.
+
+:supplierId a bamm:Property;
+    bamm:name "supplierId";
+    bamm:preferredName "Supplier ID"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:description "Unique identifier of the supplier, corresponds to CX_ID @ BPDM"@en.
+:supplierName a bamm:Property;
+    bamm:name "supplierName";
+    bamm:preferredName "Supplier Name"@en;
+    bamm:characteristic bamm-c:Text.
+:supplierMail a bamm:Property;
+    bamm:name "supplierMail";
+    bamm:preferredName "Supplier Mail"@en;
+    bamm:characteristic bamm-c:Text.
+:supplierProductionRegion a bamm:Property;
+    bamm:name "supplierProductionRegion";
+    bamm:preferredName "Supplier Production Region"@en;
+    bamm:characteristic :SupplierProductionRegionTrait;
+    bamm:description "Region of the supplier production site, see ISO 3166-1 alpha-2, or “GLOBAL\""@en.
+:SupplierProductionRegionTrait a bamm-c:Trait;
+    bamm:name "SupplierProductionRegionTrait";
+    bamm-c:baseCharacteristic :RegionCharacteristic;
+    bamm-c:constraint :RegionConstraint.
+:RegionCharacteristic a bamm:Characteristic;
+    bamm:name "RegionCharacteristic";
+    bamm:preferredName "Region Characteristic"@en;
+    bamm:description "see ISO 3166-1 alpha-2, or “GLOBAL\""@en;
+    bamm:dataType xsd:string.
+:RegionConstraint a bamm-c:RegularExpressionConstraint;
+    bamm:name "RegionConstraint";
+    bamm:description "see ISO 3166-1 alpha-2"@en;
+    bamm:value "[a-zA-Z]{2,}".
+:supplierProductionSite a bamm:Property;
+    bamm:name "supplierProductionSite";
+    bamm:preferredName "Supplier Production Site"@en;
+    bamm:characteristic :AddressCharacteristic;
+    bamm:description "Production site of supplier: Where was the part produced?"@en.
+:AddressCharacteristic a bamm:Characteristic;
+    bamm:name "AddressCharacteristic";
+    bamm:dataType :Address.
+:Address a bamm:Entity;
+    bamm:name "Address";
+    bamm:properties (:siteName :street :gate :zip :city :country).
+:siteName a bamm:Property;
+    bamm:name "siteName";
+    bamm:preferredName "Site Name"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Werk 1".
+:street a bamm:Property;
+    bamm:name "street";
+    bamm:preferredName "Street"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:description "If available including street number"@en;
+    bamm:exampleValue "Ehlersstraße 50".
+:gate a bamm:Property;
+    bamm:name "gate";
+    bamm:preferredName "Gate"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Tor 1".
+:zip a bamm:Property;
+    bamm:name "zip";
+    bamm:preferredName "Zip Code"@en;
+    bamm:characteristic :ZipTrait;
+    bamm:exampleValue "88046".
+:city a bamm:Property;
+    bamm:name "city";
+    bamm:preferredName "City"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Friedrichshafen".
+:country a bamm:Property;
+    bamm:name "country";
+    bamm:preferredName "Country"@en;
+    bamm:characteristic bamm-c:MultiLanguageText;
+    bamm:exampleValue "Deutschland"^^rdf:langString.
+:supplierDistributionSite a bamm:Property;
+    bamm:name "supplierDistributionSite";
+    bamm:preferredName "Supplier Distribution Site"@en;
+    bamm:characteristic :AddressCharacteristic;
+    bamm:description "Distribution site of supplier: Where was the part delivered? Maybe the same as the production site in most cases, but could be different, which means that there is an additional transport from production site to distribution site."@en.
+:unitId a bamm:Property;
+    bamm:name "unitId";
+    bamm:preferredName "Unit ID"@en;
+    bamm:characteristic bamm-c:Text.
+:unitType a bamm:Property;
+    bamm:name "unitType";
+    bamm:preferredName "Unit Type"@en;
+    bamm:characteristic :UnitTypeCharacteristic.
+:UnitTypeCharacteristic a bamm-c:Enumeration;
+    bamm:name "UnitTypeCharacteristic";
+    bamm:dataType xsd:string;
+    bamm-c:values ("Part" "Material").
+:unitDesignation a bamm:Property;
+    bamm:name "unitDesignation";
+    bamm:characteristic bamm-c:Text;
+    bamm:description "Designation of the part / material"@en;
+    bamm:exampleValue "Automatikgetriebe 8HP 51".
+:declaredUnit a bamm:Property;
+    bamm:name "declaredUnit";
+    bamm:characteristic :DeclaredUnitCharacteristic;
+    bamm:description "Unit of measure of the declared unit"@en;
+    bamm:exampleValue "Stk".
+:DeclaredUnitCharacteristic a bamm-c:Enumeration;
+    bamm:name "DeclaredUnitCharacteristic";
+    bamm:preferredName "DeclaredUnitCharacteristic"@en;
+    bamm:description "Unit of measure of the declared unit"@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("kg" "Stk").
+:ZipTrait a bamm-c:Trait;
+    bamm:name "ZipTrait";
+    bamm-c:baseCharacteristic :ZipCodeCharacteristic;
+    bamm-c:constraint :ZipCodeConstraint.
+:ZipCodeCharacteristic a bamm:Characteristic;
+    bamm:name "ZipCodeCharacteristic";
+    bamm:dataType xsd:string.
+:ZipCodeConstraint a bamm-c:RegularExpressionConstraint;
+    bamm:name "ZipCodeConstraint";
+    bamm:value "(^\\d{5}$)|(^\\d{9}$)|(^\\d{5}-\\d{4}$)".
+:declaredUnitAmount a bamm:Property;
+    bamm:name "declaredUnitAmount";
+    bamm:preferredName "Declared unit amount"@en;
+    bamm:characteristic :DeclaredUnitAmountCharacteristic.
+:DeclaredUnitAmountCharacteristic a bamm:Characteristic;
+    bamm:name "DeclaredUnitAmountCharacteristic";
+    bamm:dataType xsd:float.
+:PcfSupplyRelation a bamm:Aspect;
+    bamm:name "PcfSupplyRelation";
+    bamm:preferredName "PCF Supply Relation Data"@en;
+    bamm:properties (:supplierId :supplierName :supplierMail :supplierProductionRegion :supplierProductionSite :supplierDistributionSite :unitId :unitType :unitDesignation :declaredUnit :declaredUnitAmount);
+    bamm:operations ().
