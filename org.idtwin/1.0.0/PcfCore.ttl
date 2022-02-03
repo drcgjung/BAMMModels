@@ -1,0 +1,59 @@
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix : <urn:bamm:com.catenax:0.1.1#>.
+
+:pcfTotalCO2eqPerUnitSupplier a bamm:Property;
+    bamm:name "pcfTotalCO2eqPerUnitSupplier";
+    bamm:preferredName "Total CO2eq/Unit (Supplier)"@en;
+    bamm:characteristic :PCFperUnit;
+    bamm:exampleValue "230.00"^^xsd:float;
+    bamm:description "Total CO2eq/Unit of the part / material (in kg), supplier's share"@en.
+:pcfTotalCO2eqPerUnitTransport a bamm:Property;
+    bamm:name "pcfTotalCO2eqPerUnitTransport";
+    bamm:preferredName "Total CO2eq/Unit (Transport)"@en;
+    bamm:characteristic :PCFperUnit;
+    bamm:exampleValue "0.5"^^xsd:float;
+    bamm:description "Total CO2eq/Unit of the part / material (in kg), transport share (from supplier to customer)"@en.
+:pcfPrimaryDataShare a bamm:Property;
+    bamm:name "pcfPrimaryDataShare";
+    bamm:preferredName "Primary data share"@en;
+    bamm:characteristic :PcfPrimaryDataShareTrait;
+    bamm:exampleValue "20"^^xsd:integer;
+    bamm:description "Share of PCF that comes from primary data"@en.
+:pcfValidityPeriodStart a bamm:Property;
+    bamm:name "pcfValidityPeriodStart";
+    bamm:preferredName "Validity period start"@en;
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:description "Beginning of the period during which the data shown are valid"@en.
+:pcfValidityPeriodEnd a bamm:Property;
+    bamm:name "pcfValidityPeriodEnd";
+    bamm:preferredName "Validity period end"@en;
+    bamm:characteristic bamm-c:Timestamp.
+:PCFperUnit a bamm-c:Measurement;
+    bamm:name "PCFperUnit";
+    bamm:dataType xsd:float;
+    bamm-c:unit unit:kilogram.
+:PcfPrimaryDataShareTrait a bamm-c:Trait;
+    bamm:name "PcfPrimaryDataShareTrait";
+    bamm-c:baseCharacteristic :Characteristic1;
+    bamm-c:constraint :PCFPrimaryDataShareConstraint.
+:Characteristic1 a bamm-c:Quantifiable;
+    bamm:name "Characteristic1";
+    bamm:dataType xsd:integer;
+    bamm-c:unit unit:percent.
+:PCFPrimaryDataShareConstraint a bamm-c:RangeConstraint;
+    bamm:name "PCFPrimaryDataShareConstraint";
+    bamm-c:minValue "0"^^xsd:integer;
+    bamm-c:maxValue "100"^^xsd:integer;
+    bamm-c:lowerBoundDefinition bamm-c:AT_LEAST;
+    bamm-c:upperBoundDefinition bamm-c:AT_MOST.
+:PcfCore a bamm:Aspect;
+    bamm:name "PcfCore";
+    bamm:properties (:pcfTotalCO2eqPerUnitSupplier :pcfTotalCO2eqPerUnitTransport :pcfPrimaryDataShare :pcfValidityPeriodStart :pcfValidityPeriodEnd);
+    bamm:operations ();
+    bamm:preferredName "PCF Core Data"@en.
