@@ -13,16 +13,22 @@
     bamm:properties (:catenaXUniqueId :childCollection);
     bamm:description "The aspect provides the information which parts the object assembles."@en;
     bamm:operations ().
+:catenaXUniqueId a bamm:Property;
+    bamm:name "catenaXUniqueId";
+    bamm:preferredName "Catena-X Unique Identifier"@en;
+    bamm:description "The Catena-X Unique ID of the given object, valid for the Catena-X dataspace."@en;
+    bamm:characteristic :CatenaXUniqueIDTrait;
+    bamm:exampleValue "055c1128-0375-47c8-98de-7cf802c3241d".
+:childCollection a bamm:Property;
+    bamm:name "childCollection";
+    bamm:preferredName "Child Object data"@en;
+    bamm:description "List of Catena-X Unique IDs  and (meta-) data of assembled child parts"@en;
+    bamm:characteristic :SetofChildIdsCharacteristic.
 :CatenaXUniqueIDTrait a bamm-c:Trait;
     bamm:name "CatenaXUniqueIDTrait";
     bamm:description "Trait to ensure UUID v4 data format"@en;
     bamm-c:baseCharacteristic :UUIDv4Characteristic;
     bamm-c:constraint :UUIDv4RegularExpression.
-:SetofChildIDsCharacteristic a bamm-c:Set;
-    bamm:name "SetofChildIDsCharacteristic";
-    bamm:preferredName "Set of Child IDs"@en;
-    bamm:description "Physical and digital Child object data the parent objects is assembled by."@en;
-    bamm:dataType :ChildData.
 :UUIDv4Characteristic a bamm:Characteristic;
     bamm:name "UUIDv4Characteristic";
     bamm:preferredName "UUID v4"@en;
@@ -39,7 +45,7 @@
     bamm:properties (:createdOn :quantity [
   bamm:property :modifiedOn;
   bamm:optional "true"^^xsd:boolean
-] :usage :childObjectIDs);
+] :usage :childCatenaXIds);
     bamm:description "set of physical/digital child objects data by which the parent object is assembled by."@en.
 :createdOn a bamm:Property;
     bamm:name "createdOn";
@@ -64,40 +70,34 @@
     bamm:description "The usage of parentOf relationship"@en;
     bamm:characteristic :UsageCharacteristic;
     bamm:exampleValue "as-built".
-:childObjectIDs a bamm:Property;
-    bamm:name "childObjectIDs";
-    bamm:preferredName "Catena-X Child Identifiers "@en;
-    bamm:description "The Catena-X IDs of the child objects the part is assembled by."@en;
-    bamm:characteristic :CatenaXUniqueIDTrait.
+:DateCharacteristic a bamm:Characteristic;
+    bamm:name "DateCharacteristic";
+    bamm:preferredName "Date with Timezone"@en;
+    bamm:description "Date on which the  relationship has been updated transferred to GMT."@en;
+    bamm:dataType xsd:date.
 :QuantityCharacteristic a bamm-c:Quantifiable;
     bamm:name "QuantityCharacteristic";
     bamm:description "The quantity in which the child objects are assembled in the given object."@en;
     bamm:dataType xsd:double;
     bamm-c:unit unit:piece.
+:ModificationRecordCharacteristic a bamm-c:TimeSeries;
+    bamm:name "ModificationRecordCharacteristic";
+    bamm:preferredName "Time Record of Modification Events"@en;
+    bamm:description "Timestamps in date format for changes in relationship,  transferred to GMT timezone."@en;
+    bamm:dataType xsd:date.
 :UsageCharacteristic a bamm-c:Enumeration;
     bamm:name "UsageCharacteristic";
     bamm:preferredName "Usage"@en;
     bamm:description "as-required, as-designed, as-planned, as-built, as-maintained, as-recycled"@en;
     bamm:dataType xsd:string;
     bamm-c:values ("as-required" "as-designed" "as-planned" "as-built" "as-maintained" "as-recycled").
-:ModificationRecordCharacteristic a bamm-c:TimeSeries;
-    bamm:name "ModificationRecordCharacteristic";
-    bamm:preferredName "Time Record of Modification Events"@en;
-    bamm:description "Timestamps in date format for changes in relationship,  transferred to GMT timezone."@en;
-    bamm:dataType xsd:date.
-:catenaXUniqueId a bamm:Property;
-    bamm:name "catenaXUniqueId";
-    bamm:preferredName "Catena-X Unique Identifier"@en;
-    bamm:description "The Catena-X Unique ID of the given object, valid for the Catena-X dataspace."@en;
-    bamm:characteristic :CatenaXUniqueIDTrait;
-    bamm:exampleValue "055c1128-0375-47c8-98de-7cf802c3241d".
-:DateCharacteristic a bamm:Characteristic;
-    bamm:name "DateCharacteristic";
-    bamm:preferredName "Date with Timezone"@en;
-    bamm:description "Date on which the  relationship has been updated transferred to GMT."@en;
-    bamm:dataType xsd:date.
-:childCollection a bamm:Property;
-    bamm:name "childCollection";
-    bamm:preferredName "Child Object data"@en;
-    bamm:description "List of Catena-X Unique IDs  and (meta-) data of assembled child parts"@en;
-    bamm:characteristic :SetofChildIDsCharacteristic.
+:childCatenaXIds a bamm:Property;
+    bamm:name "childCatenaXIds";
+    bamm:preferredName "Catena-X Child Identifiers "@en;
+    bamm:description "The Catena-X IDs of the child objects the part is assembled by."@en;
+    bamm:characteristic :CatenaXUniqueIDTrait.
+:SetofChildIdsCharacteristic a bamm-c:Set;
+    bamm:name "SetofChildIdsCharacteristic";
+    bamm:preferredName "Set of Child IDs"@en;
+    bamm:description "Physical and digital Child object data the parent objects is assembled by."@en;
+    bamm:dataType :ChildData.
