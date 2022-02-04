@@ -4,7 +4,7 @@
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
-@prefix : <urn:bamm:com.catenaX:0.1.1#>.
+@prefix : <urn:bamm:com.catenax:0.1.2#>.
 
 :ReturnRequest a bamm:Aspect;
     bamm:name "ReturnRequest";
@@ -16,6 +16,10 @@
     bamm:description "Describes the fact whether a vehicle, assembly or part needs to be returned to requestor."@en;
     bamm:characteristic bamm-c:Boolean;
     bamm:exampleValue "true"^^xsd:boolean.
+:requestor a bamm:Property;
+    bamm:name "requestor";
+    bamm:description "Indicates who requested the product."@en;
+    bamm:characteristic :RequestorCharacteristic.
 :returnConditions a bamm:Property;
     bamm:name "returnConditions";
     bamm:description "Describes WHY a vehicle, assembly or part needs to be returned to the requestor and under which conditions."@en;
@@ -30,27 +34,46 @@
     bamm:name "desiredPrice";
     bamm:description "desired price"@en;
     bamm:characteristic :PriceCharacteristic;
-    bamm:exampleValue "50.45€".
+    bamm:exampleValue "50.45€"^^:Price.
+:PriceCharacteristic a bamm:Characteristic;
+    bamm:name "PriceCharacteristic";
+    bamm:description "characteristic to describe the price. Different currencies are possible"@en;
+    bamm:dataType :Price;
+    bamm:preferredName "Price Characteristic"@en.
 :requestDate a bamm:Property;
     bamm:name "requestDate";
     bamm:description "Describes when the return request was placed in GMT timezone."@en;
     bamm:characteristic bamm-c:Timestamp;
     bamm:exampleValue "2022-01-01"^^xsd:dateTime.
-:PriceCharacteristic a bamm:Characteristic;
-    bamm:name "PriceCharacteristic";
-    bamm:dataType xsd:string;
-    bamm:preferredName "Price Characteristic"@en.
 :RequestorCharacteristic a bamm-c:SingleEntity;
     bamm:name "RequestorCharacteristic";
-    bamm:description "Requestor characterisitic"@en;
-    bamm:dataType :Company;
+    bamm:description "Characterisitic to describe the company or entity which requests a return"@en;
+    bamm:dataType :RequestorEntity;
     bamm:preferredName "Requestor Characteristic"@en.
-:Company a bamm:Entity;
-    bamm:name "Company";
+:RequestorEntity a bamm:Entity;
+    bamm:name "RequestorEntity";
     bamm:properties (:returnConditions :requestDate :latestReturnDate :desiredPrice);
     bamm:description "comany who requests a return\n"@en;
-    bamm:preferredName "Company"@en.
-:requestor a bamm:Property;
-    bamm:name "requestor";
-    bamm:description "Indicates who requested the product."@en;
-    bamm:characteristic :RequestorCharacteristic.
+    bamm:preferredName "Requestor Entity"@en.
+:Price a bamm:Entity;
+    bamm:name "Price";
+    bamm:properties (:cost :currency);
+    bamm:description "price of the returned article"@en;
+    bamm:preferredName "Price"@en.
+:currency a bamm:Property;
+    bamm:name "currency";
+    bamm:description "currency of the price of the return request conform to the ISO4217"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "EUR";
+    bamm:preferredName "currency"@en;
+    bamm:see <https%3A%2F%2Fwww.iso.org%2Fiso-4217-currency-codes.html>.
+:cost a bamm:Property;
+    bamm:name "cost";
+    bamm:description "cost of the article"@en;
+    bamm:characteristic :CostCharacteristic;
+    bamm:preferredName "cost"@en.
+:CostCharacteristic a bamm:Characteristic;
+    bamm:name "CostCharacteristic";
+    bamm:description "characteristic to describe the cost in a float type"@en;
+    bamm:dataType xsd:float;
+    bamm:preferredName "Cost Characteristic"@en.
