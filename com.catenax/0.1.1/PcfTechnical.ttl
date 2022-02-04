@@ -1,0 +1,46 @@
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix : <urn:bamm:com.catenax:0.1.1#>.
+
+:pcfStandard a bamm:Property;
+    bamm:name "pcfStandard";
+    bamm:preferredName "PCF Standard"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:description "Standard used for PCF calculation (e.g. ISO 14067, Worldsteel method...)"@en.
+:pcfSystemBoundary a bamm:Property;
+    bamm:name "pcfSystemBoundary";
+    bamm:preferredName "PCF System boundary"@en;
+    bamm:characteristic :PCFSystemBoundaryCharacteristic;
+    bamm:description "Definition of PCF system boundary, e.g. \"cradle-to-gate\""@en;
+    bamm:exampleValue "cradle-to-gate".
+:pcfSecondaryDataSource a bamm:Property;
+    bamm:name "pcfSecondaryDataSource";
+    bamm:preferredName "PCF Secondary data source"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:description "Sources (databases) of secondary data. Free text entry"@en;
+    bamm:exampleValue "GaBi v2.3".
+:pcfReferencePeriodStart a bamm:Property;
+    bamm:name "pcfReferencePeriodStart";
+    bamm:preferredName "Reference period start"@en;
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:description "Start of data collection of primary data"@en.
+:pcfReferencePeriodEnd a bamm:Property;
+    bamm:name "pcfReferencePeriodEnd";
+    bamm:preferredName "Reference period end"@en;
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:description "End of data collection of primary data"@en.
+:PCFSystemBoundaryCharacteristic a bamm-c:Enumeration;
+    bamm:name "PCFSystemBoundaryCharacteristic";
+    bamm:description "Describes a Property for the PCF system boundary. Allows fixed values e.g. \"cradle-to-gate\". Selection might be extended over time."@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("cradle-to-gate").
+:PcfTechnical a bamm:Aspect;
+    bamm:name "PcfTechnical";
+    bamm:properties (:pcfStandard :pcfSystemBoundary :pcfSecondaryDataSource :pcfReferencePeriodStart :pcfReferencePeriodEnd);
+    bamm:operations ();
+    bamm:preferredName "PCF Technical"@en.
