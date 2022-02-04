@@ -3,7 +3,7 @@
 @prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
-@prefix : <urn:bamm:com.catenaX.addressCharacteristic:0.1.1#>.
+@prefix : <urn:bamm:com.catenaX.addressCharacteristic:1.0.0#>.
 
 :AddressAspect a bamm:Aspect;
     bamm:name "AddressAspect";
@@ -24,12 +24,12 @@
     bamm:name "Adress Entity";
     bamm:properties (:street :houseNumber :zip :location :name 
     [
-    bamm:property :completeData;
+    bamm:property :isDataComplete;
     bamm:optional "true"^^xsd:boolean
     ]).
-:completeData a bamm:Property;
-    bamm:name "completeData";
-    bamm:preferredName "complete data"@en;
+:isDataComplete a bamm:Property;
+    bamm:name "isDataComplete";
+    bamm:preferredName " is data complete"@en;
     bamm:description "Is the preceeding informationn is complete (true) or unknown (false)"@en;
     bamm:characteristic bamm-c:Boolean.
 :street a bamm:Property;
