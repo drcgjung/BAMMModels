@@ -19,7 +19,7 @@
     bamm:preferredName "Identifier Key"@en;
     bamm:description "The key (domain, namespace) component of an identifier."@en;
     bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "serial number".
+    bamm:exampleValue " urn:itemNumber:com.t-systems.aras.innovator.Part".
 :value a bamm:Property;
     bamm:name "value";
     bamm:preferredName "Identifier Value"@en;
@@ -72,18 +72,18 @@
 :createdOn a bamm:Property;
     bamm:name "createdOn";
     bamm:preferredName "Creation Date"@en;
-    bamm:characteristic :DateWithoutTime;
-    bamm:exampleValue "2021-12-15"^^xsd:date.
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:exampleValue "2022-02-03T14:48:54.709+0000"^^xsd:dateTime.
 :modifiedOn a bamm:Property;
     bamm:name "modifiedOn";
     bamm:preferredName "Modification Date"@en;
-    bamm:characteristic :DateWithoutTime;
-    bamm:exampleValue "2021-12-16"^^xsd:date.
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:exampleValue "2022-02-04T14:48:54.709+0000"^^xsd:dateTime.
 :releasedOn a bamm:Property;
     bamm:name "releasedOn";
     bamm:preferredName "Release Date"@en;
-    bamm:characteristic :DateWithoutTime;
-    bamm:exampleValue "2021-12-17"^^xsd:date.
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:exampleValue "2022-02-05T14:48:54.709+0000"^^xsd:dateTime.
 :type a bamm:Property;
     bamm:name "type";
     bamm:preferredName "Type"@en;
@@ -94,6 +94,11 @@
     bamm:preferredName "Version"@en;
     bamm:description "Version represents the identification of a specific version of the base Part."@en;
     bamm:characteristic :Version.
+:context a bamm:Property;
+    bamm:name "context";
+    bamm:preferredName "Context"@en;
+    bamm:characteristic :Context;
+    bamm:exampleValue "as-designed".
 :description a bamm:Property;
     bamm:name "description";
     bamm:preferredName "Description"@en;
@@ -104,9 +109,11 @@
     bamm:preferredName "Catena-X UniqueID Trait"@en;
     bamm-c:baseCharacteristic :UUIDv4;
     bamm-c:constraint :UUIDv4RegEx.
-:DateWithoutTime a bamm-c:TimeSeries;
-    bamm:name "DateWithoutTime";
-    bamm:dataType xsd:date.
+:Type a bamm-c:Enumeration;
+    bamm:name "Type";
+    bamm:dataType xsd:string;
+    bamm:preferredName "Type"@en;
+    bamm-c:values ("Assembly" "Component" "Software" "Tool" "Raw Material" "Product" "Piece Part").
 :Version a bamm:Characteristic;
     bamm:name "Version";
     bamm:dataType xsd:string;
@@ -125,16 +132,6 @@
     bamm:preferredName "UUIDv4 Regular Expression"@en;
     bamm:description "Regular Expression for UUID v4"@en;
     bamm:value "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$".
-:Type a bamm-c:Enumeration;
-    bamm:name "Type";
-    bamm:dataType xsd:string;
-    bamm:preferredName "Type"@en;
-    bamm-c:values ("Assembly" "Component" "Software" "Tool" "Raw Material" "Product" "Piece Part").
-:context a bamm:Property;
-    bamm:name "context";
-    bamm:preferredName "Context"@en;
-    bamm:characteristic :Context;
-    bamm:exampleValue "as-designed".
 :Context a bamm-c:Enumeration;
     bamm:name "Context";
     bamm:dataType xsd:string;
