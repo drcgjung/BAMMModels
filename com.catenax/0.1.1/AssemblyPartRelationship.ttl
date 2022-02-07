@@ -29,6 +29,11 @@
     bamm:description "Trait to ensure UUID v4 data format"@en;
     bamm-c:baseCharacteristic :UUIDv4Characteristic;
     bamm-c:constraint :UUIDv4RegularExpression.
+:SetofChildIdsCharacteristic a bamm-c:Set;
+    bamm:name "SetofChildIdsCharacteristic";
+    bamm:preferredName "Set of Child IDs"@en;
+    bamm:description "Physical and digital Child object data the parent objects is assembled by."@en;
+    bamm:dataType :ChildData.
 :UUIDv4Characteristic a bamm:Characteristic;
     bamm:name "UUIDv4Characteristic";
     bamm:preferredName "UUID v4"@en;
@@ -45,7 +50,7 @@
     bamm:properties (:createdOn :quantity [
   bamm:property :modifiedOn;
   bamm:optional "true"^^xsd:boolean
-] :usage :childCatenaXIds);
+] :usage :childCatenaXId);
     bamm:description "set of physical/digital child objects data by which the parent object is assembled by."@en.
 :createdOn a bamm:Property;
     bamm:name "createdOn";
@@ -91,13 +96,8 @@
     bamm:description "as-required, as-designed, as-planned, as-built, as-maintained, as-recycled"@en;
     bamm:dataType xsd:string;
     bamm-c:values ("as-required" "as-designed" "as-planned" "as-built" "as-maintained" "as-recycled").
-:childCatenaXIds a bamm:Property;
-    bamm:name "childCatenaXIds";
+:childCatenaXId a bamm:Property;
+    bamm:name "childCatenaXId";
     bamm:preferredName "Catena-X Child Identifiers "@en;
     bamm:description "The Catena-X IDs of the child objects the part is assembled by."@en;
     bamm:characteristic :CatenaXUniqueIDTrait.
-:SetofChildIdsCharacteristic a bamm-c:Set;
-    bamm:name "SetofChildIdsCharacteristic";
-    bamm:preferredName "Set of Child IDs"@en;
-    bamm:description "Physical and digital Child object data the parent objects is assembled by."@en;
-    bamm:dataType :ChildData.
