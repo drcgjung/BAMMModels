@@ -1,0 +1,76 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix : <urn:bamm:com.catenax:1.0.0#>.
+
+:ProductDescriptionBattery a bamm:Aspect;
+    bamm:name "ProductDescriptionBattery";
+    bamm:description "Aspect to describe battery specific information such as the state of health and the capacity"@en;
+    bamm:properties (:performanceIndicator :soh);
+    bamm:operations ();
+    bamm:preferredName "Product Description Battery"@en.
+:performanceIndicator a bamm:Property;
+    bamm:name "performanceIndicator";
+    bamm:preferredName "performance indicator"@en;
+    bamm:description "The performance indicator"@en;
+    bamm:characteristic :PerformanceIndicatorCharacteristic.
+:PerformanceIndicatorCharacteristic a bamm-c:SingleEntity;
+    bamm:name "PerformanceIndicatorCharacteristic";
+    bamm:preferredName "Performance Indicator Characteristic"@en;
+    bamm:description "indicates the performance of the battery"@en;
+    bamm:dataType :PerformanceIndicatorEntity.
+:PerformanceIndicatorEntity a bamm:Entity;
+    bamm:name "PerformanceIndicatorEntity";
+    bamm:properties (:electrictiyCapacityMin :electrictiyCapacityMax);
+    bamm:preferredName "PerformanceIndicatorEntity"@en;
+    bamm:description "indicates the min/max performance of the battery"@en.
+:electrictiyCapacityMin a bamm:Property;
+    bamm:name "electricCapacityMin";
+    bamm:preferredName "electric capacity min"@en;
+    bamm:description "The minimal electric capacity"@en;
+    bamm:characteristic :Capacity.
+:electrictiyCapacityMax a bamm:Property;
+    bamm:name "electricCapacityMax";
+    bamm:preferredName "electric capacity max"@en;
+    bamm:description "The maximal electric capacity"@en;
+    bamm:characteristic :Capacity.
+:Capacity a bamm-c:Measurement;
+    bamm:name "Capacity";
+    bamm:preferredName "capacity"@en;
+    bamm:description "A capacity value"@en;
+    bamm:dataType xsd:double;
+    bamm-c:unit unit:farad.
+:soh a bamm:Property;
+    bamm:name "soh";
+    bamm:preferredName "soh"@en;
+    bamm:description "State of health of the battery"@en;
+    bamm:characteristic :StateOfHealth.
+:StateOfHealth a bamm:Characteristic;
+    bamm:name "StateOfHealth";
+    bamm:preferredName "StateOfHealth"@en;
+    bamm:description "State of Health Characteristic"@en;
+    bamm:dataType :StateOfHealthEntity.
+:StateOfHealthEntity a bamm:Entity;
+    bamm:name "StateOfHealthEntity";
+    bamm:properties (:minimalSoh :stateOfHealth);
+    bamm:preferredName "State Of Health Entity"@en;
+    bamm:description "State of Health Entity of the battery"@en.
+:minimalSoh a bamm:Property;
+    bamm:name "minimalSoh";
+    bamm:preferredName "minimal SOH"@en;
+    bamm:description "describes the minimal SOH of the manufacturer for the battery to be rated as reusable "@en;
+    bamm:characteristic :Percentage.
+:stateOfHealth a bamm:Property;
+    bamm:name "stateOfHealth";
+    bamm:preferredName "state of health"@en;
+    bamm:description "the current state of health of the battery"@en;
+    bamm:characteristic :Percentage.
+:Percentage a bamm-c:Measurement;
+    bamm:name "Percentage";
+    bamm:preferredName "Percentage"@en;
+    bamm:description "Percentage for the SOH"@en;
+    bamm:dataType xsd:integer;
+    bamm-c:unit unit:percent.
