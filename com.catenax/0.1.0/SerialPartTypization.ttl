@@ -21,29 +21,23 @@
     bamm:preferredName "Country Code Characteristic"@en;
     bamm:description "ISO 3166-1 alpha-3 – three-letter country codes "@en;
     bamm:dataType xsd:string;
-    bamm:see <https%3A%2F%2Fwww.iso.org%2Fiso-3166-country-codes.html>.
-:DateWithoutTimestamp a bamm:Characteristic;
-    bamm:name "DateWithoutTimestamp";
-    bamm:preferredName "Date (without timestamp)"@en;
-    bamm:description "Date without timestamp conformant to ISO 8601"@en;
-    bamm:dataType xsd:date.
-:partNameManufacturer a bamm:Property;
-    bamm:name "partNameManufacturer";
-    bamm:preferredName "Part Name Manufacturer"@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:description "Name of the serialized part, as defined by the originator/producer"@en;
-    bamm:exampleValue "Mirror left".
-:catenaXUniqueID a bamm:Property;
-    bamm:name "catenaXUniqueID";
-    bamm:preferredName "Catena-X Unique Identifier"@en;
-    bamm:characteristic :CatenaXUniqueIDTrait;
-    bamm:description "The Catena-X Unique ID of the given object, valid for the Catena-X dataspace."@en.
+    bamm:see <https%253A%252F%252Fwww.iso.org%252Fiso-3166-country-codes.html>.
 :CatenaXUniqueIDTrait a bamm-c:Trait;
     bamm:name "CatenaXUniqueIDTrait";
     bamm:preferredName "Catena-X Unique ID Trait"@en;
     bamm:description "Trait to ensure data format for Catena-X Unique ID"@en;
     bamm-c:constraint :UUIDv4RegularExpression;
     bamm-c:baseCharacteristic :UUIDv4.
+:UUIDv4RegularExpression a bamm-c:RegularExpressionConstraint;
+    bamm:name "UUIDv4RegularExpression";
+    bamm:preferredName "Catena-X UniqueId Regular Expression"@en;
+    bamm:description "Regular Expression for UUID v4"@en;
+    bamm:value "^[0-9a-fA-F]{8}\\\\\\\\b-[0-9a-fA-F]{4}\\\\\\\\b-[0-9a-fA-F]{4}\\\\\\\\b-[0-9a-fA-F]{4}\\\\\\\\b-[0-9a-fA-F]{12}$".
+:UUIDv4 a bamm:Characteristic;
+    bamm:name "UUIDv4";
+    bamm:preferredName "UUIDv4"@en;
+    bamm:description "A Version 4 UUID is a universally unique identifier that is generated using random numbers. "@en;
+    bamm:dataType xsd:string.
 :KeyValueList a bamm:Entity;
     bamm:name "KeyValueList";
     bamm:preferredName "Key Value List"@en;
@@ -52,38 +46,39 @@
 :key a bamm:Property;
     bamm:name "key";
     bamm:preferredName "Identifier Key"@en;
-    bamm:characteristic bamm-c:Text;
     bamm:description "The key (domain, namespace) component of an identifier."@en;
+    bamm:characteristic bamm-c:Text;
     bamm:exampleValue "SerialNumber".
 :value a bamm:Property;
     bamm:name "value";
     bamm:preferredName "Identifier Value"@en;
-    bamm:characteristic bamm-c:Text;
     bamm:description "The value (name) component of an identifier."@en;
+    bamm:characteristic bamm-c:Text;
     bamm:exampleValue "SN12345678".
-:UUIDv4RegularExpression a bamm-c:RegularExpressionConstraint;
-    bamm:name "UUIDv4RegularExpression";
-    bamm:preferredName "Catena-X UniqueId Regular Expression"@en;
-    bamm:description "Regular Expression for UUID v4"@en;
-    bamm:value "^[0-9a-fA-F]{8}\\\\\\\\b-[0-9a-fA-F]{4}\\\\\\\\b-[0-9a-fA-F]{4}\\\\\\\\b-[0-9a-fA-F]{4}\\\\\\\\b-[0-9a-fA-F]{12}$".
-:UUIDv4 a bamm:Characteristic;
-    bamm:name "UUIDv4";
-    bamm:preferredName "UUID v4"@en;
-    bamm:dataType xsd:string.
 :SerialPartTypization a bamm:Aspect;
     bamm:name "SerialPartTypization";
     bamm:preferredName "Serial Part Typization"@en;
-    bamm:description "A serialized part is an instantiation of a part"@en;
-    bamm:properties (:catenaXUniqueID :localIdentifier [
-  bamm:property :partNameManufacturer;
+    bamm:description "A serialized part is an instantiation of a part. serialized A part belongs to one of the following categories:\n'piece part', 'product', 'software', ‘assembly’, 'tool', or 'raw material'."@en;
+    bamm:properties (:catenaXId :localIdentifier [
+  bamm:property :name;
   bamm:optional "true"^^xsd:boolean
-] :production);
+] :production :type :shortDescription);
     bamm:operations ().
+:localIdentifier a bamm:Property;
+    bamm:name "localIdentifier";
+    bamm:preferredName "local Identifier"@en;
+    bamm:description "This is the local identifier, which is valid in the dataspace of the originator/producer"@en;
+    bamm:characteristic :LocalIdentifierCharacteristic.
 :production a bamm:Property;
     bamm:name "production";
     bamm:preferredName "Production"@en;
-    bamm:characteristic :ProductionCharacteristic;
-    bamm:description "This propoerty covers the production relevant attributes, such as production date and production country."@en.
+    bamm:description "This propoerty covers the production relevant attributes, such as production date and production country."@en;
+    bamm:characteristic :ProductionCharacteristic.
+:ProductionCharacteristic a bamm:Characteristic;
+    bamm:name "ProductionCharacteristic";
+    bamm:preferredName "Production Characteristic"@en;
+    bamm:description "Characteristic to describe production related data"@en;
+    bamm:dataType :ProductionEntity.
 :ProductionEntity a bamm:Entity;
     bamm:name "ProductionEntity";
     bamm:preferredName "Production Entity"@en;
@@ -92,30 +87,54 @@
   bamm:property :country;
   bamm:optional "true"^^xsd:boolean
 ]).
-:ProductionCharacteristic a bamm:Characteristic;
-    bamm:name "ProductionCharacteristic";
-    bamm:preferredName "Production Characteristic"@en;
-    bamm:description "Characteristic to describe production related data"@en;
-    bamm:dataType :ProductionEntity.
 :date a bamm:Property;
     bamm:name "date";
     bamm:preferredName "Production Date (GMT)"@en;
-    bamm:characteristic :DateWithoutTimestamp;
-    bamm:description "Production date, converted into Greenwich Mean Time Zone (GMT); without time information; only day of production"@en;
-    bamm:exampleValue "2021-05-30"^^xsd:date.
+    bamm:description "Timestamp, when the part was produced"@en;
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:exampleValue "2022-02-04T14:48:54.709+0000"^^xsd:dateTime.
 :country a bamm:Property;
     bamm:name "country";
     bamm:preferredName "Country code"@en;
-    bamm:characteristic :ProductionCountryCodeTrait;
     bamm:description "Country code where the part is produced"@en;
+    bamm:characteristic :ProductionCountryCodeTrait;
     bamm:exampleValue "HUR".
-:localIdentifier a bamm:Property;
-    bamm:name "localIdentifier";
-    bamm:preferredName "local Identifier"@en;
-    bamm:characteristic :LocalIdentifierCharacteristic;
-    bamm:description "This is the local identifier, which is valid in the dataspace of the originator/producer"@en.
 :LocalIdentifierCharacteristic a bamm:Characteristic;
     bamm:name "LocalIdentifierCharacteristic";
     bamm:preferredName "Local Identifier Characteristic"@en;
     bamm:description "One part can have multiple attributes, the uniquely identify a serialized part in the  dataspace of the manufacturer/producer, e.g. production site + serial number"@en;
     bamm:dataType :KeyValueList.
+:type a bamm:Property;
+    bamm:name "type";
+    bamm:preferredName "Type"@en;
+    bamm:description "The type of part. "@en;
+    bamm:characteristic :TypeCharacteristic;
+    bamm:exampleValue "Software".
+:TypeCharacteristic a bamm-c:Enumeration;
+    bamm:name "TypeCharacteristic";
+    bamm:preferredName "Type Characteristic"@en;
+    bamm:description "An serialized Part must be placed into one of the following categories:\n'piece part', 'product', 'software', ‘assembly’, 'tool', or 'raw material'."@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("Piece Part" "Product" "Software" "Assembly" "Tool" "Raw Material").
+:shortDescription a bamm:Property;
+    bamm:name "shortDescription";
+    bamm:preferredName "Short Description"@en;
+    bamm:description "A short description of the part"@en;
+    bamm:characteristic :ShortDescriptionCharacteristic.
+:ShortDescriptionCharacteristic a bamm:Characteristic;
+    bamm:name "ShortDescriptionCharacteristic";
+    bamm:preferredName "ShortDescriptionCharacteristic"@en;
+    bamm:description "The short description has a max length of 254 characters. "@en;
+    bamm:dataType xsd:string.
+:catenaXId a bamm:Property;
+    bamm:name "catenaXId";
+    bamm:preferredName "Catena-X Identifier"@en;
+    bamm:description "The Catena-X ID of the given object, valid for the Catena-X dataspace."@en;
+    bamm:characteristic :CatenaXUniqueIDTrait;
+    bamm:exampleValue "580d3adf-1981-44a0-a214-13d6ceed9379".
+:name a bamm:Property;
+    bamm:name "name";
+    bamm:preferredName "Name"@en;
+    bamm:description "Name of the serialized part, as defined by the originator/manufacturer"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Mirror left".
