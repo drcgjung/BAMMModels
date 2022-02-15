@@ -73,10 +73,10 @@
     bamm:preferredName "power"@en;
     bamm:characteristic :Kilowatt;
     bamm:exampleValue "45"^^xsd:integer.
-:Kilowatt a bamm-c:Measurement;
-    bamm:name "Kilowatt";
+:EnginePower  a bamm-c:Measurement;
+    bamm:name "EnginePower ";
     bamm:description "engine power expressed in kilowatt"@en;
-    bamm:preferredName "Kilowatt"@en;
+    bamm:preferredName "Engine Power"@en;
     bamm:dataType xsd:integer;
     bamm-c:unit unit:kilowatt.
 :Distance a bamm-c:Measurement;
