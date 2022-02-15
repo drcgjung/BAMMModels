@@ -6,17 +6,22 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix : <urn:bamm:com.catenax.battery.product_description:1.0.0#>.
 
-:ProductDescriptionBattery a bamm:Aspect;
-    bamm:name "ProductDescriptionBattery";
+:ProductDescription a bamm:Aspect;
+    bamm:name "ProductDescription";
     bamm:description "Aspect to describe battery specific information such as the state of health and the capacity"@en;
     bamm:properties (:performanceIndicator :stateOfHealth :type);
     bamm:operations ();
-    bamm:preferredName "Product Description Battery"@en.
+    bamm:preferredName "Product Description"@en.
 :performanceIndicator a bamm:Property;
     bamm:name "performanceIndicator";
     bamm:description "The performance indicator"@en;
     bamm:preferredName "performance indicator"@en;
     bamm:characteristic :PerformanceIndicatorCharacteristic.
+:stateOfHealth a bamm:Property;
+    bamm:name "stateOfHealth";
+    bamm:description "State of health of the battery"@en;
+    bamm:preferredName "state of health"@en;
+    bamm:characteristic :StateOfHealthCharacteristic.
 :type a bamm:Property;
     bamm:name "type";
     bamm:description "type of the battery"@en;
@@ -27,6 +32,12 @@
     bamm:description "indicates the performance of the battery"@en;
     bamm:preferredName "Performance Indicator Characteristic"@en;
     bamm:dataType :PerformanceIndicatorEntity.
+:BatteryType a bamm-c:Enumeration;
+    bamm:name "BatteryType";
+    bamm:description "Differentation between High Voltage Battery = HVB and Low Voltage Battery = LVB"@en;
+    bamm:preferredName "Battery type"@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("HVB" "LVB").
 :PerformanceIndicatorEntity a bamm:Entity;
     bamm:name "PerformanceIndicatorEntity";
     bamm:description "indicates the min/max performance of the battery"@en;
@@ -53,35 +64,24 @@
     bamm:description "State of Health Entity of the battery"@en;
     bamm:properties (:minimalStateOfHealth :currentStateOfHealth);
     bamm:preferredName "State Of Health Entity"@en.
-:stateOfHealth a bamm:Property;
-    bamm:name "stateOfHealth";
-    bamm:description "State of health of the battery"@en;
-    bamm:preferredName "state of health"@en;
-    bamm:characteristic :StateOfHealthCharacteristic.
-:Percentage a bamm-c:Measurement;
-    bamm:name "Percentage";
-    bamm:description "Percentage for Characteristic"@en;
-    bamm:preferredName "Percentage"@en;
-    bamm:dataType xsd:integer;
-    bamm-c:unit unit:percent.
-:BatteryType a bamm-c:Enumeration;
-    bamm:name "BatteryType";
-    bamm:description "Differentation between High Voltage Battery = HVB and Low Voltage Battery = LVB"@en;
-    bamm:preferredName "Battery type"@en;
-    bamm:dataType xsd:string;
-    bamm-c:values ("HVB" "LVB").
-:StateOfHealthCharacteristic a bamm:Characteristic;
-    bamm:name "StateOfHealthCharacteristic";
-    bamm:description "State of Health Characteristic"@en;
-    bamm:preferredName "State of Health Characteristic"@en;
-    bamm:dataType :StateOfHealthEntity.
-:currentStateOfHealth a bamm:Property;
-    bamm:name "currentStateOfHealth";
-    bamm:description "the current state of health of the battery"@en;
-    bamm:preferredName "current state of health"@en;
-    bamm:characteristic :Percentage.
 :minimalStateOfHealth a bamm:Property;
     bamm:name "minimalStateOfHealth";
     bamm:description "describes the minimal SOH of the manufacturer for the battery to be rated as reusable "@en;
     bamm:preferredName "minimal State Of Health"@en;
     bamm:characteristic :Percentage.
+:currentStateOfHealth a bamm:Property;
+    bamm:name "currentStateOfHealth";
+    bamm:description "the current state of health of the battery"@en;
+    bamm:preferredName "current state of health"@en;
+    bamm:characteristic :Percentage.
+:StateOfHealthCharacteristic a bamm:Characteristic;
+    bamm:name "StateOfHealthCharacteristic";
+    bamm:description "State of Health Characteristic"@en;
+    bamm:preferredName "State of Health Characteristic"@en;
+    bamm:dataType :StateOfHealthEntity.
+:Percentage a bamm-c:Measurement;
+    bamm:name "Percentage";
+    bamm:description "Characteristic for percentage values"@en;
+    bamm:preferredName "Percentage"@en;
+    bamm:dataType xsd:integer;
+    bamm-c:unit unit:percent.
