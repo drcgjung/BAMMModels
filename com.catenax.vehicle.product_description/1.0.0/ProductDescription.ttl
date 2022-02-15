@@ -47,11 +47,11 @@
     bamm:description "The total weight of the vehicle in kg"@en;
     bamm:preferredName "empty weight"@en;
     bamm:characteristic :Weight.
-:EquipmentCharacteristic a bamm:Characteristic;
-    bamm:name "EquipmentCharacteristic";
+:EquipmentVariantSetCharacteristic a bamm-c:Set;
+    bamm:name "EquipmentVariantSetCharacteristic";
     bamm:description "characteristic to describe the equipment codes"@en;
     bamm:preferredName "equipment characteristic"@en;
-    bamm:dataType :VariantEntity.
+    bamm:dataType :EquipmentVariantEntity.
 :VinRestriction a bamm-c:Trait;
     bamm:name "VinRestriction";
     bamm:description "constraint to limit the vin length"@en;
@@ -91,8 +91,8 @@
     bamm:preferredName "fuel type"@en;
     bamm:dataType xsd:string;
     bamm-c:values ("diesel" "gasoline" "gas" "ethanol" "hydrogen" "hybrid" "fuel cell" "electric").
-:VariantEntity a bamm:Entity;
-    bamm:name "VariantEntity";
+:EquipmentVariantEntity a bamm:Entity;
+    bamm:name "EquipmentVariantEntity";
     bamm:description "describes different vehicle equipment variants"@en;
     bamm:properties (:code :description [
   bamm:property :group;
@@ -154,7 +154,7 @@
     bamm:name "equipmentVariants";
     bamm:description "equipment variants which are build into a specific vehicle"@en;
     bamm:preferredName "equipment variants"@en;
-    bamm:characteristic :EquipmentCharacteristic.
+    bamm:characteristic :EquipmentVariantSetCharacteristic.
 :VinVerificationTrait a bamm-c:Trait;
     bamm:name "VinVerificationTrait";
     bamm:description "Trait for Verification calculation"@en;
