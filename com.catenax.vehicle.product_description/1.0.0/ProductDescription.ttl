@@ -23,7 +23,7 @@
     bamm:description "engine of the vehicle"@en;
     bamm:preferredName "engine"@en;
     bamm:characteristic :EngineCharacteristic;
-    bamm:exampleValue "1200"^^:EningeEntity.
+    bamm:exampleValue "1200"^^:EngineEntity.
 :mileage a bamm:Property;
     bamm:name "mileage";
     bamm:description "mileage of the vehicle"@en;
@@ -61,7 +61,7 @@
     bamm:name "EngineCharacteristic";
     bamm:description "Characteristic to describe the more specific details of the engine"@en;
     bamm:preferredName "Engine Characteristic"@en;
-    bamm:dataType :EningeEntity.
+    bamm:dataType :EngineEntity.
 :Timestamp a bamm:Characteristic;
     bamm:name "Timestamp";
     bamm:description "Characteristic to describe a time stamp"@en;
@@ -74,7 +74,7 @@
     bamm:characteristic :EnginePower;
     bamm:exampleValue "45"^^xsd:integer.
 :EnginePower  a bamm-c:Measurement;
-    bamm:name "EnginePower ";
+    bamm:name "EnginePower";
     bamm:description "engine power expressed in kilowatt"@en;
     bamm:preferredName "Engine Power"@en;
     bamm:dataType xsd:integer;
@@ -134,8 +134,8 @@
     bamm:characteristic bamm-c:Text;
     bamm:preferredName "group"@en;
     bamm:exampleValue "Sonderausstattung".
-:EningeEntity a bamm:Entity;
-    bamm:name "EningeEntity";
+:EngineEntity a bamm:Entity;
+    bamm:name "EngineEntity";
     bamm:description "Engine with power and cubic size"@en;
     bamm:properties (:size :power);
     bamm:preferredName "Engine Entity"@en.
@@ -160,7 +160,7 @@
     bamm:description "Trait for Verification calculation"@en;
     bamm:preferredName "VinVerificationTrait"@en;
     bamm-c:baseCharacteristic bamm-c:Text;
-    bamm-c:constraint :Constraint1, :VerificationConstraint.
+    bamm-c:constraint :VerificationConstraint.
 :VerificationConstraint a bamm-c:RegularExpressionConstraint;
     bamm:name "VerificationConstraint";
     bamm:description "Constraint to restrict possible input to numbers from 0-9 and X/x"@en;
