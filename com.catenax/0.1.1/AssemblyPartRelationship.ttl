@@ -13,6 +13,17 @@
     bamm:properties (:catenaXId :childParts);
     bamm:description "The aspect provides the information which parts the object assembles."@en;
     bamm:operations ().
+:catenaXId a bamm:Property;
+    bamm:name "catenaXId";
+    bamm:preferredName "Catena-X Identifier"@en;
+    bamm:description "The Catena-X ID of the given parent Part (e.g. the Assembly), valid for the Catena-X dataspace."@en;
+    bamm:characteristic :CatenaXUniqueIDTrait;
+    bamm:exampleValue "055c1128-0375-47c8-98de-7cf802c3241d".
+:childParts a bamm:Property;
+    bamm:name "childParts";
+    bamm:preferredName "Child Parts"@en;
+    bamm:description "List of Catena-X IDs  and (meta-) data of assembled child parts"@en;
+    bamm:characteristic :SetofChildPartsCharacteristic.
 :CatenaXUniqueIDTrait a bamm-c:Trait;
     bamm:name "CatenaXUniqueIDTrait";
     bamm:description "Trait to ensure UUID v4 data format"@en;
@@ -41,13 +52,24 @@
     bamm:preferredName "Creation Date"@en;
     bamm:description "Timestamp when the relation between parent and child was created"@en;
     bamm:characteristic bamm-c:Timestamp;
-    bamm:exampleValue "2022-02-04T14:48:54.709+0000"^^xsd:dateTime.
+    bamm:exampleValue "2022-02-03T14:48:54.709Z"^^xsd:dateTime.
 :quantity a bamm:Property;
     bamm:name "quantity";
     bamm:preferredName "Quantity"@en;
     bamm:description "Quantity of child parts. \"1\" for serialized parts"@en;
     bamm:characteristic :QuantityCharacteristic;
-    bamm:exampleValue "1"^^xsd:double.
+    bamm:exampleValue "1 litre"^^:Quantity.
+:lastModifiedOn a bamm:Property;
+    bamm:name "lastModifiedOn";
+    bamm:preferredName "Last Modification Date"@en;
+    bamm:description "Timestamp when the relation between parent and child was last modified"@en;
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:exampleValue "2022-02-03T14:48:54.709Z"^^xsd:dateTime.
+:context a bamm:Property;
+    bamm:name "context";
+    bamm:description "The lifecycle context of the Assembly-Part relationship"@en;
+    bamm:characteristic :UsageCharacteristic;
+    bamm:exampleValue "as-built".
 :childCatenaXId a bamm:Property;
     bamm:name "childCatenaXId";
     bamm:preferredName "Catena-X Child Identifiers "@en;
@@ -56,8 +78,7 @@
 :QuantityCharacteristic a bamm-c:Quantifiable;
     bamm:name "QuantityCharacteristic";
     bamm:description "The quantity in which the child part is assembled in the given object."@en;
-    bamm:dataType xsd:double;
-    bamm-c:unit unit:piece.
+    bamm:dataType :Quantity.
 :UsageCharacteristic a bamm-c:Enumeration;
     bamm:name "UsageCharacteristic";
     bamm:preferredName "Usage"@en;
@@ -69,25 +90,21 @@
     bamm:preferredName "Set of Child Parts"@en;
     bamm:description "Physical and digital child parts the parent objects is assembled by (one structural level down)."@en;
     bamm:dataType :ChildData.
-:childParts a bamm:Property;
-    bamm:name "childParts";
-    bamm:preferredName "Child Parts"@en;
-    bamm:description "List of Catena-X IDs  and (meta-) data of assembled child parts"@en;
-    bamm:characteristic :SetofChildPartsCharacteristic.
-:context a bamm:Property;
-    bamm:name "context";
-    bamm:description "The lifecycle context of the Assembly-Part relationship"@en;
-    bamm:characteristic :UsageCharacteristic;
-    bamm:exampleValue "as-built".
-:lastModifiedOn a bamm:Property;
-    bamm:name "lastModifiedOn";
-    bamm:preferredName "Last Modification Date"@en;
-    bamm:description "Timestamp when the relation between parent and child was last modified"@en;
-    bamm:characteristic bamm-c:Timestamp;
-    bamm:exampleValue "2021-12-02"^^xsd:dateTime.
-:catenaXId a bamm:Property;
-    bamm:name "catenaXId";
-    bamm:preferredName "Catena-X Identifier"@en;
-    bamm:description "The Catena-X ID of the given parent Part (e.g. the Assembly), valid for the Catena-X dataspace."@en;
-    bamm:characteristic :CatenaXUniqueIDTrait;
-    bamm:exampleValue "055c1128-0375-47c8-98de-7cf802c3241d".
+:quantityNumber a bamm:Property;
+    bamm:name "quantityNumber";
+    bamm:description "The number of objects related to the measurement unit"@en;
+    bamm:characteristic :NumberofObjects;
+    bamm:exampleValue "2.5"^^xsd:double.
+:measurementUnit a bamm:Property;
+    bamm:name "measurementUnit";
+    bamm:description "Unit of Measurement for the quantity of serialized objects"@en;
+    bamm:characteristic bamm-c:UnitReference;
+    bamm:exampleValue "litre"^^bamm:curie.
+:NumberofObjects a bamm:Characteristic;
+    bamm:name "NumberofObjects";
+    bamm:description "Quantifiable number of objects in reference to the measurementUnit"@en;
+    bamm:dataType xsd:double.
+:Quantity a bamm:Entity;
+    bamm:name "Quantity";
+    bamm:properties (:quantityNumber :measurementUnit);
+    bamm:description "Comprises the number of objects and the unit of measurement for the respective child objects"@en.
