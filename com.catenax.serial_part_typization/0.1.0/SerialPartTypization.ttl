@@ -92,7 +92,7 @@
     bamm:preferredName "Production Date (GMT)"@en;
     bamm:description "Timestamp, when the part was produced"@en;
     bamm:characteristic bamm-c:Timestamp;
-    bamm:exampleValue "2022-02-04T14:48:54.709+0000"^^xsd:dateTime.
+    bamm:exampleValue "2022-02-04T14:48:54"^^xsd:dateTime.
 :country a bamm:Property;
     bamm:name "country";
     bamm:preferredName "Country code"@en;
