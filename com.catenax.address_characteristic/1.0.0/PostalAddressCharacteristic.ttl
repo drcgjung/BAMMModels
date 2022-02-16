@@ -12,16 +12,16 @@
     bamm:properties (:address);
     bamm:operations ().
 :address a bamm:Property;
-    bamm:name "adress";
-    bamm:preferredName "adress"@en;
+    bamm:name "address";
+    bamm:preferredName "Adress"@en;
     bamm:description "the adress of the data provider"@en;
     bamm:characteristic :PostalAddress.
 :PostalAddress a bamm:Characteristic;
     bamm:name "PostalAddress";
     bamm:description "A characteristic to express the postal adress and which is intended to be referenced by other aspects"@en;
-    bamm:dataType :AdressEntity.
-:AdressEntity a bamm:Entity;
-    bamm:name "Adress Entity";
+    bamm:dataType :AddressEntity.
+:AddressEntity a bamm:Entity;
+    bamm:name "AddressEntity";
     bamm:properties (:street :houseNumber :zip :location :name 
     [
     bamm:property :isDataComplete;
