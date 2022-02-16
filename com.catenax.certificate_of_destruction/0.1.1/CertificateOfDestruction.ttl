@@ -3,8 +3,8 @@
 @prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
-@prefix catenax-c: <urn:bamm:com.catenaX.addressCharacteristic:0.1.1#>.
-@prefix : <urn:bamm:com.catenaX:0.1.1#>.
+@prefix catenax-c: <urn:bamm:com.catenax.address_characteristic:0.1.1#>.
+@prefix : <urn:bamm:com.catenax.certificate_of_destruction:0.1.1#>.
 
 :CertificateOfDestruction a bamm:Aspect;
     bamm:name "CertificateOfDestruction";
