@@ -18,7 +18,7 @@
     bamm:characteristic :PostalAddress.
 :PostalAddress a bamm:Characteristic;
     bamm:name "PostalAddress";
-    bamm:description "characteristic of the adress to describe the postal adress for a property used for example in an other aspect"@en;
+    bamm:description "A characteristic to express the postal adress and which is intended to be referenced by other aspects"@en;
     bamm:dataType :AdressEntity.
 :AdressEntity a bamm:Entity;
     bamm:name "Adress Entity";
