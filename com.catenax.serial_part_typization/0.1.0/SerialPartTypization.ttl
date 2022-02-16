@@ -3,7 +3,7 @@
 @prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
-@prefix : <urn:bamm:com.catenaX:0.1.0#>.
+@prefix : <urn:bamm:com.catenax.serial_part_typization:0.1.0#>.
 
 :ProductionCountryCodeTrait a bamm-c:Trait;
     bamm:name "ProductionCountryCodeTrait";
