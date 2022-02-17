@@ -216,6 +216,7 @@
     bamm:name "MileageCharacteristic";
     bamm:preferredName "Mileage Characteristic"@en;
     bamm:description "cummulated mileage of the serialized part (including second life) in km"@en;
+    bamm:dataType xsd:float;
     bamm-c:unit unit:kilometre.
 :CatenaXIdTrait a bamm-c:Trait;
     bamm:name "CatenaXIdTrait";
