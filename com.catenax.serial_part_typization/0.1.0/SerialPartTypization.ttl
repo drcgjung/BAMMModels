@@ -71,6 +71,12 @@
 ] [
   bamm:property :partNumber;
   bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :weight;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :mileage;
+  bamm:optional "true"^^xsd:boolean
 ]);
     bamm:operations ().
 :catenaXId a bamm:Property;
@@ -218,3 +224,22 @@
     bamm:name "PartNameAtCustomerCharacteristic";
     bamm:preferredName "Part Name At Customer Characteristic"@en;
     bamm:dataType xsd:string.
+:weight a bamm:Property;
+    bamm:name "weight";
+    bamm:preferredName "weight"@en;
+    bamm:description "weight of the serialized part in kg"@en;
+    bamm:characteristic :WeightCharacteristic;
+    bamm:exampleValue "151"^^xsd:float.
+:mileage a bamm:Property;
+    bamm:name "mileage";
+    bamm:preferredName "Mileage"@en;
+    bamm:description "cummulated mileage of the serialized part (including second life) in km"@en;
+    bamm:characteristic :MileageCharacteristic.
+:WeightCharacteristic a bamm:Characteristic;
+    bamm:name "WeightCharacteristic";
+    bamm:preferredName "Weight Characteristic"@en;
+    bamm:dataType xsd:float.
+:MileageCharacteristic a bamm:Characteristic;
+    bamm:name "MileageCharacteristic";
+    bamm:preferredName "Mileage Characteristic"@en;
+    bamm:dataType xsd:float.
