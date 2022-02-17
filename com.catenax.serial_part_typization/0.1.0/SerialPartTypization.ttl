@@ -24,7 +24,7 @@
     bamm:see <https%25253A%25252F%25252Fwww.iso.org%25252Fiso-3166-country-codes.html>.
 :UUIDv4RegularExpression a bamm-c:RegularExpressionConstraint;
     bamm:name "UUIDv4RegularExpression";
-    bamm:preferredName "Catena-X UniqueId Regular Expression"@en;
+    bamm:preferredName "Catena-X Id Regular Expression"@en;
     bamm:description "Regular Expression for UUID v4"@en;
     bamm:value "^[0-9a-fA-F]{8}\\\\\\\\b-[0-9a-fA-F]{4}\\\\\\\\b-[0-9a-fA-F]{4}\\\\\\\\b-[0-9a-fA-F]{4}\\\\\\\\b-[0-9a-fA-F]{12}$".
 :UUIDv4 a bamm:Characteristic;
@@ -41,13 +41,13 @@
     bamm:name "key";
     bamm:preferredName "Identifier Key"@en;
     bamm:description "The key (domain, namespace) component of an identifier."@en;
-    bamm:characteristic bamm-c:Text;
+    bamm:characteristic :KeyCharacteristic;
     bamm:exampleValue "com.samplecompany.serialnumber".
 :value a bamm:Property;
     bamm:name "value";
     bamm:preferredName "Identifier Value"@en;
     bamm:description "The value of an identifier."@en;
-    bamm:characteristic bamm-c:Text;
+    bamm:characteristic :ValueCharacteristic;
     bamm:exampleValue "SN12345678".
 :SerialPartTypization a bamm:Aspect;
     bamm:name "SerialPartTypization";
@@ -57,9 +57,6 @@
   bamm:property :name;
   bamm:optional "true"^^xsd:boolean
 ] :production :type [
-  bamm:property :shortDescription;
-  bamm:optional "true"^^xsd:boolean
-] [
   bamm:property :vendor;
   bamm:optional "true"^^xsd:boolean
 ] [
@@ -101,15 +98,10 @@
     bamm:description "The type of part"@en;
     bamm:characteristic :TypeCharacteristic;
     bamm:exampleValue "Software".
-:shortDescription a bamm:Property;
-    bamm:name "shortDescription";
-    bamm:preferredName "Short Description"@en;
-    bamm:description "A short description of the part"@en;
-    bamm:characteristic :ShortDescriptionCharacteristic.
-:LocalIdentifierCharacteristic a bamm:Characteristic;
+:LocalIdentifierCharacteristic a bamm-c:Set;
     bamm:name "LocalIdentifierCharacteristic";
     bamm:preferredName "Local Identifier Characteristic"@en;
-    bamm:description "One part can have multiple attributes, the uniquely identify a serialized part in the  dataspace of the manufacturer/producer, e.g. production site + serial number"@en;
+    bamm:description "One part can have multiple attributes, that uniquely identify a serialized part in a specific dataspace (e.g. the manufacturer`s dataspace, e.g. production site + serial number)"@en;
     bamm:dataType :KeyValueList.
 :ProductionCharacteristic a bamm:Characteristic;
     bamm:name "ProductionCharacteristic";
@@ -119,7 +111,7 @@
 :ProductionEntity a bamm:Entity;
     bamm:name "ProductionEntity";
     bamm:preferredName "Production Entity"@en;
-    bamm:description "This entity capsulates the production relevant attributes"@en;
+    bamm:description "Encapsulates the production relevant attributes"@en;
     bamm:properties (:date [
   bamm:property :country;
   bamm:optional "true"^^xsd:boolean
@@ -127,7 +119,7 @@
 :date a bamm:Property;
     bamm:name "date";
     bamm:preferredName "Production Date"@en;
-    bamm:description "Timestamp, when the part was produced"@en;
+    bamm:description "Timestamp of final step in production process, e.g. final quality check or read-for-shipment"@en;
     bamm:characteristic bamm-c:Timestamp;
     bamm:exampleValue "2022-02-04T14:48:54"^^xsd:dateTime.
 :country a bamm:Property;
@@ -141,48 +133,40 @@
     bamm:preferredName "Type Characteristic"@en;
     bamm:description "An serialized Part must be placed into one of the following categories:\n'component', 'product', 'software', ‘assembly’, 'tool', or 'raw material'."@en;
     bamm:dataType xsd:string;
+    bamm:see <http%3A%2F%2Fprivate.pdm-if.org%2Fweb%2Fpdm-if%2Frecommended-practices1>;
     bamm-c:values ("Product" "Software" "Assembly" "Tool" "Raw Material" "Component").
-:ShortDescriptionCharacteristic a bamm:Characteristic;
-    bamm:name "ShortDescriptionCharacteristic";
-    bamm:preferredName "ShortDescriptionCharacteristic"@en;
-    bamm:description "The short description has a max length of 254 characters. "@en;
-    bamm:dataType xsd:string.
 :NameCharacteristic a bamm:Characteristic;
     bamm:name "NameCharacteristic";
     bamm:preferredName "Name Characterisic"@en;
+    bamm:description "Name of the serialized part according to the specific dataspace"@en;
     bamm:dataType :NameEntity.
 :NameEntity a bamm:Entity;
     bamm:name "NameEntity";
     bamm:preferredName "Name Entity"@en;
+    bamm:description "Encapsulates the various part names"@en;
     bamm:properties (:nameAtManufacturer :nameAtCustomer).
 :nameAtManufacturer a bamm:Property;
     bamm:name "nameAtManufacturer";
     bamm:preferredName "Name At Manufacturer"@en;
     bamm:description "Name of the part, assigned by the manufacturer"@en;
-    bamm:characteristic :NameAtManufacturerCharacteristic;
+    bamm:characteristic :PartNameCharacteristic;
     bamm:exampleValue "Mirror left".
 :nameAtCustomer a bamm:Property;
     bamm:name "nameAtCustomer";
     bamm:preferredName "name At Customer"@en;
     bamm:description "Name of the part, as assigned by the customer"@en;
-    bamm:characteristic :NameAtCustomerCharacteristic;
+    bamm:characteristic :PartNameCharacteristic;
     bamm:exampleValue "Mirror Links".
 :vendor a bamm:Property;
     bamm:name "vendor";
     bamm:preferredName "Vendor"@en;
-    bamm:description "The manufacturer of the part"@en;
-    bamm:characteristic :VendorCharacteristic.
+    bamm:description "The legal entity of the manufacturer of the part"@en;
+    bamm:characteristic :VendorCharacteristic;
+    bamm:exampleValue "Robert Bosch GmbH".
 :VendorCharacteristic a bamm:Characteristic;
     bamm:name "VendorCharacteristic";
     bamm:preferredName "Vendor Characteristic"@en;
-    bamm:dataType xsd:string.
-:NameAtManufacturerCharacteristic a bamm:Characteristic;
-    bamm:name "NameAtManufacturerCharacteristic";
-    bamm:preferredName "Name at Manufacturer Characteristic"@en;
-    bamm:dataType xsd:string.
-:NameAtCustomerCharacteristic a bamm:Characteristic;
-    bamm:name "NameAtCustomerCharacteristic";
-    bamm:preferredName "Name at Customer Characteristic"@en;
+    bamm:description "The legal entity of the manufacturer of the part"@en;
     bamm:dataType xsd:string.
 :partNumber a bamm:Property;
     bamm:name "partNumber";
@@ -192,35 +176,28 @@
 :PartNumberCharacteristic a bamm:Characteristic;
     bamm:name "PartNumberCharacteristic";
     bamm:preferredName "Part Number Characteristic"@en;
+    bamm:description "The part number of the part design"@en;
     bamm:dataType :PartNumberEntity.
 :partNumberAtManufacturer a bamm:Property;
     bamm:name "partNumberAtManufacturer";
     bamm:preferredName "Part Number at Manufacturer"@en;
     bamm:description "part number assigned by the manufacturer to identify the part design"@en;
-    bamm:characteristic :PartNumberAtManufacturerCharacteristic;
+    bamm:characteristic :PartNumberLayout;
     bamm:exampleValue "123-0.740-3434-A".
 :partNumberAtCustomer a bamm:Property;
     bamm:name "partNumberAtCustomer";
     bamm:preferredName "Part Number at Customer"@en;
     bamm:description "part number (assigned by the customer) to identify the part design"@en;
-    bamm:characteristic :PartNameAtCustomerCharacteristic;
+    bamm:characteristic :PartNumberLayout;
     bamm:exampleValue "PRT-12345".
-:PartNumberAtManufacturerCharacteristic a bamm:Characteristic;
-    bamm:name "PartNumberAtManufacturerCharacteristic";
-    bamm:preferredName "Part Number At Manufacturer Characteristic"@en;
-    bamm:dataType xsd:string.
 :PartNumberEntity a bamm:Entity;
     bamm:name "PartNumberEntity";
     bamm:preferredName "Part Number Entity"@en;
     bamm:description "Encapsulation for the various part numbers"@en;
     bamm:properties (:partNumberAtManufacturer :partNumberAtCustomer).
-:PartNameAtCustomerCharacteristic a bamm:Characteristic;
-    bamm:name "PartNameAtCustomerCharacteristic";
-    bamm:preferredName "Part Name At Customer Characteristic"@en;
-    bamm:dataType xsd:string.
 :weight a bamm:Property;
     bamm:name "weight";
-    bamm:preferredName "weight"@en;
+    bamm:preferredName "Weight"@en;
     bamm:description "weight of the serialized part in kg"@en;
     bamm:characteristic :WeightCharacteristic;
     bamm:exampleValue "151"^^xsd:float.
@@ -229,17 +206,40 @@
     bamm:preferredName "Mileage"@en;
     bamm:description "cummulated mileage of the serialized part (including second life) in km"@en;
     bamm:characteristic :MileageCharacteristic.
-:WeightCharacteristic a bamm:Characteristic;
+:WeightCharacteristic a bamm-c:Quantifiable;
     bamm:name "WeightCharacteristic";
     bamm:preferredName "Weight Characteristic"@en;
-    bamm:dataType xsd:float.
-:MileageCharacteristic a bamm:Characteristic;
+    bamm:description "weight of the serialized part in kg"@en;
+    bamm:dataType xsd:float;
+    bamm-c:unit unit:kilogram.
+:MileageCharacteristic a bamm-c:Quantifiable;
     bamm:name "MileageCharacteristic";
     bamm:preferredName "Mileage Characteristic"@en;
-    bamm:dataType xsd:float.
+    bamm:description "cummulated mileage of the serialized part (including second life) in km"@en;
+    bamm-c:unit unit:kilometre.
 :CatenaXIdTrait a bamm-c:Trait;
     bamm:name "CatenaXIdTrait";
     bamm:preferredName "Catena-X ID Trait"@en;
     bamm:description "Trait to ensure data format for Catena-X ID"@en;
     bamm-c:constraint :UUIDv4RegularExpression;
     bamm-c:baseCharacteristic :UUIDv4.
+:KeyCharacteristic a bamm:Characteristic;
+    bamm:name "KeyCharacteristic";
+    bamm:preferredName "Key Characteristic"@en;
+    bamm:description "The key (domain, namespace) component of an identifier."@en;
+    bamm:dataType xsd:string.
+:ValueCharacteristic a bamm:Characteristic;
+    bamm:name "ValueCharacteristic";
+    bamm:preferredName "Value Characteristic"@en;
+    bamm:description "The value of an identifier."@en;
+    bamm:dataType xsd:string.
+:PartNumberLayout a bamm:Characteristic;
+    bamm:name "PartNumberLayout";
+    bamm:preferredName "Part Number Layout"@en;
+    bamm:description "the part number usually is a multi-charcter string assigned by an ERP system"@en;
+    bamm:dataType xsd:string.
+:PartNameCharacteristic a bamm:Characteristic;
+    bamm:name "PartNameCharacteristic";
+    bamm:preferredName "Part Name Characteristic"@en;
+    bamm:description "Part Name in string format from the respective system in the value chain"@en;
+    bamm:dataType xsd:string.
