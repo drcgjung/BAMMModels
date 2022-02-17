@@ -90,7 +90,7 @@ jobs:
       SEMANTIC_HUB: catenax${{needs.environment.outputs.workspace}}akssrv.germanywestcentral.cloudapp.azure.com/semantics/api/v1/models
       PUBLISHER: Catena-X Modelling Governance Body
       IDP_URL: catenax${{needs.environment.outputs.workspace}}akssrv.germanywestcentral.cloudapp.azure.com/iamcentralidp/auth/realms/CX-Central/protocol/openid-connect/token
-      CLIENT_ID: catenax-portal
+      CLIENT_ID: ${{ secrets.idpClientId }}
     steps:
 
     # Analyze the commit
