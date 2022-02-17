@@ -19,7 +19,7 @@
 :supplierMail a bamm:Property;
     bamm:name "supplierMail";
     bamm:preferredName "Supplier Mail"@en;
-    bamm:characteristic bamm-c:Text.
+    bamm:characteristic :SupplierMailTrait.
 :supplierProductionRegion a bamm:Property;
     bamm:name "supplierProductionRegion";
     bamm:preferredName "Supplier Production Region"@en;
@@ -80,6 +80,10 @@
     bamm:preferredName "Country"@en;
     bamm:characteristic bamm-c:MultiLanguageText;
     bamm:exampleValue "Deutschland"^^rdf:langString.
+:ZipTrait a bamm-c:Trait;
+    bamm:name "ZipTrait";
+    bamm-c:baseCharacteristic :ZipCodeCharacteristic;
+    bamm-c:constraint :ZipCodeConstraint.
 :supplierDistributionSite a bamm:Property;
     bamm:name "supplierDistributionSite";
     bamm:preferredName "Supplier Distribution Site"@en;
@@ -113,10 +117,6 @@
     bamm:description "Unit of measure of the declared unit"@en;
     bamm:dataType xsd:string;
     bamm-c:values ("kg" "Stk").
-:ZipTrait a bamm-c:Trait;
-    bamm:name "ZipTrait";
-    bamm-c:baseCharacteristic :ZipCodeCharacteristic;
-    bamm-c:constraint :ZipCodeConstraint.
 :ZipCodeCharacteristic a bamm:Characteristic;
     bamm:name "ZipCodeCharacteristic";
     bamm:dataType xsd:string.
@@ -133,5 +133,24 @@
 :PcfSupplyRelation a bamm:Aspect;
     bamm:name "PcfSupplyRelation";
     bamm:preferredName "PCF Supply Relation Data"@en;
-    bamm:properties (:supplierId :supplierName :supplierMail :supplierProductionRegion :supplierProductionSite :supplierDistributionSite :unitId :unitType :unitDesignation :declaredUnit :declaredUnitAmount);
+    bamm:description "PCF is the abbreviation for Product Carbon Footprint. It indicates the climate impact of a product or component. The PcfSupplyRelation aspect describes the relationship between an supplier and a customer with regards to a specific part or component and its according PCF value.\nNo commonly used standards given yet. "@en;
+    bamm:properties (:supplierProductionRegion :supplierProductionSite :supplierDistributionSite :unitId :unitType :unitDesignation :declaredUnit :declaredUnitAmount :supplierContactDetails);
     bamm:operations ().
+:supplierContactDetails a bamm:Property;
+    bamm:name "supplierContactDetails";
+    bamm:preferredName "Supplier Contact Details"@en;
+    bamm:characteristic :SupplierContactCharacteristic;
+    bamm:description "Contains the contact information of a supplier"@en.
+:SupplierContactCharacteristic a bamm-c:SingleEntity;
+    bamm:name "SupplierContactCharacteristic";
+    bamm:dataType :SupplierContactEntity.
+:SupplierContactEntity a bamm:Entity;
+    bamm:name "SupplierContactEntity";
+    bamm:properties (:supplierId :supplierName :supplierMail).
+:SupplierMailTrait a bamm-c:Trait;
+    bamm:name "SupplierMailTrait";
+    bamm-c:baseCharacteristic bamm-c:Text;
+    bamm-c:constraint :MailConstraint.
+:MailConstraint a bamm-c:RegularExpressionConstraint;
+    bamm:name "MailConstraint";
+    bamm:value "\t^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$".
