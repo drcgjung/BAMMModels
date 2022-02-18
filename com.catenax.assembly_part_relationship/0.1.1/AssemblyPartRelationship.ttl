@@ -56,7 +56,7 @@
 :quantity a bamm:Property;
     bamm:name "quantity";
     bamm:preferredName "Quantity"@en;
-    bamm:description "Quantity of child parts. \"1\" for serialized parts"@en;
+    bamm:description "Quantity of child parts. It is '1' for serialized parts"@en;
     bamm:characteristic :QuantityCharacteristic;
     bamm:exampleValue "1 litre"^^:Quantity.
 :lastModifiedOn a bamm:Property;
