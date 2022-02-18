@@ -3,7 +3,7 @@
 @prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
-@prefix catenax-c: <urn:bamm:com.catenax.address_characteristic:0.1.1#>.
+@prefix catenax-c: <urn:bamm:com.catenax.address_characteristic:1.0.0#>.
 @prefix : <urn:bamm:com.catenax.certificate_of_destruction:0.1.1#>.
 
 :CertificateOfDestruction a bamm:Aspect;
@@ -40,7 +40,7 @@
     bamm:name "dismantlerAdress";
     bamm:preferredName "dismantler adress"@en;
     bamm:description "adress for the dismantling company"@en;
-    bamm:characteristic catenax-c:PostalAdress.
+    bamm:characteristic catenax-c:PostalAddress.
 :licensedBy a bamm:Property;
     bamm:name "licensedBy";
     bamm:preferredName "licensed by"@en;
@@ -115,13 +115,13 @@
     bamm:name "firstRegistration";
     bamm:preferredName "first registration"@en;
     bamm:characteristic bamm-c:Text;
-    bamm:description "The first time this vehicle got registered with an initial license plate\t"@en;
+    bamm:description "The first time this vehicle got registered with an initial license plate"@en;
     bamm:exampleValue "19.12.2014".
 :licensePlate a bamm:Property;
     bamm:name "licensePlate";
     bamm:preferredName "license plate"@en;
     bamm:characteristic bamm-c:Text;
-    bamm:description "Current (i.e. last) Assigned Number/License Plate to the vehicle\t"@en;
+    bamm:description "Current (i.e. last) Assigned Number/License Plate to the vehicle"@en;
     bamm:exampleValue "HAL-UI123".
 :licenseAbbrivation a bamm:Property;
     bamm:name "licenseAbbrivation";
@@ -203,12 +203,12 @@
     bamm:name "advisorAdress";
     bamm:preferredName "advisor adress"@en;
     bamm:description "the adress of the advisor or inspector"@en;
-    bamm:characteristic catenax-c:PostalAdress.
+    bamm:characteristic catenax-c:PostalAddress.
 :governmentAdress a bamm:Property;
     bamm:name "governmentAdress";
     bamm:preferredName "government adress"@en;
     bamm:description "the adress of the public government"@en;
-    bamm:characteristic catenax-c:PostalAdress.
+    bamm:characteristic catenax-c:PostalAddress.
 :fax a bamm:Property;
     bamm:name "fax";
     bamm:preferredName "fax"@en;
@@ -242,7 +242,7 @@
     bamm:name "ownerAdress";
     bamm:preferredName "owner adress"@en;
     bamm:description "the adress of the last vehicle owner"@en;
-    bamm:characteristic catenax-c:PostalAdress.
+    bamm:characteristic catenax-c:PostalAddress.
 :DealerEntity a bamm:Entity;
     bamm:name "DealerEntity";
     bamm:preferredName "dealer entity"@en;
@@ -252,7 +252,7 @@
     bamm:name "dealerAdress";
     bamm:preferredName "dealer Adress"@en;
     bamm:description "the adress of the last vehicle dealer"@en;
-    bamm:characteristic catenax-c:PostalAdress.
+    bamm:characteristic catenax-c:PostalAddress.
 :citizenship a bamm:Property;
     bamm:name "citizenship";
     bamm:description "the state of being vested with the rights, privileges, and duties of a citizen"@en;
@@ -262,4 +262,4 @@
     bamm:name "completeInformation";
     bamm:preferredName "complete information"@en;
     bamm:characteristic bamm-c:Boolean;
-    bamm:description "Is the preceeding information about the last owner complete or unknown?\t"@en.
+    bamm:description "Is the preceeding information about the last owner complete or unknown?"@en.
