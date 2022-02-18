@@ -35,7 +35,7 @@
 :PartTypization a bamm:Aspect;
     bamm:name "PartTypization";
     bamm:preferredName "Part"@en;
-    bamm:description "A part, i.e. a non-serialized object (\"Katalogteil\")"@en;
+    bamm:description "A part, i.e. a non-serialized object ('Katalogteil')"@en;
     bamm:properties (:catenaXUniqueId :localIdentifier :partName [
   bamm:property :partNameCustomer;
   bamm:optional "true"^^xsd:boolean
@@ -62,7 +62,7 @@
     bamm:preferredName "local Identifiers"@en;
     bamm:description "The local identifier is valid in the manufacturers/producers dataspace und uniquly identifies a part e.g. via a part number"@en;
     bamm:characteristic :LocalIdentifierCharacteristics;
-    bamm:exampleValue "key: \"com.t-systems.windchill.serialnumber\", value: \"SN12345\""^^:LocalIdentifierEntity.
+    bamm:exampleValue "key: 'com.t-systems.windchill.serialnumber', value: 'SN12345'"^^:LocalIdentifierEntity.
 :partNameCustomer a bamm:Property;
     bamm:name "partNameCustomer";
     bamm:preferredName "Part Name Customer"@en;
@@ -73,17 +73,17 @@
     bamm:name "createdOn";
     bamm:preferredName "Creation Date"@en;
     bamm:characteristic bamm-c:Timestamp;
-    bamm:exampleValue "2022-02-03T14:48:54.709+0000"^^xsd:dateTime.
+    bamm:exampleValue "2022-02-03T14:48:54"^^xsd:dateTime.
 :modifiedOn a bamm:Property;
     bamm:name "modifiedOn";
     bamm:preferredName "Modification Date"@en;
     bamm:characteristic bamm-c:Timestamp;
-    bamm:exampleValue "2022-02-04T14:48:54.709+0000"^^xsd:dateTime.
+    bamm:exampleValue "2022-02-04T14:48:54"^^xsd:dateTime.
 :releasedOn a bamm:Property;
     bamm:name "releasedOn";
     bamm:preferredName "Release Date"@en;
     bamm:characteristic bamm-c:Timestamp;
-    bamm:exampleValue "2022-02-05T14:48:54.709+0000"^^xsd:dateTime.
+    bamm:exampleValue "2022-02-05T14:48:54"^^xsd:dateTime.
 :type a bamm:Property;
     bamm:name "type";
     bamm:preferredName "Type"@en;
@@ -102,7 +102,7 @@
 :description a bamm:Property;
     bamm:name "description";
     bamm:preferredName "Description"@en;
-    bamm:description "An expanded name or text that provides further information about the\nPart."@en;
+    bamm:description "An expanded name or text that provides further information about the Part."@en;
     bamm:characteristic :Description.
 :CatenaXUniqueIdTrait a bamm-c:Trait;
     bamm:name "CatenaXUniqueIdTrait";
