@@ -64,7 +64,7 @@
     bamm-c:values ("Unbekannt" "Diesel" "Benzin" "Vielstoff" "Elektro" "Flüssiggas" "Benzin/Flüssiggas" "Benzin/komp.Erdgas" "Hybr.Benzin/E" "Erdgas NG" "Hybr.Diesel/E" "Wasserstoff" "Hybr.Wasserst./E" "Wasserstoff/Benzin" "Wasserst./Benzin/E" "BZ/Wasserstoff" "BZ/Benzin" "BZ/Methanol" "BZ/Ethanol" "Hybr.Vielstoff/E" "Methan" "Benzin/Methan" "Hybr.Erdgas/E" "Benzin/Ethanol" "Hybr.Flüssiggas/E" "Hybr.B/E ext.aufl." "Hybr.D/E ext.aufl." "Hybr.LPG/E ext.aufl." "Hybr.W/E ext.aufl." "Hybr.V/E ext.aufl." "Hybr.NG/E ext.aufl." "Hybr.Wod.B/Eext.aufl" "Wasserstoff/NG" "Hybr.W/NG/E ext.aufl" "Ethanol" "Hybr.BZ/W/E" "Hybr.BZ/W/E ext. aufl." "Zweistoff LNG/Diesel" "Verflüssigtes Erdgas (LNG)" "Andere").
 :emptyWeight a bamm:Property;
     bamm:name "emptyWeight";
-    bamm:description "The total weight of the vehicle in kg as specified by the OEM"@en;
+    bamm:description "The empty weight of the vehicle in kg as specified. For motor vehicles of class M1 registered up to December 31, 1996: Empty weight according to vehicle registration certificate or registration certificate Part I minus weight of tank contents at 90 percent filling. For motor vehicles of category M1 registered on or after January 1, 1997: Empty weight according to vehicle registration certificate or registration certificate Part I minus weight of tank contents at 90 percent filling and minus weight of driver (75 kg). For motor vehicles of class N1: empty weight according to the vehicle registration document or registration certificate Part I minus the weight of the tank contents with a 90 percent filling and minus the weight of the driver (75 kg)."@en;
     bamm:preferredName "empty weight"@en;
     bamm:characteristic :Weight.
 :Weight a bamm-c:Measurement;
