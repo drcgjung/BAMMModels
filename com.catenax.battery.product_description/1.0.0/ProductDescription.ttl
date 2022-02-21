@@ -9,7 +9,7 @@
 :ProductDescription a bamm:Aspect;
     bamm:name "ProductDescription";
     bamm:description "Aspect to describe battery specific information such as the state of health and the capacity"@en;
-    bamm:properties (:performanceIndicator :stateOfHealth :type);
+    bamm:properties (:performanceIndicator :type :minimalStateOfHealth :currentStateOfHealth);
     bamm:operations ();
     bamm:preferredName "Product Description"@en.
 :performanceIndicator a bamm:Property;
@@ -17,11 +17,6 @@
     bamm:description "The performance indicator"@en;
     bamm:preferredName "performance indicator"@en;
     bamm:characteristic :PerformanceIndicatorCharacteristic.
-:stateOfHealth a bamm:Property;
-    bamm:name "stateOfHealth";
-    bamm:description "State of health of the battery"@en;
-    bamm:preferredName "state of health"@en;
-    bamm:characteristic :StateOfHealthCharacteristic.
 :type a bamm:Property;
     bamm:name "type";
     bamm:description "type of the battery"@en;
@@ -55,33 +50,74 @@
     bamm:characteristic :Capacity.
 :Capacity a bamm-c:Measurement;
     bamm:name "Capacity";
-    bamm:description "A capacity value"@en;
-    bamm:preferredName "capacity"@en;
+    bamm:description "Capacity in farad"@en;
+    bamm:preferredName "Capacity"@en;
     bamm:dataType xsd:double;
     bamm-c:unit unit:farad.
-:StateOfHealthEntity a bamm:Entity;
-    bamm:name "StateOfHealthEntity";
-    bamm:description "State of Health Entity of the battery"@en;
-    bamm:properties (:minimalStateOfHealth :currentStateOfHealth);
-    bamm:preferredName "State Of Health Entity"@en.
 :minimalStateOfHealth a bamm:Property;
     bamm:name "minimalStateOfHealth";
     bamm:description "describes the minimal SOH of the manufacturer for the battery to be rated as reusable "@en;
     bamm:preferredName "minimal State Of Health"@en;
-    bamm:characteristic :Percentage.
+    bamm:characteristic :MinStateOfHealthCharacterisitc.
 :currentStateOfHealth a bamm:Property;
     bamm:name "currentStateOfHealth";
     bamm:description "the current state of health of the battery"@en;
     bamm:preferredName "current state of health"@en;
-    bamm:characteristic :Percentage.
-:StateOfHealthCharacteristic a bamm:Characteristic;
-    bamm:name "StateOfHealthCharacteristic";
-    bamm:description "State of Health Characteristic"@en;
-    bamm:preferredName "State of Health Characteristic"@en;
-    bamm:dataType :StateOfHealthEntity.
+    bamm:characteristic :CurrentState.
 :Percentage a bamm-c:Measurement;
     bamm:name "Percentage";
-    bamm:description "Characteristic for percentage values"@en;
+    bamm:description "Percentage in farad"@en;
     bamm:preferredName "Percentage"@en;
-    bamm:dataType xsd:integer;
-    bamm-c:unit unit:percent.
+    bamm:dataType xsd:double;
+    bamm-c:unit unit:farad.
+:MinStateOfHealthCharacterisitc a bamm:Characteristic;
+    bamm:name "MinStateOfHealthCharacterisitc";
+    bamm:description "Characterisitc to describe a set of attributes which state the minimal state of healt of a battery"@en;
+    bamm:preferredName "minimal State of Health Characterisitc"@en;
+    bamm:dataType :MinimalStateOfHealthEntity.
+:minimalStateOfHealthValue a bamm:Property;
+    bamm:name "minimalStateOfHealthValue";
+    bamm:description "Value of the minimal state of health as percentage"@en;
+    bamm:preferredName "minimalStateOfHealthValue"@en;
+    bamm:characteristic :Percentage.
+:currentStateOfHealthValue a bamm:Property;
+    bamm:name "currentStateOfHealthValue";
+    bamm:description "current value as percentage of the state of health attribute"@en;
+    bamm:preferredName "current State of Health Value"@en;
+    bamm:characteristic :Percentage.
+:MinimalStateOfHealthEntity a bamm:Entity;
+    bamm:name "MinimalStateOfHealthEntity";
+    bamm:description "minimal State of Health Entity for a battery"@en;
+    bamm:properties (:minimalStateOfHealthValue :specificator);
+    bamm:preferredName "MinimalStateOfHealthEntity"@en.
+:specificator a bamm:Property;
+    bamm:name "specificator";
+    bamm:description "specificator of the minimal state of health"@en;
+    bamm:preferredName "specificator"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "OEM".
+:currentStateOfHealthTimestamp a bamm:Property;
+    bamm:name "currentStateOfHealthTimestamp";
+    bamm:description "timestamp of the input for the current state of health"@en;
+    bamm:preferredName "current State of Health Timestamp"@en;
+    bamm:characteristic :DateTimestamp.
+:currentStateOfHealthPhase a bamm:Property;
+    bamm:name "currentStateOfHealthPhase";
+    bamm:description "current State O fHealth Phase which needs standardization after Release 1"@en;
+    bamm:preferredName "currentStateOfHealthPhase"@en;
+    bamm:characteristic bamm-c:Text.
+:DateTimestamp a bamm:Characteristic;
+    bamm:name "DateTimestamp";
+    bamm:description "Date Timestamp for current state of health"@en;
+    bamm:preferredName "Date Timestamp"@en;
+    bamm:dataType xsd:date.
+:CurrentState a bamm-c:Set;
+    bamm:name "CurrentState";
+    bamm:description "Current State of the battery"@en;
+    bamm:preferredName "Current State"@en;
+    bamm:dataType :CurrentStateOfHealthEntity.
+:CurrentStateOfHealthEntity a bamm:Entity;
+    bamm:name "CurrentStateOfHealthEntity";
+    bamm:description "entity to describe further attributes of the current state of health of the specified battery"@en;
+    bamm:properties (:currentStateOfHealthValue :currentStateOfHealthTimestamp :currentStateOfHealthPhase);
+    bamm:preferredName "Current State Of Health Entity"@en.
