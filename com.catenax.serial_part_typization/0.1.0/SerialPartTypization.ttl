@@ -128,7 +128,7 @@
 :TypeCharacteristic a bamm-c:Enumeration;
     bamm:name "TypeCharacteristic";
     bamm:preferredName "Type Characteristic"@en;
-    bamm:description "An serialized Part must be placed into one of the following categories:\n'component', 'product', 'software', ‘assembly’, 'tool', or 'raw material'."@en;
+    bamm:description "An serialized Part must be placed into one of the following categories: 'component', 'product', 'software', ‘assembly’, 'tool', or 'raw material'."@en;
     bamm:dataType xsd:string;
     bamm:see <http%3A%2F%2Fprivate.pdm-if.org%2Fweb%2Fpdm-if%2Frecommended-practices1>;
     bamm-c:values ("Product" "Software" "Assembly" "Tool" "Raw Material" "Component").
