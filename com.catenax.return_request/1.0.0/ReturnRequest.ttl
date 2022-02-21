@@ -23,6 +23,11 @@
     bamm:preferredName "request"@en;
     bamm:description "Indicates who requested the product."@en;
     bamm:characteristic :RequestCharacteristic.
+:RequestCharacteristic a bamm-c:SingleEntity;
+    bamm:name "RequestCharacteristic";
+    bamm:preferredName "Request Characteristic"@en;
+    bamm:description "Characterisitic to describe the details regarding a requests of return"@en;
+    bamm:dataType :RequestorEntity.
 :returnConditions a bamm:Property;
     bamm:name "returnConditions";
     bamm:preferredName "return conditions"@en;
@@ -33,7 +38,7 @@
     bamm:name "latestReturnDate";
     bamm:preferredName "latest return date"@en;
     bamm:description "Describes until when the return request is valid in GMT timezone."@en;
-    bamm:characteristic :Timestamp;
+    bamm:characteristic :DateTimestamp;
     bamm:exampleValue "2025-01-01"^^xsd:date.
 :desiredPrice a bamm:Property;
     bamm:name "desiredPrice";
@@ -62,30 +67,31 @@
     bamm:description "currency of the price of the return request conform to the ISO4217 in numerical codes"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "EUR";
-    bamm:see <https%253A%252F%252Fde.wikipedia.org%252Fwiki%252FISO_4217%2523Alphabetische_Codes>.
-:requestDate a bamm:Property;
-    bamm:name "requestDate";
-    bamm:preferredName "request date"@en;
-    bamm:description "Describes date when the return request was placed in GMT timezone."@en;
-    bamm:characteristic :Timestamp;
-    bamm:exampleValue "2022-01-01"^^xsd:date.
-:RequestorEntity a bamm:Entity;
-    bamm:name "RequestorEntity";
-    bamm:properties (:returnConditions :requestDate :latestReturnDate :desiredPrice);
-    bamm:preferredName "Requestor Entity"@en;
-    bamm:description "comany who requests a return\n"@en.
+    bamm:see <https%25253A%25252F%25252Fde.wikipedia.org%25252Fwiki%25252FISO_4217%252523Alphabetische_Codes>.
 :CostCharacteristic a bamm:Characteristic;
     bamm:name "CostCharacteristic";
     bamm:preferredName "Cost Characteristic"@en;
     bamm:description "characteristic to describe the cost in a float type"@en;
     bamm:dataType xsd:float.
-:RequestCharacteristic a bamm-c:SingleEntity;
-    bamm:name "RequestCharacteristic";
-    bamm:preferredName "Request Characteristic"@en;
-    bamm:description "Characterisitic to describe the details regarding a requests of return"@en;
-    bamm:dataType :RequestorEntity.
-:Timestamp a bamm:Characteristic;
-    bamm:name "Timestamp";
-    bamm:preferredName "Timestamp"@en;
+:requestDate a bamm:Property;
+    bamm:name "requestDate";
+    bamm:preferredName "request date"@en;
+    bamm:description "Describes date when the return request was placed in GMT timezone."@en;
+    bamm:characteristic :DateTimestamp;
+    bamm:exampleValue "2022-01-01"^^xsd:date.
+:RequestorEntity a bamm:Entity;
+    bamm:name "RequestorEntity";
+    bamm:properties (:returnConditions :requestDate :latestReturnDate :desiredPrice :productConditions);
+    bamm:preferredName "Requestor Entity"@en;
+    bamm:description "comany who requests a return\n"@en.
+:productConditions a bamm:Property;
+    bamm:name "productConditions";
+    bamm:preferredName "product conditions"@en;
+    bamm:description "textual description of the product conditions"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "at least 1990 model".
+:DateTimestamp a bamm:Characteristic;
+    bamm:name "DateTimestamp";
+    bamm:preferredName "date timestamp"@en;
     bamm:description "Timestamp for dates"@en;
     bamm:dataType xsd:date.
