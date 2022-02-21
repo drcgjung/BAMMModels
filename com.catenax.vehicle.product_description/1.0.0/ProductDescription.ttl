@@ -179,7 +179,7 @@
     bamm:exampleValue "X3 M40".
 :LifecyclePhases a bamm-c:Enumeration;
     bamm:name "LifecyclePhases";
-    bamm:description "temporary definition of lifecycle phases as following in enumeration for: as specified by OEM, as built by OEM,\tas maintained by workshop, as recieved by dismantling"@en;
+    bamm:description "temporary definition of lifecycle phases as following in enumeration for: as specified by OEM, as built by OEM, as maintained by workshop, as recieved by dismantling"@en;
     bamm:preferredName "Lifecycle phases"@en;
     bamm:dataType xsd:string;
     bamm-c:values ("as specified by OEM" "as built by OEM" "as maintained by workshop" "as recieved by dismantling").
