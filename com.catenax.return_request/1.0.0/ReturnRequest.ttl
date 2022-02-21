@@ -83,7 +83,7 @@
     bamm:name "RequestorEntity";
     bamm:properties (:returnConditions :requestDate :latestReturnDate :desiredPrice :productConditions);
     bamm:preferredName "Requestor Entity"@en;
-    bamm:description "comany who requests a return\n"@en.
+    bamm:description "comany who requests a return"@en.
 :productConditions a bamm:Property;
     bamm:name "productConditions";
     bamm:preferredName "product conditions"@en;
