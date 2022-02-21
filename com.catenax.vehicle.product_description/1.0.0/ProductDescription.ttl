@@ -33,6 +33,17 @@
     bamm:description "Engine with power and cubic size"@en;
     bamm:preferredName "Engine Entity"@en;
     bamm:properties (:size :power).
+:size a bamm:Property;
+    bamm:name "size";
+    bamm:description "size of the engine in cubic capacity"@en;
+    bamm:preferredName "size"@en;
+    bamm:characteristic :CubicCapacity.
+:power a bamm:Property;
+    bamm:name "power";
+    bamm:description "engine power is the power that an engine can put out"@en;
+    bamm:preferredName "power"@en;
+    bamm:characteristic :EnginePower;
+    bamm:exampleValue "45"^^xsd:integer.
 :mileage a bamm:Property;
     bamm:name "mileage";
     bamm:description "mileage of the vehicle"@en;
@@ -43,6 +54,11 @@
     bamm:description "definition of mileage of a vehicle"@en;
     bamm:preferredName "MileageCharacteristic"@en;
     bamm:dataType :MileageEntity.
+:MileageEntity a bamm:Entity;
+    bamm:name "MileageEntity";
+    bamm:description "definition of mileage attributes"@en;
+    bamm:preferredName "mileage entity"@en;
+    bamm:properties (:mileageDistance :mileagePhase :mileageTimestamp).
 :Distance a bamm-c:Measurement;
     bamm:name "Distance";
     bamm:description "distance in kilometre"@en;
@@ -55,7 +71,7 @@
     bamm:preferredName "fuel"@en;
     bamm:characteristic :FuelType;
     bamm:exampleValue "Diesel";
-    bamm:see <https%253A%252F%252Fwww.kba.de%252FSharedDocs%252FDownloads%252FDE%252FSV%252Fsv232_n1_kraft_pdf.pdf%253F__blob%253DpublicationFile%2526v%253D3>.
+    bamm:see <https%25253A%25252F%25252Fwww.kba.de%25252FSharedDocs%25252FDownloads%25252FDE%25252FSV%25252Fsv232_n1_kraft_pdf.pdf%25253F__blob%25253DpublicationFile%252526v%25253D3>.
 :FuelType a bamm-c:Enumeration;
     bamm:name "FuelType";
     bamm:description "enumeration of possible fuel types of a vehicle"@en;
@@ -99,40 +115,40 @@
     bamm:preferredName "group"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Sonderausstattung".
-:size a bamm:Property;
-    bamm:name "size";
-    bamm:description "size of the engine in cubic capacity"@en;
-    bamm:preferredName "size"@en;
-    bamm:characteristic :CubicCapacity.
-:power a bamm:Property;
-    bamm:name "power";
-    bamm:description "engine power is the power that an engine can put out"@en;
-    bamm:preferredName "power"@en;
-    bamm:characteristic :EnginePower;
-    bamm:exampleValue "45"^^xsd:integer.
-:EnginePower a bamm-c:Measurement;
-    bamm:name "EnginePower";
-    bamm:description "engine power expressed in kilowatt"@en;
-    bamm:preferredName "Engine Power"@en;
-    bamm:dataType xsd:integer;
-    bamm-c:unit unit:kilowatt.
 :CubicCapacity a bamm-c:Measurement;
     bamm:name "CubicCapacity";
     bamm:description "cubic capacity of the engine"@en;
     bamm:preferredName "Cubic Capacity"@en;
     bamm:dataType xsd:integer;
     bamm-c:unit unit:cubicCentimetre.
+:EnginePower a bamm-c:Measurement;
+    bamm:name "EnginePower";
+    bamm:description "engine power expressed in kilowatt"@en;
+    bamm:preferredName "Engine Power"@en;
+    bamm:dataType xsd:integer;
+    bamm-c:unit unit:kilowatt.
 :equipmentVariants a bamm:Property;
     bamm:name "equipmentVariants";
     bamm:description "equipment variants which are build into a specific vehicle"@en;
     bamm:preferredName "equipment variants"@en;
     bamm:characteristic :EquipmentVariantCharacteristic.
+:EquipmentVariantCharacteristic a bamm-c:Set;
+    bamm:name "EquipmentVariantCharacteristic";
+    bamm:description "characteristic to describe the equipment codes. List needs to be standardized after Release 1"@en;
+    bamm:preferredName "equipment characteristic"@en;
+    bamm:dataType :EquipmentVariantEntity.
 :bodyVariant a bamm:Property;
     bamm:name "bodyVariant";
     bamm:description "vehicle variant - Body shapes: Sedan, station wagon, hatchback, coupe, convertible, SUV, pickup, Doka (double cab), etc. Also special models that may differ from the basic shapes (e.g. BMW M-series, Audi S-series, Long version, right-hand drive, special vehicles (armor). etc. )."@en;
     bamm:preferredName "body variant"@en;
     bamm:characteristic :KbaVariants;
     bamm:exampleValue "SUV".
+:KbaVariants a bamm-c:Enumeration;
+    bamm:name "KbaVariants";
+    bamm:description "body variants as defined from the German Federal Office for motor vehicle. Enumeration of an short version. Completion after Release 1"@en;
+    bamm:preferredName "KBA Variants"@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("Limousine" "Schräghecklimousine" "Kombilimousine" "Coupé" "Kabrio-Limousine" "Cabrio-Limousine" "Mehrzweckfahrzeug" "Pkw-Pick-up" "Van" "Pick-up").
 :ProductDescription a bamm:Aspect;
     bamm:name "ProductDescription";
     bamm:description "vehicle specific data"@en;
@@ -145,11 +161,6 @@
     bamm:preferredName "vehicle model"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "X3 M40".
-:MileageEntity a bamm:Entity;
-    bamm:name "MileageEntity";
-    bamm:description "definition of mileage attributes"@en;
-    bamm:preferredName "mileage entity"@en;
-    bamm:properties (:mileageDistance :mileagePhase :mileageTimestamp).
 :mileageDistance a bamm:Property;
     bamm:name "mileageDistance";
     bamm:description "distance the vehicle has travelled"@en;
@@ -160,20 +171,15 @@
     bamm:name "mileagePhase";
     bamm:description "Phase in which the mileage was measured. Phase enumeration will follow after Release 1"@en;
     bamm:preferredName "mileage phase"@en;
-    bamm:characteristic bamm-c:Text.
+    bamm:characteristic :LifecyclePhases.
 :mileageTimestamp a bamm:Property;
     bamm:name "mileageTimestamp";
     bamm:description "timestamp when the mileage was measured"@en;
     bamm:preferredName "mileage timestamp"@en;
     bamm:characteristic :DateTimestamp.
-:KbaVariants a bamm-c:Enumeration;
-    bamm:name "KbaVariants";
-    bamm:description "body variants as defined from the German Federal Office for motor vehicle. Enumeration of an short version. Completion after Release 1"@en;
-    bamm:preferredName "KBA Variants"@en;
+:LifecyclePhases a bamm-c:Enumeration;
+    bamm:name "LifecyclePhases";
+    bamm:description "temporary definition of lifecycle phases as following in enumeration for: as specified by OEM, as built by OEM,\tas maintained by workshop, as recieved by dismantling"@en;
+    bamm:preferredName "Lifecycle phases"@en;
     bamm:dataType xsd:string;
-    bamm-c:values ("Limousine" "Schräghecklimousine" "Kombilimousine" "Coupé" "Kabrio-Limousine" "Cabrio-Limousine" "Mehrzweckfahrzeug" "Pkw-Pick-up" "Van" "Pick-up").
-:EquipmentVariantCharacteristic a bamm-c:Set;
-    bamm:name "EquipmentVariantCharacteristic";
-    bamm:description "characteristic to describe the equipment codes. List needs to be standardized after Release 1"@en;
-    bamm:preferredName "equipment characteristic"@en;
-    bamm:dataType :EquipmentVariantEntity.
+    bamm-c:values ("as specified by OEM" "as built by OEM" "as maintained by workshop" "as recieved by dismantling").
