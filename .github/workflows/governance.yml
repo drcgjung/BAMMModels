@@ -114,8 +114,8 @@ jobs:
     - name: Fetch Access Token
       id: token_request
       env:
-        CLIENT_ID: ${{ secrets.idpClientId }}
-        CLIENT_SECRET: ${{ secrets.idpClientSecret }}
+        CLIENT_ID: ${{ secrets.IDP_CLIENT_ID }}
+        CLIENT_SECRET: ${{ secrets.IDP_CLIENT_SECRET }}
       run: |
         access_token=$( curl --request POST \
         --url "https://$IDP_URL" \
