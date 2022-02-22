@@ -25,6 +25,7 @@
 #            - WORKSPACE the target environment (default: dev042)
 #            - SEMANTIC_HUB the hub servie endpoint (default: catenax${WORKSPACE}akssrv.germanywestcentral.cloudapp.azure.com/semantics/api/v1/models)
 #            - PUBLISHER the publisher of the models (default: Catena-X Consortium)
+#            - ACCESS_TOKEN the access token needed to authenticate with the Semantic Hub API
 
 if [[ -z "${WORKSPACE}" ]]; then
    WORKSPACE=dev042
@@ -36,6 +37,11 @@ fi
 
 if [[ -z "${PUBLISHER}" ]]; then
    PUBLISHER="Catena-X Consortium"
+fi
+
+if [[ -z "${ACCESS_TOKEN}" ]]; then
+  echo "Access Token is missing"
+  exit 1
 fi
 
 REPLACE_ORG_NEWLINE='s/\\n/\\\\n/g'
@@ -90,6 +96,7 @@ do
         STATUS=$(echo '{"private": false, "publisher":"'${PUBLISHER}'", "status":"'${CURRENT_MODEL_STATUS}'", "type": "BAMM", "model":"' $( cat ${argument} | sed ${REPLACE_ORG_NEWLINE} | sed ${REPLACE_QUOTE}  | sed ${REPLACE_NEWLINE} ) '"}' | \
             curl -s --location --request POST 'https://'${SEMANTIC_HUB} \
                 --header 'Content-Type: application/json' \
+                --header "Authorization: Bearer $ACCESS_TOKEN" \
                 -d @- -w '%{http_code}')
 #    --header 'Authorization: Basic dXNlcjpwYXNzd29yZA=='
 
@@ -105,6 +112,7 @@ do
             STATUS=$(echo '{ "private": false, "publisher":"'${PUBLISHER}'", "status":"'${CURRENT_MODEL_STATUS}'", "type": "BAMM", "model":"' $( cat ${argument} | sed ${REPLACE_ORG_NEWLINE} | sed ${REPLACE_QUOTE}  | sed ${REPLACE_NEWLINE} ) '"}' | \
                 curl -s --location --request PUT 'https://'${SEMANTIC_HUB} \
                 --header 'Content-Type: application/json' \
+                --header "Authorization: Bearer $ACCESS_TOKEN" \
                 -d @- -w '%{http_code}')
 #    --header 'Authorization: Basic dXNlcjpwYXNzd29yZA=='
 
@@ -140,7 +148,7 @@ do
           echo "About to delete ${argument} in ${SEMANTIC_HUB}. Assuming MODEL_NAME ${MODEL_NAME} and version ${MODEL_VERSION}"
           JQ_QUERY=".[]|select(.id|endswith(\"${MODEL_VERSION}#${MODEL_NAME}\"))|.id"
           URL="https://${SEMANTIC_HUB}?nameFilter=${MODEL_NAME}&namespaceFilter=${MODEL_VERSION}"
-          MODELS_TO_DELETE=($(curl -s --location --request GET ${URL} | jq -r $JQ_QUERY))
+          MODELS_TO_DELETE=($(curl -s --location --request GET ${URL} --header "Authorization: Bearer $ACCESS_TOKEN" | jq -r $JQ_QUERY))
 #    --header 'Authorization: Basic dXNlcjpwYXNzd29yZA=='
           for element in ${MODELS_TO_DELETE[@]}
           do
@@ -151,7 +159,7 @@ do
             echo "About to delete ${URLENCODED_MODEL_TO_DELETE} in ${SEMANTIC_HUB}"
 
             URL="https://${SEMANTIC_HUB}/${URLENCODED_MODEL_TO_DELETE}"
-            STATUS=$(curl -s --location --request DELETE ${URL} -w '%{http_code}')
+            STATUS=$(curl -s --location --request DELETE ${URL} --header "Authorization: Bearer $ACCESS_TOKEN" -w '%{http_code}')
 #    --header 'Authorization: Basic dXNlcjpwYXNzd29yZA=='
             
             echo "Got deletion status ${STATUS}"
