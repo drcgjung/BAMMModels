@@ -79,7 +79,7 @@
     bamm:exampleValue "120000"^^xsd:integer.
 :mileagePhase a bamm:Property;
     bamm:name "mileagePhase";
-    bamm:description "Phase in which the mileage was measured. Phase enumeration will follow after Release 1"@en;
+    bamm:description "Lifecycle phase in which the mileage was measured."@en;
     bamm:preferredName "mileage phase"@en;
     bamm:characteristic :LifecyclePhases.
 :mileageTimestamp a bamm:Property;
@@ -93,13 +93,19 @@
     bamm:preferredName "Distance"@en;
     bamm:dataType xsd:integer;
     bamm-c:unit unit:kilometre.
+:LifecyclePhases a bamm-c:Enumeration;
+    bamm:name "LifecyclePhases";
+    bamm:description "temporary definition of lifecycle phases as following in enumeration for: as specified by OEM, as built by OEM, as maintained by workshop, as recieved by dismantling"@en;
+    bamm:preferredName "Lifecycle phases"@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("as maintained by workshop" "as recieved by dismantling").
 :fuel a bamm:Property;
     bamm:name "fuel";
     bamm:description "the fuel type of the vehicle"@en;
     bamm:preferredName "fuel"@en;
     bamm:characteristic :FuelType;
     bamm:exampleValue "Diesel";
-    bamm:see <https%2525253A%2525252F%2525252Fwww.kba.de%2525252FSharedDocs%2525252FDownloads%2525252FDE%2525252FSV%2525252Fsv232_n1_kraft_pdf.pdf%2525253F__blob%2525253DpublicationFile%25252526v%2525253D3>.
+    bamm:see <https%252525253A%252525252F%252525252Fwww.kba.de%252525252FSharedDocs%252525252FDownloads%252525252FDE%252525252FSV%252525252Fsv232_n1_kraft_pdf.pdf%252525253F__blob%252525253DpublicationFile%2525252526v%252525253D3>.
 :FuelType a bamm-c:Enumeration;
     bamm:name "FuelType";
     bamm:description "enumeration of possible fuel types of a vehicle"@en;
@@ -150,21 +156,15 @@
     bamm:characteristic :EquipmentVariantCharacteristic.
 :EquipmentVariantCharacteristic a bamm-c:Set;
     bamm:name "EquipmentVariantCharacteristic";
-    bamm:description "characteristic to describe the equipment codes. List needs to be standardized after Release 1"@en;
+    bamm:description "Characteristic to describe a set of equipment codes identified by a code, group and description. The list will undergo further standardization in upcoming versions."@en;
     bamm:preferredName "equipment characteristic"@en;
     bamm:dataType :EquipmentVariantEntity.
 :bodyVariant a bamm:Property;
     bamm:name "bodyVariant";
     bamm:description "vehicle variant - Body shapes: Sedan, station wagon, hatchback, coupe, convertible, SUV, pickup, Doka (double cab), etc. Also special models that may differ from the basic shapes (e.g. BMW M-series, Audi S-series, Long version, right-hand drive, special vehicles (armor). etc. )."@en;
     bamm:preferredName "body variant"@en;
-    bamm:characteristic :KbaVariants;
+    bamm:characteristic :KbaVariant;
     bamm:exampleValue "SUV".
-:KbaVariants a bamm-c:Enumeration;
-    bamm:name "KbaVariants";
-    bamm:description "body variants as defined from the German Federal Office for motor vehicle. Enumeration of an short version. Completion after Release 1"@en;
-    bamm:preferredName "KBA Variants"@en;
-    bamm:dataType xsd:string;
-    bamm-c:values ("Limousine" "Schräghecklimousine" "Kombilimousine" "Coupé" "Kabrio-Limousine" "Cabrio-Limousine" "Mehrzweckfahrzeug" "Pkw-Pick-up" "Van" "Pick-up").
 :ProductDescription a bamm:Aspect;
     bamm:name "ProductDescription";
     bamm:description "vehicle specific data"@en;
@@ -177,14 +177,14 @@
     bamm:preferredName "vehicle model"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "X3 M40".
-:LifecyclePhases a bamm-c:Enumeration;
-    bamm:name "LifecyclePhases";
-    bamm:description "temporary definition of lifecycle phases as following in enumeration for: as specified by OEM, as built by OEM, as maintained by workshop, as recieved by dismantling"@en;
-    bamm:preferredName "Lifecycle phases"@en;
-    bamm:dataType xsd:string;
-    bamm-c:values ("as specified by OEM" "as built by OEM" "as maintained by workshop" "as recieved by dismantling").
 :van a bamm:Property;
     bamm:name "van";
     bamm:description "Vehicle Anonymised Number (VAN) converted from a VIN"@en;
     bamm:preferredName "van"@en;
     bamm:characteristic bamm-c:Text.
+:KbaVariant a bamm-c:Enumeration;
+    bamm:name "KbaVariant";
+    bamm:description "Current version of the Enumeration is sub-set of list defined from the German Federal Office for motor vehicles. "@en;
+    bamm:preferredName "KBA Variant"@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("Limousine" "Schräghecklimousine" "Kombilimousine" "Coupé" "Kabrio-Limousine" "Cabrio-Limousine" "Mehrzweckfahrzeug" "Pkw-Pick-up" "Van" "Pick-up").
