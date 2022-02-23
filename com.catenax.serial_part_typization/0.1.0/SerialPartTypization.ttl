@@ -9,33 +9,28 @@
     bamm:name "ProductionCountryCodeTrait";
     bamm:preferredName "Production Country Code Trait"@en;
     bamm:description "Trait to ensure standard data format for country code"@en;
-    bamm-c:constraint :CountryCodeConstraint;
+    bamm-c:constraint :CountryCodeRegularExpression;
     bamm-c:baseCharacteristic :CountryCodeCharacteristic.
-:CountryCodeConstraint a bamm-c:LengthConstraint;
-    bamm:name "CountryCodeConstraint";
-    bamm:description "Ensures the ISO three-letter code for countries"@en;
-    bamm-c:minValue "3"^^xsd:nonNegativeInteger;
-    bamm-c:maxValue "3"^^xsd:nonNegativeInteger.
 :CountryCodeCharacteristic a bamm:Characteristic;
     bamm:name "CountryCodeCharacteristic";
     bamm:preferredName "Country Code Characteristic"@en;
     bamm:description "ISO 3166-1 alpha-3 – three-letter country codes "@en;
     bamm:dataType xsd:string;
-    bamm:see <https%2525253A%2525252F%2525252Fwww.iso.org%2525252Fiso-3166-country-codes.html>.
+    bamm:see <https%252525253A%252525252F%252525252Fwww.iso.org%252525252Fiso-3166-country-codes.html>.
 :UUIDv4RegularExpression a bamm-c:RegularExpressionConstraint;
     bamm:name "UUIDv4RegularExpression";
     bamm:preferredName "Catena-X Id Regular Expression"@en;
-    bamm:description "Regular Expression for UUID v4"@en;
+    bamm:description "The provided regular expression ensures that the UUID is composed of five groups of characters separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters (32 hexadecimal characters and 4 hyphens)."@en;
     bamm:value "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$".
 :UUIDv4 a bamm:Characteristic;
     bamm:name "UUIDv4";
     bamm:preferredName "UUIDv4"@en;
-    bamm:description "A Version 4 UUID is a universally unique identifier that is generated using random numbers. "@en;
+    bamm:description "A version 4 UUID is a universally unique identifier that is generated using random 32 hexadecimal characters."@en;
     bamm:dataType xsd:string.
 :KeyValueList a bamm:Entity;
     bamm:name "KeyValueList";
     bamm:preferredName "Key Value List"@en;
-    bamm:description "A list of key values pairs, which compose the local identifier"@en;
+    bamm:description "A list of key value pairs, which are composed of a key and a corresponding value."@en;
     bamm:properties (:key :value).
 :key a bamm:Property;
     bamm:name "key";
@@ -63,11 +58,11 @@
     bamm:name "SerialPartTypization";
     bamm:preferredName "Serial Part Typization"@en;
     bamm:description "Serialized parts are instantiations of parts where the particular instantiation can be uniquely identified by means of serial numbers or similar identifiers (e.g. VIN). "@en;
-    bamm:properties (:catenaXId :localIdentifier [
+    bamm:properties (:catenaXId :localIdentifiers [
   bamm:property :name;
   bamm:optional "true"^^xsd:boolean
 ] :production :type [
-  bamm:property :partNumber;
+  bamm:property :number;
   bamm:optional "true"^^xsd:boolean
 ]);
     bamm:operations ().
@@ -77,11 +72,6 @@
     bamm:description "The fully anonymous Catena-X ID of the serialized part, valid for the Catena-X dataspace."@en;
     bamm:characteristic :CatenaXIdTrait;
     bamm:exampleValue "580d3adf-1981-44a0-a214-13d6ceed9379".
-:localIdentifier a bamm:Property;
-    bamm:name "localIdentifier";
-    bamm:preferredName "Local Identifier"@en;
-    bamm:description "The local identifier, which uniquely identifies a part in specific dataspaces, but is not unique in Catena-X dataspace "@en;
-    bamm:characteristic :LocalIdentifierCharacteristic.
 :name a bamm:Property;
     bamm:name "name";
     bamm:preferredName "Name"@en;
@@ -99,11 +89,6 @@
     bamm:description "The type of part"@en;
     bamm:characteristic :TypeCharacteristic;
     bamm:exampleValue "Software".
-:partNumber a bamm:Property;
-    bamm:name "partNumber";
-    bamm:preferredName "Part Number"@en;
-    bamm:description "The part number of the part design"@en;
-    bamm:characteristic :PartNumberCharacteristic.
 :CatenaXIdTrait a bamm-c:Trait;
     bamm:name "CatenaXIdTrait";
     bamm:preferredName "Catena-X ID Trait"@en;
@@ -128,10 +113,15 @@
 :TypeCharacteristic a bamm-c:Enumeration;
     bamm:name "TypeCharacteristic";
     bamm:preferredName "Type Characteristic"@en;
-    bamm:description "An serialized Part must be placed into one of the following categories: 'component', 'product', 'software', ‘assembly’, 'tool', or 'raw material'."@en;
+    bamm:description "A serialized Part must be placed into one of the following categories: 'component', 'product', 'software', ‘assembly’, 'tool', or 'raw material'."@en;
     bamm:dataType xsd:string;
     bamm:see <http%3A%2F%2Fprivate.pdm-if.org%2Fweb%2Fpdm-if%2Frecommended-practices1>;
     bamm-c:values ("Product" "Software" "Assembly" "Tool" "Raw Material" "Component").
+:NameEntity a bamm:Entity;
+    bamm:name "NameEntity";
+    bamm:preferredName "Name Entity"@en;
+    bamm:description "Encapsulates the various part names"@en;
+    bamm:properties (:nameAtManufacturer :nameAtCustomer).
 :ProductionEntity a bamm:Entity;
     bamm:name "ProductionEntity";
     bamm:preferredName "Production Entity"@en;
@@ -152,21 +142,16 @@
     bamm:description "Country code where the part was produced"@en;
     bamm:characteristic :ProductionCountryCodeTrait;
     bamm:exampleValue "HUR".
-:NameEntity a bamm:Entity;
-    bamm:name "NameEntity";
-    bamm:preferredName "Name Entity"@en;
-    bamm:description "Encapsulates the various part names"@en;
-    bamm:properties (:nameAtManufacturer :nameAtCustomer).
 :nameAtManufacturer a bamm:Property;
     bamm:name "nameAtManufacturer";
-    bamm:preferredName "Name At Manufacturer"@en;
-    bamm:description "Name of the part, assigned by the manufacturer"@en;
+    bamm:preferredName "Name at Manufacturer"@en;
+    bamm:description "Name of the part as assigned by the manufacturer"@en;
     bamm:characteristic :PartNameCharacteristic;
     bamm:exampleValue "Mirror left".
 :nameAtCustomer a bamm:Property;
     bamm:name "nameAtCustomer";
-    bamm:preferredName "name At Customer"@en;
-    bamm:description "Name of the part, as assigned by the customer"@en;
+    bamm:preferredName "Name at Customer"@en;
+    bamm:description "Name of the part as assigned by the customer"@en;
     bamm:characteristic :PartNameCharacteristic;
     bamm:exampleValue "Mirror Links".
 :PartNameCharacteristic a bamm:Characteristic;
@@ -174,30 +159,45 @@
     bamm:preferredName "Part Name Characteristic"@en;
     bamm:description "Part Name in string format from the respective system in the value chain"@en;
     bamm:dataType xsd:string.
-:PartNumberCharacteristic a bamm:Characteristic;
-    bamm:name "PartNumberCharacteristic";
-    bamm:preferredName "Part Number Characteristic"@en;
-    bamm:description "The part number of the part design"@en;
-    bamm:dataType :PartNumberEntity.
-:PartNumberEntity a bamm:Entity;
-    bamm:name "PartNumberEntity";
-    bamm:preferredName "Part Number Entity"@en;
-    bamm:description "Encapsulation for the various part numbers"@en;
-    bamm:properties (:partNumberAtManufacturer :partNumberAtCustomer).
-:partNumberAtManufacturer a bamm:Property;
-    bamm:name "partNumberAtManufacturer";
-    bamm:preferredName "Part Number at Manufacturer"@en;
-    bamm:description "part number assigned by the manufacturer to identify the part design"@en;
-    bamm:characteristic :PartNumberLayout;
-    bamm:exampleValue "123-0.740-3434-A".
-:PartNumberLayout a bamm:Characteristic;
-    bamm:name "PartNumberLayout";
-    bamm:preferredName "Part Number Layout"@en;
-    bamm:description "the part number usually is a multi-charcter string assigned by an ERP system"@en;
-    bamm:dataType xsd:string.
 :partNumberAtCustomer a bamm:Property;
     bamm:name "partNumberAtCustomer";
     bamm:preferredName "Part Number at Customer"@en;
-    bamm:description "part number (assigned by the customer) to identify the part design"@en;
-    bamm:characteristic :PartNumberLayout;
+    bamm:description "Part number as assigned by the customer. The number identifies the part design in the customers dataspace."@en;
+    bamm:characteristic :NumberLayout;
     bamm:exampleValue "PRT-12345".
+:number a bamm:Property;
+    bamm:name "number";
+    bamm:preferredName "Number"@en;
+    bamm:description "The number of the part that identifies the part design "@en;
+    bamm:characteristic :NumberCharacteristic.
+:NumberCharacteristic a bamm:Characteristic;
+    bamm:name "NumberCharacteristic";
+    bamm:preferredName "Number Characteristic"@en;
+    bamm:description "The characteristics of the part number"@en;
+    bamm:dataType :NumberEntity.
+:NumberEntity a bamm:Entity;
+    bamm:name "NumberEntity";
+    bamm:preferredName "Number Entity"@en;
+    bamm:description "Encapsulation for the part number as assigned by the manufacturer and the  part number as assigned by the customer "@en;
+    bamm:properties (:numberAtManufacturer :partNumberAtCustomer).
+:numberAtManufacturer a bamm:Property;
+    bamm:name "numberAtManufacturer";
+    bamm:preferredName "Number at Manufacturer"@en;
+    bamm:description "Part number as assigned by the manufacturer of the part. The number identifies the part design in the manufacturers dataspace."@en;
+    bamm:characteristic :NumberLayout;
+    bamm:exampleValue "123-0.740-3434-A".
+:NumberLayout a bamm:Characteristic;
+    bamm:name "NumberLayout";
+    bamm:preferredName "Number Layout"@en;
+    bamm:description "the part number is a multi-character string, ususally assigned by an ERP system"@en;
+    bamm:dataType xsd:string.
+:localIdentifiers a bamm:Property;
+    bamm:name "localIdentifiers";
+    bamm:preferredName "Local Identifiers"@en;
+    bamm:description "A local identifier uniquely identifies a part in a specific dataspace, but is not unique in Catena-X dataspace. Multiple local identifiers may exist."@en;
+    bamm:characteristic :LocalIdentifierCharacteristic.
+:CountryCodeRegularExpression a bamm-c:RegularExpressionConstraint;
+    bamm:name "CountryCodeRegularExpression";
+    bamm:preferredName "Country Code Regular Expression"@en;
+    bamm:description "Regular Expression that ensures a three-letter code "@en;
+    bamm:value "^[A-Z][A-Z][A-Z]$".
