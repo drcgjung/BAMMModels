@@ -73,8 +73,7 @@
     bamm:preferredName "currency"@en;
     bamm:description "currency of the price of the return request conform to the ISO4217 in numerical codes"@en;
     bamm:characteristic :CurrencyTrait;
-    bamm:exampleValue "EUR";
-    bamm:see <www.iso.org%2Fiso-4217-currency-codes.html>.
+    bamm:exampleValue "EUR".
 :CostCharacteristic a bamm:Characteristic;
     bamm:name "CostCharacteristic";
     bamm:preferredName "Cost Characteristic"@en;
@@ -87,10 +86,11 @@
 :CurrencyCharacteristic a bamm:Characteristic;
     bamm:name "CurrencyCharacteristic";
     bamm:preferredName "CurrencyCharacteristic"@en;
-    bamm:description "Characteristic to describe the iso-code conform curreny entries"@en;
-    bamm:dataType xsd:string.
+    bamm:description "Characteristic to represent the iso-code conform curreny entries as defined in the ISO4217 for numerical codes"@en;
+    bamm:dataType xsd:string;
+    bamm:see <https://www.iso.org/iso-4217-currency-codes.html> .
 :CurrencyConstraint a bamm-c:RegularExpressionConstraint;
     bamm:name "CurrencyConstraint";
     bamm:description "reduces the possible entry to three entries from A-Z"@en;
-    bamm:see <www.iso.org/iso-4217-currency-codes.html>;
-    bamm:value "[A-Z]{3}".
+    bamm:see <https://www.iso.org/iso-4217-currency-codes.html>;
+    bamm:value "^[A-Z]{3}$".
