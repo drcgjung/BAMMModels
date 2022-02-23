@@ -11,7 +11,7 @@
     bamm:preferredName "Marketplace Offer"@en;
     bamm:description "description of all needed information to place a market place offer on the marketplace"@en;
     bamm:operations ();
-    bamm:properties (:sku :quantity :unitOfMeasure :condition :pickupLocation :incoterms :price :currency :image :attachment).
+    bamm:properties (:sku :quantity :unitOfMeasure :condition :pickupLocation :incoterms :price :currency :image :attachment :bundleOffer :status).
 :sku a bamm:Property;
     bamm:name "sku";
     bamm:description "Stock Keeping Unit"@en;
@@ -19,7 +19,7 @@
 :quantity a bamm:Property;
     bamm:name "quantity";
     bamm:description "The available quantity of the on the offered product in SKU."@en;
-    bamm:characteristic :QuantityCharacteristic.
+    bamm:characteristic bamm-c:Text.
 :unitOfMeasure a bamm:Property;
     bamm:name "unitOfMeasure";
     bamm:description "The unit of measure (related to quantity)."@en;
@@ -30,8 +30,8 @@
     bamm:characteristic :ConditionCharacteristic.
 :pickupLocation a bamm:Property;
     bamm:name "pickupLocation";
-    bamm:description "The pickup location(s) for the product."@en;
-    bamm:characteristic bamm-c:Text.
+    bamm:description "The pickup location for the offered item."@en;
+    bamm:characteristic :PostalAddress.
 :incoterms a bamm:Property;
     bamm:name "incoterms";
     bamm:description "The incoterms for the delivery of the product."@en;
@@ -48,11 +48,26 @@
     bamm:name "image";
     bamm:description "Images of the product."@en;
     bamm:characteristic :ImageFile.
+:attachment a bamm:Property;
+    bamm:name "attachment";
+    bamm:description "document attachment related to the product."@en;
+    bamm:characteristic :Attachment.
+:ConditionCharacteristic a bamm-c:Enumeration;
+    bamm:name "ConditionCharacteristic";
+    bamm:preferredName "Condition Characteristic"@en;
+    bamm:description "Condition of the article as enumeration"@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("New" "Used" "Refurbished" "Other").
 :ImageFile a bamm:Characteristic;
     bamm:name "ImageFile";
     bamm:preferredName "ImageFile"@en;
     bamm:description "Image of the object"@en;
     bamm:dataType :File.
+:File a bamm:Entity;
+    bamm:name "File";
+    bamm:preferredName "File"@en;
+    bamm:description "Image file of the object"@en;
+    bamm:properties (:name :location).
 :Attachment a bamm:Characteristic;
     bamm:name "Attachment";
     bamm:preferredName "Attachment"@en;
@@ -78,23 +93,24 @@
     bamm:preferredName "Location characteristic"@en;
     bamm:description "location with an URI"@en;
     bamm:dataType xsd:anyURI.
-:File a bamm:Entity;
-    bamm:name "File";
-    bamm:preferredName "File"@en;
-    bamm:description "Image file of the object"@en;
-    bamm:properties (:name :location).
-:attachment a bamm:Property;
-    bamm:name "attachment";
-    bamm:description "document attachment related to the product."@en;
-    bamm:characteristic :Attachment.
-:QuantityCharacteristic a bamm:Characteristic;
-    bamm:name "QuantityCharacteristic";
-    bamm:preferredName "Quantity Characteristic"@en;
-    bamm:description "Quantity of the requested article"@en;
-    bamm:dataType xsd:float.
-:ConditionCharacteristic a bamm-c:Enumeration;
-    bamm:name "ConditionCharacteristic";
-    bamm:preferredName "Condition Characteristic"@en;
-    bamm:description "Condition of the article as enumeration"@en;
+:bundleOffer a bamm:Property;
+    bamm:name "bundleOffer";
+    bamm:preferredName "bundle Offer"@en;
+    bamm:characteristic :BundleOffer.
+:BundleOffer a bamm:Characteristic;
+    bamm:name "BundleOffer";
+    bamm:preferredName "bundleOffer"@en;
+    bamm:description "If this is a single product or a lot of products (group) not being necessarly of the same part number"@en;
+    bamm:dataType xsd:boolean.
+:status a bamm:Property;
+    bamm:name "status";
+    bamm:preferredName "status"@en;
+    bamm:characteristic :Status.
+:Status a bamm-c:Enumeration;
+    bamm:name "Status";
+    bamm:preferredName "Status"@en;
     bamm:dataType xsd:string;
-    bamm-c:values ("New" "Used" "Refurbished" "Other").
+    bamm-c:values ("draft" "published" "inactive").
+:PostalAddress a bamm:Characteristic;
+    bamm:name "PostalAddress";
+    bamm:preferredName "Postal Address"@en.
