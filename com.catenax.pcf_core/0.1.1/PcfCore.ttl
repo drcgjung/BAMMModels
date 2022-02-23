@@ -7,24 +7,16 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 @prefix : <urn:bamm:com.catenax.pcf_core:0.1.1#>.
 
-:pcfTotalCO2eqPerUnitSupplier a bamm:Property;
-    bamm:name "pcfTotalCO2eqPerUnitSupplier";
-    bamm:preferredName "Total CO2eq/Unit (Supplier)"@en;
-    bamm:characteristic :PCFperUnit;
-    bamm:exampleValue "230.00"^^xsd:float;
-    bamm:description "Total CO2eq/Unit of the part / material (in kg), supplier's share"@en.
-:pcfTotalCO2eqPerUnitTransport a bamm:Property;
-    bamm:name "pcfTotalCO2eqPerUnitTransport";
-    bamm:preferredName "Total CO2eq/Unit (Transport)"@en;
-    bamm:characteristic :PCFperUnit;
-    bamm:exampleValue "0.5"^^xsd:float;
-    bamm:description "Total CO2eq/Unit of the part / material (in kg), transport share (from supplier to customer)"@en.
 :pcfPrimaryDataShare a bamm:Property;
     bamm:name "pcfPrimaryDataShare";
     bamm:preferredName "Primary data share"@en;
     bamm:characteristic :PcfPrimaryDataShareTrait;
     bamm:exampleValue "20"^^xsd:integer;
     bamm:description "Share of PCF that comes from primary data"@en.
+:PcfPrimaryDataShareTrait a bamm-c:Trait;
+    bamm:name "PcfPrimaryDataShareTrait";
+    bamm-c:baseCharacteristic :PrimaryDataShareCharacteristic;
+    bamm-c:constraint :PrimaryDataShareConstraint.
 :pcfValidityPeriodStart a bamm:Property;
     bamm:name "pcfValidityPeriodStart";
     bamm:preferredName "Validity period start"@en;
@@ -33,27 +25,58 @@
 :pcfValidityPeriodEnd a bamm:Property;
     bamm:name "pcfValidityPeriodEnd";
     bamm:preferredName "Validity period end"@en;
-    bamm:characteristic bamm-c:Timestamp.
-:PCFperUnit a bamm-c:Measurement;
-    bamm:name "PCFperUnit";
-    bamm:dataType xsd:float;
-    bamm-c:unit unit:kilogram.
-:PcfPrimaryDataShareTrait a bamm-c:Trait;
-    bamm:name "PcfPrimaryDataShareTrait";
-    bamm-c:baseCharacteristic :Characteristic1;
-    bamm-c:constraint :PCFPrimaryDataShareConstraint.
-:Characteristic1 a bamm-c:Quantifiable;
-    bamm:name "Characteristic1";
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:description "End of the period during which the data shown are valid"@en.
+:PcfCore a bamm:Aspect;
+    bamm:name "PcfCore";
+    bamm:preferredName "PCF Core Data"@en;
+    bamm:description "Core information for the PCF (Product Carbon Footprint)"@en;
+    bamm:properties (:totalCO2eqPerUnitSupplier :totalCO2eqPerUnitTransport :pcfPrimaryDataShare :pcfValidityPeriod);
+    bamm:operations ().
+:PrimaryDataShareCharacteristic a bamm-c:Quantifiable;
+    bamm:name "PrimaryDataShareCharacteristic";
+    bamm:preferredName "Primary Data Share Characteristic"@en;
+    bamm:description "Characteristic for the primary data share of a PCF (Product Carbon Footprint)"@en;
     bamm:dataType xsd:integer;
     bamm-c:unit unit:percent.
-:PCFPrimaryDataShareConstraint a bamm-c:RangeConstraint;
-    bamm:name "PCFPrimaryDataShareConstraint";
+:pcfValidityPeriod a bamm:Property;
+    bamm:name "pcfValidityPeriod";
+    bamm:preferredName "PCF Validity Period"@en;
+    bamm:characteristic :ValidityPeriodCharacteristic;
+    bamm:description "Defines the period where the PCF value is valid"@en.
+:ValidityPeriod a bamm:Entity;
+    bamm:name "ValidityPeriod";
+    bamm:preferredName "Validity Period"@en;
+    bamm:description "Defines the validity period of a PCF (Product Carbon Footprint) value"@en;
+    bamm:properties (:pcfValidityPeriodStart :pcfValidityPeriodEnd).
+:ValidityPeriodCharacteristic a bamm-c:SingleEntity;
+    bamm:name "ValidityPeriodCharacteristic";
+    bamm:preferredName "Validity Period Characteristic"@en;
+    bamm:description "Defines the validity period of a PCF (Product Carbon Footprint) value"@en;
+    bamm:dataType :ValidityPeriod.
+:totalCO2eqPerUnitSupplier a bamm:Property;
+    bamm:name "totalCO2eqPerUnitSupplier";
+    bamm:preferredName "Total CO2 equivalent/Unit (Supplier)"@en;
+    bamm:characteristic :PcfPerUnit;
+    bamm:exampleValue "230.00"^^xsd:float;
+    bamm:description "Total CO2 equivalent per unit of the part / material (in kg), supplier's share"@en.
+:totalCO2eqPerUnitTransport a bamm:Property;
+    bamm:name "totalCO2eqPerUnitTransport";
+    bamm:preferredName "Total CO2 equivalent per Unit (Transport)"@en;
+    bamm:characteristic :PcfPerUnit;
+    bamm:exampleValue "0.5"^^xsd:float;
+    bamm:description "Total CO2 equivalent per unit of the part / material (in kg), transport share (from supplier to customer)"@en.
+:PcfPerUnit a bamm-c:Measurement;
+    bamm:name "PcfPerUnit";
+    bamm:preferredName "PCF per Unit"@en;
+    bamm:description "PCF (Product Carbon Footprint) value per unit"@en;
+    bamm:dataType xsd:float;
+    bamm-c:unit unit:kilogram.
+:PrimaryDataShareConstraint a bamm-c:RangeConstraint;
+    bamm:name "PrimaryDataShareConstraint";
+    bamm:preferredName "Primary Data Share Constraint"@en;
+    bamm:description "Valid range of PCF primary data share (from 0 to 100 percent)"@en;
     bamm-c:minValue "0"^^xsd:integer;
     bamm-c:maxValue "100"^^xsd:integer;
     bamm-c:lowerBoundDefinition bamm-c:AT_LEAST;
     bamm-c:upperBoundDefinition bamm-c:AT_MOST.
-:PcfCore a bamm:Aspect;
-    bamm:name "PcfCore";
-    bamm:properties (:pcfTotalCO2eqPerUnitSupplier :pcfTotalCO2eqPerUnitTransport :pcfPrimaryDataShare :pcfValidityPeriodStart :pcfValidityPeriodEnd);
-    bamm:operations ();
-    bamm:preferredName "PCF Core Data"@en.
