@@ -21,8 +21,7 @@
     bamm:name "engine";
     bamm:description "engine of the vehicle"@en;
     bamm:preferredName "engine"@en;
-    bamm:characteristic :EngineCharacteristic;
-    bamm:exampleValue "1200"^^:EngineEntity.
+    bamm:characteristic :EngineCharacteristic.
 :EngineCharacteristic a bamm:Characteristic;
     bamm:name "EngineCharacteristic";
     bamm:description "Characteristic to describe the more specific details of the engine"@en;
@@ -104,13 +103,13 @@
     bamm:description "the fuel type of the vehicle"@en;
     bamm:preferredName "fuel"@en;
     bamm:characteristic :FuelType;
-    bamm:exampleValue "Diesel";
-    bamm:see <https%252525253A%252525252F%252525252Fwww.kba.de%252525252FSharedDocs%252525252FDownloads%252525252FDE%252525252FSV%252525252Fsv232_n1_kraft_pdf.pdf%252525253F__blob%252525253DpublicationFile%2525252526v%252525253D3>.
+    bamm:exampleValue "Diesel".
 :FuelType a bamm-c:Enumeration;
     bamm:name "FuelType";
     bamm:description "enumeration of possible fuel types of a vehicle"@en;
     bamm:preferredName "fuel type"@en;
     bamm:dataType xsd:string;
+    bamm:see <www.kba.de/SharedDocs/Downloads/DE/SV/sv221_m1_schad_pdf.pdf?__blob=publicationFile&v=3>;
     bamm-c:values ("Unbekannt" "Diesel" "Benzin" "Vielstoff" "Elektro" "Flüssiggas" "Benzin/Flüssiggas" "Benzin/komp.Erdgas" "Hybr.Benzin/E" "Erdgas NG" "Hybr.Diesel/E" "Wasserstoff" "Hybr.Wasserst./E" "Wasserstoff/Benzin" "Wasserst./Benzin/E" "BZ/Wasserstoff" "BZ/Benzin" "BZ/Methanol" "BZ/Ethanol" "Hybr.Vielstoff/E" "Methan" "Benzin/Methan" "Hybr.Erdgas/E" "Benzin/Ethanol" "Hybr.Flüssiggas/E" "Hybr.B/E ext.aufl." "Hybr.D/E ext.aufl." "Hybr.LPG/E ext.aufl." "Hybr.W/E ext.aufl." "Hybr.V/E ext.aufl." "Hybr.NG/E ext.aufl." "Hybr.Wod.B/Eext.aufl" "Wasserstoff/NG" "Hybr.W/NG/E ext.aufl" "Ethanol" "Hybr.BZ/W/E" "Hybr.BZ/W/E ext. aufl." "Zweistoff LNG/Diesel" "Verflüssigtes Erdgas (LNG)" "Andere").
 :emptyWeight a bamm:Property;
     bamm:name "emptyWeight";
@@ -165,11 +164,17 @@
     bamm:preferredName "body variant"@en;
     bamm:characteristic :KbaVariant;
     bamm:exampleValue "SUV".
+:KbaVariant a bamm-c:Enumeration;
+    bamm:name "KbaVariant";
+    bamm:description "Current version of the Enumeration is sub-set of list defined from the German Federal Office for motor vehicles. "@en;
+    bamm:preferredName "KBA Variant"@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("Limousine" "Schräghecklimousine" "Kombilimousine" "Coupé" "Kabrio-Limousine" "Cabrio-Limousine" "Mehrzweckfahrzeug" "Pkw-Pick-up" "Van" "Pick-up").
 :ProductDescription a bamm:Aspect;
     bamm:name "ProductDescription";
     bamm:description "vehicle specific data"@en;
     bamm:preferredName "Product Description"@en;
-    bamm:properties (:equipmentVariants :productionDateGMT :engine :mileage :fuel :emptyWeight :vehicleModel :bodyVariant :van);
+    bamm:properties (:equipmentVariants :productionDateGMT :engine :mileage :fuel :emptyWeight :vehicleModel :bodyVariant :anonymisedIdentifier);
     bamm:operations ().
 :vehicleModel a bamm:Property;
     bamm:name "vehicleModel";
@@ -177,14 +182,8 @@
     bamm:preferredName "vehicle model"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "X3 M40".
-:van a bamm:Property;
-    bamm:name "van";
-    bamm:description "Vehicle Anonymised Number (VAN) converted from a VIN"@en;
-    bamm:preferredName "van"@en;
+:anonymisedIdentifier a bamm:Property;
+    bamm:name "anonymisedIdentifier";
+    bamm:description "anonymised IdentifierVehicle. Can be an anonymised number converted from a VIN"@en;
+    bamm:preferredName "anonymisedIdentifier"@en;
     bamm:characteristic bamm-c:Text.
-:KbaVariant a bamm-c:Enumeration;
-    bamm:name "KbaVariant";
-    bamm:description "Current version of the Enumeration is sub-set of list defined from the German Federal Office for motor vehicles. "@en;
-    bamm:preferredName "KBA Variant"@en;
-    bamm:dataType xsd:string;
-    bamm-c:values ("Limousine" "Schräghecklimousine" "Kombilimousine" "Coupé" "Kabrio-Limousine" "Cabrio-Limousine" "Mehrzweckfahrzeug" "Pkw-Pick-up" "Van" "Pick-up").
