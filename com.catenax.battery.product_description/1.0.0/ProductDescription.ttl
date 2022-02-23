@@ -61,7 +61,7 @@
 :MinimalStateOfHealthEntity a bamm:Entity;
     bamm:name "MinimalStateOfHealthEntity";
     bamm:description "minimal State of Health Entity for a battery"@en;
-    bamm:properties (:minimalStateOfHealthValue :specificator);
+    bamm:properties (:minimalStateOfHealthValue :specificatorId :minimalStateOfHealthPhase);
     bamm:preferredName "MinimalStateOfHealthEntity"@en.
 :CurrentStateOfHealthEntity a bamm:Entity;
     bamm:name "CurrentStateOfHealthEntity";
@@ -78,23 +78,11 @@
     bamm:description "The maximal electric capacity"@en;
     bamm:preferredName "electric capacity max"@en;
     bamm:characteristic :Capacity.
-:Capacity a bamm-c:Measurement;
-    bamm:name "Capacity";
-    bamm:description "Capacity in farad"@en;
-    bamm:preferredName "Capacity"@en;
-    bamm:dataType xsd:double;
-    bamm-c:unit unit:farad.
 :minimalStateOfHealthValue a bamm:Property;
     bamm:name "minimalStateOfHealthValue";
     bamm:description "Value of the minimal state of health as percentage"@en;
     bamm:preferredName "minimalStateOfHealthValue"@en;
     bamm:characteristic :Percentage.
-:specificator a bamm:Property;
-    bamm:name "specificator";
-    bamm:description "specificator of the minimal state of health"@en;
-    bamm:preferredName "specificator"@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "OEM".
 :currentStateOfHealthValue a bamm:Property;
     bamm:name "currentStateOfHealthValue";
     bamm:description "current value as percentage of the state of health attribute"@en;
@@ -107,9 +95,15 @@
     bamm:characteristic :DateTimestamp.
 :currentStateOfHealthPhase a bamm:Property;
     bamm:name "currentStateOfHealthPhase";
-    bamm:description "current state of health phase of the battery"@en;
+    bamm:description "current state of health phase of the battery as enumeration"@en;
     bamm:preferredName "currentStateOfHealthPhase"@en;
-    bamm:characteristic :LifecyclePahses.
+    bamm:characteristic :LifecyclePhases.
+:Capacity a bamm-c:Measurement;
+    bamm:name "Capacity";
+    bamm:description "Capacity in farad"@en;
+    bamm:preferredName "Capacity"@en;
+    bamm:dataType xsd:double;
+    bamm-c:unit unit:farad.
 :Percentage a bamm-c:Measurement;
     bamm:name "Percentage";
     bamm:description "Percentage in farad"@en;
@@ -121,9 +115,19 @@
     bamm:description "Date Timestamp for current state of health"@en;
     bamm:preferredName "Date Timestamp"@en;
     bamm:dataType xsd:date.
-:LifecyclePahses a bamm-c:Enumeration;
-    bamm:name "LifecyclePahses";
-    bamm:description "temporary definition of lifecycle phases as following in enumeration for: as specified by OEM, as specified by other"@en;
-    bamm:preferredName "LifecyclePahses"@en;
+:minimalStateOfHealthPhase a bamm:Property;
+    bamm:name "minimalStateOfHealthPhase";
+    bamm:description "minimal State Of Health Phase for the battery"@en;
+    bamm:preferredName "minimal State Of Health Phase"@en;
+    bamm:characteristic :LifecyclePhases.
+:LifecyclePhases a bamm-c:Enumeration;
+    bamm:name "LifecyclePhases";
+    bamm:description "temporary definition of lifecycle phases as following in enumeration for: as specified by OEM, as specified by other, as recieved by dismantling, as maintained by workshop"@en;
+    bamm:preferredName "Lifecycle Phases"@en;
     bamm:dataType xsd:string;
-    bamm-c:values ("as specified by OEM" "as specified by other").
+    bamm-c:values ("as specified by OEM" "as specified by other" "as recieved by dismantling").
+:specificatorId a bamm:Property;
+    bamm:name "specificatorId";
+    bamm:description "specificator of the minimal state of health defined by an identifier"@en;
+    bamm:preferredName "specificator Id"@en;
+    bamm:characteristic bamm-c:Text.
