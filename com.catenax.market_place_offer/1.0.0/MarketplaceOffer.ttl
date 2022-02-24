@@ -5,6 +5,8 @@
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix : <urn:bamm:com.catenax.market_place_offer:1.0.0#>.
+@prefix catenax-c: <urn:bamm:com.catenax.address_characteristic:1.0.0#>.
+
 
 :MarketplaceOffer a bamm:Aspect;
     bamm:name "MarketplaceOffer";
@@ -31,7 +33,7 @@
 :pickupLocation a bamm:Property;
     bamm:name "pickupLocation";
     bamm:description "The pickup location for the offered item."@en;
-    bamm:characteristic bamm-c:Text.
+    bamm:characteristic catenax-c:PostalAddress.
 :incoterms a bamm:Property;
     bamm:name "incoterms";
     bamm:description "The incoterms for the delivery of the product."@en;
