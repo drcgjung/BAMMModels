@@ -183,7 +183,7 @@
 :QuantityCharacteristic a bamm-c:Either;
     bamm:name "QuantityCharacteristic";
     bamm:preferredName "Quantity Characteristic"@en;
-    bamm:description "Declared unit amount which can be either expressed in kilogram or in pieces"@en;
+    bamm:description "Declared unit amount which can be either expressed in kilogram or pieces"@en;
     bamm-c:left :KilogramCharacteristic;
     bamm-c:right :PiecesCharacteristic.
 :PiecesCharacteristic a bamm-c:Measurement;
