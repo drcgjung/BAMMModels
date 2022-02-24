@@ -11,6 +11,9 @@
     bamm:name "SupplierMailTrait";
     bamm-c:baseCharacteristic bamm-c:Text;
     bamm-c:constraint :MailConstraint.
+:MailConstraint a bamm-c:RegularExpressionConstraint;
+    bamm:name "MailConstraint";
+    bamm:value "\t^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$".
 :SupplierProductionRegionTrait a bamm-c:Trait;
     bamm:name "SupplierProductionRegionTrait";
     bamm-c:baseCharacteristic :RegionCharacteristic;
@@ -39,13 +42,14 @@
 :siteName a bamm:Property;
     bamm:name "siteName";
     bamm:preferredName "Site Name"@en;
+    bamm:description "Name of site"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Werk 1".
 :street a bamm:Property;
     bamm:name "street";
     bamm:preferredName "Street"@en;
-    bamm:characteristic bamm-c:Text;
     bamm:description "If available including street number"@en;
+    bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Ehlersstraße 50".
 :gate a bamm:Property;
     bamm:name "gate";
@@ -83,20 +87,40 @@
     bamm:description "PCF is the abbreviation for Product Carbon Footprint. It indicates the climate impact of a product or component. The PcfSupplyRelation aspect describes the relationship between an supplier and a customer with regards to a specific part or component and its according PCF value.\nNo commonly used standards given yet. "@en;
     bamm:properties (:supplier :part);
     bamm:operations ().
+:supplier a bamm:Property;
+    bamm:name "supplier";
+    bamm:preferredName "Supplier"@en;
+    bamm:description "Contains all information about the supplier of a part/ component"@en;
+    bamm:characteristic :SupplierCharacteristic.
+:part a bamm:Property;
+    bamm:name "part";
+    bamm:preferredName "Part"@en;
+    bamm:description "Part or component of a product"@en;
+    bamm:characteristic :PartCharacteristic;
+    bamm:exampleValue "Automatikgetriebe"^^:PartEntity.
 :SupplierContactCharacteristic a bamm-c:SingleEntity;
     bamm:name "SupplierContactCharacteristic";
     bamm:dataType :SupplierContactEntity.
 :SupplierContactEntity a bamm:Entity;
     bamm:name "SupplierContactEntity";
     bamm:properties (:id :name :mail).
-:MailConstraint a bamm-c:RegularExpressionConstraint;
-    bamm:name "MailConstraint";
-    bamm:value "\t^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$".
-:supplier a bamm:Property;
-    bamm:name "supplier";
-    bamm:preferredName "Supplier"@en;
-    bamm:characteristic :SupplierCharacteristic;
-    bamm:description "Contains all information about the supplier of a part/ component"@en.
+:id a bamm:Property;
+    bamm:name "id";
+    bamm:preferredName "Supplier ID"@en;
+    bamm:description "Unique identifier of the supplier, corresponds to CX_ID @ BPDM"@en;
+    bamm:characteristic bamm-c:Text.
+:name a bamm:Property;
+    bamm:name "name";
+    bamm:preferredName "Supplier Name"@en;
+    bamm:description "Name of the supplier"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "ZF Friedrichshafen AG".
+:mail a bamm:Property;
+    bamm:name "mail";
+    bamm:preferredName "Supplier Mail"@en;
+    bamm:description "E-mail address at which the responsible person or group for PCF processing in the company can be reached"@en;
+    bamm:characteristic :SupplierMailTrait;
+    bamm:exampleValue "Nachhaltigkeit@ZF.com".
 :SupplierCharacteristic a bamm-c:SingleEntity;
     bamm:name "SupplierCharacteristic";
     bamm:description "Characteristic for bundling the different properties of a supplier"@en;
@@ -108,42 +132,23 @@
 :contactDetails a bamm:Property;
     bamm:name "contactDetails";
     bamm:preferredName "Supplier Contact Details"@en;
-    bamm:characteristic :SupplierContactCharacteristic;
-    bamm:description "Contains the contact information of a supplier"@en.
+    bamm:description "Contains the contact information of a supplier"@en;
+    bamm:characteristic :SupplierContactCharacteristic.
 :productionRegion a bamm:Property;
     bamm:name "productionRegion";
     bamm:preferredName "Supplier Production Region"@en;
-    bamm:characteristic :SupplierProductionRegionTrait;
-    bamm:description "Region of the supplier production site, see ISO 3166-1 alpha-2, or “GLOBAL\""@en.
+    bamm:description "Region of the supplier production site, see ISO 3166-1 alpha-2, or “GLOBAL\""@en;
+    bamm:characteristic :SupplierProductionRegionTrait.
 :productionSite a bamm:Property;
     bamm:name "productionSite";
     bamm:preferredName "Supplier Production Site"@en;
-    bamm:characteristic :AddressCharacteristic;
-    bamm:description "Production site of supplier: Where was the part produced?"@en.
+    bamm:description "Production site of supplier: Where was the part produced?"@en;
+    bamm:characteristic :AddressCharacteristic.
 :distributionSite a bamm:Property;
     bamm:name "distributionSite";
     bamm:preferredName "Supplier Distribution Site"@en;
-    bamm:characteristic :AddressCharacteristic;
-    bamm:description "Distribution site of supplier: Where was the part delivered? Maybe the same as the production site in most cases, but could be different, which means that there is an additional transport from production site to distribution site."@en.
-:id a bamm:Property;
-    bamm:name "id";
-    bamm:preferredName "Supplier ID"@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:description "Unique identifier of the supplier, corresponds to CX_ID @ BPDM"@en.
-:name a bamm:Property;
-    bamm:name "name";
-    bamm:preferredName "Supplier Name"@en;
-    bamm:characteristic bamm-c:Text.
-:mail a bamm:Property;
-    bamm:name "mail";
-    bamm:preferredName "Supplier Mail"@en;
-    bamm:characteristic :SupplierMailTrait.
-:part a bamm:Property;
-    bamm:name "part";
-    bamm:preferredName "Part"@en;
-    bamm:characteristic :PartCharacteristic;
-    bamm:description "Part or component of a product"@en;
-    bamm:exampleValue "Automatikgetriebe"^^:PartEntity.
+    bamm:description "Distribution site of supplier: Where was the part delivered? Maybe the same as the production site in most cases, but could be different, which means that there is an additional transport from production site to distribution site."@en;
+    bamm:characteristic :AddressCharacteristic.
 :PartCharacteristic a bamm-c:SingleEntity;
     bamm:name "PartCharacteristic";
     bamm:description "Characteristic for bundling the relevant information of a part"@en;
@@ -152,37 +157,47 @@
     bamm:name "PartEntity";
     bamm:description "Entity which describes a part or component of a product"@en;
     bamm:properties (:partId :partType :designation :quantity).
+:partId a bamm:Property;
+    bamm:name "partId";
+    bamm:preferredName "Unit ID"@en;
+    bamm:description "Identifier of the part or component"@en;
+    bamm:characteristic bamm-c:Text.
+:partType a bamm:Property;
+    bamm:name "partType";
+    bamm:preferredName "Part Type"@en;
+    bamm:description "Declaration if part or material"@en;
+    bamm:characteristic :TypeCharacteristic;
+    bamm:exampleValue "Part".
+:designation a bamm:Property;
+    bamm:name "designation";
+    bamm:preferredName "Designation"@en;
+    bamm:description "Designation of the part / material"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Automatikgetriebe 8HP 51".
 :quantity a bamm:Property;
     bamm:name "quantity";
+    bamm:preferredName "Quantity"@en;
+    bamm:description "Declared unit amount"@en;
     bamm:characteristic :QuantityCharacteristic;
     bamm:exampleValue "40.00 kg".
+:QuantityCharacteristic a bamm-c:Either;
+    bamm:name "QuantityCharacteristic";
+    bamm:preferredName "Quantity Characteristic"@en;
+    bamm:description "Declared unit amount which can be either expressed in kilogram or in pieces"@en;
+    bamm-c:left :KilogramCharacteristic;
+    bamm-c:right :PiecesCharacteristic.
 :PiecesCharacteristic a bamm-c:Measurement;
     bamm:name "PiecesCharacteristic";
+    bamm:preferredName "Pieces Characteristic"@en;
+    bamm:description "Declared unit amount in pieces"@en;
     bamm:dataType xsd:integer;
     bamm-c:unit unit:piece.
 :KilogramCharacteristic a bamm-c:Measurement;
     bamm:name "KilogramCharacteristic";
+    bamm:preferredName "Kilogram Characteristic"@en;
+    bamm:description "Declared unit amount in kilogram"@en;
     bamm:dataType xsd:float;
     bamm-c:unit unit:kilogram.
-:QuantityCharacteristic a bamm-c:Either;
-    bamm:name "QuantityCharacteristic";
-    bamm-c:left :KilogramCharacteristic;
-    bamm-c:right :PiecesCharacteristic.
-:partId a bamm:Property;
-    bamm:name "partId";
-    bamm:preferredName "Unit ID"@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:description "Identifier of the part or component"@en.
-:partType a bamm:Property;
-    bamm:name "partType";
-    bamm:preferredName "Part Type"@en;
-    bamm:characteristic :TypeCharacteristic;
-    bamm:description "Declaration if part or material"@en.
-:designation a bamm:Property;
-    bamm:name "designation";
-    bamm:characteristic bamm-c:Text;
-    bamm:description "Designation of the part / material"@en;
-    bamm:exampleValue "Automatikgetriebe 8HP 51".
 :TypeCharacteristic a bamm-c:Enumeration;
     bamm:name "TypeCharacteristic";
     bamm:dataType xsd:string;
