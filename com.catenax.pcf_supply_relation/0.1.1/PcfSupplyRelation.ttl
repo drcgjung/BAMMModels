@@ -84,13 +84,13 @@
 :PcfSupplyRelation a bamm:Aspect;
     bamm:name "PcfSupplyRelation";
     bamm:preferredName "PCF Supply Relation Data"@en;
-    bamm:description "PCF is the abbreviation for Product Carbon Footprint. It indicates the climate impact of a product or component. The PcfSupplyRelation aspect describes the relationship between an supplier and a customer with regards to a specific part or component and its according PCF value.\nNo commonly used standards given yet. "@en;
+    bamm:description "PCF is the abbreviation for Product Carbon Footprint. It indicates the climate impact of a product or component. The PcfSupplyRelation aspect describes the relationship between an supplier and a customer with regards to a specific part or component and its according PCF value. No commonly used standards given yet. "@en;
     bamm:properties (:supplier :part);
     bamm:operations ().
 :supplier a bamm:Property;
     bamm:name "supplier";
     bamm:preferredName "Supplier"@en;
-    bamm:description "Contains all information about the supplier of a part/ component"@en;
+    bamm:description "Contains all information about the supplier of a part / component"@en;
     bamm:characteristic :SupplierCharacteristic.
 :part a bamm:Property;
     bamm:name "part";
