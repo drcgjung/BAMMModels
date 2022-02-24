@@ -80,7 +80,7 @@
     bamm:dataType xsd:string.
 :ZipCodeConstraint a bamm-c:RegularExpressionConstraint;
     bamm:name "ZipCodeConstraint";
-        bamm:value "(^\\d{5}$)|(^\\d{9}$)|(^\\d{5}-\\d{4}$)".
+        bamm:value "^[0-9]{5}$".
 :PcfSupplyRelation a bamm:Aspect;
     bamm:name "PcfSupplyRelation";
     bamm:preferredName "PCF Supply Relation Data"@en;
@@ -107,7 +107,7 @@
 :id a bamm:Property;
     bamm:name "id";
     bamm:preferredName "Supplier ID"@en;
-    bamm:description "Unique identifier of the supplier, corresponds to CX_ID @ BPDM"@en;
+    bamm:description "Unique identifier of the supplier, corresponds to CX_ID at BPDM"@en;
     bamm:characteristic bamm-c:Text.
 :name a bamm:Property;
     bamm:name "name";
@@ -127,7 +127,7 @@
     bamm:dataType :SupplierEntity.
 :SupplierEntity a bamm:Entity;
     bamm:name "SupplierEntity";
-    bamm:description "Entity which describes a supplier of a part/ component"@en;
+    bamm:description "Entity which describes a supplier of a part / component"@en;
     bamm:properties (:contactDetails :productionRegion :productionSite :distributionSite).
 :contactDetails a bamm:Property;
     bamm:name "contactDetails";
