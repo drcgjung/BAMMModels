@@ -11,7 +11,7 @@
     bamm:preferredName "Marketplace Offer"@en;
     bamm:description "description of all needed information to place a market place offer on the marketplace"@en;
     bamm:operations ();
-    bamm:properties (:sku :quantity :unitOfMeasure :condition :pickupLocation :incoterms :price :currency :image :attachment :bundleOffer :status :certificate).
+    bamm:properties (:sku :quantity :unitOfMeasure :condition :pickupLocation :incoterms :price :currency :image :attachment :bundleOffer :status).
 :sku a bamm:Property;
     bamm:name "sku";
     bamm:description "Stock Keeping Unit"@en;
@@ -31,7 +31,7 @@
 :pickupLocation a bamm:Property;
     bamm:name "pickupLocation";
     bamm:description "The pickup location for the offered item."@en;
-    bamm:characteristic :PostalAddress.
+    bamm:characteristic bamm-c:Text.
 :incoterms a bamm:Property;
     bamm:name "incoterms";
     bamm:description "The incoterms for the delivery of the product."@en;
@@ -66,9 +66,6 @@
     bamm:description "Condition of the article as enumeration"@en;
     bamm:dataType xsd:string;
     bamm-c:values ("New" "Used" "Refurbished" "Other").
-:PostalAddress a bamm:Characteristic;
-    bamm:name "PostalAddress";
-    bamm:preferredName "Postal Address"@en.
 :ImageFile a bamm:Characteristic;
     bamm:name "ImageFile";
     bamm:preferredName "ImageFile"@en;
@@ -114,6 +111,3 @@
     bamm:preferredName "Status"@en;
     bamm:dataType xsd:string;
     bamm-c:values ("draft" "published" "inactive").
-:certificate a bamm:Property;
-    bamm:name "certificate";
-    bamm:preferredName "certificate"@en.
