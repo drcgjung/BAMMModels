@@ -2,8 +2,7 @@
 
 # Aspect Model Repository for Catena-X Project
 The repository contains the aspect models based on [BAMM](https://openmanufacturingplatform.github.io/sds-documentation/bamm-specification/snapshot/index.html) for the Catena-X project.
-
-Artifacts generated from the aspect models in this repository can be found [here](https://confluence.catena-x.net/display/ARTI/Semantic+Models).
+They are also available in the Catena-X Semantic Hub, available [here](https://catenaxintaksportal.germanywestcentral.cloudapp.azure.com/home/semantichub). The hub is a great place to browse existing models, and receive rendered views (diagrams, and human readable documentation) on them.
 
 
 # How to contribute
@@ -11,6 +10,10 @@ If you plan to add another model or apply changes to existing ones please create
 
 
 # Using the models
+The models can locally be processed with the [BAMM CLI](https://openmanufacturingplatform.github.io/sds-documentation/sds-developer-guide/dev-snapshot/tooling-guide/bamm-cli.html).
+It allows you to generate different artifacts (diagrams, example payload, java class files) out of it.
+
+to generate the usual set of artifacts this repository also contains a script, `generate.sh` which automates some steps, and might be useful for your task.
 The repository also contains a script, `generate.sh`, which you can use to generate a set of artifacts out of the models.
 
 Example call for the Material.ttl aspect
