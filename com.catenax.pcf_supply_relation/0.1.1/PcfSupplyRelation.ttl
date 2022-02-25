@@ -13,7 +13,7 @@
     bamm-c:constraint :MailConstraint.
 :MailConstraint a bamm-c:RegularExpressionConstraint;
     bamm:name "MailConstraint";
-    bamm:value "^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$".
+    bamm:value "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$".
 :SupplierProductionRegionTrait a bamm-c:Trait;
     bamm:name "SupplierProductionRegionTrait";
     bamm-c:baseCharacteristic :RegionCharacteristic;
