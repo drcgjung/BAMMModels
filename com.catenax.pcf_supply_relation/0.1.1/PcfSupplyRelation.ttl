@@ -13,7 +13,7 @@
     bamm-c:constraint :MailConstraint.
 :MailConstraint a bamm-c:RegularExpressionConstraint;
     bamm:name "MailConstraint";
-    bamm:value "^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$";
+    bamm:value "^[a-zA-Z0-9.!#$%&’*+\\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
     bamm:description "Regular expression for mail address as defined in W3C"@en;
     bamm:see <https%3A%2F%2Fwww.w3.org%2FTR%2F2012%2FWD-html-markup-20120329%2Finput.email.html>.
 :SupplierProductionRegionTrait a bamm-c:Trait;
