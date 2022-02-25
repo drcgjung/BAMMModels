@@ -13,7 +13,9 @@
     bamm-c:constraint :MailConstraint.
 :MailConstraint a bamm-c:RegularExpressionConstraint;
     bamm:name "MailConstraint";
-    bamm:value "^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$".
+    bamm:value "/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$/";
+    bamm:description "Regular expression for mail address as defined in W3C"@en;
+    bamm:see <https%3A%2F%2Fwww.w3.org%2FTR%2F2012%2FWD-html-markup-20120329%2Finput.email.html>.
 :SupplierProductionRegionTrait a bamm-c:Trait;
     bamm:name "SupplierProductionRegionTrait";
     bamm-c:baseCharacteristic :RegionCharacteristic;
@@ -25,8 +27,8 @@
     bamm:dataType xsd:string.
 :RegionConstraint a bamm-c:RegularExpressionConstraint;
     bamm:name "RegionConstraint";
-    bamm:description "see ISO 3166-1 alpha-2"@en;
-    bamm:value "[a-zA-Z]{2,}".
+    bamm:value "[a-zA-Z]{2,}";
+    bamm:description "see ISO 3166-1 alpha-2"@en.
 :AddressCharacteristic a bamm:Characteristic;
     bamm:name "AddressCharacteristic";
     bamm:dataType :Address.
@@ -80,7 +82,7 @@
     bamm:dataType xsd:string.
 :ZipCodeConstraint a bamm-c:RegularExpressionConstraint;
     bamm:name "ZipCodeConstraint";
-        bamm:value "^[0-9]{5}$".
+    bamm:value "^[0-9]{5}$".
 :PcfSupplyRelation a bamm:Aspect;
     bamm:name "PcfSupplyRelation";
     bamm:preferredName "PCF Supply Relation Data"@en;
@@ -98,6 +100,14 @@
     bamm:description "Part or component of a product"@en;
     bamm:characteristic :PartCharacteristic;
     bamm:exampleValue "Automatikgetriebe"^^:PartEntity.
+:SupplierCharacteristic a bamm-c:SingleEntity;
+    bamm:name "SupplierCharacteristic";
+    bamm:description "Characteristic for bundling the different properties of a supplier"@en;
+    bamm:dataType :SupplierEntity.
+:PartCharacteristic a bamm-c:SingleEntity;
+    bamm:name "PartCharacteristic";
+    bamm:description "Characteristic for bundling the relevant information of a part"@en;
+    bamm:dataType :PartEntity.
 :SupplierContactCharacteristic a bamm-c:SingleEntity;
     bamm:name "SupplierContactCharacteristic";
     bamm:dataType :SupplierContactEntity.
@@ -121,10 +131,6 @@
     bamm:description "E-mail address at which the responsible person or group for PCF processing in the company can be reached"@en;
     bamm:characteristic :SupplierMailTrait;
     bamm:exampleValue "Nachhaltigkeit@ZF.com".
-:SupplierCharacteristic a bamm-c:SingleEntity;
-    bamm:name "SupplierCharacteristic";
-    bamm:description "Characteristic for bundling the different properties of a supplier"@en;
-    bamm:dataType :SupplierEntity.
 :SupplierEntity a bamm:Entity;
     bamm:name "SupplierEntity";
     bamm:description "Entity which describes a supplier of a part / component"@en;
@@ -149,10 +155,6 @@
     bamm:preferredName "Supplier Distribution Site"@en;
     bamm:description "Distribution site of supplier: Where was the part delivered? Maybe the same as the production site in most cases, but could be different, which means that there is an additional transport from production site to distribution site."@en;
     bamm:characteristic :AddressCharacteristic.
-:PartCharacteristic a bamm-c:SingleEntity;
-    bamm:name "PartCharacteristic";
-    bamm:description "Characteristic for bundling the relevant information of a part"@en;
-    bamm:dataType :PartEntity.
 :PartEntity a bamm:Entity;
     bamm:name "PartEntity";
     bamm:description "Entity which describes a part or component of a product"@en;
@@ -180,25 +182,25 @@
     bamm:description "Declared unit amount"@en;
     bamm:characteristic :QuantityCharacteristic;
     bamm:exampleValue "40.00 kg".
+:TypeCharacteristic a bamm-c:Enumeration;
+    bamm:name "TypeCharacteristic";
+    bamm:dataType xsd:string;
+    bamm-c:values ("Part" "Material").
 :QuantityCharacteristic a bamm-c:Either;
     bamm:name "QuantityCharacteristic";
     bamm:preferredName "Quantity Characteristic"@en;
     bamm:description "Declared unit amount which can be either expressed in kilogram or pieces"@en;
     bamm-c:left :KilogramCharacteristic;
     bamm-c:right :PiecesCharacteristic.
-:PiecesCharacteristic a bamm-c:Measurement;
-    bamm:name "PiecesCharacteristic";
-    bamm:preferredName "Pieces Characteristic"@en;
-    bamm:description "Declared unit amount in pieces"@en;
-    bamm:dataType xsd:integer;
-    bamm-c:unit unit:piece.
 :KilogramCharacteristic a bamm-c:Measurement;
     bamm:name "KilogramCharacteristic";
     bamm:preferredName "Kilogram Characteristic"@en;
     bamm:description "Declared unit amount in kilogram"@en;
     bamm:dataType xsd:float;
     bamm-c:unit unit:kilogram.
-:TypeCharacteristic a bamm-c:Enumeration;
-    bamm:name "TypeCharacteristic";
-    bamm:dataType xsd:string;
-    bamm-c:values ("Part" "Material").
+:PiecesCharacteristic a bamm-c:Measurement;
+    bamm:name "PiecesCharacteristic";
+    bamm:preferredName "Pieces Characteristic"@en;
+    bamm:description "Declared unit amount in pieces"@en;
+    bamm:dataType xsd:integer;
+    bamm-c:unit unit:piece.
