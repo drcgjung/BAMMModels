@@ -11,12 +11,17 @@
     bamm:description "Trait to ensure standard data format for country code"@en;
     bamm-c:constraint :CountryCodeRegularExpression;
     bamm-c:baseCharacteristic :CountryCodeCharacteristic.
+:CountryCodeRegularExpression a bamm-c:RegularExpressionConstraint;
+    bamm:name "CountryCodeRegularExpression";
+    bamm:preferredName "Country Code Regular Expression"@en;
+    bamm:description "Regular Expression that ensures a three-letter code "@en;
+    bamm:value "^[A-Z][A-Z][A-Z]$".
 :CountryCodeCharacteristic a bamm:Characteristic;
     bamm:name "CountryCodeCharacteristic";
     bamm:preferredName "Country Code Characteristic"@en;
     bamm:description "ISO 3166-1 alpha-3 – three-letter country codes "@en;
     bamm:dataType xsd:string;
-    bamm:see <https%252525253A%252525252F%252525252Fwww.iso.org%252525252Fiso-3166-country-codes.html>.
+    bamm:see <https%25252525253A%25252525252F%25252525252Fwww.iso.org%25252525252Fiso-3166-country-codes.html>.
 :UUIDv4RegularExpression a bamm-c:RegularExpressionConstraint;
     bamm:name "UUIDv4RegularExpression";
     bamm:preferredName "Catena-X Id Regular Expression"@en;
@@ -30,12 +35,12 @@
 :KeyValueList a bamm:Entity;
     bamm:name "KeyValueList";
     bamm:preferredName "Key Value List"@en;
-    bamm:description "A list of key value pairs, which are composed of a key and a corresponding value."@en;
+    bamm:description "A list of key value pairs for local identifiers, which are composed of a key and a corresponding value."@en;
     bamm:properties (:key :value).
 :key a bamm:Property;
     bamm:name "key";
     bamm:preferredName "Identifier Key"@en;
-    bamm:description "The key (domain, namespace) component of an identifier."@en;
+    bamm:description "The key of a local identifier. A set of keys is predefined, but additionally any other custom key is allowed. Predefined keys (to be used when applicable):\n- \"ManufacturerID\" - The Business Partner Number (BPN) of the manufacturer. Value: BPN-Nummer\n- PartInstanceID - The identifier of the manufacturer for the serialized instance of the part, e.g. the serial number\n- \"BatchID\" - The identifier of the batch, to which the serialzed part belongs\n- \"VAN\" - The anonymized vehicle identification number (VIN). Value: anonymized VIN according to OEM anonymization rules. Note: If the key \"VAN\" is available, \"PartInstanceID\" must also be available and hold the identical value."@en;
     bamm:characteristic :KeyCharacteristic;
     bamm:exampleValue "com.samplecompany.serialnumber".
 :value a bamm:Property;
@@ -57,14 +62,8 @@
 :SerialPartTypization a bamm:Aspect;
     bamm:name "SerialPartTypization";
     bamm:preferredName "Serial Part Typization"@en;
-    bamm:description "Serialized parts are instantiations of parts where the particular instantiation can be uniquely identified by means of serial numbers or similar identifiers (e.g. VIN). "@en;
-    bamm:properties (:catenaXId :localIdentifiers [
-  bamm:property :name;
-  bamm:optional "true"^^xsd:boolean
-] :production :type [
-  bamm:property :number;
-  bamm:optional "true"^^xsd:boolean
-]);
+    bamm:description "A serialized part is an instantiation of a (design-) part, where the particular instantiation can be uniquely identified by means of a serial numbers or a similar identifier (e.g. VAN) or a combination of multiple identifiers (e.g. combination of manufacturer, date and number)"@en;
+    bamm:properties (:catenaXId :localIdentifiers :manufacturingInformation :partTypeInformation);
     bamm:operations ().
 :catenaXId a bamm:Property;
     bamm:name "catenaXId";
@@ -72,23 +71,11 @@
     bamm:description "The fully anonymous Catena-X ID of the serialized part, valid for the Catena-X dataspace."@en;
     bamm:characteristic :CatenaXIdTrait;
     bamm:exampleValue "580d3adf-1981-44a0-a214-13d6ceed9379".
-:name a bamm:Property;
-    bamm:name "name";
-    bamm:preferredName "Name"@en;
-    bamm:description "Name of the serialized part"@en;
-    bamm:characteristic :NameCharacteristic;
-    bamm:exampleValue "Mirror left"^^:NameEntity.
-:production a bamm:Property;
-    bamm:name "production";
-    bamm:preferredName "Production"@en;
-    bamm:description "data from production process, such as production date and production country"@en;
-    bamm:characteristic :ProductionCharacteristic.
-:type a bamm:Property;
-    bamm:name "type";
-    bamm:preferredName "Type"@en;
-    bamm:description "The type of part"@en;
-    bamm:characteristic :TypeCharacteristic;
-    bamm:exampleValue "Software".
+:localIdentifiers a bamm:Property;
+    bamm:name "localIdentifiers";
+    bamm:preferredName "Local Identifiers"@en;
+    bamm:description "A local identifier enables identification of a part in a specific dataspace, but is not unique in Catena-X dataspace. Multiple local identifiers may exist."@en;
+    bamm:characteristic :LocalIdentifierCharacteristic.
 :CatenaXIdTrait a bamm-c:Trait;
     bamm:name "CatenaXIdTrait";
     bamm:preferredName "Catena-X ID Trait"@en;
@@ -98,50 +85,8 @@
 :LocalIdentifierCharacteristic a bamm-c:Set;
     bamm:name "LocalIdentifierCharacteristic";
     bamm:preferredName "Local Identifier Characteristic"@en;
-    bamm:description "One part can have multiple attributes, that uniquely identify a serialized part in a specific dataspace (e.g. the manufacturer`s dataspace, e.g. production site + serial number)"@en;
+    bamm:description "A single serialized part may have multiple attributes, that uniquely identify a that part in a specific dataspace (e.g. the manufacturer`s dataspace)"@en;
     bamm:dataType :KeyValueList.
-:NameCharacteristic a bamm:Characteristic;
-    bamm:name "NameCharacteristic";
-    bamm:preferredName "Name Characterisic"@en;
-    bamm:description "Name of the serialized part according to the specific dataspace"@en;
-    bamm:dataType :NameEntity.
-:ProductionCharacteristic a bamm:Characteristic;
-    bamm:name "ProductionCharacteristic";
-    bamm:preferredName "Production Characteristic"@en;
-    bamm:description "Characteristic to describe production related data"@en;
-    bamm:dataType :ProductionEntity.
-:TypeCharacteristic a bamm-c:Enumeration;
-    bamm:name "TypeCharacteristic";
-    bamm:preferredName "Type Characteristic"@en;
-    bamm:description "A serialized Part must be placed into one of the following categories: 'component', 'product', 'software', ‘assembly’, 'tool', or 'raw material'."@en;
-    bamm:dataType xsd:string;
-    bamm:see <http%3A%2F%2Fprivate.pdm-if.org%2Fweb%2Fpdm-if%2Frecommended-practices1>;
-    bamm-c:values ("Product" "Software" "Assembly" "Tool" "Raw Material" "Component").
-:NameEntity a bamm:Entity;
-    bamm:name "NameEntity";
-    bamm:preferredName "Name Entity"@en;
-    bamm:description "Encapsulates the various part names"@en;
-    bamm:properties (:nameAtManufacturer :nameAtCustomer).
-:ProductionEntity a bamm:Entity;
-    bamm:name "ProductionEntity";
-    bamm:preferredName "Production Entity"@en;
-    bamm:description "Encapsulates the production relevant attributes"@en;
-    bamm:properties (:date [
-  bamm:property :country;
-  bamm:optional "true"^^xsd:boolean
-]).
-:date a bamm:Property;
-    bamm:name "date";
-    bamm:preferredName "Production Date"@en;
-    bamm:description "Timestamp of final step in production process, e.g. final quality check or ready-for-shipment event"@en;
-    bamm:characteristic bamm-c:Timestamp;
-    bamm:exampleValue "2022-02-04T14:48:54"^^xsd:dateTime.
-:country a bamm:Property;
-    bamm:name "country";
-    bamm:preferredName "Country code"@en;
-    bamm:description "Country code where the part was produced"@en;
-    bamm:characteristic :ProductionCountryCodeTrait;
-    bamm:exampleValue "HUR".
 :nameAtManufacturer a bamm:Property;
     bamm:name "nameAtManufacturer";
     bamm:preferredName "Name at Manufacturer"@en;
@@ -154,50 +99,89 @@
     bamm:description "Name of the part as assigned by the customer"@en;
     bamm:characteristic :PartNameCharacteristic;
     bamm:exampleValue "Mirror Links".
+:date a bamm:Property;
+    bamm:name "date";
+    bamm:preferredName "Production Date"@en;
+    bamm:description "Timestamp of the manufacturing date as the final step in production process (e.g. final quality check, ready-for-shipment event)"@en;
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:exampleValue "2022-02-04T14:48:54"^^xsd:dateTime.
+:country a bamm:Property;
+    bamm:name "country";
+    bamm:preferredName "Country code"@en;
+    bamm:description "Country code where the part was manufactured"@en;
+    bamm:characteristic :ProductionCountryCodeTrait;
+    bamm:exampleValue "HUR".
 :PartNameCharacteristic a bamm:Characteristic;
     bamm:name "PartNameCharacteristic";
     bamm:preferredName "Part Name Characteristic"@en;
     bamm:description "Part Name in string format from the respective system in the value chain"@en;
     bamm:dataType xsd:string.
-:partNumberAtCustomer a bamm:Property;
-    bamm:name "partNumberAtCustomer";
-    bamm:preferredName "Part Number at Customer"@en;
-    bamm:description "Part number as assigned by the customer. The number identifies the part design in the customers dataspace."@en;
-    bamm:characteristic :NumberLayout;
-    bamm:exampleValue "PRT-12345".
-:number a bamm:Property;
-    bamm:name "number";
-    bamm:preferredName "Number"@en;
-    bamm:description "The number of the part that identifies the part design "@en;
-    bamm:characteristic :NumberCharacteristic.
-:NumberCharacteristic a bamm:Characteristic;
-    bamm:name "NumberCharacteristic";
-    bamm:preferredName "Number Characteristic"@en;
-    bamm:description "The characteristics of the part number"@en;
-    bamm:dataType :NumberEntity.
-:NumberEntity a bamm:Entity;
-    bamm:name "NumberEntity";
-    bamm:preferredName "Number Entity"@en;
-    bamm:description "Encapsulation for the part number as assigned by the manufacturer and the  part number as assigned by the customer "@en;
-    bamm:properties (:numberAtManufacturer :partNumberAtCustomer).
-:numberAtManufacturer a bamm:Property;
-    bamm:name "numberAtManufacturer";
-    bamm:preferredName "Number at Manufacturer"@en;
-    bamm:description "Part number as assigned by the manufacturer of the part. The number identifies the part design in the manufacturers dataspace."@en;
-    bamm:characteristic :NumberLayout;
+:partTypeInformation a bamm:Property;
+    bamm:name "partTypeInformation";
+    bamm:preferredName "Part Type Information"@en;
+    bamm:description "The part type from which the serialized part has been instantiated"@en;
+    bamm:characteristic :PartTypeInformationCharacteristic.
+:manufacturerPartID a bamm:Property;
+    bamm:name "manufacturerPartID";
+    bamm:preferredName "Manufacturer Part ID"@en;
+    bamm:description "Part ID as assigned by the manufacturer of the part. The Part ID identifies the part (as designed) in the manufacturer`s dataspace. The Part ID does not reference a specific instance of a part and thus should not be confused with the serial number."@en;
+    bamm:characteristic :PartIdCharacteristic;
     bamm:exampleValue "123-0.740-3434-A".
-:NumberLayout a bamm:Characteristic;
-    bamm:name "NumberLayout";
-    bamm:preferredName "Number Layout"@en;
-    bamm:description "the part number is a multi-character string, ususally assigned by an ERP system"@en;
+:PartTypeInformationCharacteristic a bamm:Characteristic;
+    bamm:name "PartTypeInformationCharacteristic";
+    bamm:preferredName "Part Type Information Characteristic"@en;
+    bamm:description "The characteristics of the part type"@en;
+    bamm:dataType :PartTypeInformationEntity.
+:customerPartId a bamm:Property;
+    bamm:name "customerPartId";
+    bamm:preferredName "Customer Part Id"@en;
+    bamm:description "Part ID as assigned by the manufacturer of the part. The Part ID identifies the part (as designed) in the customer`s dataspace. The Part ID does not reference a specific instance of a part and thus should not be confused with the serial number."@en;
+    bamm:characteristic :PartIdCharacteristic;
+    bamm:exampleValue "PRT-12345".
+:PartTypeInformationEntity a bamm:Entity;
+    bamm:name "PartTypeInformationEntity";
+    bamm:preferredName "Part Type Information Entity"@en;
+    bamm:description "Encapsulation for data related to the part type"@en;
+    bamm:properties (:manufacturerPartID [
+  bamm:property :customerPartId;
+  bamm:optional "true"^^xsd:boolean
+] :nameAtManufacturer [
+  bamm:property :nameAtCustomer;
+  bamm:optional "true"^^xsd:boolean
+] :classification).
+:PartIdCharacteristic a bamm:Characteristic;
+    bamm:name "PartIdCharacteristic";
+    bamm:preferredName "Part ID Characteristic"@en;
+    bamm:description "The part ID is a multi-character string, ususally assigned by an ERP system"@en;
     bamm:dataType xsd:string.
-:localIdentifiers a bamm:Property;
-    bamm:name "localIdentifiers";
-    bamm:preferredName "Local Identifiers"@en;
-    bamm:description "A local identifier uniquely identifies a part in a specific dataspace, but is not unique in Catena-X dataspace. Multiple local identifiers may exist."@en;
-    bamm:characteristic :LocalIdentifierCharacteristic.
-:CountryCodeRegularExpression a bamm-c:RegularExpressionConstraint;
-    bamm:name "CountryCodeRegularExpression";
-    bamm:preferredName "Country Code Regular Expression"@en;
-    bamm:description "Regular Expression that ensures a three-letter code "@en;
-    bamm:value "^[A-Z][A-Z][A-Z]$".
+:classification a bamm:Property;
+    bamm:name "classification";
+    bamm:preferredName "Classifcation"@en;
+    bamm:description "The classification of the part type according to STEP standard definition"@en;
+    bamm:characteristic :ClassificationCharacteristic;
+    bamm:exampleValue "software".
+:ClassificationCharacteristic a bamm-c:Enumeration;
+    bamm:name "ClassificationCharacteristic";
+    bamm:preferredName "Classification Characteristic"@en;
+    bamm:description "A part type must be placed into one of the following classes: 'component', 'product', 'software', ‘assembly’, 'tool', or 'raw material'."@en;
+    bamm:dataType xsd:string;
+    bamm:see <http%3A%2F%2Fprivate.pdm-if.org%2Fweb%2Fpdm-if%2Frecommended-practices1>;
+    bamm-c:values ("product" "raw material" "software" "assembly" "tool" "component").
+:manufacturingInformation a bamm:Property;
+    bamm:name "manufacturingInformation";
+    bamm:preferredName "Manufacturing Information"@en;
+    bamm:description "Information from manufacturing process, such as manufacturing date and manufacturing country"@en;
+    bamm:characteristic :ManufacturingCharacteristic.
+:ManufacturingCharacteristic a bamm:Characteristic;
+    bamm:name "ManufacturingCharacteristic";
+    bamm:preferredName "Manufacturing Characteristic"@en;
+    bamm:description "Characteristic to describe manufacturing related data"@en;
+    bamm:dataType :ManufacturingEntity.
+:ManufacturingEntity a bamm:Entity;
+    bamm:name "ManufacturingEntity";
+    bamm:preferredName "Manufacturing Entity"@en;
+    bamm:description "Encapsulates the manufacturing relevant attributes"@en;
+    bamm:properties (:date [
+  bamm:property :country;
+  bamm:optional "true"^^xsd:boolean
+]).
