@@ -56,7 +56,7 @@
     bamm:exampleValue "2022-02-03T14:48:54.709Z"^^xsd:dateTime.
 :childCatenaXId a bamm:Property;
     bamm:name "childCatenaXId";
-    bamm:preferredName "Catena-X Child Identifiers "@en;
+    bamm:preferredName "Catena-X Child Identifier"@en;
     bamm:description "The Catena-X ID of the child object which is assembled into the given parent part."@en;
     bamm:characteristic :CatenaXIdTraitCharacteristic.
 :QuantityCharacteristic a bamm-c:Quantifiable;
