@@ -3,7 +3,7 @@
 @prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
-@prefix : <urn:bamm:com.catenax.address_characteristic:1.0.0#>.
+@prefix : <urn:bamm:com.catenax.shared.address_characteristic:1.0.0#>.
 
 :AddressAspect a bamm:Aspect;
     bamm:name "AddressAspect";
