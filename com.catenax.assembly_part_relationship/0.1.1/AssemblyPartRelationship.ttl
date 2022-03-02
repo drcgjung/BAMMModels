@@ -16,7 +16,7 @@
 :catenaXId a bamm:Property;
     bamm:name "catenaXId";
     bamm:preferredName "Catena-X Identifier"@en;
-    bamm:description "The Catena-X ID of the given parent Part (e.g. the Assembly), valid for the Catena-X dataspace."@en;
+    bamm:description "The Catena-X ID of the given parent part (e.g. the assembly), valid for the Catena-X dataspace."@en;
     bamm:characteristic :CatenaXIdTraitCharacteristic;
     bamm:exampleValue "055c1128-0375-47c8-98de-7cf802c3241d".
 :childParts a bamm:Property;
@@ -28,7 +28,8 @@
     bamm:name "UUIDv4Characteristic";
     bamm:preferredName "UUID v4"@en;
     bamm:description "A version 4 UUID is a universally unique identifier that is generated using random 32 hexadecimal characters."@en;
-    bamm:dataType xsd:string.
+    bamm:dataType xsd:string;
+    bamm:see <https%3A%2F%2Ftools.ietf.org%2Fhtml%2Frfc4122>.
 :UUIDv4RegularExpression a bamm-c:RegularExpressionConstraint;
     bamm:name "UUIDv4RegularExpression";
     bamm:preferredName "Catena-X UniqueId Regular Expression"@en;
@@ -36,12 +37,18 @@
     bamm:value "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$".
 :ChildData a bamm:Entity;
     bamm:name "ChildData";
-    bamm:preferredName "Child Object Data"@en;
-    bamm:properties (:assembledOn :quantity [
+    bamm:preferredName "Child Data"@en;
+    bamm:properties (:createdOn :quantity [
   bamm:property :lastModifiedOn;
   bamm:optional "true"^^xsd:boolean
 ] :lifecycleContext :childCatenaXId);
-    bamm:description "Catena-X IDs and meta data of assembled child parts."@en.
+    bamm:description "Catena-X ID and meta data of the assembled child part."@en.
+:createdOn a bamm:Property;
+    bamm:name "createdOn";
+    bamm:preferredName "Created On"@en;
+    bamm:description "Timestamp when the relation between the parent part and the child part was created, e.g. when a serialized part was assembled into the parent part."@en;
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:exampleValue "2022-02-03T14:48:54.709Z"^^xsd:dateTime.
 :quantity a bamm:Property;
     bamm:name "quantity";
     bamm:preferredName "Quantity"@en;
@@ -52,7 +59,7 @@
     bamm:name "lastModifiedOn";
     bamm:preferredName "Last Modification Date"@en;
     bamm:description "Timestamp when the assembly relationship between parent and child was last modified."@en;
-    bamm:characteristic :Timestamp;
+    bamm:characteristic bamm-c:Timestamp;
     bamm:exampleValue "2022-02-03T14:48:54.709Z"^^xsd:dateTime.
 :childCatenaXId a bamm:Property;
     bamm:name "childCatenaXId";
@@ -81,24 +88,19 @@
     bamm:name "measurementUnit";
     bamm:description "Unit of Measurement for the quantity of serialized objects"@en;
     bamm:characteristic bamm-c:UnitReference;
-    bamm:exampleValue "litre"^^bamm:curie.
+    bamm:exampleValue "litre"^^bamm:curie;
+    bamm:see <https%3A%2F%2Fopenmanufacturingplatform.github.io%2Fsds-bamm-aspect-meta-model%2Fbamm-specification%2Fsnapshot%2Fappendix%2Funitcatalog.html>.
 :SetOfChildPartsCharacteristic a bamm-c:Set;
     bamm:name "SetOfChildPartsCharacteristic";
     bamm:preferredName "Set of Child Parts"@en;
     bamm:description "Physical and digital child parts the parent object is assembled by (one structural level down)."@en;
     bamm:dataType :ChildData.
-:assembledOn a bamm:Property;
-    bamm:name "assembledOn";
-    bamm:preferredName "Catena-X Child Identifiers "@en;
-    bamm:description "Timestamp when the child part was assembled into the parent part."@en;
-    bamm:characteristic :Timestamp;
-    bamm:exampleValue "2022-02-03T14:48:54.709Z"^^xsd:dateTime.
 :lifecycleContext a bamm:Property;
     bamm:name "lifecycleContext";
     bamm:preferredName "Lifecycle Context"@en;
-    bamm:description "The lifecycle context in which the chid part was assembled into the parent part."@en;
+    bamm:description "The lifecycle context in which the child part was assembled into the parent part."@en;
     bamm:characteristic :LifecycleContextCharacteristic;
-    bamm:exampleValue "as-built".
+    bamm:exampleValue "AsBuilt".
 :LifecycleContextCharacteristic a bamm-c:Enumeration;
     bamm:name "LifecycleContextCharacteristic";
     bamm:preferredName "Lifecycle Context"@en;
@@ -106,10 +108,6 @@
     bamm:dataType xsd:string;
     bamm-c:values ("AsRequired" "AsDesigned" "AsPlanned" "AsBuilt" "AsMaintained" "AsRecycled");
     bamm:see <http%3A%2F%2Fprivate.pdm-if.org%2Fweb%2Fpdm-if%2Frecommended-practices1>.
-:Timestamp a bamm:Characteristic;
-    bamm:name "Timestamp";
-    bamm:description "Describes a Property which contains the date and time with an optional timezone."@en;
-    bamm:dataType xsd:dateTime.
 :CatenaXIdTraitCharacteristic a bamm-c:Trait;
     bamm:name "CatenaXIdTraitCharacteristic";
     bamm:description "Trait to ensure UUID v4 data format"@en;
