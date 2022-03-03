@@ -17,62 +17,72 @@ bamm:preferredName "Id Conversion"@en.
 bamm:name "Convert";
 bamm:preferredName "Convert"@en;
 bamm:description "The Convert operation converts from Identifiers or Pseudonyms into Pseudonyms or Identifiers of the respective domains."@en;
-bamm:input (:vin);
-bamm:output :conversionOutput .
+bamm:input (:conversionSpecification);
+bamm:output :conversionSpecification .
 
-:vin a bamm:Property;
-bamm:name "vin";
-bamm:preferredName "VIN"@en;
-bamm:description "VIN (vehicle identification number)"@en;
-bamm:characteristic :VinTrait .
+:conversionSpecification a bamm:Property;
+bamm:name "conversionSpecification";
+bamm:preferredName "Conversion Specification"@en;
+bamm:description "The Conversion Specification is used both as input or output to the Convert operation and hence contains either a set of identifiers or pseudonyms depending on the direction of the conversion and usage of the property."@en;
+bamm:characteristic :QualifiedIdentifierBatch .
 
-:VinCharacteristic a bamm:Characteristic;
-bamm:name "VinCharacteristic";
-bamm:description "Characteristic for the format of a VIN (vehicle identification number) which is an alpha-numerical value string with 17 characters excluding the characters I, O and Q to avoid confusion with the digits 1 and 0."@en;
-bamm:see <https://en.wikipedia.org/wiki/Vehicle_identification_number>;
-bamm:dataType xsd:string .
+:QualifiedIdentifierBatch a bamm-c:Either;
+bamm:name "QualifiedIdentifierBatch" ;
+bamm:description "A qualified batch of Identifiers and Pseudonyms can use one of two representations. Either using a fixed domain/key and local values or using fully qualified Identifiers."@en;
+bamm-c:left :QualifiedIdentifierList;
+bamm-c:right :AQualifiedBatchIdentifiers .
 
-:VinTrait a bamm-c:Trait;
-bamm:name "VinTrait";
-bamm:description "Trait to ensure the valid format for a VIN (vehicle identification number). which is an alpha-numerical value string with 17 characters excluding the characters I, O and Q to avoid confusion with the digits 1 and 0."@en;
-bamm-c:constraint :VinRegExConstraint;
-bamm-c:baseCharacteristic :VinCharacteristic .
+:AQualifiedBatchIdentifiers a bamm:Characteristic ;
+bamm:dataType :QualifiedBatchIdentifiers .
 
-:VinRegExConstraint a bamm-c:RegularExpressionConstraint;
-bamm:name "VinRegExConstraint";
-bamm:preferedName "Vin Regular Expression Constraint"@en;
-bamm:description "VinRegExConstraint is a regular expression constraint for the format of a VIN (vehicle identification number)."@en;
-bamm:value "^[a-hj-npr-zA-HJ-NPR-Z0-9]{17,17}$".
+:QualifiedBatchIdentifiers a bamm:Entity ;
+bamm:name "QualifiedBatchIdentifiers" ;
+bamm:preferredName "Qualified Batch of Identifiers"@en ;
+bamm:description "A list of unqualified identifiers all belonging to the same domain/key."@en ;
+bamm:properties (:key :identifiers).
 
-:conversionOutput a bamm:Property;
-bamm:name "conversionOutput";
-bamm:preferredName "conversion output"@en;
-bamm:description "The conversionOutput is the output of a conversion operation containing information about the anonymized vehicle identification."@en;
-bamm:characteristic :ConversionOutputCharacteristic .
+:QualifiedIdentifierList a bamm-c:List ;
+bamm:name "QualifiedIdentifierList" ;
+bamm:preferredName "Qualified Identifiers List"@en ;
+bamm:description "A list of qualified identifiers."@en ;
+bamm:dataType :QualifiedIdentifier .
 
-:ConversionOutputCharacteristic a bamm:Characteristic;
-bamm:name "conversionOutputCharacteristic";
-bamm:description "ConversionOutputCharacteristic is a characteristic describing the output of a conversion from a VIN."@en;
-bamm:dataType :ConversionOutputEntity .
-
-:ConversionOutputEntity a bamm:Entity;
-bamm:name "conversionOutputEntity";
-bamm:description "ConversionOutputEntity is an entity for the output of a conversion."@en;
+:QualifiedIdentifier a bamm:Entity;
+bamm:name "QualifiedIdentifier";
+bamm:description "The qualified Identifier is an entity for the qualified input and output of a conversion. It has a namespace (key) and a local name (value) component."@en;
 bamm:properties (:key :value) .
+
+:Urn a bamm:Characteristic;
+bamm:name "Urn";
+bamm:preferredName "Unique Resource Name (URN)"@en;
+bamm:description "A unique resource name."@en;
+bamm:dataType xsd:anyURI .
 
 :key a bamm:Property;
 bamm:name "key";
-bamm:description "The key is type of anonymized vehicle identification in the value property."@en;
-bamm:characteristic :KeyValues .
+bamm:description "The key hints to the type (identifier of a specific origin, pseudonym of a given domain)."@en;
+bamm:exampleValue "urn:standard:org.iso:9721#"^^xsd:anyURI;
+bamm:characteristic :Urn .
 
-:KeyValues a bamm-c:Enumeration;
-bamm:name "keyValues";
-bamm:description "The KeyValues list the possible values for the key in the conversion output."@en;
-bamm:dataType xsd:string;
-bamm-c:values ("PartnerInstanceID" "identification" "globalAssetId" "VAN") .
+:ID a bamm:Characteristic;
+bamm:name "ID";
+bamm:preferredName "Identifier"@en;
+bamm:description "An (unqualified) identifier."@en;
+bamm:dataType xsd:string.
 
 :value a bamm:Property;
 bamm:name "value";
-bamm:description "The value property is the anonymized identification number of the vehicle. The format and type of the value depends on the value of the key property."@en;
-bamm:characteristic bamm-c:Text .
+bamm:description "The value property is either a local identifier or pseudonym. The format and type of the value depends on the key property."@en;
+bamm:exampleValue "2HNYD28297H520948";
+bamm:characteristic :ID .
 
+:IDList a bamm-c:List ;
+bamm:name "IDList" ;
+bamm:preferredName "ID List"@en ;
+bamm:description "A list of unqualified identifiers."@en ;
+bamm:dataType :ID .
+
+:identifiers a bamm:Property;
+bamm:name "identifiers";
+bamm:description "A list of (unqualified) identifiers or pseudonyms. The format and type of the value depends on the key property."@en;
+bamm:characteristic :IDList .
