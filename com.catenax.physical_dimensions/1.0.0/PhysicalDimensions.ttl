@@ -9,7 +9,22 @@
 
 :PhysicalDimensions a bamm:Aspect;
     bamm:name "PhysicalDimensions";
-    bamm:properties (:length :width :height :diameter :weight);
+    bamm:properties ([
+  bamm:property :length;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :width;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :height;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :diameter;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :weight;
+  bamm:optional "true"^^xsd:boolean
+]);
     bamm:operations ();
     bamm:preferredName "physical dimensions"@en;
     bamm:description "Describes the physical dimensions of then entity."@en.
@@ -18,7 +33,7 @@
     bamm:preferredName "length"@en;
     bamm:description "Length of the item."@en;
     bamm:characteristic :Millimetre;
-    bamm:exampleValue "20000,1 20000.1"^^xsd:double.
+    bamm:exampleValue "20000,1"^^xsd:double.
 :width a bamm:Property;
     bamm:name "width";
     bamm:preferredName "width"@en;
@@ -37,6 +52,12 @@
     bamm:description "Diameter of the item."@en;
     bamm:characteristic :Millimetre;
     bamm:exampleValue "0,03"^^xsd:double.
+:weight a bamm:Property;
+    bamm:name "weight";
+    bamm:preferredName "weight"@en;
+    bamm:description "Weight of the item"@en;
+    bamm:characteristic :WeightCharacteristic;
+    bamm:exampleValue "100,7".
 :Millimetre a bamm-c:Measurement;
     bamm:name "Millimetre";
     bamm:preferredName "millimetre"@en;
@@ -47,12 +68,6 @@
     bamm:preferredName "millimetre"@en;
     unit:symbol "mm";
     unit:referenceUnit unit:millimetre.
-:weight a bamm:Property;
-    bamm:name "weight";
-    bamm:preferredName "weight"@en;
-    bamm:description "Weight of the item"@en;
-    bamm:characteristic :WeightCharacteristic;
-    bamm:exampleValue "100.7".
 :WeightCharacteristic a bamm-c:Measurement;
     bamm:name "WeightCharacteristic";
     bamm:preferredName "weight characteristic"@en;
