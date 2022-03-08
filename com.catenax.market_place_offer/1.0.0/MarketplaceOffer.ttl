@@ -16,7 +16,7 @@
     bamm:name "sku";
     bamm:description "Stock Keeping Unit is an unique identifier of the dealer providing the product"@en;
     bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "1002090, xYz.09, ABcXYZ".
+    bamm:exampleValue "ABcXYZ".
 :quantity a bamm:Property;
     bamm:name "quantity";
     bamm:description "The available quantity of the on the offered product in SKU."@en;
@@ -24,7 +24,7 @@
     bamm:exampleValue "50".
 :unitOfMeasure a bamm:Property;
     bamm:name "unitOfMeasure";
-    bamm:description "The unit of measure (related to quantity)."@en;
+    bamm:description "The unit of measure related to quantity."@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "each".
 :condition a bamm:Property;
@@ -40,7 +40,7 @@
     bamm:name "incoterms";
     bamm:description "The incoterms"@en;
     bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "DAP (Delivered at Place)".
+    bamm:exampleValue "DAP Delivered at Place".
 :price a bamm:Property;
     bamm:name "price";
     bamm:description "The price of the product."@en;
@@ -63,7 +63,7 @@
 :bundleOffer a bamm:Property;
     bamm:name "bundleOffer";
     bamm:preferredName "bundle Offer"@en;
-    bamm:description "If this is a single product or a lot of products (group) not being necessarly of the same part number"@en;
+    bamm:description "If this is a single product or a lot or set of products not being necessarly of the same part number"@en;
     bamm:characteristic :BundleOffer.
 :status a bamm:Property;
     bamm:name "status";
@@ -165,7 +165,7 @@
     bamm:characteristic :Timestamp.
 :Text a bamm:Characteristic;
     bamm:name "Text";
-    bamm:description "Describes a Property which contains plain text. This is intended exclusively for human readable strings, not for identifiers, measurement values, etc."@en;
+    bamm:description "Describes a Property which contains plain text. This is intended exclusively for human readable strings not for identifiers measurement values etc."@en;
     bamm:dataType xsd:string.
 :Year a bamm-c:SortedSet;
     bamm:name "Year";
@@ -207,7 +207,7 @@
     bamm:name "mainCategory";
     bamm:preferredName "main category"@en;
     bamm:characteristic :MainCharacteristic;
-    bamm:exampleValue "Audio, video navigation".
+    bamm:exampleValue "Audio video navigation".
 :subCategory a bamm:Property;
     bamm:name "subCategory";
     bamm:preferredName "sub category"@en;
