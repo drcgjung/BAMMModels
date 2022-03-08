@@ -11,12 +11,48 @@
     bamm:preferredName "Marketplace Offer"@en;
     bamm:description "description of all needed information to place a market place offer on the marketplace"@en;
     bamm:operations ();
-    bamm:properties (:sku :quantity :unitOfMeasure :condition :pickupLocation :incoterms :price :currency :image :attachment :bundleOffer :status :certificate :marketplaceProduct :missingParts :dismantled :mechanicalDamage :corroded :discolored).
+    bamm:properties ([
+  bamm:property :sku;
+  bamm:optional "true"^^xsd:boolean
+] :quantity :unitOfMeasure [
+  bamm:property :condition;
+  bamm:optional "true"^^xsd:boolean
+] :pickupLocation [
+  bamm:property :incoterms;
+  bamm:optional "true"^^xsd:boolean
+] :price :currency [
+  bamm:property :image;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :attachment;
+  bamm:optional "true"^^xsd:boolean
+] :bundleOffer [
+  bamm:property :status;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :certificate;
+  bamm:optional "true"^^xsd:boolean
+] :marketplaceProduct [
+  bamm:property :missingParts;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :dismantled;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :mechanicalDamage;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :corroded;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :discolored;
+  bamm:optional "true"^^xsd:boolean
+]).
 :sku a bamm:Property;
     bamm:name "sku";
     bamm:description "Stock Keeping Unit is an unique identifier of the dealer providing the product"@en;
     bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "ABcXYZ".
+    bamm:exampleValue "1002090, xYz.09, ABcXYZ".
 :quantity a bamm:Property;
     bamm:name "quantity";
     bamm:description "The available quantity of the on the offered product in SKU."@en;
@@ -24,7 +60,7 @@
     bamm:exampleValue "50".
 :unitOfMeasure a bamm:Property;
     bamm:name "unitOfMeasure";
-    bamm:description "The unit of measure related to quantity."@en;
+    bamm:description "The unit of measure (related to quantity)."@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "each".
 :condition a bamm:Property;
@@ -40,7 +76,7 @@
     bamm:name "incoterms";
     bamm:description "The incoterms"@en;
     bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "DAP Delivered at Place".
+    bamm:exampleValue "DAP (Delivered at Place)".
 :price a bamm:Property;
     bamm:name "price";
     bamm:description "The price of the product."@en;
@@ -63,7 +99,7 @@
 :bundleOffer a bamm:Property;
     bamm:name "bundleOffer";
     bamm:preferredName "bundle Offer"@en;
-    bamm:description "If this is a single product or a lot or set of products not being necessarly of the same part number"@en;
+    bamm:description "If this is a single product or a lot of products (group) not being necessarly of the same part number"@en;
     bamm:characteristic :BundleOffer.
 :status a bamm:Property;
     bamm:name "status";
@@ -140,7 +176,19 @@
 :ProductEntity a bamm:Entity;
     bamm:name "ProductEntity";
     bamm:preferredName "product entity"@en;
-    bamm:properties (:productDescription :brand :category :originalManufacturer :manufacturerPartNumber :productLink :oeNumber).
+    bamm:properties (:productDescription :brand :category [
+  bamm:property :originalManufacturer;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :manufacturerPartNumber;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :productLink;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :oeNumber;
+  bamm:optional "true"^^xsd:boolean
+]).
 :certificateNumber a bamm:Property;
     bamm:name "certificateNumber";
     bamm:preferredName "certificate number"@en;
@@ -165,7 +213,7 @@
     bamm:characteristic :Timestamp.
 :Text a bamm:Characteristic;
     bamm:name "Text";
-    bamm:description "Describes a Property which contains plain text. This is intended exclusively for human readable strings not for identifiers measurement values etc."@en;
+    bamm:description "Describes a Property which contains plain text. This is intended exclusively for human readable strings, not for identifiers, measurement values, etc."@en;
     bamm:dataType xsd:string.
 :Year a bamm-c:SortedSet;
     bamm:name "Year";
@@ -207,7 +255,7 @@
     bamm:name "mainCategory";
     bamm:preferredName "main category"@en;
     bamm:characteristic :MainCharacteristic;
-    bamm:exampleValue "Audio video navigation".
+    bamm:exampleValue "Audio, video navigation".
 :subCategory a bamm:Property;
     bamm:name "subCategory";
     bamm:preferredName "sub category"@en;
