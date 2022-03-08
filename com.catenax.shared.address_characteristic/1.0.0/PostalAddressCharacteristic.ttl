@@ -22,7 +22,7 @@
     bamm:dataType :AddressEntity.
 :AddressEntity a bamm:Entity;
     bamm:name "AddressEntity";
-    bamm:properties (:thoroughFare :streetNumber :postCode :location [
+    bamm:properties (:thoroughFare :streetNumber :postCode :city [
   bamm:property :isDataComplete;
   bamm:optional "true"^^xsd:boolean
 ] [
@@ -32,64 +32,40 @@
   bamm:property :gate;
   bamm:optional "true"^^xsd:boolean
 ] :country).
-:location a bamm:Property;
-    bamm:name "location";
-    bamm:preferredName "location"@en;
-    bamm:description "Location or city of the address"@en;
+:thoroughFare a bamm:Property;
+    bamm:name "thoroughFare";
+    bamm:preferredName "ThoroughFare"@en;
+    bamm:description "Street or thorough road name"@en;
     bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "Mannheim".
-:isDataComplete a bamm:Property;
-    bamm:name "isDataComplete";
-    bamm:preferredName " is data complete"@en;
-    bamm:description "Is the preceeding informationn is complete (true) or unknown (false)"@en;
-    bamm:characteristic bamm-c:Boolean.
-:Zip a bamm:Characteristic;
-    bamm:name "Zip";
-    bamm:preferredName "ZIP"@en;
-    bamm:description "cchracteristic to describe the zip"@en;
-    bamm:dataType xsd:string.
-:postCode a bamm:Property;
-    bamm:name "postCode";
-    bamm:preferredName "Post Code"@en;
-    bamm:description "The postal or zip code"@en;
-    bamm:characteristic :PostCodeTrait;
-    bamm:exampleValue "68161/12".
-:PostCodeConstraint a bamm-c:RegularExpressionConstraint;
-    bamm:name "PostCodeConstraint";
-    bamm:preferredName "Post Code Constraint"@en;
-    bamm:description "Regular expression for post codes"@en;
-    bamm:value "^[0-9]{5}$".
+    bamm:exampleValue "Bernstraße".
 :streetNumber a bamm:Property;
     bamm:name "streetNumber";
     bamm:preferredName "Street Number"@en;
     bamm:description "Number describing where a building is located on a street. As used differently in international context, this number can contain both numerical and alphanumerical values"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "45".
-:Text a bamm:Characteristic;
-    bamm:name "Text";
-    bamm:description "Describes a Property which contains plain text. This is intended exclusively for human readable strings, not for identifiers, measurement values, etc."@en;
-    bamm:dataType xsd:string.
-:PostCodeTrait a bamm-c:Trait;
-    bamm:name "PostCodeTrait";
-    bamm-c:baseCharacteristic :Text;
-    bamm-c:constraint :PostCodeConstraint.
-:thoroughFare a bamm:Property;
-    bamm:name "thoroughFare";
-    bamm:preferredName "ThoroughFare"@en;
-    bamm:description "Street or thorough road name"@en;
-    bamm:characteristic :Text;
-    bamm:exampleValue "Bernstraße".
+:postCode a bamm:Property;
+    bamm:name "postCode";
+    bamm:preferredName "Post Code"@en;
+    bamm:description "The postal or zip code"@en;
+    bamm:characteristic :PostCodeTrait;
+    bamm:exampleValue "68161/12".
+:isDataComplete a bamm:Property;
+    bamm:name "isDataComplete";
+    bamm:preferredName " is data complete"@en;
+    bamm:description "Is the preceeding informationn is complete (true) or unknown (false)"@en;
+    bamm:characteristic bamm-c:Boolean.
 :siteName a bamm:Property;
     bamm:name "siteName";
     bamm:preferredName "Site Name"@en;
     bamm:description "Designation of a site"@en;
-    bamm:characteristic :Text;
+    bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Werk 1".
 :gate a bamm:Property;
     bamm:name "gate";
     bamm:preferredName "Gate"@en;
     bamm:description "Designation of a gate"@en;
-    bamm:characteristic :Text;
+    bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Tor 1".
 :country a bamm:Property;
     bamm:name "country";
@@ -97,18 +73,33 @@
     bamm:description "Country of an address"@en;
     bamm:characteristic :CountryTrait;
     bamm:exampleValue "DE-NI".
+:PostCodeTrait a bamm-c:Trait;
+    bamm:name "PostCodeTrait";
+    bamm-c:baseCharacteristic bamm-c:Text;
+    bamm-c:constraint :PostCodeConstraint.
+:PostCodeConstraint a bamm-c:RegularExpressionConstraint;
+    bamm:name "PostCodeConstraint";
+    bamm:preferredName "Post Code Constraint"@en;
+    bamm:description "Regular expression for post codes"@en;
+    bamm:value "^[0-9]{5}$".
+:CountryTrait a bamm-c:Trait;
+    bamm:name "CountryTrait";
+    bamm-c:baseCharacteristic :CountryCharacteristic;
+    bamm-c:constraint :CountryConstraint.
 :CountryCharacteristic a bamm:Characteristic;
     bamm:name "CountryCharacteristic";
     bamm:preferredName "Country Characteristic"@en;
     bamm:description "Characteristic for a country belonging to an address"@en;
     bamm:dataType xsd:string.
-:CountryTrait a bamm-c:Trait;
-    bamm:name "CountryTrait";
-    bamm-c:baseCharacteristic :CountryCharacteristic;
-    bamm-c:constraint :CountryConstraint.
 :CountryConstraint a bamm-c:RegularExpressionConstraint;
     bamm:name "CountryConstraint";
     bamm:preferredName "CountryConstraint"@en;
     bamm:description "Regular expression for designation of a country as defined in ISO 3166-2"@en;
     bamm:value "([A-Z]{2}-[A-Z0-9]{1,3}|)";
-    bamm:see <https%3A%2F%2Fwww.iso.org%2Fiso-3166-country-codes.html>.
+    bamm:see <https%253A%252F%252Fwww.iso.org%252Fiso-3166-country-codes.html>.
+:city a bamm:Property;
+    bamm:name "city";
+    bamm:preferredName "City"@en;
+    bamm:description "City belonging to the address"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Mannheim".
