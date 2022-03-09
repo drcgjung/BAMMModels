@@ -1,0 +1,26 @@
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix : <urn:bamm:io.openmanufacturing.digitaltwin:1.0.0#>.
+
+:BatteryPass a bamm:Aspect;
+    bamm:name "BatteryPass";
+    bamm:properties (:passportNumber :passportIssuer);
+    bamm:operations ();
+    bamm:preferredName "battery pass"@en;
+    bamm:description "The battery pass describes information collected during the lifecycle of a battery"@en;
+    bamm:see <https%3A%2F%2Feur-lex.europa.eu%2Flegal-content%2FEN%2FTXT%2F%3Furi%3DCELEX%253A52020PC0798>.
+:passportNumber a bamm:Property;
+    bamm:name "passportNumber";
+    bamm:characteristic bamm-c:Text;
+    bamm:preferredName "passport number"@en;
+    bamm:description "The unique passport number of the battery"@en.
+:passportIssuer a bamm:Property;
+    bamm:name "passportIssuer";
+    bamm:characteristic bamm-c:Text;
+    bamm:preferredName "passport issuer"@en;
+    bamm:description "Name of the issuer of the battery passport"@en.
