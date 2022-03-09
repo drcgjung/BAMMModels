@@ -24,7 +24,7 @@ bamm:output :conversionOutput .
 bamm:name "targetDomain";
 bamm:preferredName "Target Domain"@en;
 bamm:description "The Target Domain of a Conversion is an optional input parameter which qualifies the desired target pseudonyms/identifiers. In case the Conversion has only a single target domain, it may be ommited."@en;
-bamm:exampleValue "urn:standard:org.iso:9721#"^^xsd:anyURI;
+bamm:exampleValue "urn:VAN:com.bmw:1.0.0#"^^xsd:anyURI;
 bamm:characteristic :AUrn .
 
 :conversionInput a bamm:Property;
