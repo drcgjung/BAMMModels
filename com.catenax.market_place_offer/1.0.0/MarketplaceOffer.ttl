@@ -389,13 +389,9 @@
     bamm:name "key";
     bamm:preferredName "key"@en;
     bamm:description "The key of the key value pair"@en;
-    bamm:characteristic :Text.
+    bamm:characteristic bamm-c:Text.
 :technicalValue a bamm:Property;
     bamm:name "technicalValue";
     bamm:preferredName "technical value"@en;
     bamm:description "The value of the key value pair"@en;
-    bamm:characteristic :Text.
-:Text a bamm:Characteristic;
-    bamm:name "Text";
-    bamm:description "Describes a Property which contains plain text. This is intended exclusively for human readable strings, not for identifiers, measurement values, etc."@en;
-    bamm:dataType xsd:string.
+    bamm:characteristic bamm-c:Text.
