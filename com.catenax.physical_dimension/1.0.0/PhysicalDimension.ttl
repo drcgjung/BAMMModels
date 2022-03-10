@@ -5,9 +5,9 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
-@prefix : <urn:bamm:com.catenax.physical_dimensions:1.0.0#>.
+@prefix : <urn:bamm:com.catenax.physical_dimension:1.0.0#>.
 
-:PhysicalDimensions a bamm:Aspect;
+:PhysicalDimension a bamm:Aspect;
     bamm:name "PhysicalDimensions";
     bamm:properties ([
   bamm:property :length;
@@ -32,43 +32,41 @@
     bamm:name "length";
     bamm:preferredName "length"@en;
     bamm:description "Length of the item."@en;
-    bamm:characteristic :Millimetre;
-    bamm:exampleValue "20000,1"^^xsd:double.
+    bamm:characteristic :MillimetreCharacteristic;
+    bamm:exampleValue "20000.1"^^xsd:double.
 :width a bamm:Property;
     bamm:name "width";
     bamm:preferredName "width"@en;
     bamm:description "Width of the item."@en;
-    bamm:characteristic :Millimetre;
+    bamm:characteristic :MillimetreCharacteristic;
     bamm:exampleValue "1000"^^xsd:double.
 :height a bamm:Property;
     bamm:name "height";
     bamm:preferredName "height"@en;
     bamm:description "Height of the item."@en;
-    bamm:characteristic :Millimetre;
-    bamm:exampleValue "0,1"^^xsd:double.
+    bamm:characteristic :MillimetreCharacteristic;
+    bamm:exampleValue "0.1"^^xsd:double.
 :diameter a bamm:Property;
     bamm:name "diameter";
     bamm:preferredName "diameter"@en;
     bamm:description "Diameter of the item."@en;
-    bamm:characteristic :Millimetre;
-    bamm:exampleValue "0,03"^^xsd:double.
+    bamm:characteristic :MillimetreCharacteristic;
+    bamm:exampleValue "0.03"^^xsd:double.
 :weight a bamm:Property;
     bamm:name "weight";
     bamm:preferredName "weight"@en;
     bamm:description "Weight of the item"@en;
-    bamm:characteristic :WeightCharacteristic;
-    bamm:exampleValue "100,7".
-:Millimetre a bamm-c:Measurement;
+    bamm:characteristic :KilogramCharacteristic;
+    bamm:exampleValue "100.7"^^xsd:double.
+:MillimetreCharacteristic a bamm-c:Measurement;
     bamm:name "Millimetre";
-    bamm:preferredName "millimetre"@en;
+    bamm:preferredName "millimetre characteristic"@en;
+    bamm:description "a measurement for a lenght given in the unit millimetre"@en;
     bamm:dataType xsd:double;
-    bamm-c:unit :millimetre.
-:millimetre a unit:Unit;
-    bamm:name "millimetre";
-    bamm:preferredName "millimetre"@en;
-    unit:symbol "mm";
-    unit:referenceUnit unit:millimetre.
-:WeightCharacteristic a bamm-c:Measurement;
+    bamm-c:unit unit:millimetre.
+:KilogramCharacteristic a bamm-c:Measurement;
     bamm:name "WeightCharacteristic";
-    bamm:preferredName "weight characteristic"@en;
+    bamm:preferredName "kilogram characteristic"@en;
+    bamm:description "a measurement value given in the unit kilogram"@en;
+    bamm:dataType xsd:double;
     bamm-c:unit unit:kilogram.
