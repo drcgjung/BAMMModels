@@ -63,7 +63,7 @@
     bamm:description "The unit of measure (related to quantity)."@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "each";
-    bamm:see <https%3A%2F%2Fresources.gs1us.org%2FGS1-US-Data-Hub-Help-Center%2FArtMID%2F3451%2FArticleID%2F116%2FUnit-of-Measure-Codes>.
+    bamm:see <https://resources.gs1us.org/GS1-US-Data-Hub-Help-Center/ArtMID/3451/ArticleID/116/Unit-of-Measure-Codes>.
 :condition a bamm:Property;
     bamm:name "condition";
     bamm:description "The condition of the offered product."@en;
@@ -78,7 +78,7 @@
     bamm:description "The incoterms"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "DAP (Delivered at Place)";
-    bamm:see <https%3A%2F%2Ficcwbo.org%2Fpublication%2Fincoterms-2020-introduction%2F>.
+    bamm:see <https://iccwbo.org/publication/incoterms-2020-introduction>.
 :price a bamm:Property;
     bamm:name "price";
     bamm:description "The price of the product."@en;
@@ -149,7 +149,7 @@
 :GeographicalCoordinates a bamm:Characteristic;
     bamm:name "GeographicalCoordinates";
     bamm:preferredName "geographical coordinates"@en;
-    bamm:see <https%25253A%25252F%25252Fen.wikipedia.org%25252Fwiki%25252FGeographic_coordinate_system>;
+    bamm:see <https://en.wikipedia.org/wiki/Geographic_coordinate_system>;
     bamm:dataType :GeographicalCoordinate.
 :Price a bamm:Characteristic;
     bamm:name "Price";
@@ -160,7 +160,7 @@
     bamm:description "The currency of the price."@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "EUR";
-    bamm:see <https%3A%2F%2Fwww.iso.org%2Fiso-4217-currency-codes.html>.
+    bamm:see <https://www.iso.org/iso-4217-currency-codes.html>.
 :ImageFile a bamm:Characteristic;
     bamm:name "ImageFile";
     bamm:preferredName "ImageFile"@en;
