@@ -1,8 +1,10 @@
 ## Description
 <!-- Please provide a short description about what this PR changes -->
 
-## Q2 Criteria
 
+<!-- The Q2 and Q3 criteria are intended for merges to the main-branch. During the model development, for instance when merging to a feature branch, you may decide to not fill out the checklists. However, we recommend to follow the Q2 checklist during the development. The Q3 checklist becomes relevant for merges to the main-branch which implicitly is a release of the model. -->
+## Q2 Criteria
+(to be filled out by PR reviewer)
 - [ ] use **Camel-Case** (e.g., "MyModelElement" or "TimeDifferenceGmtId", when in doubt follow https://google.github.io/styleguide/javaguide.html#s5.3-camel-case)
 - [ ] the identifiers for all model elements **start with a capital letter** except for properties
 - [ ] the identifier for **properties starts with a small letter**
@@ -19,6 +21,7 @@
 - [ ] when relying on **external standards**, they are referenced through a **"see"** element
 
 ## Q3 Criteria
+(to be filled out by semantic modeling team before merge to main-branch)
 - [ ] All required reviewers have approved this PR (see reviewers section)
 - [ ] The new aspect (version) will be implemented by at least one data provider
 - [ ] The new aspect (version) will be consumed by at least one data consumer
