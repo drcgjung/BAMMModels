@@ -9,18 +9,57 @@
 
 :BatteryPass a bamm:Aspect;
     bamm:name "BatteryPass";
-    bamm:properties (:passportNumber :passportIssuer);
+    bamm:properties (:passportNumber :passportIssuer :dateOfManufacture :hasEuConformationCertificate :nameOfManufacturer :websiteOfManufacturer);
     bamm:operations ();
     bamm:preferredName "battery pass"@en;
     bamm:description "The battery pass describes information collected during the lifecycle of a battery"@en;
-    bamm:see <https%3A%2F%2Feur-lex.europa.eu%2Flegal-content%2FEN%2FTXT%2F%3Furi%3DCELEX%253A52020PC0798>.
+    bamm:see <https%253A%252F%252Feur-lex.europa.eu%252Flegal-content%252FEN%252FTXT%252F%253Furi%253DCELEX%25253A52020PC0798>.
 :passportNumber a bamm:Property;
     bamm:name "passportNumber";
-    bamm:characteristic bamm-c:Text;
     bamm:preferredName "passport number"@en;
-    bamm:description "The unique passport number of the battery"@en.
+    bamm:description "The unique passport number of the battery"@en;
+    bamm:characteristic bamm-c:Text.
 :passportIssuer a bamm:Property;
     bamm:name "passportIssuer";
-    bamm:characteristic bamm-c:Text;
     bamm:preferredName "passport issuer"@en;
-    bamm:description "Name of the issuer of the battery passport"@en.
+    bamm:description "Name of the issuer of the battery passport"@en;
+    bamm:characteristic bamm-c:Text.
+:dateOfManufacture a bamm:Property;
+    bamm:name "dateOfManufacture";
+    bamm:preferredName "date of manufacture"@en;
+    bamm:description "Manufacturing date of the battery"@en;
+    bamm:characteristic :DateOfManufacture;
+    bamm:exampleValue "07.03.2022"^^xsd:date.
+:Characteristic1 a bamm:Characteristic;
+    bamm:name "Characteristic1";
+    bamm:see <https%3A%2F%2Fwww.samsung.com>;
+    bamm:dataType xsd:anyURI.
+:DateOfManufacture a bamm:Characteristic;
+    bamm:name "DateOfManufacture";
+    bamm:preferredName "date of manufacture"@en;
+    bamm:dataType xsd:date.
+:hasEuConformationCertificate a bamm:Property;
+    bamm:name "hasEuConformationCertificate";
+    bamm:preferredName "has EU conformation certificate"@en;
+    bamm:description "If the manufacturer has provided a certificate of conformity with European health, safety, and environmental protection standards then the battery is able to receive the CE mark."@en;
+    bamm:characteristic :HasEuConformationCertificate;
+    bamm:exampleValue "true"^^xsd:boolean.
+:HasEuConformationCertificate a bamm:Characteristic;
+    bamm:name "HasEuConformationCertificate";
+    bamm:preferredName "has EU conformation certificate"@en;
+    bamm:dataType xsd:boolean.
+:nameOfManufacturer a bamm:Property;
+    bamm:name "nameOfManufacturer";
+    bamm:preferredName "name of manufacturer"@en;
+    bamm:description "Name of battery manufacturer"@en;
+    bamm:characteristic :Text;
+    bamm:exampleValue "Samsung".
+:Text a bamm:Characteristic;
+    bamm:name "Text";
+    bamm:description "Describes a Property which contains plain text. This is intended exclusively for human readable strings, not for identifiers, measurement values, etc."@en;
+    bamm:dataType xsd:string.
+:websiteOfManufacturer a bamm:Property;
+    bamm:name "websiteOfManufacturer";
+    bamm:preferredName "website of manufacturer"@en;
+    bamm:description "Website of the battery manufacturer."@en;
+    bamm:characteristic :Characteristic1.
