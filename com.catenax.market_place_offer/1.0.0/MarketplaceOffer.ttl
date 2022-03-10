@@ -9,7 +9,7 @@
 :MarketplaceOffer a bamm:Aspect;
     bamm:name "MarketplaceOffer";
     bamm:preferredName "Marketplace Offer"@en;
-    bamm:description "description of all needed information to place a market place offer on the marketplace"@en;
+    bamm:description "Description of all needed information to place a market place offer on the marketplace"@en;
     bamm:operations ();
     bamm:properties ([
   bamm:property :sku;
@@ -63,7 +63,7 @@
     bamm:description "The unit of measure (related to quantity)."@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "each";
-    bamm:see <https%3A%2F%2Fresources.gs1us.org%2FGS1-US-Data-Hub-Help-Center%2FArtMID%2F3451%2FArticleID%2F116%2FUnit-of-Measure-Codes>.
+    bamm:see <https%253A%252F%252Fresources.gs1us.org%252FGS1-US-Data-Hub-Help-Center%252FArtMID%252F3451%252FArticleID%252F116%252FUnit-of-Measure-Codes>.
 :condition a bamm:Property;
     bamm:name "condition";
     bamm:description "The condition of the offered product."@en;
@@ -78,7 +78,7 @@
     bamm:description "The incoterms"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "DAP (Delivered at Place)";
-    bamm:see <https%3A%2F%2Ficcwbo.org%2Fpublication%2Fincoterms-2020-introduction%2F>.
+    bamm:see <https%253A%252F%252Ficcwbo.org%252Fpublication%252Fincoterms-2020-introduction%252F>.
 :price a bamm:Property;
     bamm:name "price";
     bamm:description "The price of the product."@en;
@@ -104,6 +104,7 @@
 :certificate a bamm:Property;
     bamm:name "certificate";
     bamm:preferredName "certificate"@en;
+    bamm:description "Certificates related to the product."@en;
     bamm:characteristic :Certificates.
 :marketplaceProduct a bamm:Property;
     bamm:name "marketplaceProduct";
@@ -149,18 +150,12 @@
 :GeographicalCoordinates a bamm:Characteristic;
     bamm:name "GeographicalCoordinates";
     bamm:preferredName "geographical coordinates"@en;
-    bamm:see <https%25253A%25252F%25252Fen.wikipedia.org%25252Fwiki%25252FGeographic_coordinate_system>;
+    bamm:see <https%2525253A%2525252F%2525252Fen.wikipedia.org%2525252Fwiki%2525252FGeographic_coordinate_system>;
     bamm:dataType :GeographicalCoordinate.
 :Price a bamm:Characteristic;
     bamm:name "Price";
     bamm:preferredName "price"@en;
     bamm:dataType :PriceEntity.
-:currency a bamm:Property;
-    bamm:name "currency";
-    bamm:description "The currency of the price."@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "EUR";
-    bamm:see <https%3A%2F%2Fwww.iso.org%2Fiso-4217-currency-codes.html>.
 :ImageFile a bamm:Characteristic;
     bamm:name "ImageFile";
     bamm:preferredName "ImageFile"@en;
@@ -169,7 +164,7 @@
 :Attachment a bamm:Characteristic;
     bamm:name "Attachment";
     bamm:preferredName "Attachment"@en;
-    bamm:description "links the referneced attachment"@en;
+    bamm:description "Links the referenced attachment"@en;
     bamm:dataType :AttachmentEntity.
 :BundleOffer a bamm:Characteristic;
     bamm:name "BundleOffer";
@@ -196,6 +191,16 @@
     bamm:name "GeographicalCoordinate";
     bamm:preferredName "geographical coordinate"@en;
     bamm:properties (:longitude :latitude).
+:PriceEntity a bamm:Entity;
+    bamm:name "PriceEntity";
+    bamm:preferredName "price"@en;
+    bamm:properties (:value :currency).
+:currency a bamm:Property;
+    bamm:name "currency";
+    bamm:description "The currency of the price."@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "EUR";
+    bamm:see <https%253A%252F%252Fwww.iso.org%252Fiso-4217-currency-codes.html>.
 :File a bamm:Entity;
     bamm:name "File";
     bamm:preferredName "File"@en;
@@ -211,50 +216,6 @@
     bamm:preferredName "certificate entity"@en;
     bamm:description "Certificates that come with the product in the listing"@en;
     bamm:properties (:name :location :certificateNumber :issue :publicationYear :effectiveDate :expirationDate).
-:name a bamm:Property;
-    bamm:name "name";
-    bamm:preferredName "name"@en;
-    bamm:description "name or title of the object"@en;
-    bamm:characteristic bamm-c:Text.
-:location a bamm:Property;
-    bamm:name "location";
-    bamm:preferredName "location"@en;
-    bamm:description "location of the object"@en;
-    bamm:characteristic :LocationCharacteristic.
-:LocationCharacteristic a bamm:Characteristic;
-    bamm:name "LocationCharacteristic";
-    bamm:preferredName "Location characteristic"@en;
-    bamm:description "location with an URI"@en;
-    bamm:dataType xsd:anyURI.
-:certificateNumber a bamm:Property;
-    bamm:name "certificateNumber";
-    bamm:preferredName "certificate number"@en;
-    bamm:characteristic bamm-c:Text.
-:issue a bamm:Property;
-    bamm:name "issue";
-    bamm:preferredName "issue"@en;
-    bamm:characteristic bamm-c:Text.
-:publicationYear a bamm:Property;
-    bamm:name "publicationYear";
-    bamm:preferredName "publication year"@en;
-    bamm:description "Year the certificate was published"@en;
-    bamm:characteristic :Year;
-    bamm:exampleValue "1999"^^xsd:gYear.
-:effectiveDate a bamm:Property;
-    bamm:name "effectiveDate";
-    bamm:preferredName "effective date"@en;
-    bamm:characteristic bamm-c:Timestamp.
-:expirationDate a bamm:Property;
-    bamm:name "expirationDate";
-    bamm:preferredName "expiration date"@en;
-    bamm:characteristic :Timestamp.
-:Year a bamm-c:SortedSet;
-    bamm:name "Year";
-    bamm:dataType xsd:gYear.
-:Timestamp a bamm:Characteristic;
-    bamm:name "Timestamp";
-    bamm:description "Describes a Property which contains the date and time with an optional timezone."@en;
-    bamm:dataType xsd:dateTime.
 :ProductEntity a bamm:Entity;
     bamm:name "ProductEntity";
     bamm:preferredName "product entity"@en;
@@ -271,14 +232,76 @@
   bamm:property :oeNumber;
   bamm:optional "true"^^xsd:boolean
 ] :technicalSpecification).
+:longitude a bamm:Property;
+    bamm:name "longitude";
+    bamm:preferredName "longitude"@en;
+    bamm:description "The longitude of the 2D sphere coordinates."@en;
+    bamm:characteristic :LongitudeCharacteristic;
+    bamm:exampleValue "-117.283333"^^xsd:float.
+:latitude a bamm:Property;
+    bamm:name "latitude";
+    bamm:preferredName "latitude"@en;
+    bamm:description "The latitude of the 2D sphere coordinates."@en;
+    bamm:characteristic :LatitudeCharacteristic;
+    bamm:exampleValue "48.137154"^^xsd:float.
+:name a bamm:Property;
+    bamm:name "name";
+    bamm:preferredName "name"@en;
+    bamm:description "Name or title of the object."@en;
+    bamm:characteristic bamm-c:Text.
+:location a bamm:Property;
+    bamm:name "location";
+    bamm:preferredName "location"@en;
+    bamm:description "Location of the object"@en;
+    bamm:characteristic :LocationCharacteristic.
+:certificateNumber a bamm:Property;
+    bamm:name "certificateNumber";
+    bamm:preferredName "certificate number"@en;
+    bamm:description "The number of the certificate."@en;
+    bamm:characteristic bamm-c:Text.
+:issue a bamm:Property;
+    bamm:name "issue";
+    bamm:preferredName "issue"@en;
+    bamm:description "The issue of the certificate."@en;
+    bamm:characteristic bamm-c:Text.
+:publicationYear a bamm:Property;
+    bamm:name "publicationYear";
+    bamm:preferredName "publication year"@en;
+    bamm:description "Year the certificate was published"@en;
+    bamm:characteristic :Year;
+    bamm:exampleValue "1999"^^xsd:gYear.
+:effectiveDate a bamm:Property;
+    bamm:name "effectiveDate";
+    bamm:preferredName "effective date"@en;
+    bamm:description "The date the certificate becomes effective."@en;
+    bamm:characteristic bamm-c:Timestamp.
+:expirationDate a bamm:Property;
+    bamm:name "expirationDate";
+    bamm:preferredName "expiration date"@en;
+    bamm:description "The date the certificate expires."@en;
+    bamm:characteristic :Timestamp.
+:LocationCharacteristic a bamm:Characteristic;
+    bamm:name "LocationCharacteristic";
+    bamm:preferredName "Location characteristic"@en;
+    bamm:description "location with an URI"@en;
+    bamm:dataType xsd:anyURI.
+:Year a bamm-c:SortedSet;
+    bamm:name "Year";
+    bamm:dataType xsd:gYear.
+:Timestamp a bamm:Characteristic;
+    bamm:name "Timestamp";
+    bamm:description "Describes a Property which contains the date and time with an optional timezone."@en;
+    bamm:dataType xsd:dateTime.
 :productDescription a bamm:Property;
     bamm:name "productDescription";
     bamm:preferredName "product description"@en;
+    bamm:description "The description of the product on the marketplace."@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "BMW 3er (E36) BJ: 1996".
 :brand a bamm:Property;
     bamm:name "brand";
     bamm:preferredName "brand"@en;
+    bamm:description "The brandname of the offered product."@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "ZF".
 :category a bamm:Property;
@@ -309,6 +332,11 @@
     bamm:description "The original equipment number"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "4B0905851C".
+:technicalSpecification a bamm:Property;
+    bamm:name "technicalSpecification";
+    bamm:preferredName "technical specification"@en;
+    bamm:description "Further technical specifications."@en;
+    bamm:characteristic :TechnicalSpecification.
 :CategoryCharacteristic a bamm:Characteristic;
     bamm:name "CategoryCharacteristic";
     bamm:preferredName "category characteristic"@en;
@@ -325,27 +353,17 @@
 :mainCategory a bamm:Property;
     bamm:name "mainCategory";
     bamm:preferredName "main category"@en;
-    bamm:characteristic :MainCharacteristic;
-    bamm:exampleValue "Audio, video navigation".
+    bamm:characteristic :MainCategory;
+    bamm:exampleValue "Audio, video, navigation".
 :subCategory a bamm:Property;
     bamm:name "subCategory";
     bamm:preferredName "sub category"@en;
     bamm:characteristic :SubCategory;
     bamm:exampleValue "Amplifiers, subwoofers, etc".
-:MainCharacteristic a bamm-c:List;
-    bamm:name "MainCharacteristic";
-    bamm:preferredName "main characteristic"@en;
+:SubCategory a bamm-c:List;
+    bamm:name "SubCategory";
+    bamm:preferredName "sub category"@en;
     bamm:dataType xsd:string.
-:longitude a bamm:Property;
-    bamm:name "longitude";
-    bamm:preferredName "longitude"@en;
-    bamm:characteristic :LongitudeCharacteristic;
-    bamm:exampleValue "-117.283333"^^xsd:float.
-:latitude a bamm:Property;
-    bamm:name "latitude";
-    bamm:preferredName "latitude"@en;
-    bamm:characteristic :LatitudeCharacteristic;
-    bamm:exampleValue "48.137154"^^xsd:float.
 :LongitudeCharacteristic a bamm:Characteristic;
     bamm:name "LongitudeCharacteristic";
     bamm:preferredName "longitude characteristic"@en;
@@ -354,10 +372,6 @@
     bamm:name "LatitudeCharacteristic";
     bamm:preferredName "latitude characteristic"@en;
     bamm:dataType xsd:float.
-:PriceEntity a bamm:Entity;
-    bamm:name "PriceEntity";
-    bamm:preferredName "price"@en;
-    bamm:properties (:value :currency).
 :value a bamm:Property;
     bamm:name "value";
     bamm:preferredName "value"@en;
@@ -368,15 +382,6 @@
     bamm:name "Value";
     bamm:preferredName "value"@en;
     bamm:dataType xsd:float.
-:SubCategory a bamm-c:List;
-    bamm:name "SubCategory";
-    bamm:preferredName "sub category"@en;
-    bamm:dataType xsd:string.
-:technicalSpecification a bamm:Property;
-    bamm:name "technicalSpecification";
-    bamm:preferredName "technical specification"@en;
-    bamm:description "Furhter technical specifications"@en;
-    bamm:characteristic :TechnicalSpecification.
 :TechnicalSpecification a bamm-c:Set;
     bamm:name "TechnicalSpecification";
     bamm:preferredName "technical specification"@en;
@@ -395,3 +400,7 @@
     bamm:preferredName "technical value"@en;
     bamm:description "The value of the key value pair"@en;
     bamm:characteristic bamm-c:Text.
+:MainCategory a bamm-c:List;
+    bamm:name "MainCategory";
+    bamm:preferredName "main category"@en;
+    bamm:dataType xsd:string.
