@@ -255,7 +255,7 @@
     bamm:name "Timestamp";
     bamm:description "Describes a Property which contains the date and time with an optional timezone."@en;
     bamm:dataType xsd:dateTime.
-:ProductEntity a bamm:Entity;
+ProductEntity a bamm:Entity;
     bamm:name "ProductEntity";
     bamm:preferredName "product entity"@en;
     bamm:properties (:productDescription :brand :category [
