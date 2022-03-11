@@ -69,7 +69,7 @@
     bamm:description "The unit of measure (related to quantity)."@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "each";
-    bamm:see <https%25253A%25252F%25252Fresources.gs1us.org%25252FGS1-US-Data-Hub-Help-Center%25252FArtMID%25252F3451%25252FArticleID%25252F116%25252FUnit-of-Measure-Codes>.
+    bamm:see <https%3A%2F%2Fresources.gs1us.org%2FGS1-US-Data-Hub-Help-Center%2FArtMID%2F3451%2FArticleID%2F116%2FUnit-of-Measure-Codes>.
 :condition a bamm:Property;
     bamm:name "condition";
     bamm:description "The condition of the offered product."@en;
@@ -84,7 +84,7 @@
     bamm:description "The incoterms"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "DAP (Delivered at Place)";
-    bamm:see <https%25253A%25252F%25252Ficcwbo.org%25252Fpublication%25252Fincoterms-2020-introduction%25252F>.
+    bamm:see <https%3A%2F%2Ficcwbo.org%2Fpublication%2Fincoterms-2020-introduction%2F>.
 :price a bamm:Property;
     bamm:name "price";
     bamm:description "The price of the product."@en;
@@ -156,7 +156,7 @@
 :GeographicalCoordinates a bamm:Characteristic;
     bamm:name "GeographicalCoordinates";
     bamm:preferredName "geographical coordinates"@en;
-    bamm:see <https%252525253A%252525252F%252525252Fen.wikipedia.org%252525252Fwiki%252525252FGeographic_coordinate_system>;
+    bamm:see <https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FGeographic_coordinate_system>;
     bamm:dataType :GeographicalCoordinate.
 :Price a bamm:Characteristic;
     bamm:name "Price";
@@ -255,7 +255,7 @@
     bamm:description "The currency of the price."@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "EUR";
-    bamm:see <https%25253A%25252F%25252Fwww.iso.org%25252Fiso-4217-currency-codes.html>.
+    bamm:see <https%3A%2F%2Fwww.iso.org%2Fiso-4217-currency-codes.html>.
 :name a bamm:Property;
     bamm:name "name";
     bamm:preferredName "name"@en;
@@ -415,10 +415,11 @@
     bamm:preferredName "availability date"@en;
     bamm:description "The availability date when the product is in stock."@en;
     bamm:characteristic :AvailabilityDateCharacteristic;
-    bamm:exampleValue "11.03.2022"^^xsd:date.
+    bamm:exampleValue "2022-03-11"^^xsd:date.
 :AvailabilityDateCharacteristic a bamm:Characteristic;
     bamm:name "AvailabilityDateCharacteristic";
     bamm:preferredName "availability date characteristic"@en;
+    bamm:description "The availability date when the product is in stock."@en;
     bamm:dataType xsd:date.
 :mileage a bamm:Property;
     bamm:name "mileage";
@@ -426,8 +427,9 @@
     bamm:description "The mileage the item was ins use"@en;
     bamm:characteristic :MileageCharacteristic;
     bamm:exampleValue "120000.06"^^xsd:decimal.
-:MileageCharacteristic a bamm-c:Quantifiable;
+:MileageCharacteristic a bamm-c:Measurement;
     bamm:name "MileageCharacteristic";
     bamm:preferredName "mileage characteristic"@en;
+    bamm:description "The value describing the mileage of the item."@en;
     bamm:dataType xsd:decimal;
     bamm-c:unit unit:kilometre.
