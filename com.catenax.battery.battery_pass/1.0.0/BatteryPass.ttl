@@ -9,11 +9,14 @@
 
 :BatteryPass a bamm:Aspect;
     bamm:name "BatteryPass";
-    bamm:properties (:passportNumber :passportIssuer :dateOfManufacture :hasEuConformationCertificate :nameOfManufacturer :websiteOfManufacturer :brand);
+    bamm:properties (:passportNumber :passportIssuer :dateOfManufacture :hasEuConformationCertificate :nameOfManufacturer :websiteOfManufacturer :brand :nameOfProducer :numberOfBatteryCells [
+  bamm:property :attachment;
+  bamm:optional "true"^^xsd:boolean
+]);
     bamm:operations ();
     bamm:preferredName "battery pass"@en;
     bamm:description "The battery pass describes information collected during the lifecycle of a battery"@en;
-    bamm:see <https%25253A%25252F%25252Feur-lex.europa.eu%25252Flegal-content%25252FEN%25252FTXT%25252F%25253Furi%25253DCELEX%2525253A52020PC0798>.
+    bamm:see <https%3A%2F%2Feur-lex.europa.eu%2Flegal-content%2FEN%2FTXT%2F%3Furi%3DCELEX%253A52020PC0798>.
 :passportNumber a bamm:Property;
     bamm:name "passportNumber";
     bamm:preferredName "passport number"@en;
@@ -29,7 +32,7 @@
     bamm:preferredName "date of manufacture"@en;
     bamm:description "Manufacturing date of the battery"@en;
     bamm:characteristic :DateOfManufacture;
-    bamm:exampleValue "07.03.2022"^^xsd:date.
+    bamm:exampleValue "2022-03-07"^^xsd:date.
 :hasEuConformationCertificate a bamm:Property;
     bamm:name "hasEuConformationCertificate";
     bamm:preferredName "has EU conformation certificate"@en;
@@ -46,7 +49,8 @@
     bamm:name "websiteOfManufacturer";
     bamm:preferredName "website of manufacturer"@en;
     bamm:description "Website of the battery manufacturer."@en;
-    bamm:characteristic :WebsiteOfManufacturer.
+    bamm:characteristic :WebsiteOfManufacturer;
+    bamm:exampleValue "https://www.samsung.com"^^xsd:anyURI.
 :DateOfManufacture a bamm:Characteristic;
     bamm:name "DateOfManufacture";
     bamm:preferredName "date of manufacture"@en;
@@ -62,9 +66,52 @@
 :brand a bamm:Property;
     bamm:name "brand";
     bamm:preferredName "brand"@en;
-    bamm:characteristic :Text.
+    bamm:description "The name of the brand under which the producer intends to supply the batteries"@en;
+    bamm:characteristic :Text;
+    bamm:exampleValue "SmartWatch".
 :WebsiteOfManufacturer a bamm:Characteristic;
     bamm:name "WebsiteOfManufacturer";
     bamm:preferredName "manufacturer website"@en;
-    bamm:see <https%3A%2F%2Fwww.samsung.com>;
+    bamm:dataType xsd:anyURI.
+:nameOfProducer a bamm:Property;
+    bamm:name "nameOfProducer";
+    bamm:preferredName "name of producer"@en;
+    bamm:description "Name of the battery producer"@en;
+    bamm:characteristic :Text;
+    bamm:exampleValue "Samseong".
+:numberOfBatteryCells a bamm:Property;
+    bamm:name "numberOfBatteryCells";
+    bamm:preferredName "number of battery cells"@en;
+    bamm:description "Number of cell in a battery"@en;
+    bamm:characteristic :NumberOfBatteryCells;
+    bamm:exampleValue "200"^^xsd:integer.
+:NumberOfBatteryCells a bamm-c:Quantifiable;
+    bamm:name "NumberOfBatteryCells";
+    bamm:preferredName "number of battery cells"@en;
+    bamm:description "Number of cell in a battery"@en;
+    bamm:dataType xsd:integer;
+    bamm-c:unit unit:piece.
+:attachment a bamm:Property;
+    bamm:name "attachment";
+    bamm:preferredName "attachment"@en;
+    bamm:description "List/document containing the description of battery components"@en;
+    bamm:characteristic :Attachment.
+:Attachment a bamm-c:Set;
+    bamm:name "Attachment";
+    bamm:preferredName "attachment"@en;
+    bamm:description "Links the referenced attachments"@en;
+    bamm:dataType :AttachmentEntity.
+:AttachmentEntity a bamm:Entity;
+    bamm:name "AttachmentEntity";
+    bamm:properties (:fileLocation);
+    bamm:preferredName "AttachmentEntity"@en;
+    bamm:description "attachment for the battery"@en.
+:fileLocation a bamm:Property;
+    bamm:name "fileLocation";
+    bamm:preferredName "file location"@en;
+    bamm:description "Location of the file"@en;
+    bamm:characteristic :FileLocation.
+:FileLocation a bamm:Characteristic;
+    bamm:name "FileLocation";
+    bamm:preferredName "file location"@en;
     bamm:dataType xsd:anyURI.
