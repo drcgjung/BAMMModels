@@ -32,6 +32,12 @@
 ] [
   bamm:property :recycledContent;
   bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :aggregateState;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :weight;
+  bamm:optional "true"^^xsd:boolean
 ]).
 :materialClass a bamm:Property;
     bamm:name "materialClass";
@@ -48,4 +54,26 @@
     bamm:description "Class according to the refernced standard the material belongs to.\nThe IMDS recommendations and the IMDS rules are exclusevily accessible within the IMDS portal to members of the IMDS association.\n\nIn order to access the data one needs to be member of the association."@en;
     bamm:dataType xsd:string;
     bamm:preferredName "material class"@en;
-    bamm:see <https%3A%2F%2Fwww.mdsystem.com%2Fimdsnt%2Fstartpage%2Findex.jsp>.
+    bamm:see <https%253A%252F%252Fwww.mdsystem.com%252Fimdsnt%252Fstartpage%252Findex.jsp>.
+:aggregateState a bamm:Property;
+    bamm:name "aggregateState";
+    bamm:description "The aggregate state the materialis in at the timepoint the item is disassembled"@en;
+    bamm:exampleValue "fluid";
+    bamm:characteristic :AggregateState.
+:weight a bamm:Property;
+    bamm:name "weight";
+    bamm:description "The weight of the material"@en;
+    bamm:exampleValue "100.2"^^xsd:double;
+    bamm:characteristic :Weight;
+    bamm:preferredName "weight"@en.
+:AggregateState a bamm-c:Enumeration;
+    bamm:name "AggregateState";
+    bamm:dataType xsd:string;
+    bamm:preferredName "aggregate state"@en;
+    bamm-c:values ("solid" "liquid" "gasenous").
+:Weight a bamm-c:Measurement;
+    bamm:name "Weight";
+    bamm:description "The weight of the recycled item"@en;
+    bamm:dataType xsd:double;
+    bamm-c:unit unit:gram;
+    bamm:preferredName "weight"@en.
