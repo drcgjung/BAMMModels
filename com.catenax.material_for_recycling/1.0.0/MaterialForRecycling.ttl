@@ -26,54 +26,69 @@
     bamm:description "This model depicts a material as seen by the recycler at the end of the lifecycle of a product."@en;
     bamm:preferredName "material for recycling"@en;
     bamm:operations ();
-    bamm:properties (:materialName :materialClass [
-  bamm:property :materialAbbreviation;
-  bamm:optional "true"^^xsd:boolean
-] [
-  bamm:property :recycledContent;
-  bamm:optional "true"^^xsd:boolean
-] [
-  bamm:property :aggregateState;
-  bamm:optional "true"^^xsd:boolean
-] [
-  bamm:property :weight;
-  bamm:optional "true"^^xsd:boolean
-]).
+    bamm:properties (:materialName :materialClass :component).
 :materialClass a bamm:Property;
     bamm:name "materialClass";
     bamm:description "The class of a material following the referenced standard."@en;
     bamm:exampleValue "plastic";
     bamm:characteristic :MaterialClass.
-:recycledContent a bamm:Property;
-    bamm:name "recycledContent";
-    bamm:description "Indicates if the material was is recycled. Percentage of how much of the material was recycled. This can be an aggregation regarding the materials below."@en;
-    bamm:characteristic :Percentage;
-    bamm:preferredName "recycled content"@en.
 :MaterialClass a bamm:Characteristic;
     bamm:name "MaterialClass";
     bamm:description "Class according to the refernced standard the material belongs to.\nThe IMDS recommendations and the IMDS rules are exclusevily accessible within the IMDS portal to members of the IMDS association.\n\nIn order to access the data one needs to be member of the association."@en;
     bamm:dataType xsd:string;
     bamm:preferredName "material class"@en;
-    bamm:see <https%253A%252F%252Fwww.mdsystem.com%252Fimdsnt%252Fstartpage%252Findex.jsp>.
+    bamm:see <https%2525253A%2525252F%2525252Fwww.mdsystem.com%2525252Fimdsnt%2525252Fstartpage%2525252Findex.jsp>.
+:recycledContent a bamm:Property;
+    bamm:name "recycledContent";
+    bamm:description "Indicates if the material was is recycled. Percentage of how much of the material was recycled. This can be an aggregation regarding the materials below."@en;
+    bamm:characteristic :Percentage;
+    bamm:preferredName "recycled content"@en.
 :aggregateState a bamm:Property;
     bamm:name "aggregateState";
     bamm:description "The aggregate state the materialis in at the timepoint the item is disassembled"@en;
     bamm:exampleValue "fluid";
     bamm:characteristic :AggregateState.
+:AggregateState a bamm-c:Enumeration;
+    bamm:name "AggregateState";
+    bamm:dataType xsd:string;
+    bamm:preferredName "aggregate state"@en;
+    bamm-c:values ("solid" "liquid" "gasenous").
 :weight a bamm:Property;
     bamm:name "weight";
     bamm:description "The weight of the material"@en;
     bamm:exampleValue "100.2"^^xsd:double;
     bamm:characteristic :Weight;
     bamm:preferredName "weight"@en.
-:AggregateState a bamm-c:Enumeration;
-    bamm:name "AggregateState";
-    bamm:dataType xsd:string;
-    bamm:preferredName "aggregate state"@en;
-    bamm-c:values ("solid" "liquid" "gasenous").
 :Weight a bamm-c:Measurement;
     bamm:name "Weight";
     bamm:description "The weight of the recycled item"@en;
     bamm:dataType xsd:double;
     bamm-c:unit unit:gram;
     bamm:preferredName "weight"@en.
+:component a bamm:Property;
+    bamm:name "component";
+    bamm:description "Components the material consists of"@en;
+    bamm:exampleValue "recycling paper"^^:ComponentEntity;
+    bamm:characteristic :ComponentCharacteristic;
+    bamm:preferredName "component"@en.
+:ComponentEntity a bamm:Entity;
+    bamm:name "ComponentEntity";
+    bamm:preferredName "component entity"@en;
+    bamm:properties ([
+  bamm:property :weight;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :aggregateState;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :recycledContent;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :materialAbbreviation;
+  bamm:optional "true"^^xsd:boolean
+] :materialClass :materialName).
+:ComponentCharacteristic a bamm-c:Set;
+    bamm:name "ComponentCharacteristic";
+    bamm:description "Describes the consistency"@en;
+    bamm:dataType :ComponentEntity;
+    bamm:preferredName "component characteristic"@en.
