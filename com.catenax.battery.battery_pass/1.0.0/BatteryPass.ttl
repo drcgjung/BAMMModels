@@ -9,24 +9,26 @@
 
 :BatteryPass a bamm:Aspect;
     bamm:name "BatteryPass";
-    bamm:properties (:passportNumber :passportIssuer :dateOfManufacture :hasEuConformationCertificate :nameOfManufacturer :websiteOfManufacturer :brand :nameOfProducer :numberOfBatteryCells [
+    bamm:properties (:passportNumber :passportIssuer :dateOfManufacture :hasEuConformationCertificate :brand :numberOfBatteryCells [
   bamm:property :attachment;
   bamm:optional "true"^^xsd:boolean
-]);
+] :manufacturer :producer);
     bamm:operations ();
     bamm:preferredName "battery pass"@en;
     bamm:description "The battery pass describes information collected during the lifecycle of a battery"@en;
-    bamm:see <https%3A%2F%2Feur-lex.europa.eu%2Flegal-content%2FEN%2FTXT%2F%3Furi%3DCELEX%253A52020PC0798>.
+    bamm:see <https%253A%252F%252Feur-lex.europa.eu%252Flegal-content%252FEN%252FTXT%252F%253Furi%253DCELEX%25253A52020PC0798>.
 :passportNumber a bamm:Property;
     bamm:name "passportNumber";
     bamm:preferredName "passport number"@en;
     bamm:description "The unique passport number of the battery"@en;
-    bamm:characteristic bamm-c:Text.
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "A4711".
 :passportIssuer a bamm:Property;
     bamm:name "passportIssuer";
     bamm:preferredName "passport issuer"@en;
     bamm:description "Name of the issuer of the battery passport"@en;
-    bamm:characteristic bamm-c:Text.
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Samsung".
 :dateOfManufacture a bamm:Property;
     bamm:name "dateOfManufacture";
     bamm:preferredName "date of manufacture"@en;
@@ -39,18 +41,23 @@
     bamm:description "If the manufacturer has provided a certificate of conformity with European health, safety, and environmental protection standards then the battery is able to receive the CE mark."@en;
     bamm:characteristic :HasEuConformationCertificate;
     bamm:exampleValue "true"^^xsd:boolean.
-:nameOfManufacturer a bamm:Property;
-    bamm:name "nameOfManufacturer";
-    bamm:preferredName "name of manufacturer"@en;
-    bamm:description "Name of battery manufacturer"@en;
+:brand a bamm:Property;
+    bamm:name "brand";
+    bamm:preferredName "brand"@en;
+    bamm:description "The name of the brand under which the producer intends to supply the batteries"@en;
     bamm:characteristic :Text;
-    bamm:exampleValue "Samsung".
-:websiteOfManufacturer a bamm:Property;
-    bamm:name "websiteOfManufacturer";
-    bamm:preferredName "website of manufacturer"@en;
-    bamm:description "Website of the battery manufacturer."@en;
-    bamm:characteristic :WebsiteOfManufacturer;
-    bamm:exampleValue "https://www.samsung.com"^^xsd:anyURI.
+    bamm:exampleValue "SmartWatch".
+:numberOfBatteryCells a bamm:Property;
+    bamm:name "numberOfBatteryCells";
+    bamm:preferredName "number of battery cells"@en;
+    bamm:description "Number of cell in a battery"@en;
+    bamm:characteristic :NumberOfBatteryCells;
+    bamm:exampleValue "200"^^xsd:integer.
+:attachment a bamm:Property;
+    bamm:name "attachment";
+    bamm:preferredName "attachment"@en;
+    bamm:description "List/document containing the description of battery components"@en;
+    bamm:characteristic :Attachment.
 :DateOfManufacture a bamm:Characteristic;
     bamm:name "DateOfManufacture";
     bamm:preferredName "date of manufacture"@en;
@@ -63,39 +70,16 @@
     bamm:name "Text";
     bamm:description "Describes a Property which contains plain text. This is intended exclusively for human readable strings, not for identifiers, measurement values, etc."@en;
     bamm:dataType xsd:string.
-:brand a bamm:Property;
-    bamm:name "brand";
-    bamm:preferredName "brand"@en;
-    bamm:description "The name of the brand under which the producer intends to supply the batteries"@en;
-    bamm:characteristic :Text;
-    bamm:exampleValue "SmartWatch".
 :WebsiteOfManufacturer a bamm:Characteristic;
     bamm:name "WebsiteOfManufacturer";
     bamm:preferredName "manufacturer website"@en;
     bamm:dataType xsd:anyURI.
-:nameOfProducer a bamm:Property;
-    bamm:name "nameOfProducer";
-    bamm:preferredName "name of producer"@en;
-    bamm:description "Name of the battery producer"@en;
-    bamm:characteristic :Text;
-    bamm:exampleValue "Samseong".
-:numberOfBatteryCells a bamm:Property;
-    bamm:name "numberOfBatteryCells";
-    bamm:preferredName "number of battery cells"@en;
-    bamm:description "Number of cell in a battery"@en;
-    bamm:characteristic :NumberOfBatteryCells;
-    bamm:exampleValue "200"^^xsd:integer.
 :NumberOfBatteryCells a bamm-c:Quantifiable;
     bamm:name "NumberOfBatteryCells";
     bamm:preferredName "number of battery cells"@en;
     bamm:description "Number of cell in a battery"@en;
     bamm:dataType xsd:integer;
     bamm-c:unit unit:piece.
-:attachment a bamm:Property;
-    bamm:name "attachment";
-    bamm:preferredName "attachment"@en;
-    bamm:description "List/document containing the description of battery components"@en;
-    bamm:characteristic :Attachment.
 :Attachment a bamm-c:Set;
     bamm:name "Attachment";
     bamm:preferredName "attachment"@en;
@@ -115,3 +99,80 @@
     bamm:name "FileLocation";
     bamm:preferredName "file location"@en;
     bamm:dataType xsd:anyURI.
+:manufacturer a bamm:Property;
+    bamm:name "manufacturer";
+    bamm:preferredName "manufacturer"@en;
+    bamm:description "Actual manufacturer of the battery"@en;
+    bamm:characteristic :ManufacturerCharacteristic.
+:ManufacturerCharacteristic a bamm:Characteristic;
+    bamm:name "ManufacturerCharacteristic";
+    bamm:preferredName "manufacturer characteristic"@en;
+    bamm:dataType :Manufacturer.
+:Manufacturer a bamm:Entity;
+    bamm:name "Manufacturer";
+    bamm:properties (:name :address);
+    bamm:preferredName "manufacturer"@en.
+:name a bamm:Property;
+    bamm:name "name";
+    bamm:preferredName "name"@en;
+    bamm:description "Name of the manufacturer"@en;
+    bamm:characteristic :Text;
+    bamm:exampleValue "Samsung".
+:website a bamm:Property;
+    bamm:name "website";
+    bamm:preferredName "website"@en;
+    bamm:description "Website of the battery manufacturer."@en;
+    bamm:characteristic :WebsiteOfManufacturer;
+    bamm:exampleValue "https://www.samsung.com"^^xsd:anyURI.
+:producer a bamm:Property;
+    bamm:name "producer";
+    bamm:preferredName "producer"@en;
+    bamm:characteristic :ProducerCharacteristic.
+:ProducerCharacteristic a bamm:Characteristic;
+    bamm:name "ProducerCharacteristic";
+    bamm:preferredName "producer characteristic"@en;
+    bamm:dataType :Producer.
+:Producer a bamm:Entity;
+    bamm:name "Producer";
+    bamm:properties (:name :contact :address);
+    bamm:preferredName "producer"@en.
+:contact a bamm:Property;
+    bamm:name "contact";
+    bamm:preferredName "contact"@en;
+    bamm:description "Contact details"@en;
+    bamm:characteristic :Contact.
+:Contact a bamm:Characteristic;
+    bamm:name "Contact";
+    bamm:preferredName "contact"@en;
+    bamm:dataType :ContactEntity.
+:ContactEntity a bamm:Entity;
+    bamm:name "ContactEntity";
+    bamm:properties ([
+  bamm:property :website;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :phoneNumber;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :eMail;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :faxNumber;
+  bamm:optional "true"^^xsd:boolean
+]);
+    bamm:preferredName "contact entity"@en;
+    bamm:description "Entity encapsulating the contact details"@en.
+:phoneNumber a bamm:Property;
+    bamm:name "phoneNumber";
+    bamm:preferredName "phone number"@en;
+    bamm:characteristic :Text.
+:eMail a bamm:Property;
+    bamm:name "eMail";
+    bamm:preferredName "email"@en;
+    bamm:characteristic :Text.
+:faxNumber a bamm:Property;
+    bamm:name "faxNumber";
+    bamm:preferredName "faxNumber"@en;
+    bamm:characteristic :Text.
+:address a bamm:Property;
+    bamm:name "address".
