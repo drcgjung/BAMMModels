@@ -6,6 +6,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 @prefix : <urn:bamm:io.openmanufacturing.digitaltwin:1.0.0#>.
+@prefix address-c: <urn:bamm:com.catenax.shared.address_characteristic:1.0.0#>.
 
 :BatteryPass a bamm:Aspect;
     bamm:name "BatteryPass";
@@ -16,7 +17,7 @@
     bamm:operations ();
     bamm:preferredName "battery pass"@en;
     bamm:description "The battery pass describes information collected during the lifecycle of a battery"@en;
-    bamm:see <https%253A%252F%252Feur-lex.europa.eu%252Flegal-content%252FEN%252FTXT%252F%253Furi%253DCELEX%25253A52020PC0798>.
+    bamm:see <https%25253A%25252F%25252Feur-lex.europa.eu%25252Flegal-content%25252FEN%25252FTXT%25252F%25253Furi%25253DCELEX%2525253A52020PC0798>.
 :passportNumber a bamm:Property;
     bamm:name "passportNumber";
     bamm:preferredName "passport number"@en;
@@ -58,6 +59,15 @@
     bamm:preferredName "attachment"@en;
     bamm:description "List/document containing the description of battery components"@en;
     bamm:characteristic :Attachment.
+:manufacturer a bamm:Property;
+    bamm:name "manufacturer";
+    bamm:preferredName "manufacturer"@en;
+    bamm:description "Actual manufacturer of the battery"@en;
+    bamm:characteristic :ManufacturerCharacteristic.
+:producer a bamm:Property;
+    bamm:name "producer";
+    bamm:preferredName "producer"@en;
+    bamm:characteristic :ProducerCharacteristic.
 :DateOfManufacture a bamm:Characteristic;
     bamm:name "DateOfManufacture";
     bamm:preferredName "date of manufacture"@en;
@@ -70,10 +80,6 @@
     bamm:name "Text";
     bamm:description "Describes a Property which contains plain text. This is intended exclusively for human readable strings, not for identifiers, measurement values, etc."@en;
     bamm:dataType xsd:string.
-:WebsiteOfManufacturer a bamm:Characteristic;
-    bamm:name "WebsiteOfManufacturer";
-    bamm:preferredName "manufacturer website"@en;
-    bamm:dataType xsd:anyURI.
 :NumberOfBatteryCells a bamm-c:Quantifiable;
     bamm:name "NumberOfBatteryCells";
     bamm:preferredName "number of battery cells"@en;
@@ -85,9 +91,13 @@
     bamm:preferredName "attachment"@en;
     bamm:description "Links the referenced attachments"@en;
     bamm:dataType :AttachmentEntity.
+:WebsiteOfManufacturer a bamm:Characteristic;
+    bamm:name "WebsiteOfManufacturer";
+    bamm:preferredName "manufacturer website"@en;
+    bamm:dataType xsd:anyURI.
 :AttachmentEntity a bamm:Entity;
     bamm:name "AttachmentEntity";
-    bamm:properties (:fileLocation);
+    bamm:properties (:fileLocation :title);
     bamm:preferredName "AttachmentEntity"@en;
     bamm:description "attachment for the battery"@en.
 :fileLocation a bamm:Property;
@@ -99,18 +109,13 @@
     bamm:name "FileLocation";
     bamm:preferredName "file location"@en;
     bamm:dataType xsd:anyURI.
-:manufacturer a bamm:Property;
-    bamm:name "manufacturer";
-    bamm:preferredName "manufacturer"@en;
-    bamm:description "Actual manufacturer of the battery"@en;
-    bamm:characteristic :ManufacturerCharacteristic.
 :ManufacturerCharacteristic a bamm:Characteristic;
     bamm:name "ManufacturerCharacteristic";
     bamm:preferredName "manufacturer characteristic"@en;
     bamm:dataType :Manufacturer.
 :Manufacturer a bamm:Entity;
     bamm:name "Manufacturer";
-    bamm:properties (:name :address);
+    bamm:properties (:name :address :contact);
     bamm:preferredName "manufacturer"@en.
 :name a bamm:Property;
     bamm:name "name";
@@ -118,16 +123,16 @@
     bamm:description "Name of the manufacturer"@en;
     bamm:characteristic :Text;
     bamm:exampleValue "Samsung".
+:address a bamm:Property;
+    bamm:name "address";
+    bamm:preferredName "address"@en;
+    bamm:characteristic address-c:PostalAddress.
 :website a bamm:Property;
     bamm:name "website";
     bamm:preferredName "website"@en;
     bamm:description "Website of the battery manufacturer."@en;
     bamm:characteristic :WebsiteOfManufacturer;
     bamm:exampleValue "https://www.samsung.com"^^xsd:anyURI.
-:producer a bamm:Property;
-    bamm:name "producer";
-    bamm:preferredName "producer"@en;
-    bamm:characteristic :ProducerCharacteristic.
 :ProducerCharacteristic a bamm:Characteristic;
     bamm:name "ProducerCharacteristic";
     bamm:preferredName "producer characteristic"@en;
@@ -174,5 +179,8 @@
     bamm:name "faxNumber";
     bamm:preferredName "faxNumber"@en;
     bamm:characteristic :Text.
-:address a bamm:Property;
-    bamm:name "address".
+:title a bamm:Property;
+    bamm:name "title";
+    bamm:preferredName "title"@en;
+    bamm:description "Title of the attached file"@en;
+    bamm:characteristic :Text.
