@@ -23,7 +23,7 @@
     bamm-c:unit unit:percent.
 :MaterialForRecycling a bamm:Aspect;
     bamm:name "MaterialForRecycling";
-    bamm:description "This model depicts a material as seen by the recycler at the end of the lifecycle of a product."@en;
+    bamm:description "This model depicts a material as seen by the recycler at the end of the lifecycle of a product. If a material consists of only one single component the name and class for the aspect are not used"@en;
     bamm:preferredName "material for recycling"@en;
     bamm:operations ();
     bamm:properties ([
@@ -49,12 +49,28 @@
     bamm:description "Class according to the refernced standard the material belongs to.\nThe IMDS recommendations and the IMDS rules are exclusevily accessible within the IMDS portal to members of the IMDS association.\n\nIn order to access the data one needs to be member of the association."@en;
     bamm:dataType xsd:string;
     bamm:preferredName "material class"@en;
-    bamm:see <https%253A%252F%252Fwww.mdsystem.com%252Fimdsnt%252Fstartpage%252Findex.jsp>.
+    bamm:see <https%25253A%25252F%25252Fwww.mdsystem.com%25252Fimdsnt%25252Fstartpage%25252Findex.jsp>.
 :ComponentCharacteristic a bamm-c:Set;
     bamm:name "ComponentCharacteristic";
     bamm:description "Describes the consistency"@en;
     bamm:dataType :ComponentEntity;
     bamm:preferredName "component characteristic"@en.
+:ComponentEntity a bamm:Entity;
+    bamm:name "ComponentEntity";
+    bamm:preferredName "component entity"@en;
+    bamm:properties ([
+  bamm:property :weight;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :aggregateState;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :recycledContent;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :materialAbbreviation;
+  bamm:optional "true"^^xsd:boolean
+] :materialClass :materialName).
 :recycledContent a bamm:Property;
     bamm:name "recycledContent";
     bamm:description "Indicates if the material was is recycled. Percentage of how much of the material was recycled. This can be an aggregation regarding the materials below."@en;
@@ -82,19 +98,3 @@
     bamm:dataType xsd:double;
     bamm-c:unit unit:gram;
     bamm:preferredName "weight"@en.
-:ComponentEntity a bamm:Entity;
-    bamm:name "ComponentEntity";
-    bamm:preferredName "component entity"@en;
-    bamm:properties ([
-  bamm:property :weight;
-  bamm:optional "true"^^xsd:boolean
-] [
-  bamm:property :aggregateState;
-  bamm:optional "true"^^xsd:boolean
-] [
-  bamm:property :recycledContent;
-  bamm:optional "true"^^xsd:boolean
-] [
-  bamm:property :materialAbbreviation;
-  bamm:optional "true"^^xsd:boolean
-] :materialClass :materialName).
