@@ -6,7 +6,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 @prefix : <urn:bamm:io.openmanufacturing.digitaltwin:1.0.0#>.
-@prefix address-c: <urn:bamm:com.catenax.shared.address_characteristic:1.0.0#>.
+#@prefix address-c: <urn:bamm:com.catenax.shared.address_characteristic:1.0.0#>.
 
 :BatteryPass a bamm:Aspect;
     bamm:name "BatteryPass";
@@ -18,7 +18,7 @@
     bamm:preferredName "battery pass"@en;
     bamm:description "The battery pass describes information collected during the lifecycle of a battery"@en;
     bamm:see <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A52020PC0798>.
-    #bamm:see <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A52020PC0798>.
+    #bamm:see <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A52020PC0798>. ### comment to copy for easy fix if link get broken on pushing
 :passportNumber a bamm:Property;
     bamm:name "passportNumber";
     bamm:preferredName "passport number"@en;
@@ -123,7 +123,8 @@
 :Manufacturer a bamm:Entity;
     bamm:name "Manufacturer";    
     bamm:description "A manufacturer of goods"@en;
-    bamm:properties (:name :address :contact);
+    bamm:properties (:name :contact);
+#    bamm:properties (:name :address :contact);
     bamm:preferredName "manufacturer"@en.
 :name a bamm:Property;
     bamm:name "name";
@@ -131,11 +132,11 @@
     bamm:description "Name of the manufacturer"@en;
     bamm:characteristic :Text;
     bamm:exampleValue "Samsung".
-:address a bamm:Property;
-    bamm:name "address";
-    bamm:preferredName "address"@en;    
-    bamm:description "An address"@en;
-    bamm:characteristic address-c:PostalAddress.
+#:address a bamm:Property;
+#    bamm:name "address";
+#    bamm:preferredName "address"@en;    
+#    bamm:description "An address"@en;
+#    bamm:characteristic address-c:PostalAddress.
 :website a bamm:Property;
     bamm:name "website";
     bamm:preferredName "website"@en;
@@ -150,7 +151,8 @@
 :Producer a bamm:Entity;
     bamm:name "Producer";    
     bamm:description "A producer"@en;
-    bamm:properties (:name :contact :address);
+    bamm:properties (:name :contact);
+#    bamm:properties (:name :contact :address);
     bamm:preferredName "producer"@en.
 :contact a bamm:Property;
     bamm:name "contact";
