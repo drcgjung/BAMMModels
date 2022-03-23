@@ -41,7 +41,6 @@
 :component a bamm:Property;
     bamm:name "component";
     bamm:description "Components the material consists of"@en;
-    bamm:exampleValue "recycling paper"^^:ComponentEntity;
     bamm:characteristic :ComponentCharacteristic;
     bamm:preferredName "component"@en.
 :MaterialClass a bamm:Characteristic;
@@ -49,7 +48,7 @@
     bamm:description "Class according to the refernced standard the material belongs to.\nThe IMDS recommendations and the IMDS rules are exclusevily accessible within the IMDS portal to members of the IMDS association.\n\nIn order to access the data one needs to be member of the association."@en;
     bamm:dataType xsd:string;
     bamm:preferredName "material class"@en;
-    bamm:see <https%25253A%25252F%25252Fwww.mdsystem.com%25252Fimdsnt%25252Fstartpage%25252Findex.jsp>.
+    bamm:see <https://www.mdsystem.com/imdsnt/startpage/index.jsp>.
 :ComponentCharacteristic a bamm-c:Set;
     bamm:name "ComponentCharacteristic";
     bamm:description "Describes the consistency"@en;
@@ -57,6 +56,7 @@
     bamm:preferredName "component characteristic"@en.
 :ComponentEntity a bamm:Entity;
     bamm:name "ComponentEntity";
+    bamm:description "The properties that describe a component"@en;
     bamm:preferredName "component entity"@en;
     bamm:properties ([
   bamm:property :weight;
@@ -71,27 +71,27 @@
   bamm:property :materialAbbreviation;
   bamm:optional "true"^^xsd:boolean
 ] :materialClass :materialName).
-:recycledContent a bamm:Property;
-    bamm:name "recycledContent";
-    bamm:description "Indicates if the material was is recycled. Percentage of how much of the material was recycled. This can be an aggregation regarding the materials below."@en;
-    bamm:characteristic :Percentage;
-    bamm:preferredName "recycled content"@en.
-:aggregateState a bamm:Property;
-    bamm:name "aggregateState";
-    bamm:description "The aggregate state the materialis in at the timepoint the item is disassembled"@en;
-    bamm:exampleValue "fluid";
-    bamm:characteristic :AggregateState.
-:AggregateState a bamm-c:Enumeration;
-    bamm:name "AggregateState";
-    bamm:dataType xsd:string;
-    bamm:preferredName "aggregate state"@en;
-    bamm-c:values ("solid" "liquid" "gasenous").
 :weight a bamm:Property;
     bamm:name "weight";
     bamm:description "The weight of the material"@en;
     bamm:exampleValue "100.2"^^xsd:double;
     bamm:characteristic :Weight;
     bamm:preferredName "weight"@en.
+:aggregateState a bamm:Property;
+    bamm:name "aggregateState";
+    bamm:description "The aggregate state the materialis in at the timepoint the item is disassembled"@en;
+    bamm:exampleValue "liquid";
+    bamm:characteristic :AggregateState.
+:recycledContent a bamm:Property;
+    bamm:name "recycledContent";
+    bamm:description "Indicates if the material was is recycled. Percentage of how much of the material was recycled. This can be an aggregation regarding the materials below."@en;
+    bamm:characteristic :Percentage;
+    bamm:preferredName "recycled content"@en.
+:AggregateState a bamm-c:Enumeration;
+    bamm:name "AggregateState";
+    bamm:dataType xsd:string;
+    bamm:preferredName "aggregate state"@en;
+    bamm-c:values ("solid" "liquid" "gasenous").
 :Weight a bamm-c:Measurement;
     bamm:name "Weight";
     bamm:description "The weight of the recycled item"@en;
