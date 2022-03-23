@@ -6,7 +6,6 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 @prefix : <urn:bamm:io.openmanufacturing.digitaltwin:1.0.0#>.
-#@prefix address-c: <urn:bamm:com.catenax.shared.address_characteristic:1.0.0#>.
 
 :BatteryPass a bamm:Aspect;
     bamm:name "BatteryPass";
@@ -17,8 +16,7 @@
     bamm:operations ();
     bamm:preferredName "battery pass"@en;
     bamm:description "The battery pass describes information collected during the lifecycle of a battery"@en;
-    bamm:see <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A52020PC0798>.
-    #bamm:see <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A52020PC0798>. ### comment to copy for easy fix if link get broken on pushing
+    bamm:see <https%3A%2F%2Feur-lex.europa.eu%2Flegal-content%2FEN%2FTXT%2F%3Furi%3DCELEX%253A52020PC0798>.
 :passportNumber a bamm:Property;
     bamm:name "passportNumber";
     bamm:preferredName "passport number"@en;
@@ -35,7 +33,7 @@
     bamm:name "dateOfManufacture";
     bamm:preferredName "date of manufacture"@en;
     bamm:description "Manufacturing date of the battery"@en;
-    bamm:characteristic :DateOfManufacture;
+    bamm:characteristic :DateOfManufactureCharacteristic;
     bamm:exampleValue "2022-03-07"^^xsd:date.
 :hasEuConformationCertificate a bamm:Property;
     bamm:name "hasEuConformationCertificate";
@@ -59,7 +57,7 @@
     bamm:name "attachment";
     bamm:preferredName "attachment"@en;
     bamm:description "Set of documents containing the description of battery components"@en;
-    bamm:characteristic :Attachment.
+    bamm:characteristic :AttachmentCharacteristic.
 :manufacturer a bamm:Property;
     bamm:name "manufacturer";
     bamm:preferredName "manufacturer"@en;
@@ -67,97 +65,64 @@
     bamm:characteristic :ManufacturerCharacteristic.
 :producer a bamm:Property;
     bamm:name "producer";
-    bamm:preferredName "producer"@en;    
+    bamm:preferredName "producer"@en;
     bamm:description "Legal entity acutally physically producing the battery"@en;
     bamm:characteristic :ProducerCharacteristic.
-:DateOfManufacture a bamm:Characteristic;
-    bamm:name "DateOfManufacture";    
-    bamm:description "The date of manufacturing"@en;
-    bamm:preferredName "date of manufacture"@en;
-    bamm:dataType xsd:date.
 :NumberOfBatteryCells a bamm-c:Quantifiable;
     bamm:name "NumberOfBatteryCells";
     bamm:preferredName "number of battery cells"@en;
     bamm:description "Number of cells in a battery"@en;
     bamm:dataType xsd:integer;
     bamm-c:unit unit:piece.
-:Attachment a bamm-c:Set;
-    bamm:name "Attachment";
-    bamm:preferredName "attachment"@en;
-    bamm:description "Links the referenced attachments"@en;
-    bamm:dataType :AttachmentEntity.
-:WebsiteCharacteristic a bamm:Characteristic;
-    bamm:name "WebsiteCharacteristic";
-    bamm:description "Address of the website"@en;
-    bamm:preferredName "website"@en;
-    bamm:dataType xsd:anyURI.
+:ManufacturerCharacteristic a bamm:Characteristic;
+    bamm:name "ManufacturerCharacteristic";
+    bamm:preferredName "manufacturer characteristic"@en;
+    bamm:description "A manufacturer of goods"@en;
+    bamm:dataType :ManufacturerEntity.
+:ProducerCharacteristic a bamm:Characteristic;
+    bamm:name "ProducerCharacteristic";
+    bamm:preferredName "producer characteristic"@en;
+    bamm:description "A characteristic to describe a producer"@en;
+    bamm:dataType :ProducerEntity.
 :AttachmentEntity a bamm:Entity;
     bamm:name "AttachmentEntity";
     bamm:properties (:fileLocation :title);
     bamm:preferredName "AttachmentEntity"@en;
-    bamm:description "attachment for the battery"@en.
+    bamm:description "Entity encapsulating the details of a attachment for the battery"@en.
+:WebsiteCharacteristic a bamm:Characteristic;
+    bamm:name "WebsiteCharacteristic";
+    bamm:preferredName "website"@en;
+    bamm:description "Address of the website"@en;
+    bamm:dataType xsd:anyURI.
 :fileLocation a bamm:Property;
     bamm:name "fileLocation";
     bamm:preferredName "file location"@en;
     bamm:description "Location of the file"@en;
-    bamm:characteristic :FileLocation.
-:FileLocation a bamm:Characteristic;
-    bamm:name "FileLocation";
-    bamm:preferredName "file location"@en;
-    bamm:description "The path to the file"@en;
-    bamm:dataType xsd:anyURI.
-:ManufacturerCharacteristic a bamm:Characteristic;
-    bamm:name "ManufacturerCharacteristic";
-    bamm:preferredName "manufacturer characteristic"@en;    
-    bamm:description "A manufacturer of goods"@en;
-    bamm:dataType :Manufacturer.
-:Manufacturer a bamm:Entity;
-    bamm:name "Manufacturer";    
-    bamm:description "A manufacturer of goods"@en;
-    bamm:properties (:name :contact);
-#    bamm:properties (:name :address :contact);
-    bamm:preferredName "manufacturer"@en.
+    bamm:characteristic :FileLocationCharacteristic.
+:title a bamm:Property;
+    bamm:name "title";
+    bamm:preferredName "title"@en;
+    bamm:description "Title of the attached file"@en;
+    bamm:characteristic bamm-c:Text.
 :name a bamm:Property;
     bamm:name "name";
     bamm:preferredName "name"@en;
     bamm:description "Name of the manufacturer"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Samsung".
-#:address a bamm:Property;
-#    bamm:name "address";
-#    bamm:preferredName "address"@en;    
-#    bamm:description "An address"@en;
-#    bamm:characteristic address-c:PostalAddress.
+:contact a bamm:Property;
+    bamm:name "contact";
+    bamm:preferredName "contact"@en;
+    bamm:description "Contact details of the manufacturer"@en;
+    bamm:characteristic :ContactCharacteristic.
 :website a bamm:Property;
     bamm:name "website";
     bamm:preferredName "website"@en;
     bamm:description "Website of the contact."@en;
     bamm:characteristic :WebsiteCharacteristic;
     bamm:exampleValue "https://www.samsung.com"^^xsd:anyURI.
-:ProducerCharacteristic a bamm:Characteristic;
-    bamm:name "ProducerCharacteristic";
-    bamm:description "A characteristic to describe a producer"@en;
-    bamm:preferredName "producer characteristic"@en;
-    bamm:dataType :Producer.
-:Producer a bamm:Entity;
-    bamm:name "Producer";    
-    bamm:description "A producer"@en;
-    bamm:properties (:name :contact);
-#    bamm:properties (:name :contact :address);
-    bamm:preferredName "producer"@en.
-:contact a bamm:Property;
-    bamm:name "contact";
-    bamm:preferredName "contact"@en;
-    bamm:description "Contact details of the manufacturer"@en;
-    bamm:characteristic :Contact.
-:Contact a bamm:Characteristic;
-    bamm:name "Contact";    
-    bamm:description "A contact"@en;
-    bamm:preferredName "contact"@en;
-    bamm:dataType :ContactEntity.
 :ContactEntity a bamm:Entity;
     bamm:name "ContactEntity";
-    #bamm:description "A contact"@en;
     bamm:properties ([
   bamm:property :website;
   bamm:optional "true"^^xsd:boolean
@@ -180,16 +145,41 @@
     bamm:characteristic bamm-c:Text.
 :eMail a bamm:Property;
     bamm:name "eMail";
-    bamm:description "A e-mail address"@en;
     bamm:preferredName "email"@en;
+    bamm:description "A e-mail address"@en;
     bamm:characteristic bamm-c:Text.
 :faxNumber a bamm:Property;
     bamm:name "faxNumber";
-    bamm:description "Fax number with country and area code"@en;
     bamm:preferredName "faxNumber"@en;
+    bamm:description "Fax number with country and area code"@en;
     bamm:characteristic bamm-c:Text.
-:title a bamm:Property;
-    bamm:name "title";    
-    bamm:preferredName "title"@en;
-    bamm:description "Title of the attached file"@en;
-    bamm:characteristic bamm-c:Text.
+:AttachmentCharacteristic a bamm-c:Set;
+    bamm:name "AttachmentCharacteristic";
+    bamm:preferredName "attachment"@en;
+    bamm:description "Links the referenced attachments"@en;
+    bamm:dataType :AttachmentEntity.
+:ProducerEntity a bamm:Entity;
+    bamm:name "ProducerEntity";
+    bamm:properties (:name :contact);
+    bamm:preferredName "producer"@en;
+    bamm:description "Entity encapsulating the details of a a producer of goods"@en.
+:DateOfManufactureCharacteristic a bamm:Characteristic;
+    bamm:name "DateOfManufactureCharacteristic";
+    bamm:preferredName "date of manufacture"@en;
+    bamm:description "The date of manufacturing"@en;
+    bamm:dataType xsd:date.
+:FileLocationCharacteristic a bamm:Characteristic;
+    bamm:name "FileLocationCharacteristic";
+    bamm:preferredName "file location"@en;
+    bamm:description "The path to the file"@en;
+    bamm:dataType xsd:anyURI.
+:ManufacturerEntity a bamm:Entity;
+    bamm:name "ManufacturerEntity";
+    bamm:properties (:name :contact);
+    bamm:preferredName "manufacturer"@en;
+    bamm:description "Entity encapsulating the details of a manufacturer of goods"@en.
+:ContactCharacteristic a bamm:Characteristic;
+    bamm:name "ContactCharacteristic";
+    bamm:preferredName "contact"@en;
+    bamm:description "A contact"@en;
+    bamm:dataType :ContactEntity.
