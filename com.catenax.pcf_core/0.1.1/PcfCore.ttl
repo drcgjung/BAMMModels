@@ -59,7 +59,7 @@
     bamm:preferredName "PCF per Unit"@en;
     bamm:description "PCF (Product Carbon Footprint) value per unit"@en;
     bamm:dataType xsd:float;
-    bamm-c:unit unit:kilogram.
+    bamm-c:unit :totalCO2eqUnit.
 :ValidityPeriodCharacteristic a bamm-c:SingleEntity;
     bamm:name "ValidityPeriodCharacteristic";
     bamm:preferredName "Validity Period Characteristic"@en;
@@ -82,3 +82,7 @@
     bamm:characteristic bamm-c:Timestamp;
     bamm:exampleValue "2022-12-31"^^xsd:dateTime;
     bamm:description "End of the period during which the data shown are valid"@en.
+:totalCO2eqUnit a unit:Unit;
+    bamm:name "totalCO2eqUnit";
+    bamm:preferredName "Total CO2 equivalent Unit"@en;
+    unit:symbol "kgCO2e (GWP100)".
