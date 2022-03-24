@@ -173,7 +173,7 @@
     bamm:name "phoneNumber";
     bamm:preferredName "phone number"@en;
     bamm:description "Phone number with country and area code"@en;
-    bamm:characteristic bamm-c:Text;
+    bamm:characteristic :PhoneNumberTrait;
     bamm:exampleValue "+49 89 1234567890".
 :eMail a bamm:Property;
     bamm:name "eMail";
@@ -185,10 +185,19 @@
     bamm:name "faxNumber";
     bamm:preferredName "faxNumber"@en;
     bamm:description "Fax number with country and area code"@en;
-    bamm:characteristic bamm-c:Text;
+    bamm:characteristic :PhoneNumberTrait;
     bamm:exampleValue "+49 89 0987654321".
 :address a bamm:Property;
     bamm:name "address";
     bamm:preferredName "address"@en;
     bamm:characteristic address-c:PostalAddress;
     bamm:description "An postal address"@en.
+:PhoneNumberTrait a bamm-c:Trait;
+    bamm:name "PhoneNumberTrait";
+    bamm-c:baseCharacteristic bamm-c:Text;
+    bamm-c:constraint :PhoneNumberConstraint.
+:PhoneNumberConstraint a bamm-c:RegularExpressionConstraint;
+    bamm:name "PhoneNumberConstraint";
+    bamm:description "Constraint to allow only numbers, whitespaces and an optional leading + sign."@en;
+    bamm:preferredName "PhoneNumberConstraint"@en;
+    bamm:value "^[+]?[0-9 ]+$".
