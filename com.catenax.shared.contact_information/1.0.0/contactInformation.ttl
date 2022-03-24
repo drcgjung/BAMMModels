@@ -24,7 +24,7 @@
     bamm:preferredName "phone number"@en;
     bamm:description "Phone number with country and area code"@en;
     bamm:characteristic bamm-c:Text;
-    bamm-c:constraint :PhoneNumberConstraint.
+#    bamm-c:constraint :PhoneNumberConstraint.
     bamm:exampleValue "+49 89 1234567890".
 :eMail a bamm:Property;
     bamm:name "eMail";
@@ -37,7 +37,7 @@
     bamm:preferredName "faxNumber"@en;
     bamm:description "Fax number with country and area code"@en;
     bamm:characteristic bamm-c:Text;
-    bamm-c:constraint :PhoneNumberConstraint.
+#    bamm-c:constraint :PhoneNumberConstraint.
     bamm:exampleValue "+49 89 0987654321".
 :ContactInformation a bamm:Aspect;
     bamm:name "ContactInformation";
@@ -58,9 +58,9 @@
     bamm:preferredName "Contact information"@en;
     bamm:description "Entity encapsulating the contact details"@en;
     bamm:see <https%3A%2F%2Fwww.plattform-i40.de%2FIP%2FRedaktion%2FDE%2FDownloads%2FPublikation%2FSpezifikation_Submodel-Templates.html>.
-:PhoneNumberConstraint a bamm-c:RegularExpressionConstraint;
-    bamm:name "PhoneNumberConstraint";
-    bamm:description "Constraint to allow only numbers, whitespaces and an optional leading + sign."@en;
-    bamm:description "Constraint to allow only numbers, whitespaces and an optional leading '+' sign."@en;
-    bamm:preferredName "PhoneNumberConstraint"@en;
-    bamm:value "^[+]?[0-9 ]+$".
+#:PhoneNumberConstraint a bamm-c:RegularExpressionConstraint;
+#    bamm:name "PhoneNumberConstraint";
+#    bamm:description "Constraint to allow only numbers, whitespaces and an optional leading + sign."@en;
+#    bamm:description "Constraint to allow only numbers, whitespaces and an optional leading '+' sign."@en;
+#    bamm:preferredName "PhoneNumberConstraint"@en;
+#    bamm:value "^[+]?[0-9 ]+$".
