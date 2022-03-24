@@ -190,5 +190,5 @@
 :address a bamm:Property;
     bamm:name "address";
     bamm:preferredName "address"@en;
-    bamm:characteristic address-c.PostalAddress;
+    bamm:characteristic address-c:PostalAddress;
     bamm:description "An postal address"@en.
