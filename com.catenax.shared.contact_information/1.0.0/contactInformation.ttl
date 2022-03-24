@@ -6,6 +6,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 @prefix : <urn:bamm:io.openmanufacturing.digitaltwin:1.0.0#>.
+@prefix : <urn:bamm:com.catenax.shared.contact_information:1.0.0#>.
 
 :WebsiteCharacteristic a bamm:Characteristic;
     bamm:name "WebsiteCharacteristic";
