@@ -5,6 +5,7 @@
 <!-- The Q2 and Q3 criteria are intended for merges to the main-branch. During the model development, for instance when merging to a feature branch, you may decide to not fill out the checklists. However, we recommend to follow the Q2 checklist during the development. The Q3 checklist becomes relevant for merges to the main-branch which implicitly is a release of the model. -->
 ## Q2 Criteria
 (to be filled out by PR reviewer)
+- [ ] the model **validates** with the BAMM SDS SDK in the latest stable version by the time of the Q2 check  (e.g., 'java -jar bamm-cli.jar -i \<path-to-aspect-model\> -v ). The  BAMM CLI is available [here](https://openmanufacturingplatform.github.io/sds-documentation/sds-developer-guide/dev-snapshot/tooling-guide/bamm-cli.html) and in [GitHub](https://github.com/OpenManufacturingPlatform/sds-sdk/releases)
 - [ ] use **Camel-Case** (e.g., "MyModelElement" or "TimeDifferenceGmtId", when in doubt follow https://google.github.io/styleguide/javaguide.html#s5.3-camel-case)
 - [ ] the identifiers for all model elements **start with a capital letter** except for properties
 - [ ] the identifier for **properties starts with a small letter**
