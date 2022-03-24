@@ -11,13 +11,13 @@
 :BatteryPass a bamm:Aspect;
     bamm:name "BatteryPass";
     bamm:properties (:passportNumber :passportIssuer :dateOfManufacture :hasEuConformationCertificate :brand :numberOfBatteryCells [
-  bamm:property :attachment;
-  bamm:optional "true"^^xsd:boolean
+    bamm:property :attachment;
+    bamm:optional "true"^^xsd:boolean
 ] :manufacturer :producer);
     bamm:operations ();
     bamm:preferredName "battery pass"@en;
     bamm:description "The battery pass describes information collected during the lifecycle of a battery"@en;
-    bamm:see <https%3A%2F%2Feur-lex.europa.eu%2Flegal-content%2FEN%2FTXT%2F%3Furi%3DCELEX%253A52020PC0798>.
+    bamm:see <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A52020PC0798>.
 :passportNumber a bamm:Property;
     bamm:name "passportNumber";
     bamm:preferredName "passport number"@en;
