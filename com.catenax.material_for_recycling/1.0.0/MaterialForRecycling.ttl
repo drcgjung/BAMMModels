@@ -45,7 +45,7 @@
     bamm:preferredName "component"@en.
 :MaterialClass a bamm:Characteristic;
     bamm:name "MaterialClass";
-    bamm:description "Class according to the refernced standard the material belongs to.\nThe IMDS recommendations and the IMDS rules are exclusevily accessible within the IMDS portal to members of the IMDS association.\n\nIn order to access the data one needs to be member of the association."@en;
+    bamm:description "Class according to the refernced standard the material belongs to. The IMDS recommendations and the IMDS rules are exclusevily accessible within the IMDS portal to members of the IMDS association. In order to access the data one needs to be member of the association."@en;
     bamm:dataType xsd:string;
     bamm:preferredName "material class"@en;
     bamm:see <https://www.mdsystem.com/imdsnt/startpage/index.jsp>.
