@@ -3,7 +3,7 @@
 @prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
-@prefix catenax-c: <urn:bamm:com.catenax.shared.contact_characteristic:1.0.0#>.
+@prefix contact-c: <urn:bamm:com.catenax.shared.contact_characteristic:1.0.0#>.
 @prefix : <urn:bamm:com.catenax.certificate_of_dismantler:1.0.0#>.
 
 :dismantlingCompany a bamm:Property;
@@ -38,7 +38,7 @@
     bamm:preferredName "licensed by public authority"@en.
 :contactInformation a bamm:Property;
     bamm:name "contactInformation";
-    bamm:characteristic catenax-c:ContactCharacteristic;
+    bamm:characteristic contact-c:ContactCharacteristic;
     bamm:preferredName "contact information"@en;
     bamm:description "the contact information via phone or fax"@en.
 :PostalAddress a bamm:Characteristic;
@@ -79,7 +79,7 @@
 :CertificateOfDismantler a bamm:Aspect;
     bamm:name "CertificateOfDismantler";
     bamm:preferredName "CertificateOfDismantler"@en;
-    bamm:properties (:dismantlingCompany :licenseNumber :issueDate :expiryDate :erzeugernummer :befoerderernummer :entsorgernummer);
+    bamm:properties (:dismantlingCompany :licenseNumber :issueDate :expiryDate :producerNumber :carrierIdentification :disposerNumber);
     bamm:operations ().
 :licenseNumber a bamm:Property;
     bamm:name "licenseNumber";
@@ -92,29 +92,33 @@
     bamm:characteristic bamm-c:Timestamp;
     bamm:preferredName "issue date"@en;
     bamm:description "issue date of the license"@en;
-    bamm:exampleValue "2021-08-20"^^xsd:dateTime.
+    bamm:exampleValue "2021-08-20"^^xsd:date.
 :expiryDate a bamm:Property;
     bamm:name "expiryDate";
     bamm:characteristic bamm-c:Timestamp;
     bamm:preferredName "expiry date"@en;
     bamm:description "expiration date of the license"@en;
-    bamm:exampleValue "2022-08-20"^^xsd:dateTime.
-:erzeugernummer a bamm:Property;
-    bamm:name "erzeugernummer";
+    bamm:exampleValue "2022-08-20"^^xsd:date.
+:producerNumber a bamm:Property;
+    bamm:name "producerNumber";
     bamm:characteristic :Identification;
-    bamm:preferredName "erzeugernummer"@en;
+    bamm:preferredName ""@en;
+    bamm:preferredName "producer number"@de;
+    bamm:preferredName "Erzeugernummer"@en;
     bamm:description "describes the identification of the producing company"@en;
     bamm:exampleValue "S30E00529".
-:befoerderernummer a bamm:Property;
-    bamm:name "befoerderernummer";
+:carrierIdentification a bamm:Property;
+    bamm:name "carrierIdentification";
     bamm:characteristic :Identification;
-    bamm:preferredName "befoerderernummer"@en;
+    bamm:preferredName "carrier identification"@en;
+    bamm:preferredName "Befoerderernummer"@de;
     bamm:description "describes the identification of the transporting company"@en;
     bamm:exampleValue "S30T00026".
-:entsorgernummer a bamm:Property;
-    bamm:name "entsorgernummer";
+:disposerNumber a bamm:Property;
+    bamm:name "disposerNumber";
     bamm:characteristic :Identification;
-    bamm:preferredName "entsorgernummer"@en;
+    bamm:preferredName "disposer number"@en;
+    bamm:preferredName "Entsorgernummer"@en;
     bamm:description "describes the identification of the disposal company"@en;
     bamm:exampleValue "S30A00065".
 :Identification a bamm:Characteristic;
