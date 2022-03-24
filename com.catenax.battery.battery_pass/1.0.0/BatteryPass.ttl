@@ -198,6 +198,6 @@
     bamm-c:constraint :PhoneNumberConstraint.
 :PhoneNumberConstraint a bamm-c:RegularExpressionConstraint;
     bamm:name "PhoneNumberConstraint";
-    bamm:description "Constraint to allow only numbers, whitespaces and an optional leading + sign."@en;
+    bamm:description "Constraint to allow only numbers, whitespaces and an optional leading '+' sign."@en;
     bamm:preferredName "PhoneNumberConstraint"@en;
     bamm:value "^[+]?[0-9 ]+$".
