@@ -1,0 +1,100 @@
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix : <urn:bamm:com.catenax.vehicle:1.0.0#>.
+
+:claimDataSet a bamm:Property;
+    bamm:name "claimDataSet";
+    bamm:preferredName "ClaimData"@de-de;
+    bamm:description "Claim-Daten, Teiletausch"@en;
+    bamm:characteristic :ClaimDataSet.
+:ClaimDataSet a bamm-c:List;
+    bamm:name "ClaimDataSet";
+    bamm:preferredName "ClaimDataSet"@en;
+    bamm:dataType :CarClaimDataEntity.
+:CarClaimDataEntity a bamm:Entity;
+    bamm:name "CarClaimDataEntity";
+    bamm:properties (:claimId :customerComment :technicianComment :repairDate :repairMileage :partName :partNumber :isPartReplaced).
+:claimId a bamm:Property;
+    bamm:name "claimId";
+    bamm:preferredName "Antragsnummer"@de-de;
+    bamm:description "Claim ID: Unique for each OEM"@en;
+    bamm:characteristic :ClaimId.
+:customerComment a bamm:Property;
+    bamm:name "customerComment";
+    bamm:preferredName "Kundenkommentar "@de-de;
+    bamm:characteristic bamm-c:Text.
+:technicianComment a bamm:Property;
+    bamm:name "technicianComment";
+    bamm:preferredName "Werkstatt Kommentar"@de-de;
+    bamm:characteristic bamm-c:Text.
+:repairDate a bamm:Property;
+    bamm:name "repairDate";
+    bamm:preferredName "Reparaturaufnahmedatum"@de-de;
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:exampleValue "2022-02-04T14:48:54.709+0000"^^xsd:dateTime.
+:repairMileage a bamm:Property;
+    bamm:name "repairMileage";
+    bamm:preferredName "KM-Stand Claim"@de-de;
+    bamm:characteristic :Mileage;
+    bamm:exampleValue "100"^^xsd:integer.
+:partName a bamm:Property;
+    bamm:name "partName";
+    bamm:preferredName "Part Number (ZB)"@de-de;
+    bamm:description "NAME OF DEFECT PART"@en;
+    bamm:characteristic :PartName;
+    bamm:exampleValue "Bremsbelag".
+:partNumber a bamm:Property;
+    bamm:name "partNumber";
+    bamm:preferredName "Part Number (ZB)"@de-de;
+    bamm:description "Serial number of defect/old part"@en;
+    bamm:characteristic :PartNumber;
+    bamm:exampleValue "3Q0&98451F".
+:isPartReplaced a bamm:Property;
+    bamm:name "isPartReplaced";
+    bamm:preferredName "Reparaturkennzeichen"@de-de;
+    bamm:description "indicates whether the parts being replaced"@en;
+    bamm:characteristic bamm-c:Boolean;
+    bamm:exampleValue "true"^^xsd:boolean.
+:catenaXId a bamm:Property;
+    bamm:name "catenaXId";
+    bamm:preferredName "VehicleID"@en;
+    bamm:description "FIN/Pseudonymisierte FIN"@de-de;
+    bamm:characteristic :CatenaXUniqueIDTrait;
+    bamm:exampleValue "680d3adf-1981-44a0-a".
+:CatenaXUniqueIDTrait a bamm-c:Trait;
+    bamm:name "CatenaXUniqueIDTrait";
+    bamm:description "Trait to ensure UUID v4 data format"@en;
+    bamm-c:baseCharacteristic :UUIDv4Characteristic;
+    bamm-c:constraint :UUIDv4RegularExpression.
+:UUIDv4Characteristic a bamm:Characteristic;
+    bamm:name "UUIDv4Characteristic";
+    bamm:preferredName "UUID v4"@en;
+    bamm:description "A Version 4 UUID is a universally unique identifier that is generated using random numbers. "@en.
+:UUIDv4RegularExpression a bamm-c:RegularExpressionConstraint;
+    bamm:name "UUIDv4RegularExpression";
+    bamm:preferredName "Catena-X UniqueId Regular Expression"@en;
+    bamm:description "Regular Expression for UUID v4"@en;
+    bamm:value "^[0-9a-fA-F]{8}\\\\b-[0-9a-fA-F]{4}\\\\b-[0-9a-fA-F]{4}\\\\b-[0-9a-fA-F]{4}\\\\b-[0-9a-fA-F]{12}$".
+:ClaimId a bamm:Characteristic;
+    bamm:name "ClaimId";
+    bamm:dataType xsd:string.
+:Mileage a bamm-c:Measurement;
+    bamm:name "Mileage";
+    bamm:dataType xsd:integer;
+    bamm-c:unit unit:kilometre.
+:PartName a bamm:Characteristic;
+    bamm:name "PartName";
+    bamm:dataType xsd:string.
+:PartNumber a bamm:Characteristic;
+    bamm:name "PartNumber";
+    bamm:dataType xsd:string.
+:ClaimDataQuality a bamm:Aspect;
+    bamm:name "ClaimDataQuality";
+    bamm:preferredName "ClaimDatenQuality"@de-de;
+    bamm:properties (:claimDataSet :catenaXId);
+    bamm:operations ().
