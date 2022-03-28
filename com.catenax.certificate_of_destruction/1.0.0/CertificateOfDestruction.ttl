@@ -3,8 +3,8 @@
 @prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
-@prefix catenax-c: <urn:bamm:com.catenax.shared.contact_characteristic:1.0.0#>.
-@prefix : <urn:bamm:com.catenax.certificate_of_destruction:1.0.0#>.
+@prefix contact-c: <urn:bamm:io.catenax.shared.contact_characteristic:1.0.0#>.
+@prefix : <urn:bamm:io.catenax.certificate_of_destruction:1.0.0#>.
 
 :CertificateOfDestruction a bamm:Aspect;
     bamm:name "CertificateOfDestruction";
@@ -45,7 +45,7 @@
     bamm:name "contactInformation";
     bamm:preferredName "contact information"@en;
     bamm:description "The contact information via phone or fax"@en;
-    bamm:characteristic catenax-c:ContactCharacteristic.
+    bamm:characteristic contact-c:ContactCharacteristic.
 :indentification a bamm:Property;
     bamm:name "indentification";
     bamm:preferredName "indentification"@en;
