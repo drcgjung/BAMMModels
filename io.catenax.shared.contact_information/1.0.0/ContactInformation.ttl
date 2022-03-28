@@ -28,7 +28,7 @@
     bamm:name "eMail";
     bamm:preferredName "email"@en;
     bamm:description "A e-mail address"@en;
-    bamm:characteristic bamm-c:Text;
+    bamm:characteristic :EMailTrait;
     bamm:exampleValue "test.mail@example.com".
 :faxNumber a bamm:Property;
     bamm:name "faxNumber";
@@ -64,3 +64,11 @@
     bamm:description "Constraint to allow only numbers, whitespaces and an optional leading + sign."@en;
     bamm:preferredName "PhoneNumberConstraint"@en;
     bamm:value "^[+]?[0-9 ]+$".
+:EMailTrait a bamm-c:Trait;
+     bamm:name "SupplierMailTrait";
+     bamm-c:baseCharacteristic bamm-c:Text;
+     bamm-c:constraint :EMailConstraint.
+ :EMailConstraint a bamm-c:RegularExpressionConstraint;
+     bamm:name "EMailConstraint";
+     bamm:value "^[a-zA-Z0-9.!#$%&’*+\\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
+     bamm:description "Regular expression for mail address as defined in W3C (see https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address)"@en.
