@@ -1,0 +1,311 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
+@prefix contact-c: <urn:bamm:io.catenax.shared.contact_characteristic:1.0.0#>.
+@prefix : <urn:bamm:io.catenax.certificate_of_destruction:1.0.0#>.
+
+:CertificateOfDestruction a bamm:Aspect;
+    bamm:name "CertificateOfDestruction";
+    bamm:preferredName "Certificate of Destruction"@en;
+    bamm:description "Information on the certificate of destruction. In german: Verwertungsnachweis"@en;
+    bamm:properties (:dismantlingCompany :vehicleRegistration :processInformation);
+    bamm:operations ().
+:dismantlingCompany a bamm:Property;
+    bamm:name "dismantlingCompany";
+    bamm:preferredName "dismantling company"@en;
+    bamm:description "Company who dismantles the vehicle"@en;
+    bamm:characteristic :Dismantling.
+:vehicleRegistration a bamm:Property;
+    bamm:name "vehicleRegistration";
+    bamm:preferredName "vehicle registration"@en;
+    bamm:description "Information regading a specific vehicle which got registered with an initial license plate"@en;
+    bamm:characteristic :VehicleData.
+:Dismantling a bamm-c:SingleEntity;
+    bamm:name "Dismantling";
+    bamm:dataType :Dismantler.
+:VehicleData a bamm-c:SingleEntity;
+    bamm:name "VehicleData";
+    bamm:dataType :Vehicle.
+:Dismantler a bamm:Entity;
+    bamm:name "Dismantler";
+    bamm:properties (:dismantlerAdress :contactInformation :indentification :certified :companyNumber).
+:Vehicle a bamm:Entity;
+    bamm:name "Vehicle";
+    bamm:preferredName "Vehicle"@en;
+    bamm:description "Data to describe the information which is connected to a specific vehicle"@en;
+    bamm:properties (:vehicleClass :brand :model :identification :emptyWeight :firstRegistration :licensePlate :licenseAbbreviation :lastOwner :dealer :completeData).
+:dismantlerAdress a bamm:Property;
+    bamm:name "dismantlerAdress";
+    bamm:preferredName "dismantler adress"@en;
+    bamm:description "Address for the dismantling company"@en;
+    bamm:characteristic :PostalAddress.
+:contactInformation a bamm:Property;
+    bamm:name "contactInformation";
+    bamm:preferredName "contact information"@en;
+    bamm:description "The contact information via phone or fax"@en;
+    bamm:characteristic contact-c:ContactCharacteristic.
+:indentification a bamm:Property;
+    bamm:name "indentification";
+    bamm:preferredName "indentification"@en;
+    bamm:description "Internal ID"@en;
+    bamm:characteristic :Ordinal;
+    bamm:exampleValue "LRP1087432".
+:certified a bamm:Property;
+    bamm:name "certified";
+    bamm:preferredName "certified"@en;
+    bamm:description "Describes the certification details"@en;
+    bamm:characteristic :Certificate.
+:companyNumber a bamm:Property;
+    bamm:name "companyNumber";
+    bamm:preferredName "company number"@en;
+    bamm:preferredName "Betriebsnummer"@de;
+    bamm:description "Company number as an dismantler"@en;
+    bamm:characteristic :Identification;
+    bamm:exampleValue "S30A00065".
+:dateOfHandover a bamm:Property;
+    bamm:name "dateOfHandover";
+    bamm:preferredName "date of handover"@en;
+    bamm:description "Handover date to the dealer, usually with the purpose of dismantling"@en;
+    bamm:characteristic bamm-c:Timestamp.
+:handoverForDismantling a bamm:Property;
+    bamm:name "handoverForDismantling";
+    bamm:preferredName "handoverF for dismantling"@en;
+    bamm:description "True, if the vehicle is to be dismantled"@en;
+    bamm:characteristic bamm-c:Boolean.
+:vehicleClass a bamm:Property;
+    bamm:name "vehicleClass";
+    bamm:preferredName "vehicle class"@en;
+    bamm:description "Vehicle class the vehicle refers to"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "01".
+:brand a bamm:Property;
+    bamm:name "brand";
+    bamm:preferredName "brand"@en;
+    bamm:description "Brand name"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "BMW".
+:model a bamm:Property;
+    bamm:name "model";
+    bamm:preferredName "model"@en;
+    bamm:description "Vehicle model"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "318 I".
+:identification a bamm:Property;
+    bamm:name "identification";
+    bamm:preferredName "identification"@en;
+    bamm:description "Unique Identifier"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "WBAAY711X0KC28153".
+:emptyWeight a bamm:Property;
+    bamm:name "emptyWeight";
+    bamm:preferredName "empty weight"@en;
+    bamm:description "Empty weight in accordance with §2Abs.1 Nr.23 AltfahrzeugV"@en;
+    bamm:characteristic :Weight.
+:firstRegistration a bamm:Property;
+    bamm:name "firstRegistration";
+    bamm:preferredName "first registration"@en;
+    bamm:description "The first time this vehicle got registered with an initial license plate"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "19.12.2014".
+:licensePlate a bamm:Property;
+    bamm:name "licensePlate";
+    bamm:preferredName "license plate"@en;
+    bamm:description "Current (i.e. last) assigned number/ license plate to the vehicle"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "HAL-UI123".
+:licenseAbbreviation a bamm:Property;
+    bamm:name "licenseAbbreviation";
+    bamm:preferredName "license abbreviation"@en;
+    bamm:description "The first characters on the license plate"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "HAL".
+:lastOwner a bamm:Property;
+    bamm:name "lastOwner";
+    bamm:preferredName "last owner"@en;
+    bamm:description "The last legal person / organization that is responsible for the car's disposal"@en;
+    bamm:characteristic :Dealer.
+:completeData a bamm:Property;
+    bamm:name "completeData";
+    bamm:preferredName "complete data"@en;
+    bamm:description "Is the preceeding informationn is complete or unknown"@en;
+    bamm:characteristic bamm-c:Boolean.
+:PostalAddress a bamm:Characteristic;
+    bamm:name "PostalAddress";
+    bamm:description "A characteristic to express the postal adress and which is intended to be referenced by other aspects"@en;
+    bamm:dataType :AddressEntity.
+:licensedBy a bamm:Property;
+    bamm:name "licensedBy";
+    bamm:preferredName "licensed by"@en;
+    bamm:description "Reference to inspector which verifies the adherence of the dismantler to set standards"@en;
+    bamm:characteristic :Advisor.
+:Advisor a bamm:Characteristic;
+    bamm:name "Advisor";
+    bamm:preferredName "Advisor"@en;
+    bamm:dataType :LegalPerson.
+:licensedByPublicAuthority a bamm:Property;
+    bamm:name "licensedByPublicAuthority";
+    bamm:preferredName "Licensed by public authority"@en;
+    bamm:description "reference to the public authority which verifies the adherence of the dismantler to set standards"@en;
+    bamm:characteristic :Authority.
+:Authority a bamm-c:SingleEntity;
+    bamm:name "Authority";
+    bamm:preferredName "Authority"@en;
+    bamm:dataType :GovernmentOffice.
+:Ordinal a bamm:Characteristic;
+    bamm:name "Ordinal";
+    bamm:preferredName "Ordinal"@en;
+    bamm:dataType xsd:string.
+:Certificate a bamm-c:SingleEntity;
+    bamm:name "Certificate";
+    bamm:preferredName "Certificate"@en;
+    bamm:dataType :CertificateOfDismantler.
+:Identification a bamm:Characteristic;
+    bamm:name "Identification";
+    bamm:preferredName "Identification"@en;
+    bamm:dataType xsd:string.
+:Weight a bamm-c:Quantifiable;
+    bamm:name "Weight";
+    bamm:dataType xsd:float;
+    bamm-c:unit unit:kilogram.
+:LastOwner a bamm-c:SingleEntity;
+    bamm:name "LastOwner";
+    bamm:preferredName "Last owner"@en;
+    bamm:dataType :VehicleOwner.
+:Dealer a bamm-c:SingleEntity;
+    bamm:name "Dealer";
+    bamm:preferredName "dealer"@en;
+    bamm:dataType :DealerEntity.
+:DealerEntity a bamm:Entity;
+    bamm:name "DealerEntity";
+    bamm:preferredName "dealer entity"@en;
+    bamm:description "The last legal person / organization that is responsible for the car's disposal. This can be the same company as the dismantling company, if the vehocle is directly submitted at the dimantling company"@en;
+    bamm:properties (:dealerAdress :completeInformation).
+:LegalPerson a bamm:Entity;
+    bamm:name "LegalPerson";
+    bamm:preferredName "Legal person"@en;
+    bamm:properties (:contactInformation :advisorAdress).
+:GovernmentOffice a bamm:Entity;
+    bamm:name "GovernmentOffice";
+    bamm:preferredName "Government office"@en;
+    bamm:properties (:governmentAdress).
+:CertificateOfDismantler a bamm:Entity;
+    bamm:name "CertificateOfDismantler";
+    bamm:preferredName "Certificate of dismantler"@en;
+    bamm:properties (:issueDate :expiryDate :licensedBy :licensedByPublicAuthority).
+:VehicleOwner a bamm:Entity;
+    bamm:name "VehicleOwner";
+    bamm:preferredName "vehicle owner"@en;
+    bamm:description "The last legal person / organization that is responsible for the car's disposal"@en;
+    bamm:properties (:ownerAdress :citizenship :completeInformation).
+:advisorAdress a bamm:Property;
+    bamm:name "advisorAdress";
+    bamm:preferredName "advisor adress"@en;
+    bamm:description "The address of the advisor or inspector"@en;
+    bamm:characteristic :PostalAddress.
+:governmentAdress a bamm:Property;
+    bamm:name "governmentAdress";
+    bamm:preferredName "government adress"@en;
+    bamm:description "The address of the public government"@en;
+    bamm:characteristic :PostalAddress.
+:issueDate a bamm:Property;
+    bamm:name "issueDate";
+    bamm:preferredName "issue date"@en;
+    bamm:description "The date of issue of the certificate"@en;
+    bamm:characteristic bamm-c:Timestamp.
+:expiryDate a bamm:Property;
+    bamm:name "expiryDate";
+    bamm:preferredName "expiry date"@en;
+    bamm:description "The date of expiration of the certificate"@en;
+    bamm:characteristic bamm-c:Timestamp.
+:ownerAdress a bamm:Property;
+    bamm:name "ownerAdress";
+    bamm:preferredName "owner adress"@en;
+    bamm:description "The address of the last vehicle owner"@en;
+    bamm:characteristic :PostalAddress.
+:citizenship a bamm:Property;
+    bamm:name "citizenship";
+    bamm:description "The state of being vested with the rights, privileges, and duties of a citizen"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "DE".
+:completeInformation a bamm:Property;
+    bamm:name "completeInformation";
+    bamm:preferredName "complete information"@en;
+    bamm:description "Is the preceeding information about the last owner complete or unknown?"@en;
+    bamm:characteristic bamm-c:Boolean.
+:dealerAdress a bamm:Property;
+    bamm:name "dealerAdress";
+    bamm:preferredName "dealer Adress"@en;
+    bamm:description "The adress of the last vehicle dealer"@en;
+    bamm:characteristic :PostalAddress.
+:AddressEntity a bamm:Entity;
+    bamm:name "AddressEntity";
+    bamm:properties (:street :houseNumber :zip :location :name [
+  bamm:property :isDataComplete;
+  bamm:optional "true"^^xsd:boolean
+]).
+:street a bamm:Property;
+    bamm:name "street";
+    bamm:preferredName "street"@en;
+    bamm:description "The street name"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Bernstraße".
+:houseNumber a bamm:Property;
+    bamm:name "houseNumber";
+    bamm:preferredName "house number"@en;
+    bamm:description "The house number of the address"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "45".
+:zip a bamm:Property;
+    bamm:name "zip";
+    bamm:preferredName "zip code"@en;
+    bamm:description "The postal code"@en;
+    bamm:characteristic :ZipTrait;
+    bamm:exampleValue "68161/12".
+:location a bamm:Property;
+    bamm:name "location";
+    bamm:preferredName "location"@en;
+    bamm:description "The location or city of the address"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Mannheim".
+:name a bamm:Property;
+    bamm:name "name";
+    bamm:preferredName "name"@en;
+    bamm:description "Name of the private individual, company or authority"@en;
+    bamm:characteristic bamm-c:Text.
+:isDataComplete a bamm:Property;
+    bamm:name "isDataComplete";
+    bamm:preferredName " is data complete"@en;
+    bamm:description "Is the preceeding informationn is complete (true) or unknown (false)"@en;
+    bamm:characteristic bamm-c:Boolean.
+:ZipTrait a bamm-c:Trait;
+    bamm:name "ZipTrait";
+    bamm:description "Constraint to limit the zip length"@en;
+    bamm-c:baseCharacteristic :Zip;
+    bamm-c:constraint :ZipLength.
+:ZipLength a bamm-c:LengthConstraint;
+    bamm:name "ZipLength";
+    bamm:preferredName "Zip Length"@en;
+    bamm:description "The maximal lenght of the the postal code is restricted to 14 chracters"@en;
+    bamm-c:maxValue "14"^^xsd:nonNegativeInteger.
+:Zip a bamm:Characteristic;
+    bamm:name "Zip";
+    bamm:preferredName "ZIP"@en;
+    bamm:description "Characteristic to describe the zip"@en;
+    bamm:dataType xsd:string.
+:processInformation a bamm:Property;
+    bamm:name "processInformation";
+    bamm:preferredName "process information"@en;
+    bamm:description "Data which is connected to the process of handing over the vehicle to the dismantler"@en;
+    bamm:characteristic :ProcessCharacteristic.
+:ProcessCharacteristic a bamm:Characteristic;
+    bamm:name "ProcessCharacteristic";
+    bamm:preferredName "Process characteristic"@en;
+    bamm:description "Charcteristic to describe properties which are connected to the dismantling handover process"@en;
+    bamm:dataType :Handover.
+:Handover a bamm:Entity;
+    bamm:name "Handover";
+    bamm:preferredName "Handover"@en;
+    bamm:description "Vehicle handover data"@en;
+    bamm:properties (:handoverForDismantling :dateOfHandover).
