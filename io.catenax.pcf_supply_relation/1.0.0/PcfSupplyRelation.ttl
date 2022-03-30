@@ -1,0 +1,247 @@
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix : <urn:bamm:io.catenax.pcf_supply_relation:1.0.0#>.
+
+:SupplierMailTrait a bamm-c:Trait;
+    bamm:name "SupplierMailTrait";
+    bamm-c:baseCharacteristic bamm-c:Text;
+    bamm-c:constraint :MailConstraint.
+:MailConstraint a bamm-c:RegularExpressionConstraint;
+    bamm:name "MailConstraint";
+    bamm:value "^[a-zA-Z0-9.!#$%&’*+\\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
+    bamm:description "Regular expression for mail address as defined in W3C"@en;
+    bamm:see <https%252525252525253A%252525252525252F%252525252525252Fwww.w3.org%252525252525252FTR%252525252525252F2012%252525252525252FWD-html-markup-20120329%252525252525252Finput.email.html>.
+:RegionCharacteristic a bamm-c:Enumeration;
+    bamm:name "RegionCharacteristic";
+    bamm:description "see ISO 3166-1 alpha-2, or GLOBAL"@en;
+    bamm:preferredName "Region Characteristic"@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("EMEA" "NA" "SA" "AS" "GLO").
+:AddressCharacteristic a bamm:Characteristic;
+    bamm:name "AddressCharacteristic";
+    bamm:dataType :Address.
+:Address a bamm:Entity;
+    bamm:name "Address";
+    bamm:properties ([
+  bamm:property :siteName;
+  bamm:optional "true"^^xsd:boolean
+] :street [
+  bamm:property :gate;
+  bamm:optional "true"^^xsd:boolean
+] :zip :city :country :streetNumber).
+:siteName a bamm:Property;
+    bamm:name "siteName";
+    bamm:description "Name of site"@en;
+    bamm:preferredName "Site Name"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Werk 1".
+:street a bamm:Property;
+    bamm:name "street";
+    bamm:description "If available including street number"@en;
+    bamm:preferredName "Street"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Ehlersstraße".
+:gate a bamm:Property;
+    bamm:name "gate";
+    bamm:preferredName "Gate"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Tor 1".
+:zip a bamm:Property;
+    bamm:name "zip";
+    bamm:preferredName "Zip Code"@en;
+    bamm:characteristic :ZipTrait;
+    bamm:exampleValue "88046".
+:city a bamm:Property;
+    bamm:name "city";
+    bamm:preferredName "City"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Friedrichshafen".
+:country a bamm:Property;
+    bamm:name "country";
+    bamm:preferredName "Country"@en;
+    bamm:characteristic bamm-c:MultiLanguageText;
+    bamm:exampleValue "Deutschland"^^rdf:langString.
+:streetNumber a bamm:Property;
+    bamm:name "streetNumber";
+    bamm:description "Number describing where a building is located on a street. As used differently in several countries can contain numbers but also alphanumeric characters"@en;
+    bamm:preferredName "Street Number"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "50".
+:ZipTrait a bamm-c:Trait;
+    bamm:name "ZipTrait";
+    bamm-c:baseCharacteristic :ZipCodeCharacteristic;
+    bamm-c:constraint :ZipCodeConstraint.
+:ZipCodeCharacteristic a bamm:Characteristic;
+    bamm:name "ZipCodeCharacteristic";
+    bamm:dataType xsd:string.
+:ZipCodeConstraint a bamm-c:RegularExpressionConstraint;
+    bamm:name "ZipCodeConstraint";
+    bamm:value "^[0-9]{5}$".
+:PcfSupplyRelation a bamm:Aspect;
+    bamm:name "PcfSupplyRelation";
+    bamm:description "PCF is the abbreviation for Product Carbon Footprint. It indicates the climate impact of a product or component. The PcfSupplyRelation aspect describes the relationship between an supplier and a customer with regards to a specific part or component and its according PCF value. No commonly used standards given yet. "@en;
+    bamm:preferredName "PCF Supply Relation Data"@en;
+    bamm:properties (:supplier :part :customer);
+    bamm:operations ().
+:supplier a bamm:Property;
+    bamm:name "supplier";
+    bamm:description "Contains all information about the supplier of a part / component"@en;
+    bamm:preferredName "Supplier"@en;
+    bamm:characteristic :SupplierCharacteristic.
+:part a bamm:Property;
+    bamm:name "part";
+    bamm:description "Part or component of a product"@en;
+    bamm:preferredName "Part"@en;
+    bamm:characteristic :PartCharacteristic;
+    bamm:exampleValue "Automatikgetriebe"^^:PartEntity.
+:customer a bamm:Property;
+    bamm:name "customer";
+    bamm:description "Contains all information about the customer of a part / component"@en;
+    bamm:preferredName "Customer"@en;
+    bamm:characteristic :CustomerCharacteristic.
+:SupplierCharacteristic a bamm-c:SingleEntity;
+    bamm:name "SupplierCharacteristic";
+    bamm:description "Characteristic for bundling the different properties of a supplier"@en;
+    bamm:preferredName "Supplier Characteristic"@en;
+    bamm:dataType :SupplierEntity.
+:PartCharacteristic a bamm-c:SingleEntity;
+    bamm:name "PartCharacteristic";
+    bamm:description "Characteristic for bundling the relevant information of a part"@en;
+    bamm:dataType :PartEntity.
+:CustomerCharacteristic a bamm-c:SingleEntity;
+    bamm:name "CustomerCharacteristic";
+    bamm:description "Characteristic for bundling the different properties of a customer"@en;
+    bamm:preferredName "Customer Characteristic"@en;
+    bamm:dataType :CustomerEntity.
+:SupplierEntity a bamm:Entity;
+    bamm:name "SupplierEntity";
+    bamm:description "Entity which describes a supplier of a part / component"@en;
+    bamm:preferredName "Supplier Entity"@en;
+    bamm:properties (:contactDetails :productionRegion :productionSite :distributionSite :mail).
+:PartEntity a bamm:Entity;
+    bamm:name "PartEntity";
+    bamm:description "Entity which describes a part or component of a product"@en;
+    bamm:properties (:catenaXUniqueID :partType :designation :quantity).
+:CustomerEntity a bamm:Entity;
+    bamm:name "CustomerEntity";
+    bamm:description "Entity which describes a customer of a part / component"@en;
+    bamm:preferredName "Customer Entity"@en;
+    bamm:properties (:contactDetails :deliverySite).
+:contactDetails a bamm:Property;
+    bamm:name "contactDetails";
+    bamm:description "Contains the contact information of a supplier"@en;
+    bamm:preferredName "Supplier Contact Details"@en;
+    bamm:characteristic :ContactCharacteristic.
+:productionRegion a bamm:Property;
+    bamm:name "productionRegion";
+    bamm:description "Region of the supplier production site, see ISO 3166-1 alpha-2, or GLOBAL"@en;
+    bamm:preferredName "Supplier Production Region"@en;
+    bamm:characteristic :RegionCharacteristic;
+    bamm:exampleValue "EMEA".
+:productionSite a bamm:Property;
+    bamm:name "productionSite";
+    bamm:description "Production site of supplier: Where was the part produced?"@en;
+    bamm:preferredName "Supplier Production Site"@en;
+    bamm:characteristic :AddressCharacteristic.
+:distributionSite a bamm:Property;
+    bamm:name "distributionSite";
+    bamm:description "Distribution site of supplier: Where was the part delivered? Maybe the same as the production site in most cases, but could be different, which means that there is an additional transport from production site to distribution site."@en;
+    bamm:preferredName "Supplier Distribution Site"@en;
+    bamm:characteristic :AddressCharacteristic.
+:mail a bamm:Property;
+    bamm:name "mail";
+    bamm:description "E-mail address at which the responsible person or group for PCF processing in the company can be reached"@en;
+    bamm:preferredName "Contact Mail"@en;
+    bamm:characteristic :SupplierMailTrait;
+    bamm:exampleValue "Nachhaltigkeit@ZF.com".
+:catenaXUniqueID a bamm:Property;
+    bamm:name "catenaXUniqueID";
+    bamm:description "The Catena-X Unique ID of the given object, valid for the Catena-X dataspace"@en;
+    bamm:preferredName "Catena-X Unique Identifier"@en;
+    bamm:characteristic :CatenaXUniqueIDTrait;
+    bamm:exampleValue " 055c1128-0375-47c8-98de-7cf802c3241d".
+:partType a bamm:Property;
+    bamm:name "partType";
+    bamm:description "Declaration if part or material"@en;
+    bamm:preferredName "Part Type"@en;
+    bamm:characteristic :TypeCharacteristic;
+    bamm:exampleValue "Part".
+:designation a bamm:Property;
+    bamm:name "designation";
+    bamm:description "Designation of the part / material"@en;
+    bamm:preferredName "Designation"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Automatikgetriebe 8HP 51".
+:quantity a bamm:Property;
+    bamm:name "quantity";
+    bamm:description "Declared unit amount"@en;
+    bamm:preferredName "Quantity"@en;
+    bamm:characteristic :QuantityCharacteristic;
+    bamm:exampleValue "40.00 kg".
+:deliverySite a bamm:Property;
+    bamm:name "deliverySite";
+    bamm:description "Delivery site of customer: To which location was the component shipped?"@en;
+    bamm:preferredName "Delivery Site"@en;
+    bamm:characteristic :AddressCharacteristic.
+:ContactCharacteristic a bamm-c:SingleEntity;
+    bamm:name "ContactCharacteristic";
+    bamm:description "Characteristic bundling details of a contact"@en;
+    bamm:preferredName "Contact Characteristic"@en;
+    bamm:dataType :ContactEntity.
+:CatenaXUniqueIDTrait a bamm-c:Trait;
+    bamm:name "CatenaXUniqueIDTrait";
+    bamm-c:baseCharacteristic :UUIDv4Characteristic;
+    bamm-c:constraint :UUIDv4RegularExpression.
+:TypeCharacteristic a bamm-c:Enumeration;
+    bamm:name "TypeCharacteristic";
+    bamm:dataType xsd:string;
+    bamm-c:values ("Part" "Material").
+:QuantityCharacteristic a bamm-c:Either;
+    bamm:name "QuantityCharacteristic";
+    bamm:description "Declared unit amount which can be either expressed in kilogram or pieces"@en;
+    bamm:preferredName "Quantity Characteristic"@en;
+    bamm-c:left :KilogramCharacteristic;
+    bamm-c:right :PiecesCharacteristic.
+:ContactEntity a bamm:Entity;
+    bamm:name "ContactEntity";
+    bamm:description "Entity for details of a contact (could be e.g. a supplier or a customer)"@en;
+    bamm:preferredName "Contact Entity"@en;
+    bamm:properties (:contactId :contactName).
+:UUIDv4Characteristic a bamm:Characteristic;
+    bamm:name "UUIDv4Characteristic";
+    bamm:description "Regular Expression for UUID v4"@en;
+    bamm:preferredName "UUID v4"@en;
+    bamm:dataType xsd:string.
+:UUIDv4RegularExpression a bamm-c:RegularExpressionConstraint;
+    bamm:name "UUIDv4RegularExpression";
+    bamm:value "^[0-9a-fA-F]{8}\\\\b-[0-9a-fA-F]{4}\\\\b-[0-9a-fA-F]{4}\\\\b-[0-9a-fA-F]{4}\\\\b-[0-9a-fA-F]{12}$";
+    bamm:description "Regular Expression for UUID v4"@en;
+    bamm:preferredName "Catena-X UniqueId Regular Expression"@en.
+:KilogramCharacteristic a bamm-c:Measurement;
+    bamm:name "KilogramCharacteristic";
+    bamm:description "Declared unit amount in kilogram"@en;
+    bamm:preferredName "Kilogram Characteristic"@en;
+    bamm:dataType xsd:float;
+    bamm-c:unit unit:kilogram.
+:PiecesCharacteristic a bamm-c:Measurement;
+    bamm:name "PiecesCharacteristic";
+    bamm:description "Declared unit amount in pieces"@en;
+    bamm:preferredName "Pieces Characteristic"@en;
+    bamm:dataType xsd:integer;
+    bamm-c:unit unit:piece.
+:contactId a bamm:Property;
+    bamm:name "contactId";
+    bamm:description "Unique identifier of the contact, corresponds to CX_ID at BPDM"@en;
+    bamm:preferredName "Contact ID"@en;
+    bamm:characteristic bamm-c:Text.
+:contactName a bamm:Property;
+    bamm:name "contactName";
+    bamm:description "Name of the contact"@en;
+    bamm:preferredName "Contact Name"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "ZF Friedrichshafen AG".
