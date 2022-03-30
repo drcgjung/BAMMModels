@@ -21,13 +21,13 @@
     bamm:preferredName "Country Code Characteristic"@en;
     bamm:description "ISO 3166-1 alpha-3 – three-letter country codes "@en;
     bamm:dataType xsd:string;
-    bamm:see <https%3A%2F%2Fwww.iso.org%2Fiso-3166-country-codes.html>.
+    bamm:see <https://www.iso.org/iso-3166-country-codes.html>.
 :UUIDv4RegularExpression a bamm-c:RegularExpressionConstraint;
     bamm:name "UUIDv4RegularExpression";
     bamm:preferredName "Catena-X Id Regular Expression"@en;
     bamm:description "The provided regular expression ensures that the UUID is composed of five groups of characters separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters (32 hexadecimal characters and 4 hyphens), optionally prefixed by \"urn:uuid:\" to make it an IRI."@en;
     bamm:value "(^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$)|(^urn:uuid:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$)";
-    bamm:see <https%3A%2F%2Fdatatracker.ietf.org%2Fdoc%2Fhtml%2Frfc4122>.
+    bamm:see <https://datatracker.ietf.org/doc/html/rfc4122>.
 :UUIDv4 a bamm:Characteristic;
     bamm:name "UUIDv4";
     bamm:preferredName "UUIDv4"@en;
@@ -176,7 +176,7 @@
     bamm:preferredName "Classification Characteristic"@en;
     bamm:description "A part type must be placed into one of the following classes: 'component', 'product', 'software', ‘assembly’, 'tool', or 'raw material'."@en;
     bamm:dataType xsd:string;
-    bamm:see <http%3A%2F%2Fprivate.pdm-if.org%2Fweb%2Fpdm-if%2Frecommended-practices1>;
+    bamm:see <http://private.pdm-if.org/web/pdm-if/recommended-practices1>;
     bamm-c:values ("product" "raw material" "software" "assembly" "tool" "component").
 :ManufacturingEntity a bamm:Entity;
     bamm:name "ManufacturingEntity";
