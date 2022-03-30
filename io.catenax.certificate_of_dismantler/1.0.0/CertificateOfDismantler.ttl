@@ -3,7 +3,7 @@
 @prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
-@prefix contact-c: <urn:bamm:io.catenax.shared.contact_characteristic:1.0.0#>.
+@prefix contact-c: <urn:bamm:io.catenax.shared.contact_information:1.0.0#>.
 @prefix : <urn:bamm:io.catenax.certificate_of_dismantler:1.0.0#>.
 
 :dismantlingCompany a bamm:Property;
@@ -89,20 +89,19 @@
     bamm:exampleValue "02397421FG".
 :issueDate a bamm:Property;
     bamm:name "issueDate";
-    bamm:characteristic bamm-c:Timestamp;
+    bamm:characteristic :DateCharacteristic;
     bamm:preferredName "issue date"@en;
     bamm:description "issue date of the license"@en;
     bamm:exampleValue "2021-08-20"^^xsd:date.
 :expiryDate a bamm:Property;
     bamm:name "expiryDate";
-    bamm:characteristic bamm-c:Timestamp;
+    bamm:characteristic :DateCharacteristic;
     bamm:preferredName "expiry date"@en;
     bamm:description "expiration date of the license"@en;
     bamm:exampleValue "2022-08-20"^^xsd:date.
 :producerNumber a bamm:Property;
     bamm:name "producerNumber";
     bamm:characteristic :Identification;
-    bamm:preferredName ""@en;
     bamm:preferredName "producer number"@de;
     bamm:preferredName "Erzeugernummer"@en;
     bamm:description "describes the identification of the producing company"@en;
@@ -118,7 +117,7 @@
     bamm:name "disposerNumber";
     bamm:characteristic :Identification;
     bamm:preferredName "disposer number"@en;
-    bamm:preferredName "Entsorgernummer"@en;
+    bamm:preferredName "Entsorgernummer"@de;
     bamm:description "describes the identification of the disposal company"@en;
     bamm:exampleValue "S30A00065".
 :Identification a bamm:Characteristic;
@@ -181,5 +180,10 @@
 :Zip a bamm:Characteristic;
     bamm:name "Zip";
     bamm:preferredName "ZIP"@en;
-    bamm:description "cchracteristic to describe the zip"@en;
+    bamm:description "characteristic to describe the zip"@en;
     bamm:dataType xsd:string.
+:DateCharacteristic a bamm:Characteristic;
+    bamm:name "DateCharacteristic";
+    bamm:preferredName "date Characteristic"@en;
+    bamm:description "characteristic to describe a date"@en;
+    bamm:dataType xsd:date .
