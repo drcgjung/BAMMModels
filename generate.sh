@@ -31,11 +31,11 @@
 
 
 # Adjust if BAMM CLI version changes
-JARNAME=bamm-cli-1.0.0.jar
+JARNAME=bamm-cli-1.0.2.jar
 BAMMFOLDER=.BAMMCLI/
 BAMMCLI=$BAMMFOLDER$JARNAME
 # Adjust if BAMM CLI version changes
-BAMMCLIURL=https://github.com/OpenManufacturingPlatform/sds-sdk/releases/download/v1.0.0/bamm-cli-1.0.0.jar
+BAMMCLIURL=https://github.com/OpenManufacturingPlatform/sds-sdk/releases/download/v1.0.2/bamm-cli-1.0.2.jar
 
 CATENAXCSS=$BAMMFOLDER/catena-template.css
 CATENAXCUSTOMCSSURL=https://raw.githubusercontent.com/catenax/tractusx/main/semantics/src/main/resources/catena-template.css
