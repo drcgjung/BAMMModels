@@ -14,8 +14,9 @@
     bamm:description "the address of the public government"@en.
 :CertificateOfDismantler a bamm:Aspect;
     bamm:name "CertificateOfDismantler";
-    bamm:preferredName "CertificateOfDismantler"@en, "certificate of dismantler"@de;
-    bamm:description "certificate of dismantler from § 5 Abs. 3 Altfahrzeug-Verordnung"@de;
+    bamm:preferredName "CertificateOfDismantler"@en;
+    bamm:description "Represents the certificate of dismanter (Bescheinigung gemäß § 5 Abs. 3 Altfahrzeug-Verordnung) which is required in Germany to legally dismantle vehicles"@en;
+    bamm:see <https://www.gesetze-im-internet.de/altautov/__5.html>;
     bamm:properties (:dismantlerAddress :licenseNumber :issueDate :expiryDate [
   bamm:property :producerNumber;
   bamm:optional "true"^^xsd:boolean
@@ -23,8 +24,7 @@
   bamm:property :carrierIdentification;
   bamm:optional "true"^^xsd:boolean
 ] :disposerNumber :dismantlerContact :auditorAddress :governmentAddress :auditorContact);
-    bamm:operations ();
-    bamm:see <https%3A%2F%2Fwww.gesetze-im-internet.de%2Faltautov%2F__5.html>.
+    bamm:operations ().
 :licenseNumber a bamm:Property;
     bamm:name "licenseNumber";
     bamm:characteristic bamm-c:Text;
