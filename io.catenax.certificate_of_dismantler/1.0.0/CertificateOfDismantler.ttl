@@ -3,87 +3,31 @@
 @prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
-@prefix contact-c: <urn:bamm:io.catenax.shared.contact_information:1.0.0#>.
+@prefix address-c: <urn:bamm:io.catenax.shared.address_characteristic:1.0.0>.
+@prefix contact-c: <urn:bamm:io.catenax.shared.contact_information:1.0.0>.
 @prefix : <urn:bamm:io.catenax.certificate_of_dismantler:1.0.0#>.
 
-:dismantlingCompany a bamm:Property;
-    bamm:name "dismantlingCompany";
-    bamm:characteristic :Dismantling;
-    bamm:preferredName "dismantling company"@en;
-    bamm:description "data for the dismantling company"@en.
-:Dismantling a bamm-c:SingleEntity;
-    bamm:name "Dismantling";
-    bamm:preferredName "Dismantling"@en;
-    bamm:description "Dismantling company information"@en;
-    bamm:dataType :Dismantler.
-:Dismantler a bamm:Entity;
-    bamm:name "Dismantler";
-    bamm:preferredName "Dismantler"@en;
-    bamm:description "information regarding the dismantler of a vehicle"@en;
-    bamm:properties (:dismantlerAdress :licensedBy :licensedByPublicAuthority :contactInformation).
-:dismantlerAdress a bamm:Property;
-    bamm:name "dismantlerAdress";
-    bamm:characteristic :PostalAddress;
-    bamm:description "address of the dismaling company"@en;
-    bamm:preferredName "dismantler adress"@en.
-:licensedBy a bamm:Property;
-    bamm:name "licensedBy";
-    bamm:description "describes by whom (consultant) the company was licensed"@en;
-    bamm:characteristic :Advisor;
-    bamm:preferredName "licensed by"@en.
-:licensedByPublicAuthority a bamm:Property;
-    bamm:name "licensedByPublicAuthority";
-    bamm:description "describes by whom (public authority) the company was licensed"@en;
-    bamm:characteristic :Authority;
-    bamm:preferredName "licensed by public authority"@en.
-:contactInformation a bamm:Property;
-    bamm:name "contactInformation";
-    bamm:characteristic contact-c:ContactCharacteristic;
-    bamm:preferredName "contact information"@en;
-    bamm:description "the contact information via phone or fax"@en.
-:PostalAddress a bamm:Characteristic;
-    bamm:name "PostalAddress";
-    bamm:preferredName "Postal Address"@en;
-    bamm:description "A characteristic to express the postal adress and which is intended to be referenced by other aspects"@en;
-    bamm:dataType :AddressEntity.
-:Advisor a bamm:Characteristic;
-    bamm:name "Advisor";
-    bamm:preferredName "Advisor"@en;
-    bamm:description "a legal person issuing a licence on behalf of a public authority"@en;
-    bamm:dataType :LegalPerson.
-:Authority a bamm-c:SingleEntity;
-    bamm:name "Authority";
-    bamm:preferredName "Authority"@en;
-    bamm:description "public authority"@en;
-    bamm:dataType :GovernmentOffice.
-:LegalPerson a bamm:Entity;
-    bamm:name "LegalPerson";
-    bamm:preferredName "Legal Person"@en;
-    bamm:description "legal person which can be out of the catena-x scope"@en;
-    bamm:properties (:contactInformation :advisorAdress).
-:GovernmentOffice a bamm:Entity;
-    bamm:name "GovernmentOffice";
-    bamm:preferredName "GovernmentOffice"@en;
-    bamm:description "public authority / government"@en;
-    bamm:properties (:governmentAdress).
-:advisorAdress a bamm:Property;
-    bamm:name "advisorAdress";
-    bamm:characteristic :PostalAddress;
-    bamm:preferredName "advisor adress"@en;
-    bamm:description "the adress of the advisor or inspector"@en.
-:governmentAdress a bamm:Property;
-    bamm:name "governmentAdress";
-    bamm:characteristic :PostalAddress;
-    bamm:preferredName "government adress"@en;
-    bamm:description "the adress of the public government"@en.
+:governmentAddress a bamm:Property;
+    bamm:name "governmentAddress";
+    bamm:characteristic address-c:PostalAddress;
+    bamm:preferredName "government address"@en;
+    bamm:description "the address of the public government"@en.
 :CertificateOfDismantler a bamm:Aspect;
     bamm:name "CertificateOfDismantler";
-    bamm:preferredName "CertificateOfDismantler"@en;
-    bamm:properties (:dismantlingCompany :licenseNumber :issueDate :expiryDate :producerNumber :carrierIdentification :disposerNumber);
-    bamm:operations ().
+    bamm:preferredName "CertificateOfDismantler"@en, "certificate of dismantler"@de;
+    bamm:description "certificate of dismantler from § 5 Abs. 3 Altfahrzeug-Verordnung"@de;
+    bamm:properties (:dismantlerAddress :licenseNumber :issueDate :expiryDate [
+  bamm:property :producerNumber;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :carrierIdentification;
+  bamm:optional "true"^^xsd:boolean
+] :disposerNumber :dismantlerContact :auditorAddress :governmentAddress :auditorContact);
+    bamm:operations ();
+    bamm:see <https%3A%2F%2Fwww.gesetze-im-internet.de%2Faltautov%2F__5.html>.
 :licenseNumber a bamm:Property;
     bamm:name "licenseNumber";
-    bamm:characteristic :Identification;
+    bamm:characteristic bamm-c:Text;
     bamm:preferredName "license number"@en;
     bamm:description "license number of the license"@en;
     bamm:exampleValue "02397421FG".
@@ -101,89 +45,44 @@
     bamm:exampleValue "2022-08-20"^^xsd:date.
 :producerNumber a bamm:Property;
     bamm:name "producerNumber";
-    bamm:characteristic :Identification;
-    bamm:preferredName "producer number"@de;
-    bamm:preferredName "Erzeugernummer"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:preferredName "producer number"@de, "Erzeugernummer"@en;
     bamm:description "describes the identification of the producing company"@en;
     bamm:exampleValue "S30E00529".
 :carrierIdentification a bamm:Property;
     bamm:name "carrierIdentification";
-    bamm:characteristic :Identification;
-    bamm:preferredName "carrier identification"@en;
-    bamm:preferredName "Befoerderernummer"@de;
+    bamm:characteristic bamm-c:Text;
+    bamm:preferredName "carrier identification"@en, "Befoerderernummer"@de;
     bamm:description "describes the identification of the transporting company"@en;
     bamm:exampleValue "S30T00026".
 :disposerNumber a bamm:Property;
     bamm:name "disposerNumber";
-    bamm:characteristic :Identification;
-    bamm:preferredName "disposer number"@en;
-    bamm:preferredName "Entsorgernummer"@de;
+    bamm:characteristic bamm-c:Text;
+    bamm:preferredName "disposer number"@en, "Entsorgernummer"@de;
     bamm:description "describes the identification of the disposal company"@en;
     bamm:exampleValue "S30A00065".
-:Identification a bamm:Characteristic;
-    bamm:name "Identification";
-    bamm:preferredName "Identification"@en;
-    bamm:description "identification of the property"@en;
-    bamm:dataType xsd:string.
-:AddressEntity a bamm:Entity;
-    bamm:name "AddressEntity";
-    bamm:preferredName "Address Entity"@en;
-    bamm:description "Address Entity description"@en;
-    bamm:properties (:street :houseNumber :zip :location :name [
-  bamm:property :isDataComplete;
-  bamm:optional "true"^^xsd:boolean
-]).
-:street a bamm:Property;
-    bamm:name "street";
-    bamm:characteristic bamm-c:Text;
-    bamm:preferredName "street"@en;
-    bamm:description "the street name"@en;
-    bamm:exampleValue "Bernstraße".
-:houseNumber a bamm:Property;
-    bamm:name "houseNumber";
-    bamm:characteristic bamm-c:Text;
-    bamm:preferredName "house number"@en;
-    bamm:description "the house number of the address"@en;
-    bamm:exampleValue "45".
-:zip a bamm:Property;
-    bamm:name "zip";
-    bamm:characteristic :ZipTrait;
-    bamm:preferredName "zip code"@en;
-    bamm:description "the postal code"@en;
-    bamm:exampleValue "68161/12".
-:location a bamm:Property;
-    bamm:name "location";
-    bamm:characteristic bamm-c:Text;
-    bamm:preferredName "location"@en;
-    bamm:description "the location or city of the address"@en;
-    bamm:exampleValue "Mannheim".
-:name a bamm:Property;
-    bamm:name "name";
-    bamm:characteristic bamm-c:Text;
-    bamm:preferredName "name"@en;
-    bamm:description "Name of the private individual, company or authority"@en.
-:isDataComplete a bamm:Property;
-    bamm:name "isDataComplete";
-    bamm:characteristic bamm-c:Boolean;
-    bamm:preferredName " is data complete"@en;
-    bamm:description "Is the preceeding informationn is complete (true) or unknown (false)"@en.
-:ZipTrait a bamm-c:Trait;
-    bamm:name "ZipTrait";
-    bamm:description "constraint to limit the zip length"@en;
-    bamm-c:baseCharacteristic :Zip;
-    bamm-c:constraint :ZipLength.
-:ZipLength a bamm-c:LengthConstraint;
-    bamm:name "ZipLength";
-    bamm:preferredName "Zip Length"@en;
-    bamm:description "the maximal lenght of the the postal code is restricted to 14 chracters"@en;
-    bamm-c:maxValue "14"^^xsd:nonNegativeInteger.
-:Zip a bamm:Characteristic;
-    bamm:name "Zip";
-    bamm:preferredName "ZIP"@en;
-    bamm:description "characteristic to describe the zip"@en;
-    bamm:dataType xsd:string.
 :DateCharacteristic a bamm:Characteristic;
     bamm:name "DateCharacteristic";
     bamm:preferredName "date Characteristic"@en;
     bamm:description "characteristic to describe a date"@en;
-    bamm:dataType xsd:date .
+    bamm:dataType xsd:date.
+:dismantlerContact a bamm:Property;
+    bamm:name "dismantlerContact";
+    bamm:characteristic contact-c:ContactCharacteristic;
+    bamm:preferredName "dismantling company contact"@en;
+    bamm:description "dismantling company contact information"@en.
+:auditorAddress a bamm:Property;
+    bamm:name "auditorAddress";
+    bamm:characteristic address-c:PostalAddress;
+    bamm:preferredName "auditor address"@en;
+    bamm:description "the address of the auditor"@en.
+:dismantlerAddress a bamm:Property;
+    bamm:name "dismantlerAddress";
+    bamm:characteristic address-c:PostalAddress;
+    bamm:preferredName "dismantler address"@en;
+    bamm:description "address data for the dismantling company"@en.
+:auditorContact a bamm:Property;
+    bamm:name "auditorContact";
+    bamm:characteristic contact-c:ContactCharacteristic;
+    bamm:preferredName "auditor contact"@en;
+    bamm:description "the address of the auditor"@en.
