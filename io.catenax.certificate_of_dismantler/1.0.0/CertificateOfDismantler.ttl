@@ -11,13 +11,13 @@
     bamm:name "governmentAddress";
     bamm:characteristic address-c:PostalAddress;
     bamm:preferredName "government address"@en;
-    bamm:description "the address of the public government"@en.
+    bamm:description "the address of the responsible government agency"@en.
 :CertificateOfDismantler a bamm:Aspect;
     bamm:name "CertificateOfDismantler";
-    bamm:preferredName "CertificateOfDismantler"@en;
+    bamm:preferredName "Certificate of Dismantler"@en, "Bescheinigung gemäß § 5 Abs. 3 Altfahrzeug-Verordnung"@de;
     bamm:description "Represents the certificate of dismanter (Bescheinigung gemäß § 5 Abs. 3 Altfahrzeug-Verordnung) which is required in Germany to legally dismantle vehicles"@en;
     bamm:see <https://www.gesetze-im-internet.de/altautov/__5.html>;
-    bamm:properties (:dismantlerAddress :licenseNumber :issueDate :expiryDate [
+    bamm:properties (:dismantlerAddress :certificateNumber :issueDate :expiryDate [
   bamm:property :producerNumber;
   bamm:optional "true"^^xsd:boolean
 ] [
@@ -25,10 +25,10 @@
   bamm:optional "true"^^xsd:boolean
 ] :disposerNumber :dismantlerContact :auditorAddress :governmentAddress :auditorContact);
     bamm:operations ().
-:licenseNumber a bamm:Property;
-    bamm:name "licenseNumber";
+:certificateNumber a bamm:Property;
+    bamm:name "certificateNumber";
     bamm:characteristic bamm-c:Text;
-    bamm:preferredName "license number"@en;
+    bamm:preferredName "certificate number"@en, "Nummer der Bescheinigung"@de;
     bamm:description "license number of the license"@en;
     bamm:exampleValue "02397421FG".
 :issueDate a bamm:Property;
@@ -46,7 +46,7 @@
 :producerNumber a bamm:Property;
     bamm:name "producerNumber";
     bamm:characteristic bamm-c:Text;
-    bamm:preferredName "producer number"@de, "Erzeugernummer"@en;
+    bamm:preferredName "producer number"@en, "Erzeugernummer"@de;
     bamm:description "describes the identification of the producing company"@en;
     bamm:exampleValue "S30E00529".
 :carrierIdentification a bamm:Property;
