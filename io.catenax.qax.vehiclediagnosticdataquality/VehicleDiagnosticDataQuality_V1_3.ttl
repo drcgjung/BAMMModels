@@ -1,0 +1,402 @@
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix : <urn:bamm:qax.catenaX.diag:1.0.0#>.
+
+:VehicleDiagnosticDataQuality a bamm:Aspect;
+    bamm:name "VehicleDiagnosticDataQuality";
+    bamm:properties (:sessionId :sessionDateTime :sessionMileage :sessionCountry :vehicleAnonymizedId :vehicleCatenaXId :workShopId :workShopCatenaXId :ecuList :oemShortName);
+    bamm:operations ().
+:sessionId a bamm:Property;
+    bamm:name "sessionId";
+    bamm:description "unique ID for this diagnostic session"@en;
+    bamm:characteristic :SessionIdTrait.
+:sessionDateTime a bamm:Property;
+    bamm:name "sessionDateTime";
+    bamm:description "date-timestamp for this session according ISO 8601"@en;
+    bamm:characteristic :SessionDateTime;
+    bamm:exampleValue "2022-02-04T14:48:54"^^xsd:dateTime.
+:sessionMileage a bamm:Property;
+    bamm:name "sessionMileage";
+    bamm:description "current mileage counter of the car during the diagnostic session"@en;
+    bamm:characteristic :SessionMileage.
+:sessionCountry a bamm:Property;
+    bamm:name "sessionCountry";
+    bamm:description "country name in  ISO 3166-1 alpha-3 codes where this session took place"@en;
+    bamm:characteristic :SessionCountryTrait.
+:vehicleAnonymizedId a bamm:Property;
+    bamm:name "vehicleAnonymizedId";
+    bamm:description "OEM-specific hashed VIN; link to car data over pseydomized/hashed VIN or Catena-X unique digital twin identifier"@en;
+    bamm:characteristic :VehicleAnonymizedIdTrait.
+:vehicleCatenaXId a bamm:Property;
+    bamm:name "vehicleCatenaXId";
+    bamm:description "Catena-X car ID /digital twin of car"@en;
+    bamm:characteristic :VehicleCatenaXIdTrait.
+:workShopId a bamm:Property;
+    bamm:name "workShopId";
+    bamm:description "OEM internal workshop ID"@en;
+    bamm:characteristic :WorkShopIdTrait.
+:workShopCatenaXId a bamm:Property;
+    bamm:name "workShopCatenaXId";
+    bamm:description "not yet used"@en;
+    bamm:characteristic :WorkShopCatenaXIdTrait.
+:ecuList a bamm:Property;
+    bamm:name "ecuList";
+    bamm:description "list of ECUs present in this diagnostic data set"@en;
+    bamm:characteristic :EcuList.
+:oemShortName a bamm:Property;
+    bamm:name "oemShortName";
+    bamm:description "short name of OEM"@en;
+    bamm:characteristic :OemShortNameTrait;
+    bamm:exampleValue "MB".
+:SessionIdTrait a bamm-c:Trait;
+    bamm:name "SessionIdTrait";
+    bamm-c:baseCharacteristic bamm-c:Text;
+    bamm-c:constraint :SessionIdLength.
+:SessionDateTime a bamm:Characteristic;
+    bamm:name "SessionDateTime";
+    bamm:description "Describes a Property which contains the date and time with an optional timezone."@en;
+    bamm:dataType xsd:dateTime.
+:SessionMileage a bamm-c:Measurement;
+    bamm:name "SessionMileage";
+    bamm:dataType xsd:positiveInteger;
+    bamm-c:unit unit:kilometre.
+:SessionCountryTrait a bamm-c:Trait;
+    bamm:name "SessionCountryTrait";
+    bamm-c:baseCharacteristic bamm-c:Text;
+    bamm-c:constraint :SessionCountryLength.
+:VehicleAnonymizedIdTrait a bamm-c:Trait;
+    bamm:name "VehicleAnonymizedIdTrait";
+    bamm-c:baseCharacteristic bamm-c:Text;
+    bamm-c:constraint :VehicleAnonymizedIdLength.
+:VehicleCatenaXIdTrait a bamm-c:Trait;
+    bamm:name "VehicleCatenaXIdTrait";
+    bamm-c:baseCharacteristic :Text;
+    bamm-c:constraint :VehicleCatenaXIdLength.
+:WorkShopIdTrait a bamm-c:Trait;
+    bamm:name "WorkShopIdTrait";
+    bamm-c:baseCharacteristic :WorkShopId;
+    bamm-c:constraint :WorkShopIdLength.
+:WorkShopCatenaXIdTrait a bamm-c:Trait;
+    bamm:name "WorkShopCatenaXIdTrait";
+    bamm-c:baseCharacteristic :WorkShopCatenaXId;
+    bamm-c:constraint :WorkShopCatenaXIdLength.
+:EcuList a bamm-c:List;
+    bamm:name "EcuList";
+    bamm:dataType :ECU.
+:OemShortNameTrait a bamm-c:Trait;
+    bamm:name "OemShortNameTrait";
+    bamm-c:baseCharacteristic :OemShortName;
+    bamm-c:constraint :OemShortNameLength.
+:Text a bamm:Characteristic;
+    bamm:name "Text";
+    bamm:description "Describes a Property which contains plain text. This is intended exclusively for human readable strings, not for identifiers, measurement values, etc."@en;
+    bamm:dataType xsd:string.
+:WorkShopId a bamm:Characteristic;
+    bamm:name "WorkShopId";
+    bamm:dataType xsd:string.
+:WorkShopCatenaXId a bamm:Characteristic;
+    bamm:name "WorkShopCatenaXId";
+    bamm:dataType xsd:string.
+:ECU a bamm:Entity;
+    bamm:name "ECU";
+    bamm:properties (:ecuName :ecuDescription :ecuHwPartNumber :ecuHwVersion :ecuSerialNumber :ecuCatenaXId :ecuSwPartNumber :ecuSwVersion :ecuZbPartNumber :ecuZbVersion :dtcList).
+:ecuName a bamm:Property;
+    bamm:name "ecuName";
+    bamm:description "name of ecu"@en;
+    bamm:characteristic :EcuNameTrait;
+    bamm:exampleValue "ABS".
+:ecuDescription a bamm:Property;
+    bamm:name "ecuDescription";
+    bamm:description "long name of ecu"@en;
+    bamm:characteristic :EcuDescriptionTrait;
+    bamm:exampleValue "Anti blocking control unit".
+:ecuHwPartNumber a bamm:Property;
+    bamm:name "ecuHwPartNumber";
+    bamm:description "hardware part number of ECU"@en;
+    bamm:characteristic :EcuHwPartNumberTrait;
+    bamm:exampleValue "04C907309AE".
+:ecuHwVersion a bamm:Property;
+    bamm:name "ecuHwVersion";
+    bamm:description "hardware version of ECU"@en;
+    bamm:characteristic :EcuHwVersionTrait.
+:ecuSerialNumber a bamm:Property;
+    bamm:name "ecuSerialNumber";
+    bamm:description "serial number of ECU"@en;
+    bamm:characteristic :EcuSerialNumberTrait;
+    bamm:exampleValue "100122".
+:ecuCatenaXId a bamm:Property;
+    bamm:name "ecuCatenaXId";
+    bamm:description "Catena-X's digital twin of this ECU"@en;
+    bamm:characteristic :EcuCatenaXIdTrait.
+:ecuSwPartNumber a bamm:Property;
+    bamm:name "ecuSwPartNumber";
+    bamm:description "SW part number of this ecu"@en;
+    bamm:characteristic :EcuSwPartNumberTrait;
+    bamm:exampleValue "04C906026BH".
+:ecuSwVersion a bamm:Property;
+    bamm:name "ecuSwVersion";
+    bamm:description "current version of the software on this ecu"@en;
+    bamm:characteristic :EcuSwVersionTrait;
+    bamm:exampleValue "0001".
+:ecuZbPartNumber a bamm:Property;
+    bamm:name "ecuZbPartNumber";
+    bamm:description "HW-SW-Partnumber (ZB)"@en;
+    bamm:characteristic :EcuZbPartNumberTrait;
+    bamm:exampleValue "V03935278E".
+:ecuZbVersion a bamm:Property;
+    bamm:name "ecuZbVersion";
+    bamm:description "HW-SW-Version (ZB)"@en;
+    bamm:characteristic :EcuZbVersionTrait;
+    bamm:exampleValue "0001".
+:dtcList a bamm:Property;
+    bamm:name "dtcList";
+    bamm:characteristic :DTCList.
+:EcuNameTrait a bamm-c:Trait;
+    bamm:name "EcuNameTrait";
+    bamm-c:baseCharacteristic :EcuName;
+    bamm-c:constraint :EcuNameLength.
+:EcuDescriptionTrait a bamm-c:Trait;
+    bamm:name "EcuDescriptionTrait";
+    bamm-c:baseCharacteristic :EcuDescription;
+    bamm-c:constraint :EcuDescriptionLength.
+:EcuHwPartNumberTrait a bamm-c:Trait;
+    bamm:name "EcuHwPartNumberTrait";
+    bamm-c:baseCharacteristic :EcuHwPartNumber;
+    bamm-c:constraint :EcuHwPartNumberLength.
+:EcuHwVersionTrait a bamm-c:Trait;
+    bamm:name "EcuHwVersionTrait";
+    bamm-c:baseCharacteristic :EcuHwVersion;
+    bamm-c:constraint :EcuHwVersionLength.
+:EcuSerialNumberTrait a bamm-c:Trait;
+    bamm:name "EcuSerialNumberTrait";
+    bamm-c:baseCharacteristic :EcuSerialNumber;
+    bamm-c:constraint :EcuSerialNumberLength.
+:EcuCatenaXIdTrait a bamm-c:Trait;
+    bamm:name "EcuCatenaXIdTrait";
+    bamm-c:baseCharacteristic :EcuCatenaXId;
+    bamm-c:constraint :EcuCatenaXIdLength.
+:EcuSwPartNumberTrait a bamm-c:Trait;
+    bamm:name "EcuSwPartNumberTrait";
+    bamm-c:baseCharacteristic :EcuSwPartNumber;
+    bamm-c:constraint :EcuSwPartNumberLength.
+:EcuSwVersionTrait a bamm-c:Trait;
+    bamm:name "EcuSwVersionTrait";
+    bamm-c:baseCharacteristic :EcuSwVersion;
+    bamm-c:constraint :EcuSwVersionLength.
+:EcuZbPartNumberTrait a bamm-c:Trait;
+    bamm:name "EcuZbPartNumberTrait";
+    bamm-c:baseCharacteristic :EcuZbPartNumber;
+    bamm-c:constraint :EcuZbPartNumberLength.
+:EcuZbVersionTrait a bamm-c:Trait;
+    bamm:name "EcuZbVersionTrait";
+    bamm-c:baseCharacteristic :EcuZbVersion;
+    bamm-c:constraint :EcuZbVersionLength.
+:DTCList a bamm-c:List;
+    bamm:name "DTCList";
+    bamm:dataType :DTC.
+:EcuNameLength a bamm-c:LengthConstraint;
+    bamm:name "EcuNameLength";
+    bamm-c:maxValue "16"^^xsd:nonNegativeInteger.
+:EcuDescriptionLength a bamm-c:LengthConstraint;
+    bamm:name "EcuDescriptionLength";
+    bamm-c:maxValue "64"^^xsd:nonNegativeInteger.
+:EcuHwPartNumberLength a bamm-c:LengthConstraint;
+    bamm:name "EcuHwPartNumberLength";
+    bamm-c:maxValue "16"^^xsd:nonNegativeInteger.
+:EcuHwVersionLength a bamm-c:LengthConstraint;
+    bamm:name "EcuHwVersionLength";
+    bamm-c:maxValue "16"^^xsd:nonNegativeInteger.
+:EcuSerialNumberLength a bamm-c:LengthConstraint;
+    bamm:name "EcuSerialNumberLength";
+    bamm-c:maxValue "32"^^xsd:nonNegativeInteger.
+:EcuCatenaXIdLength a bamm-c:LengthConstraint;
+    bamm:name "EcuCatenaXIdLength";
+    bamm-c:maxValue "32"^^xsd:nonNegativeInteger.
+:EcuSwPartNumberLength a bamm-c:LengthConstraint;
+    bamm:name "EcuSwPartNumberLength";
+    bamm-c:maxValue "16"^^xsd:nonNegativeInteger.
+:EcuSwVersionLength a bamm-c:LengthConstraint;
+    bamm:name "EcuSwVersionLength";
+    bamm-c:maxValue "16"^^xsd:nonNegativeInteger.
+:EcuZbPartNumberLength a bamm-c:LengthConstraint;
+    bamm:name "EcuZbPartNumberLength";
+    bamm-c:maxValue "16"^^xsd:nonNegativeInteger.
+:EcuZbVersionLength a bamm-c:LengthConstraint;
+    bamm:name "EcuZbVersionLength";
+    bamm-c:maxValue "16"^^xsd:nonNegativeInteger.
+:DTC a bamm:Entity;
+    bamm:name "DTC";
+    bamm:properties (:dtcFullName :dtcFullDescription :dtcStatus :dtcOccurenceDateTime :dtcOccurenceMileage :dtcFaultPath :dtcFaultPathDescription :dtcMilOnFlag :dtcFreezeFrame).
+:dtcFullName a bamm:Property;
+    bamm:name "dtcFullName";
+    bamm:description "DTC full name, DTC + fault byte"@en;
+    bamm:characteristic :DtcFullNameTrait;
+    bamm:exampleValue "B100000".
+:dtcFullDescription a bamm:Property;
+    bamm:name "dtcFullDescription";
+    bamm:description "long name of ecu"@en;
+    bamm:characteristic :DtcFullDescriptionTrait;
+    bamm:exampleValue "48V-Bordnetz Spannung zu klein".
+:dtcStatus a bamm:Property;
+    bamm:name "dtcStatus";
+    bamm:description "state of DTC: 0;1 (statisch/sporadisch)"@en;
+    bamm:characteristic :DtcStatusTrait;
+    bamm:exampleValue "0".
+:dtcOccurenceDateTime a bamm:Property;
+    bamm:name "dtcOccurenceDateTime";
+    bamm:description "date and time when the DTC occured the first time"@en;
+    bamm:characteristic :DtcOccurenceDateTime;
+    bamm:exampleValue "2022-01-30T14:48:54"^^xsd:dateTime.
+:dtcOccurenceMileage a bamm:Property;
+    bamm:name "dtcOccurenceMileage";
+    bamm:description "mileage when the DTC occurred the first time"@en;
+    bamm:characteristic :Mileage.
+:dtcFaultPath a bamm:Property;
+    bamm:name "dtcFaultPath";
+    bamm:description "fault path for this DTC"@en;
+    bamm:characteristic :DtcFaultPathTrait;
+    bamm:exampleValue "1000761".
+:dtcFaultPathDescription a bamm:Property;
+    bamm:name "dtcFaultPathDescription";
+    bamm:description "description of fault path"@en;
+    bamm:characteristic :DtcFaultPathDescriptionTrait;
+    bamm:exampleValue "Kurzschluss nach Plus".
+:dtcMilOnFlag a bamm:Property;
+    bamm:name "dtcMilOnFlag";
+    bamm:description "true or false"@en;
+    bamm:characteristic bamm-c:Boolean.
+:dtcFreezeFrame a bamm:Property;
+    bamm:name "dtcFreezeFrame";
+    bamm:description "freeze frame from ecu when the DTC occurred"@en;
+    bamm:characteristic :DtcFreezeFrameTrait.
+:DtcFullNameTrait a bamm-c:Trait;
+    bamm:name "DtcFullNameTrait";
+    bamm-c:baseCharacteristic :DtcFullName;
+    bamm-c:constraint :DtcFullNameLength.
+:DtcFullDescriptionTrait a bamm-c:Trait;
+    bamm:name "DtcFullDescriptionTrait";
+    bamm-c:baseCharacteristic :DtcFullDescription;
+    bamm-c:constraint :DtcFullDescriptionLength.
+:DtcStatusTrait a bamm-c:Trait;
+    bamm:name "DtcStatusTrait";
+    bamm-c:baseCharacteristic :DtcStatus;
+    bamm-c:constraint :DtcStatusLength.
+:Mileage a bamm-c:Measurement;
+    bamm:name "Mileage";
+    bamm:dataType xsd:positiveInteger;
+    bamm-c:unit unit:kilometre.
+:DtcFaultPathTrait a bamm-c:Trait;
+    bamm:name "DtcFaultPathTrait";
+    bamm-c:baseCharacteristic :DtcFaultPath;
+    bamm-c:constraint :DtcFaultPathLength.
+:DtcFaultPathDescriptionTrait a bamm-c:Trait;
+    bamm:name "DtcFaultPathDescriptionTrait";
+    bamm-c:baseCharacteristic :DtcFaultPathDescription;
+    bamm-c:constraint :DtcFaultPathDescriptionLength.
+:DtcFreezeFrameTrait a bamm-c:Trait;
+    bamm:name "DtcFreezeFrameTrait";
+    bamm-c:baseCharacteristic :DtcFreezeFrame;
+    bamm-c:constraint :DtcFreezeFrameLength.
+:DtcFullNameLength a bamm-c:LengthConstraint;
+    bamm:name "DtcFullNameLength";
+    bamm:description "Describes a Property which contains plain text. This is intended exclusively for human readable strings, not for identifiers, measurement values, etc."@en;
+    bamm-c:maxValue "7"^^xsd:nonNegativeInteger;
+    bamm-c:minValue "7"^^xsd:nonNegativeInteger.
+:DtcFullDescriptionLength a bamm-c:LengthConstraint;
+    bamm:name "DtcFullDescriptionLength";
+    bamm-c:maxValue "64"^^xsd:nonNegativeInteger.
+:DtcStatusLength a bamm-c:LengthConstraint;
+    bamm:name "DtcStatusLength";
+    bamm-c:maxValue "32"^^xsd:nonNegativeInteger.
+:DtcFaultPathLength a bamm-c:LengthConstraint;
+    bamm:name "DtcFaultPathLength";
+    bamm-c:maxValue "16"^^xsd:nonNegativeInteger.
+:DtcFaultPathDescriptionLength a bamm-c:LengthConstraint;
+    bamm:name "DtcFaultPathDescriptionLength";
+    bamm-c:maxValue "64"^^xsd:nonNegativeInteger.
+:DtcFreezeFrameLength a bamm-c:LengthConstraint;
+    bamm:name "DtcFreezeFrameLength";
+    bamm:description "Describes a Property which contains plain text. This is intended exclusively for human readable strings, not for identifiers, measurement values, etc."@en;
+    bamm-c:maxValue "8000"^^xsd:nonNegativeInteger.
+:OemShortName a bamm:Characteristic;
+    bamm:name "OemShortName";
+    bamm:dataType xsd:string.
+:DtcOccurenceDateTime a bamm:Characteristic;
+    bamm:name "DtcOccurenceDateTime";
+    bamm:dataType xsd:dateTime.
+:SessionIdLength a bamm-c:LengthConstraint;
+    bamm:name "SessionIdLength";
+    bamm-c:maxValue "32"^^xsd:nonNegativeInteger.
+:SessionCountryLength a bamm-c:LengthConstraint;
+    bamm:name "SessionCountryLength";
+    bamm:description "according ISO 3166-1 alpha3 country codes"@en;
+    bamm-c:maxValue "3"^^xsd:nonNegativeInteger;
+    bamm-c:minValue "3"^^xsd:nonNegativeInteger.
+:VehicleAnonymizedIdLength a bamm-c:LengthConstraint;
+    bamm:name "VehicleAnonymizedIdLength";
+    bamm-c:maxValue "32"^^xsd:nonNegativeInteger.
+:VehicleCatenaXIdLength a bamm-c:LengthConstraint;
+    bamm:name "VehicleCatenaXIdLength";
+    bamm-c:maxValue "32"^^xsd:nonNegativeInteger.
+:WorkShopIdLength a bamm-c:LengthConstraint;
+    bamm:name "WorkShopIdLength";
+    bamm-c:maxValue "32"^^xsd:nonNegativeInteger.
+:WorkShopCatenaXIdLength a bamm-c:LengthConstraint;
+    bamm:name "WorkShopCatenaXIdLength";
+    bamm-c:maxValue "32"^^xsd:nonNegativeInteger.
+:OemShortNameLength a bamm-c:LengthConstraint;
+    bamm:name "OemShortNameLength";
+    bamm-c:maxValue "3"^^xsd:nonNegativeInteger.
+:EcuName a bamm:Characteristic;
+    bamm:name "EcuName";
+    bamm:dataType xsd:string.
+:EcuDescription a bamm:Characteristic;
+    bamm:name "EcuDescription";
+    bamm:dataType xsd:string.
+:EcuHwPartNumber a bamm:Characteristic;
+    bamm:name "EcuHwPartNumber";
+    bamm:dataType xsd:string.
+:EcuHwVersion a bamm:Characteristic;
+    bamm:name "EcuHwVersion";
+    bamm:dataType xsd:string.
+:EcuSerialNumber a bamm:Characteristic;
+    bamm:name "EcuSerialNumber";
+    bamm:dataType xsd:string.
+:EcuCatenaXId a bamm:Characteristic;
+    bamm:name "EcuCatenaXId";
+    bamm:dataType xsd:string.
+:EcuSwPartNumber a bamm:Characteristic;
+    bamm:name "EcuSwPartNumber";
+    bamm:dataType xsd:string.
+:EcuSwVersion a bamm:Characteristic;
+    bamm:name "EcuSwVersion";
+    bamm:dataType xsd:string.
+:EcuZbPartNumber a bamm:Characteristic;
+    bamm:name "EcuZbPartNumber";
+    bamm:dataType xsd:string.
+:EcuZbVersion a bamm:Characteristic;
+    bamm:name "EcuZbVersion";
+    bamm:dataType xsd:string.
+:DtcFullName a bamm:Characteristic;
+    bamm:name "DtcFullName";
+    bamm:dataType xsd:string.
+:DtcFullDescription a bamm:Characteristic;
+    bamm:name "DtcFullDescription";
+    bamm:dataType xsd:string.
+:DtcStatus a bamm:Characteristic;
+    bamm:name "DtcStatus";
+    bamm:dataType xsd:string.
+:DtcFaultPath a bamm:Characteristic;
+    bamm:name "DtcFaultPath";
+    bamm:dataType xsd:string.
+:DtcFaultPathDescription a bamm:Characteristic;
+    bamm:name "DtcFaultPathDescription";
+    bamm:dataType xsd:string.
+:DtcFreezeFrame a bamm:Characteristic;
+    bamm:name "DtcFreezeFrame";
+    bamm:dataType xsd:string.
