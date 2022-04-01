@@ -9,7 +9,7 @@
     bamm:name "CertificateOfDestruction";
     bamm:preferredName "Certificate of Destruction"@en;
     bamm:description "Information on the certificate of destruction. In german: Verwertungsnachweis"@en;
-    bamm:properties (:dismantlingDate :serialNumber :vehicleOwnerProperties :vehicleProperties :receivingPointProperties :dismantlerProperties :companyNumber);
+    bamm:properties (:dismantlingDate :serialNumber :vehicleOwnerProperties :vehicleProperties :returnPointProperties :dismantlerProperties :companyNumber);
     bamm:operations ();
     bamm:see <https://www.gesetze-im-internet.de/fzv_2011/Fanlage_8.html>.
 :dismantlingDate a bamm:Property;
@@ -33,9 +33,9 @@
     bamm:preferredName "vehicle properties"@en;
     bamm:description "Properties under the second section of the certificate of destruction"@en;
     bamm:characteristic :VehicleCharacteristic.
-:receivingPointProperties a bamm:Property;
-    bamm:name "receivingPointProperties";
-    bamm:preferredName "receiving point properties"@en;
+:returnPointProperties a bamm:Property;
+    bamm:name "returnPointProperties";
+    bamm:preferredName "return point properties"@en;
     bamm:description "Properties under the third section of the certificate of destruction"@en;
     bamm:characteristic :ReceivingCharacteristic.
 :dismantlerProperties a bamm:Property;
@@ -59,21 +59,21 @@
     bamm:preferredName "address"@en;
     bamm:description "address characteristic which corresponds to the information given in the certificate of destruction"@en;
     bamm:dataType :AddressEntity.
-:class a bamm:Property;
-    bamm:name "class";
+:vehicleClass a bamm:Property;
+    bamm:name "vehicleClass";
     bamm:preferredName "vehicle class"@en;
     bamm:description "Vehicle class the vehicle refers to"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "01".
-:brand a bamm:Property;
-    bamm:name "brand";
-    bamm:preferredName "brand"@en;
+:vehicleBrand a bamm:Property;
+    bamm:name "vehicleBrand";
+    bamm:preferredName "vehicle brand"@en;
     bamm:description "Brand name"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "BMW".
-:model a bamm:Property;
-    bamm:name "model";
-    bamm:preferredName "model"@en;
+:vehicleModel a bamm:Property;
+    bamm:name "vehicleModel";
+    bamm:preferredName "vehicle model"@en;
     bamm:description "Vehicle model"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "318 I".
@@ -145,9 +145,14 @@
     bamm:preferredName "country"@en;
     bamm:description "country code"@en;
     bamm:characteristic :CountryCodeTrait.
-:isInformationComplete a bamm:Property;
-    bamm:name "isInformationComplete";
-    bamm:preferredName "is information complete"@en;
+:isVehicleInformationComplete a bamm:Property;
+    bamm:name "isVehicleInformationComplete";
+    bamm:preferredName "is vehicle information complete"@en;
+    bamm:description "Boolean flag to indicate whether the information in the data set is complete. If the data set contains unknown fields, the value is false"@en;
+    bamm:characteristic bamm-c:Boolean.
+:isVehicleOwnerInformationComplete a bamm:Property;
+    bamm:name "isVehicleOwnerInformationComplete";
+    bamm:preferredName "is vehicle owner information complete"@en;
     bamm:description "Boolean flag to indicate whether the information in the data set is complete. If the data set contains unknown fields, the value is false"@en;
     bamm:characteristic bamm-c:Boolean.
 :governmentAdress a bamm:Property;
@@ -261,11 +266,11 @@
 :VehicleEntity a bamm:Entity;
     bamm:name "VehicleEntity";
     bamm:preferredName "vehicle entity"@en;
-    bamm:properties (:isInformationComplete :emptyWeight :firstRegistration :licensePlate :licenseAbbreviation :identification :model :brand :class).
+    bamm:properties (:isVehicleInformationComplete :emptyWeight :firstRegistration :licensePlate :licenseAbbreviation :identification :vehicleModel :vehicleBrand :vehicleClass).
 :VehicleOwnerEntity a bamm:Entity;
     bamm:name "VehicleOwnerEntity";
     bamm:preferredName "vehicle owner entity"@en;
-    bamm:properties (:isInformationComplete :vehicleOwnerAddress :citizenship).
+    bamm:properties (:isVehicleOwnerInformationComplete :vehicleOwnerAddress :citizenship).
 :vehicleOwnerAddress a bamm:Property;
     bamm:name "vehicleOwnerAddress";
     bamm:preferredName "vehicle owner address"@en;
@@ -318,4 +323,4 @@
     bamm:name "DateCharacteristic";
     bamm:preferredName "date characteristic"@en;
     bamm:description "date characteristic"@en;
-    bamm:dataType xsd:date .
+    bamm:dataType xsd:date.
