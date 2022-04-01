@@ -3,8 +3,8 @@
 @prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
-@prefix address-c: <urn:bamm:io.catenax.shared.address_characteristic:1.0.0>.
-@prefix contact-c: <urn:bamm:io.catenax.shared.contact_information:1.0.0>.
+@prefix address-c: <urn:bamm:io.catenax.shared.address_characteristic:1.0.0#>.
+@prefix contact-c: <urn:bamm:io.catenax.shared.contact_information:1.0.0#>.
 @prefix : <urn:bamm:io.catenax.certificate_of_dismantler:1.0.0#>.
 
 :governmentAddress a bamm:Property;
