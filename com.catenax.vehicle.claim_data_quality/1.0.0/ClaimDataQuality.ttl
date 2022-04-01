@@ -5,96 +5,152 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
-@prefix : <urn:bamm:com.catenax.vehicle:1.0.0#>.
+@prefix : <urn:bamm:io.openmanufacturing.digitaltwin:1.0.0#>.
 
-:claimDataSet a bamm:Property;
-    bamm:name "claimDataSet";
-    bamm:preferredName "ClaimData"@de-de;
-    bamm:description "Claim-Daten, Teiletausch"@en;
-    bamm:characteristic :ClaimDataSet.
-:ClaimDataSet a bamm-c:List;
-    bamm:name "ClaimDataSet";
-    bamm:preferredName "ClaimDataSet"@en;
-    bamm:dataType :CarClaimDataEntity.
-:CarClaimDataEntity a bamm:Entity;
-    bamm:name "CarClaimDataEntity";
-    bamm:properties (:claimId :customerComment :technicianComment :repairDate :repairMileage :partName :partNumber :isPartReplaced).
 :claimId a bamm:Property;
     bamm:name "claimId";
     bamm:preferredName "Antragsnummer"@de-de;
     bamm:description "Claim ID: Unique for each OEM"@en;
-    bamm:characteristic :ClaimId.
-:customerComment a bamm:Property;
-    bamm:name "customerComment";
+    bamm:characteristic :ClaimIdTrait.
+:claimCustomerComment a bamm:Property;
+    bamm:name "claimCustomerComment";
     bamm:preferredName "Kundenkommentar "@de-de;
-    bamm:characteristic bamm-c:Text.
-:technicianComment a bamm:Property;
-    bamm:name "technicianComment";
+    bamm:characteristic :ClaimCustomerCommentTrait.
+:claimTechnicianComment a bamm:Property;
+    bamm:name "claimTechnicianComment";
     bamm:preferredName "Werkstatt Kommentar"@de-de;
-    bamm:characteristic bamm-c:Text.
-:repairDate a bamm:Property;
-    bamm:name "repairDate";
+    bamm:characteristic :ClaimTechnicianCommentTrait.
+:claimRepairMileage a bamm:Property;
+    bamm:name "claimRepairMileage";
+    bamm:preferredName "KM-Stand Claim"@de-de, "Mileage"@en;
+    bamm:characteristic :ClaimRepairMileage.
+:ClaimRepairMileage a bamm-c:Measurement;
+    bamm:name "ClaimRepairMileage";
+    bamm:preferredName "Mileage"@en;
+    bamm-c:unit unit:kilometre;
+    bamm:dataType xsd:positiveInteger.
+:claimRepairDate a bamm:Property;
+    bamm:name "claimRepairDate";
     bamm:preferredName "Reparaturaufnahmedatum"@de-de;
     bamm:characteristic bamm-c:Timestamp;
-    bamm:exampleValue "2022-02-04T14:48:54.709+0000"^^xsd:dateTime.
-:repairMileage a bamm:Property;
-    bamm:name "repairMileage";
-    bamm:preferredName "KM-Stand Claim"@de-de;
-    bamm:characteristic :Mileage;
-    bamm:exampleValue "100"^^xsd:integer.
-:partName a bamm:Property;
-    bamm:name "partName";
+    bamm:exampleValue "2022-02-04T14:48:54"^^xsd:dateTime.
+:VehicleClaimDataQuality a bamm:Aspect;
+    bamm:name "VehicleClaimDataQuality";
+    bamm:properties (:claimId :claimCustomerComment :claimTechnicianComment :claimRepairDate :claimRepairMileage :claimOEMPartName :claimOEMPartNumber :claimPartCatenaXId :claimPartReplaced :claimOemShortName :vehicleAnonymizedId :vehicleCatenaXId :claimPartCatenaXId :claimDiagnosticSessionId);
+    bamm:operations ().
+:claimOEMPartName a bamm:Property;
+    bamm:name "claimOEMPartName";
+    bamm:preferredName "Part Number (ZB)"@de-de, "Name of defect part"@en;
+    bamm:characteristic :ClaimPartOEMNameTrait;
+    bamm:exampleValue "Bremsbelag".
+:claimOEMPartNumber a bamm:Property;
+    bamm:name "claimOEMPartNumber";
     bamm:preferredName "Part Number (ZB)"@de-de;
     bamm:description "NAME OF DEFECT PART"@en;
-    bamm:characteristic :PartName;
+    bamm:characteristic :ClaimOEMPartNumberTrait;
     bamm:exampleValue "Bremsbelag".
-:partNumber a bamm:Property;
-    bamm:name "partNumber";
-    bamm:preferredName "Part Number (ZB)"@de-de;
-    bamm:description "Serial number of defect/old part"@en;
-    bamm:characteristic :PartNumber;
-    bamm:exampleValue "3Q0&98451F".
-:isPartReplaced a bamm:Property;
-    bamm:name "isPartReplaced";
-    bamm:preferredName "Reparaturkennzeichen"@de-de;
-    bamm:description "indicates whether the parts being replaced"@en;
-    bamm:characteristic bamm-c:Boolean;
-    bamm:exampleValue "true"^^xsd:boolean.
-:catenaXId a bamm:Property;
-    bamm:name "catenaXId";
-    bamm:preferredName "VehicleID"@en;
-    bamm:description "FIN/Pseudonymisierte FIN"@de-de;
-    bamm:characteristic :CatenaXUniqueIDTrait;
-    bamm:exampleValue "680d3adf-1981-44a0-a".
-:CatenaXUniqueIDTrait a bamm-c:Trait;
-    bamm:name "CatenaXUniqueIDTrait";
-    bamm:description "Trait to ensure UUID v4 data format"@en;
-    bamm-c:baseCharacteristic :UUIDv4Characteristic;
-    bamm-c:constraint :UUIDv4RegularExpression.
-:UUIDv4Characteristic a bamm:Characteristic;
-    bamm:name "UUIDv4Characteristic";
-    bamm:preferredName "UUID v4"@en;
-    bamm:description "A Version 4 UUID is a universally unique identifier that is generated using random numbers. "@en.
-:UUIDv4RegularExpression a bamm-c:RegularExpressionConstraint;
-    bamm:name "UUIDv4RegularExpression";
-    bamm:preferredName "Catena-X UniqueId Regular Expression"@en;
-    bamm:description "Regular Expression for UUID v4"@en;
-    bamm:value "^[0-9a-fA-F]{8}\\\\b-[0-9a-fA-F]{4}\\\\b-[0-9a-fA-F]{4}\\\\b-[0-9a-fA-F]{4}\\\\b-[0-9a-fA-F]{12}$".
-:ClaimId a bamm:Characteristic;
+:claimPartCatenaXId a bamm:Property;
+    bamm:name "claimPartCatenaXId";
+    bamm:description "link to digital twin of replaced part"@en;
+    bamm:characteristic :ClaimPartCatenaXIdTrait.
+:ClaimPartOEMNameTrait a bamm-c:Trait;
+    bamm:name "ClaimPartOEMNameTrait";
+    bamm-c:baseCharacteristic bamm-c:Text;
+    bamm-c:constraint :ClaimOEMPartName.
+:ClaimPartCatenaXIdTrait a bamm-c:Trait;
+    bamm:name "ClaimPartCatenaXIdTrait";
+    bamm-c:baseCharacteristic bamm-c:Text;
+    bamm-c:constraint :ClaimPartCatenaXId.
+:ClaimPartCatenaXId a bamm-c:LengthConstraint;
+    bamm:name "ClaimPartCatenaXId";
+    bamm-c:maxValue "20"^^xsd:nonNegativeInteger;
+    bamm-c:minValue "20"^^xsd:nonNegativeInteger.
+:ClaimOEMPartName a bamm-c:LengthConstraint;
+    bamm:name "ClaimOEMPartName";
+    bamm-c:maxValue "20"^^xsd:nonNegativeInteger;
+    bamm-c:minValue "20"^^xsd:nonNegativeInteger.
+:ClaimIdTrait a bamm-c:Trait;
+    bamm:name "ClaimIdTrait";
+    bamm-c:baseCharacteristic bamm-c:Text;
+    bamm-c:constraint :ClaimId.
+:ClaimId a bamm-c:LengthConstraint;
     bamm:name "ClaimId";
-    bamm:dataType xsd:string.
-:Mileage a bamm-c:Measurement;
-    bamm:name "Mileage";
-    bamm:dataType xsd:integer;
-    bamm-c:unit unit:kilometre.
-:PartName a bamm:Characteristic;
-    bamm:name "PartName";
-    bamm:dataType xsd:string.
-:PartNumber a bamm:Characteristic;
-    bamm:name "PartNumber";
-    bamm:dataType xsd:string.
-:ClaimDataQuality a bamm:Aspect;
-    bamm:name "ClaimDataQuality";
-    bamm:preferredName "ClaimDatenQuality"@de-de;
-    bamm:properties (:claimDataSet :catenaXId);
-    bamm:operations ().
+    bamm-c:maxValue "20"^^xsd:nonNegativeInteger;
+    bamm-c:minValue "20"^^xsd:nonNegativeInteger.
+:ClaimOEMPartNumberTrait a bamm-c:Trait;
+    bamm:name "ClaimOEMPartNumberTrait";
+    bamm-c:baseCharacteristic bamm-c:Text;
+    bamm-c:constraint :ClaimOEMPartNumber.
+:ClaimOEMPartNumber a bamm-c:LengthConstraint;
+    bamm:name "ClaimOEMPartNumber";
+    bamm-c:maxValue "10"^^xsd:nonNegativeInteger;
+    bamm-c:minValue "10"^^xsd:nonNegativeInteger.
+:vehicleAnonymizedId a bamm:Property;
+    bamm:name "vehicleAnonymizedId";
+    bamm:description "link to diagnostic data set created for this claim"@en;
+    bamm:characteristic :VehicleAnonymizedIdTrait.
+:vehicleCatenaXId a bamm:Property;
+    bamm:name "vehicleCatenaXId";
+    bamm:description "Catena-X car ID /digital twin of car"@en;
+    bamm:characteristic :VehicleCatenaXIdTrait.
+:VehicleAnonymizedIdTrait a bamm-c:Trait;
+    bamm:name "VehicleAnonymizedIdTrait";
+    bamm-c:baseCharacteristic bamm-c:Text;
+    bamm-c:constraint :VehicleAnonymizedId.
+:VehicleAnonymizedId a bamm-c:LengthConstraint;
+    bamm:name "VehicleAnonymizedId";
+    bamm-c:maxValue "32"^^xsd:nonNegativeInteger;
+    bamm-c:minValue "32"^^xsd:nonNegativeInteger.
+:VehicleCatenaXIdTrait a bamm-c:Trait;
+    bamm:name "VehicleCatenaXIdTrait";
+    bamm-c:baseCharacteristic bamm-c:Text;
+    bamm-c:constraint :VehicleCatenaXId.
+:VehicleCatenaXId a bamm-c:LengthConstraint;
+    bamm:name "VehicleCatenaXId";
+    bamm-c:maxValue "20"^^xsd:nonNegativeInteger;
+    bamm-c:minValue "20"^^xsd:nonNegativeInteger.
+:claimOemShortName a bamm:Property;
+    bamm:name "claimOemShortName";
+    bamm:description "short name of the OEM  this claim is coming from"@en, "Kurzname des OEM, von dem dieser Claim stammt"@de-de;
+    bamm:characteristic :ClaimOemShortNameTrait;
+    bamm:exampleValue "MB".
+:ClaimOemShortNameTrait a bamm-c:Trait;
+    bamm:name "ClaimOemShortNameTrait";
+    bamm-c:baseCharacteristic bamm-c:Text;
+    bamm-c:constraint :VehicleOEMShortName.
+:ClaimCustomerCommentTrait a bamm-c:Trait;
+    bamm:name "ClaimCustomerCommentTrait";
+    bamm-c:baseCharacteristic bamm-c:MultiLanguageText;
+    bamm-c:constraint :ClaimCustomerComment.
+:ClaimTechnicianCommentTrait a bamm-c:Trait;
+    bamm:name "ClaimTechnicianCommentTrait";
+    bamm-c:baseCharacteristic bamm-c:MultiLanguageText;
+    bamm-c:constraint :ClaimTechnicianComment.
+:ClaimCustomerComment a bamm-c:LengthConstraint;
+    bamm:name "ClaimCustomerComment";
+    bamm-c:maxValue "1024"^^xsd:nonNegativeInteger;
+    bamm-c:minValue "1024"^^xsd:nonNegativeInteger.
+:ClaimTechnicianComment a bamm-c:LengthConstraint;
+    bamm:name "ClaimTechnicianComment";
+    bamm-c:maxValue "1024"^^xsd:nonNegativeInteger;
+    bamm-c:minValue "1024"^^xsd:nonNegativeInteger.
+:claimPartReplaced a bamm:Property;
+    bamm:name "claimPartReplaced";
+    bamm:preferredName "flag if part was replaced"@en, "Kennzeichnung, ob Bauteil ausgetauscht wurde"@de-de;
+    bamm:characteristic bamm-c:Boolean.
+:claimDiagnosticSessionId a bamm:Property;
+    bamm:name "claimDiagnosticSessionId";
+    bamm:preferredName "reference to diagnostic session ID"@en, "Verlinkung zur Diagnose Session"@de-de;
+    bamm:characteristic :ClaimDiagnosticSessionIdTrait.
+:ClaimDiagnosticSessionIdTrait a bamm-c:Trait;
+    bamm:name "ClaimDiagnosticSessionIdTrait";
+    bamm-c:baseCharacteristic bamm-c:Text;
+    bamm-c:constraint :ClaimDiagnosticSessionId.
+:VehicleOEMShortName a bamm-c:LengthConstraint;
+    bamm:name "VehicleOEMShortName";
+    bamm-c:maxValue "3"^^xsd:nonNegativeInteger;
+    bamm-c:minValue "3"^^xsd:nonNegativeInteger.
+:ClaimDiagnosticSessionId a bamm-c:LengthConstraint;
+    bamm:name "ClaimDiagnosticSessionId";
+    bamm-c:maxValue "20"^^xsd:nonNegativeInteger;
+    bamm-c:minValue "20"^^xsd:nonNegativeInteger.
