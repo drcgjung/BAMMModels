@@ -49,6 +49,31 @@
     bamm:description "Company number as an dismantler"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "S30A00065".
+:DateCharacteristic a bamm:Characteristic;
+    bamm:name "DateCharacteristic";
+    bamm:preferredName "date characteristic"@en;
+    bamm:description "date characteristic"@en;
+    bamm:dataType xsd:date.
+:VehicleOwnerCharacteristic a bamm:Characteristic;
+    bamm:name "VehicleOwnerCharacteristic";
+    bamm:preferredName "vehicle owner characteristic"@en;
+    bamm:description "Characteristic to describe the vehicle owner attributes"@en;
+    bamm:dataType :VehicleOwnerEntity.
+:VehicleCharacteristic a bamm:Characteristic;
+    bamm:name "VehicleCharacteristic";
+    bamm:preferredName "vehicle characteristic"@en;
+    bamm:description "Characteristic to describe the vehicle attributes"@en;
+    bamm:dataType :VehicleEntity.
+:ReceivingCharacteristic a bamm:Characteristic;
+    bamm:name "ReceivingCharacteristic";
+    bamm:preferredName "receiving characteristic"@en;
+    bamm:description "Characteristic to describe the receiving attributes"@en;
+    bamm:dataType :ReceivingEntity.
+:DismantlerCharacterisitc a bamm:Characteristic;
+    bamm:name "DismantlerCharacterisitc";
+    bamm:preferredName "dismantler characterisitc"@en;
+    bamm:description "Characteristic to describe the dismantler attributes"@en;
+    bamm:dataType :DismantlerEntity.
 :dismantlerAdress a bamm:Property;
     bamm:name "dismantlerAdress";
     bamm:preferredName "dismantler adress"@en;
@@ -59,24 +84,11 @@
     bamm:preferredName "address"@en;
     bamm:description "address characteristic which corresponds to the information given in the certificate of destruction"@en;
     bamm:dataType :AddressEntity.
-:vehicleClass a bamm:Property;
-    bamm:name "vehicleClass";
-    bamm:preferredName "vehicle class"@en;
-    bamm:description "Vehicle class the vehicle refers to"@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "01".
-:vehicleBrand a bamm:Property;
-    bamm:name "vehicleBrand";
-    bamm:preferredName "vehicle brand"@en;
-    bamm:description "Brand name"@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "BMW".
-:vehicleModel a bamm:Property;
-    bamm:name "vehicleModel";
-    bamm:preferredName "vehicle model"@en;
-    bamm:description "Vehicle model"@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "318 I".
+:AddressEntity a bamm:Entity;
+    bamm:name "AddressEntity";
+    bamm:preferredName "AddressEntity"@en;
+    bamm:description "AddressEntity"@en;
+    bamm:properties (:street :houseNumber :zip :location :name :country).
 :emptyWeight a bamm:Property;
     bamm:name "emptyWeight";
     bamm:preferredName "empty weight"@en;
@@ -106,11 +118,6 @@
     bamm:description "The first characters on the license plate"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "HAL".
-:AddressEntity a bamm:Entity;
-    bamm:name "AddressEntity";
-    bamm:preferredName "AddressEntity"@en;
-    bamm:description "AddressEntity"@en;
-    bamm:properties (:street :houseNumber :zip :location :name :country).
 :street a bamm:Property;
     bamm:name "street";
     bamm:preferredName "street"@en;
@@ -145,6 +152,17 @@
     bamm:preferredName "country"@en;
     bamm:description "country code"@en;
     bamm:characteristic :CountryCodeTrait.
+:ZipTrait a bamm-c:Trait;
+    bamm:name "ZipTrait";
+    bamm:description "Constraint to limit the zip length"@en;
+    bamm-c:baseCharacteristic :Zip;
+    bamm-c:constraint :ZipLength.
+:CountryCodeTrait a bamm-c:Trait;
+    bamm:name "CountryCodeTrait";
+    bamm:preferredName "country code trait"@en;
+    bamm:description "country code trait to restrict to the iso norm"@en;
+    bamm-c:baseCharacteristic bamm-c:Text;
+    bamm-c:constraint :IsoCodeConstraint.
 :isVehicleInformationComplete a bamm:Property;
     bamm:name "isVehicleInformationComplete";
     bamm:preferredName "is vehicle information complete"@en;
@@ -174,20 +192,14 @@
     bamm:name "citizenship";
     bamm:preferredName "citizenship"@en;
     bamm:description "citizenship of the vehicle owner"@en;
-    bamm:see <https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes>;
+    bamm:see <https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FList_of_ISO_3166_country_codes>;
     bamm:characteristic :CountryCodeTrait;
     bamm:exampleValue "DE".
-:CountryCodeTrait a bamm-c:Trait;
-    bamm:name "CountryCodeTrait";
-    bamm:preferredName "country code trait"@en;
-    bamm:description "country code trait to restrict to the iso norm"@en;
-    bamm-c:baseCharacteristic bamm-c:Text;
-    bamm-c:constraint :IsoCodeConstraint.
-:ZipTrait a bamm-c:Trait;
-    bamm:name "ZipTrait";
-    bamm:description "Constraint to limit the zip length"@en;
-    bamm-c:baseCharacteristic :Zip;
-    bamm-c:constraint :ZipLength.
+:IsoCodeConstraint a bamm-c:RegularExpressionConstraint;
+    bamm:name "IsoCodeConstraint";
+    bamm:preferredName "IsoCodeConstraint"@en;
+    bamm:description "Constraint to be conform with the ISO 3166-1 alpha-2 code with two upper case characters"@en;
+    bamm:value "^[A-Z]{2}$".
 :Zip a bamm:Characteristic;
     bamm:name "Zip";
     bamm:preferredName "ZIP"@en;
@@ -198,36 +210,29 @@
     bamm:preferredName "Zip Length"@en;
     bamm:description "The maximal lenght of the the postal code is restricted to 14 chracters"@en;
     bamm-c:maxValue "14"^^xsd:nonNegativeInteger.
-:VehicleOwnerCharacteristic a bamm:Characteristic;
-    bamm:name "VehicleOwnerCharacteristic";
-    bamm:preferredName "vehicle owner characteristic"@en;
-    bamm:description "Characteristic to describe the vehicle owner attributes"@en;
-    bamm:dataType :VehicleOwnerEntity.
-:VehicleCharacteristic a bamm:Characteristic;
-    bamm:name "VehicleCharacteristic";
-    bamm:preferredName "vehicle characteristic"@en;
-    bamm:description "Characteristic to describe the vehicle attributes"@en;
-    bamm:dataType :VehicleEntity.
-:ReceivingCharacteristic a bamm:Characteristic;
-    bamm:name "ReceivingCharacteristic";
-    bamm:preferredName "receiving characteristic"@en;
-    bamm:description "Characteristic to describe the receiving attributes"@en;
-    bamm:dataType :ReceivingEntity.
-:DismantlerCharacterisitc a bamm:Characteristic;
-    bamm:name "DismantlerCharacterisitc";
-    bamm:preferredName "dismantler characterisitc"@en;
-    bamm:description "Characteristic to describe the dismantler attributes"@en;
-    bamm:dataType :DismantlerEntity.
-:isVehicleWithdrawnFromService a bamm:Property;
-    bamm:name "isVehicleWithdrawnFromService";
-    bamm:preferredName "isVehicleWithdrawnFromService"@en;
-    bamm:description "True, if the vehicle has been withdrawn from the service and out of circulation"@en;
-    bamm:characteristic bamm-c:Boolean.
+:VehicleOwnerEntity a bamm:Entity;
+    bamm:name "VehicleOwnerEntity";
+    bamm:preferredName "vehicle owner entity"@en;
+    bamm:properties (:isVehicleOwnerInformationComplete :vehicleOwnerAddress :citizenship).
+:VehicleEntity a bamm:Entity;
+    bamm:name "VehicleEntity";
+    bamm:preferredName "vehicle entity"@en;
+    bamm:properties (:isVehicleInformationComplete :emptyWeight :firstRegistration :licensePlate :licenseAbbreviation :identification :model :brand :class).
 :ReceivingEntity a bamm:Entity;
     bamm:name "ReceivingEntity";
     bamm:preferredName "receiving entity"@en;
     bamm:description "Receiving entity with properties to describe the respective company and auditor"@en;
     bamm:properties (:isVehicleWithdrawnFromService :receiverAuditorAdress :issueDate :expiryDate :receiverContact :receiverAuditorContact).
+:DismantlerEntity a bamm:Entity;
+    bamm:name "DismantlerEntity";
+    bamm:preferredName "dismantler entity"@en;
+    bamm:description "Dismantler entity with properties to describe the respective company, auditor and legal authority"@en;
+    bamm:properties (:isVehicleWithdrawnFromService :dismantlerAdress :governmentAdress :receiverAuditorAdress :issueDate :expiryDate :dismantlerContact :dismantlerAuditorAddress :dismantlerAuditorContact).
+:isVehicleWithdrawnFromService a bamm:Property;
+    bamm:name "isVehicleWithdrawnFromService";
+    bamm:preferredName "isVehicleWithdrawnFromService"@en;
+    bamm:description "True, if the vehicle has been withdrawn from the service and out of circulation"@en;
+    bamm:characteristic bamm-c:Boolean.
 :receiverAuditorAdress a bamm:Property;
     bamm:name "receiverAuditorAdress";
     bamm:preferredName "receiver auditor adress"@en;
@@ -243,11 +248,11 @@
     bamm:preferredName "receiver auditor contact"@en;
     bamm:description "auditor contact information"@en;
     bamm:characteristic :ContactCharacteristic.
-:DismantlerEntity a bamm:Entity;
-    bamm:name "DismantlerEntity";
-    bamm:preferredName "dismantler entity"@en;
-    bamm:description "Dismantler entity with properties to describe the respective company, auditor and legal authority"@en;
-    bamm:properties (:isVehicleWithdrawnFromService :dismantlerAdress :governmentAdress :receiverAuditorAdress :issueDate :expiryDate :dismantlerContact :dismantlerAuditorAddress :dismantlerAuditorContact).
+:ContactCharacteristic a bamm:Characteristic;
+    bamm:name "ContactCharacteristic";
+    bamm:preferredName "contact characteristic"@en;
+    bamm:description "contact characteristic based on the contact information available in the certificate of destruction"@en;
+    bamm:dataType :ContactEntity.
 :dismantlerContact a bamm:Property;
     bamm:name "dismantlerContact";
     bamm:preferredName "dismantler contact"@en;
@@ -263,30 +268,17 @@
     bamm:preferredName "dismantler auditor contact"@en;
     bamm:description "information about the auditor contact"@en;
     bamm:characteristic :ContactCharacteristic.
-:VehicleEntity a bamm:Entity;
-    bamm:name "VehicleEntity";
-    bamm:preferredName "vehicle entity"@en;
-    bamm:properties (:isVehicleInformationComplete :emptyWeight :firstRegistration :licensePlate :licenseAbbreviation :identification :vehicleModel :vehicleBrand :vehicleClass).
-:VehicleOwnerEntity a bamm:Entity;
-    bamm:name "VehicleOwnerEntity";
-    bamm:preferredName "vehicle owner entity"@en;
-    bamm:properties (:isVehicleOwnerInformationComplete :vehicleOwnerAddress :citizenship).
-:vehicleOwnerAddress a bamm:Property;
-    bamm:name "vehicleOwnerAddress";
-    bamm:preferredName "vehicle owner address"@en;
-    bamm:description "address of the vehicle owner "@en;
-    bamm:characteristic :Address.
 :identification a bamm:Property;
     bamm:name "identification";
     bamm:preferredName "vehicle identification number (VIN)"@en;
     bamm:description "the unique vehicle identification number (VIN) of the vehicle "@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "WBAAY711X0KC28153".
-:ContactCharacteristic a bamm:Characteristic;
-    bamm:name "ContactCharacteristic";
-    bamm:preferredName "contact characteristic"@en;
-    bamm:description "contact characteristic based on the contact information available in the certificate of destruction"@en;
-    bamm:dataType :ContactEntity.
+:vehicleOwnerAddress a bamm:Property;
+    bamm:name "vehicleOwnerAddress";
+    bamm:preferredName "vehicle owner address"@en;
+    bamm:description "address of the vehicle owner "@en;
+    bamm:characteristic :Address.
 :ContactEntity a bamm:Entity;
     bamm:name "ContactEntity";
     bamm:preferredName "contact entity"@en;
@@ -314,13 +306,21 @@
     bamm:preferredName "phone constraint"@en;
     bamm:description "phone constraint allow only numbers, whitespaces and an optional leading plus sign"@en;
     bamm:value "[+]?[0-9 ]+".
-:IsoCodeConstraint a bamm-c:RegularExpressionConstraint;
-    bamm:name "IsoCodeConstraint";
-    bamm:preferredName "IsoCodeConstraint"@en;
-    bamm:description "Constraint to be conform with the ISO 3166-1 alpha-2 code with two upper case characters"@en;
-    bamm:value "^[A-Z]{2}$".
-:DateCharacteristic a bamm:Characteristic;
-    bamm:name "DateCharacteristic";
-    bamm:preferredName "date characteristic"@en;
-    bamm:description "date characteristic"@en;
-    bamm:dataType xsd:date.
+:model a bamm:Property;
+    bamm:name "model";
+    bamm:preferredName "model"@en;
+    bamm:description "Vehicle model"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "318 I".
+:brand a bamm:Property;
+    bamm:name "brand";
+    bamm:preferredName "brand"@en;
+    bamm:description "Brand name"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "BMW".
+:class a bamm:Property;
+    bamm:name "class";
+    bamm:preferredName "class"@en;
+    bamm:description "Vehicle class the vehicle refers to"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "01".
