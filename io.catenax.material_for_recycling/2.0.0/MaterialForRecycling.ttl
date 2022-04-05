@@ -59,9 +59,6 @@
     bamm:description "The properties that describe a component"@en;
     bamm:preferredName "component entity"@en;
     bamm:properties ([
-  bamm:property :materialUnit;
-  bamm:optional "true"^^xsd:boolean
-] [
   bamm:property :aggregateState;
   bamm:optional "true"^^xsd:boolean
 ] [
@@ -70,7 +67,16 @@
 ] [
   bamm:property :materialAbbreviation;
   bamm:optional "true"^^xsd:boolean
-] :materialClass :materialName :materialValue).
+] :materialClass :materialName [
+  bamm:property :quantity;
+  bamm:optional "true"^^xsd:boolean
+]).
+:measurementUnit a bamm:Property;
+    bamm:name "measurementUnit";
+    bamm:description "Unit of Measurement for the quantity of serialized objects"@en;
+    bamm:exampleValue "kilogram"^^bamm:curie;
+    bamm:characteristic bamm-c:UnitReference;
+    bamm:see <https%3A%2F%2Fopenmanufacturingplatform.github.io%2Fsds-bamm-aspect-meta-model%2Fbamm-specification%2Fsnapshot%2Fappendix%2Funitcatalog.html>.
 :aggregateState a bamm:Property;
     bamm:name "aggregateState";
     bamm:description "The aggregate state the materialis in at the timepoint the item is disassembled"@en;
@@ -81,29 +87,33 @@
     bamm:description "Indicates if the material was is recycled. Percentage of how much of the material was recycled. This can be an aggregation regarding the materials below."@en;
     bamm:characteristic :Percentage;
     bamm:preferredName "recycled content"@en.
+:materialValue a bamm:Property;
+    bamm:name "materialValue";
+    bamm:description "Material value as a double. The unit is saved in the property measurementUnit"@en;
+    bamm:characteristic :Value;
+    bamm:preferredName "material value"@en.
 :AggregateState a bamm-c:Enumeration;
     bamm:name "AggregateState";
     bamm:dataType xsd:string;
     bamm:preferredName "aggregate state"@en;
     bamm-c:values ("solid" "liquid" "gasenous").
-:materialUnit a bamm:Property;
-    bamm:name "materialUnit";
-    bamm:description "the unit of measurement for the material"@en;
-    bamm:characteristic :Unit;
-    bamm:preferredName "matieral unit"@en.
-:materialValue a bamm:Property;
-    bamm:name "materialValue";
-    bamm:description "Material value as an integer. The unit is saved in the attribute materialUnit"@en;
-    bamm:characteristic :Value;
-    bamm:preferredName "material value"@en.
 :Value a bamm:Characteristic;
     bamm:name "Value";
-    bamm:description "value as double"@en;
+    bamm:description "Quantifiable value as double in reference to the measurementUnit"@en;
     bamm:dataType xsd:double;
     bamm:preferredName "Value"@en.
-:Unit a bamm-c:Enumeration;
-    bamm:name "Unit";
-    bamm:preferredName "Unit"@en;
-    bamm:description "Unit of the attribute materialValue in kilogram, gram, volume and percent"@en;
-    bamm:dataType xsd:string;
-    bamm-c:values ("kilogram" "gram" "volume" "percent").
+:quantity a bamm:Property;
+    bamm:name "quantity";
+    bamm:description "quantity of the material expressed in value and unit"@en;
+    bamm:characteristic :QuantityCharacteristic;
+    bamm:preferredName "quantity"@en.
+:QuantityCharacteristic a bamm:Characteristic;
+    bamm:name "QuantityCharacteristic";
+    bamm:description "quantity characteristic for the material expressed in value and unit"@en;
+    bamm:dataType :Quantity;
+    bamm:preferredName "quantity characteristic"@en.
+:Quantity a bamm:Entity;
+    bamm:name "Quantity";
+    bamm:description "Quantity of the material"@en;
+    bamm:preferredName "Quantity"@en;
+    bamm:properties (:measurementUnit :materialValue).
