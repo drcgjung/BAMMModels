@@ -4,7 +4,7 @@
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
-@prefix : <urn:bamm:io.catenax.material_for_recycling:2.0.0#>.
+@prefix : <urn:bamm:io.catenax.material_for_recycling:1.1.0#>.
 
 :materialName a bamm:Property;
     bamm:name "materialName";
@@ -32,7 +32,10 @@
 ] [
   bamm:property :materialClass;
   bamm:optional "true"^^xsd:boolean
-] :component).
+] :component [
+  bamm:property :recycledContent;
+  bamm:optional "true"^^xsd:boolean
+]).
 :materialClass a bamm:Property;
     bamm:name "materialClass";
     bamm:description "The class of a material following the referenced standard."@en;
@@ -71,12 +74,6 @@
   bamm:property :quantity;
   bamm:optional "true"^^xsd:boolean
 ]).
-:measurementUnit a bamm:Property;
-    bamm:name "measurementUnit";
-    bamm:description "Unit of Measurement for the quantity of serialized objects"@en;
-    bamm:exampleValue "kilogram"^^bamm:curie;
-    bamm:characteristic bamm-c:UnitReference;
-    bamm:see <https://openmanufacturingplatform.github.io/sds-bamm-aspect-meta-model/bamm-specification/snapshot/appendix/unitcatalog.html>.
 :aggregateState a bamm:Property;
     bamm:name "aggregateState";
     bamm:description "The aggregate state the materialis in at the timepoint the item is disassembled"@en;
@@ -87,11 +84,11 @@
     bamm:description "Indicates if the material was is recycled. Percentage of how much of the material was recycled. This can be an aggregation regarding the materials below."@en;
     bamm:characteristic :Percentage;
     bamm:preferredName "recycled content"@en.
-:materialValue a bamm:Property;
-    bamm:name "materialValue";
-    bamm:description "Material value as a double. The unit is saved in the property measurementUnit"@en;
-    bamm:characteristic :Value;
-    bamm:preferredName "material value"@en.
+:quantity a bamm:Property;
+    bamm:name "quantity";
+    bamm:description "quantity of the material expressed in value and unit"@en;
+    bamm:characteristic :QuantityCharacteristic;
+    bamm:preferredName "quantity"@en.
 :AggregateState a bamm-c:Enumeration;
     bamm:name "AggregateState";
     bamm:dataType xsd:string;
@@ -102,18 +99,24 @@
     bamm:description "Quantifiable value as double in reference to the measurementUnit"@en;
     bamm:dataType xsd:double;
     bamm:preferredName "Value"@en.
-:quantity a bamm:Property;
-    bamm:name "quantity";
-    bamm:description "quantity of the material expressed in value and unit"@en;
-    bamm:characteristic :QuantityCharacteristic;
-    bamm:preferredName "quantity"@en.
 :QuantityCharacteristic a bamm:Characteristic;
     bamm:name "QuantityCharacteristic";
     bamm:description "quantity characteristic for the material expressed in value and unit"@en;
-    bamm:dataType :Quantity;
+    bamm:dataType :QuantityEntity;
     bamm:preferredName "quantity characteristic"@en.
-:Quantity a bamm:Entity;
-    bamm:name "Quantity";
+:QuantityEntity a bamm:Entity;
+    bamm:name "QuantityEntity";
     bamm:description "Quantity of the material"@en;
-    bamm:preferredName "Quantity"@en;
-    bamm:properties (:measurementUnit :materialValue).
+    bamm:preferredName "QuantityEntity"@en;
+    bamm:properties (:unit :value).
+:unit a bamm:Property;
+    bamm:name "unit";
+    bamm:description "Unit of Measurement for the quantity of serialized objects.\nThe recommended units are the SI units such as unit:kilogram or  additional unit:percent"@en;
+    bamm:exampleValue "kilogram"^^bamm:curie;
+    bamm:characteristic bamm-c:UnitReference;
+    bamm:see <https://openmanufacturingplatform.github.io/sds-bamm-aspect-meta-model/bamm-specification/snapshot/appendix/unitcatalog.html>.
+:value a bamm:Property;
+    bamm:name "value";
+    bamm:description "Measurement value as a double. The unit is saved in the property measurementUnit"@en;
+    bamm:characteristic :Value;
+    bamm:preferredName "value"@en.
