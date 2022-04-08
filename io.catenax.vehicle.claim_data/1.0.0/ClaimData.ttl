@@ -5,7 +5,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
-@prefix : <urn:bamm:io.openmanufacturing.digitaltwin:1.0.0#>.
+@prefix : <urn:bamm:io.catenax.vehicle.claim-data:1.0.0#>.
 
 :claimId a bamm:Property;
     bamm:name "claimId";
@@ -34,9 +34,9 @@
     bamm:preferredName "Reparaturaufnahmedatum"@de-de;
     bamm:characteristic bamm-c:Timestamp;
     bamm:exampleValue "2022-02-04T14:48:54"^^xsd:dateTime.
-:VehicleClaimDataQuality a bamm:Aspect;
-    bamm:name "VehicleClaimDataQuality";
-    bamm:properties (:claimId :claimCustomerComment :claimTechnicianComment :claimRepairDate :claimRepairMileage :claimOEMPartName :claimOEMPartNumber :claimPartCatenaXId :claimPartReplaced :claimOemShortName :vehicleAnonymizedId :vehicleCatenaXId :claimPartCatenaXId :claimDiagnosticSessionId);
+:ClaimData a bamm:Aspect;
+    bamm:name "ClaimData";
+    bamm:properties (:claimId :claimCustomerComment :claimTechnicianComment :claimRepairDate :claimRepairMileage :claimOEMPartName :claimOEMPartNumber :claimPartReplaced :claimOemShortName :vehicleAnonymizedId :vehicleCatenaXId :claimPartCatenaXId :claimDiagnosticSessionId);
     bamm:operations ().
 :claimOEMPartName a bamm:Property;
     bamm:name "claimOEMPartName";
@@ -52,19 +52,11 @@
 :claimPartCatenaXId a bamm:Property;
     bamm:name "claimPartCatenaXId";
     bamm:description "link to digital twin of replaced part"@en;
-    bamm:characteristic :ClaimPartCatenaXIdTrait.
+    bamm:characteristic :CatenaXIdTrait.
 :ClaimPartOEMNameTrait a bamm-c:Trait;
     bamm:name "ClaimPartOEMNameTrait";
     bamm-c:baseCharacteristic bamm-c:Text;
     bamm-c:constraint :ClaimOEMPartName.
-:ClaimPartCatenaXIdTrait a bamm-c:Trait;
-    bamm:name "ClaimPartCatenaXIdTrait";
-    bamm-c:baseCharacteristic bamm-c:Text;
-    bamm-c:constraint :ClaimPartCatenaXId.
-:ClaimPartCatenaXId a bamm-c:LengthConstraint;
-    bamm:name "ClaimPartCatenaXId";
-    bamm-c:maxValue "20"^^xsd:nonNegativeInteger;
-    bamm-c:minValue "20"^^xsd:nonNegativeInteger.
 :ClaimOEMPartName a bamm-c:LengthConstraint;
     bamm:name "ClaimOEMPartName";
     bamm-c:maxValue "20"^^xsd:nonNegativeInteger;
@@ -92,7 +84,7 @@
 :vehicleCatenaXId a bamm:Property;
     bamm:name "vehicleCatenaXId";
     bamm:description "Catena-X car ID /digital twin of car"@en;
-    bamm:characteristic :VehicleCatenaXIdTrait.
+    bamm:characteristic :CatenaXIdTrait.
 :VehicleAnonymizedIdTrait a bamm-c:Trait;
     bamm:name "VehicleAnonymizedIdTrait";
     bamm-c:baseCharacteristic bamm-c:Text;
@@ -101,14 +93,6 @@
     bamm:name "VehicleAnonymizedId";
     bamm-c:maxValue "32"^^xsd:nonNegativeInteger;
     bamm-c:minValue "32"^^xsd:nonNegativeInteger.
-:VehicleCatenaXIdTrait a bamm-c:Trait;
-    bamm:name "VehicleCatenaXIdTrait";
-    bamm-c:baseCharacteristic bamm-c:Text;
-    bamm-c:constraint :VehicleCatenaXId.
-:VehicleCatenaXId a bamm-c:LengthConstraint;
-    bamm:name "VehicleCatenaXId";
-    bamm-c:maxValue "20"^^xsd:nonNegativeInteger;
-    bamm-c:minValue "20"^^xsd:nonNegativeInteger.
 :claimOemShortName a bamm:Property;
     bamm:name "claimOemShortName";
     bamm:description "short name of the OEM  this claim is coming from"@en, "Kurzname des OEM, von dem dieser Claim stammt"@de-de;
@@ -154,3 +138,20 @@
     bamm:name "ClaimDiagnosticSessionId";
     bamm-c:maxValue "20"^^xsd:nonNegativeInteger;
     bamm-c:minValue "20"^^xsd:nonNegativeInteger.
+:CatenaXIdTrait a bamm-c:Trait;
+    bamm:name "CatenaXIdTrait";
+    bamm:preferredName "Catena-X ID Trait"@en;
+    bamm:description "Trait to ensure data format for Catena-X ID"@en;
+    bamm-c:constraint :UUIDv4RegularExpression;
+    bamm-c:baseCharacteristic :UUIDv4.
+:UUIDv4RegularExpression a bamm-c:RegularExpressionConstraint;
+    bamm:name "UUIDv4RegularExpression";
+    bamm:description "The provided regular expression ensures that the UUID is composed of five groups of characters separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters (32 hexadecimal characters and 4 hyphens), prefixed by \"urn:uuid:\" to make it an IRI."@en;
+    bamm:preferredName "Catena-X Id Regular Expression"@en;
+    bamm:value "^urn:uuid:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$";
+    bamm:see <https://datatracker.ietf.org/doc/html/rfc4122>.
+:UUIDv4 a bamm:Characteristic;
+    bamm:name "UUIDv4";
+    bamm:description "A version 4 UUID is a universally unique identifier that is generated using random 32 hexadecimal characters."@en;
+    bamm:preferredName "UUIDv4"@en;
+    bamm:dataType xsd:string.
