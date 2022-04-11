@@ -10,7 +10,7 @@ If you plan to add another model or apply changes to existing ones please create
 
 
 # Using the models
-The models can locally be processed with the [BAMM CLI](https://openmanufacturingplatform.github.io/sds-documentation/sds-developer-guide/dev-snapshot/tooling-guide/bamm-cli.html).
+The models can locally be processed with the [BAMM CLI](https://openmanufacturingplatform.github.io/sds-documentation/sds-documentation/index.html).
 It allows you to generate different artifacts (diagrams, example payload, java class files) out of it.
 
 to generate the usual set of artifacts this repository also contains a script, `generate.sh` which automates some steps, and might be useful for your task.

@@ -13,3 +13,4 @@ labels: deprecate
 <!-- This checklist is filled by the issue reviewer -->
 - [ ] The model that should be deprecated exists and is not deprecated already
 - [ ] The respective model does not affect existing use cases (aspect is either used in higher versions or replaced by a different aspect)
+- [ ] A shared aspect, which will be deprecated, is not used by any released aspect model
