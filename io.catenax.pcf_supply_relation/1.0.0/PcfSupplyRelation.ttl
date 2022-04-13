@@ -6,7 +6,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
-@prefix : <urn:bamm:io.catenax.pcf_supply_relation:0.1.1#>.
+@prefix : <urn:bamm:io.catenax.pcf_supply_relation:1.0.0#>.
 
 :SupplierMailTrait a bamm-c:Trait;
     bamm:name "SupplierMailTrait";
