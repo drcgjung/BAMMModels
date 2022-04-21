@@ -47,6 +47,7 @@ jobs:
     outputs:
       stage: ${{ steps.setvars.outputs.stage }}
       workspace: ${{ steps.setvars.outputs.workspace }}
+      workspace_uppercase: ${{ steps.setvars.outputs.workspace_uppercase }}
       status: ${{ steps.setvars.outputs.status }}
 
     steps:
@@ -54,15 +55,23 @@ jobs:
         id: setvars
         run: |
           if [[ "${{github.repository}}" == catenax/BAMMmodels ]]; then
-             if [[ "${{github.ref}}" == refs/heads/main ]]; then
+             if [[ "${{github.ref}}" == refs/heads/governance-development ]]; then
+                echo "Determined STAGING (dev|DRAFT)"
+                echo "::set-output name=stage::STAGING"
+                echo "::set-output name=workspace::dev042"
+                echo "::set-output name=workspace_uppercase::DEV042"
+                echo "::set-output name=status::-draft"
+             elif [[ "${{github.ref}}" == refs/heads/main ]]; then
                 echo "Determined STAGING (int|RELEASED)"
                 echo "::set-output name=stage::STAGING"
                 echo "::set-output name=workspace::int"
+                echo "::set-output name=workspace_uppercase::INT"
                 echo "::set-output name=status::-release"
              else
                 echo "Determined DEVELOPMENT (int|DRAFT)"
                 echo "::set-output name=stage::DEVELOPMENT"
                 echo "::set-output name=workspace::int"
+                echo "::set-output name=workspace_uppercase::INT"
                 echo "::set-output name=status::-draft"
              fi
           else 
@@ -86,6 +95,7 @@ jobs:
     env:
       STAGE: ${{needs.environment.outputs.stage}}
       WORKSPACE: ${{needs.environment.outputs.workspace}}
+      WORKSPACE_UPPERCASE: ${{needs.environment.outputs.workspace_uppercase}}
       STATUS: ${{needs.environment.outputs.status}}
       SEMANTIC_HUB: catenax${{needs.environment.outputs.workspace}}akssrv.germanywestcentral.cloudapp.azure.com/semantics/hub/api/v1/models
       PUBLISHER: Catena-X Modelling Governance Body
@@ -114,8 +124,8 @@ jobs:
     - name: Fetch Access Token
       id: token_request
       env:
-        CLIENT_ID: ${{ secrets.IDP_CLIENT_ID }}
-        CLIENT_SECRET: ${{ secrets.IDP_CLIENT_SECRET }}
+        CLIENT_ID: ${{ secrets[format('IDP_CLIENT_ID_{0}', env.WORKSPACE_UPPERCASE)] }}
+        CLIENT_SECRET: ${{ secrets[format('IDP_CLIENT_SECRET_{0}', env.WORKSPACE_UPPERCASE)] }}
       run: |
         access_token=$( curl --request POST \
         --url "https://$IDP_URL" \
