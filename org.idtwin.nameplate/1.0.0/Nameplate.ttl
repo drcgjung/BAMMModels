@@ -4,7 +4,7 @@
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#> .
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
-@prefix : <urn:bamm:org.idtwin:1.0.0#>.
+@prefix : <urn:bamm:org.idtwin.nameplate:1.0.0#>.
 
 :Nameplate a bamm:Aspect;
     bamm:name "Nameplate";
