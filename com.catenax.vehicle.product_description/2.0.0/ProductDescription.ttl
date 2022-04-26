@@ -4,7 +4,7 @@
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
-@prefix : <urn:bamm:io.catenax.vehicle.product_description:1.8.0#>.
+@prefix : <urn:bamm:io.catenax.vehicle.product_description:2.0.0#>.
 
 :engine a bamm:Property;
     bamm:name "engine";
@@ -145,7 +145,7 @@
     bamm-c:unit unit:kilogram.
 :group a bamm:Property;
     bamm:name "group";
-    bamm:description "grouping the special equipments into categories like \"Interior\""@en;
+    bamm:description "grouping the special equipments into categories like Interior"@en;
     bamm:preferredName "Equipment group"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Interior".
