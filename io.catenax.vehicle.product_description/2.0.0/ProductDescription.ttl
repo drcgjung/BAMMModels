@@ -147,7 +147,7 @@
     bamm:name "group";
     bamm:description "grouping the special equipments into categories like Interior"@en;
     bamm:preferredName "Equipment group"@en;
-    bamm:characteristic bamm-c:Text;
+    bamm:characteristic :Text;
     bamm:exampleValue "Interior".
 :KbaVariant a bamm-c:Enumeration;
     bamm:name "KbaVariant";
