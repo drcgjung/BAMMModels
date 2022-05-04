@@ -23,7 +23,7 @@
     bamm:properties (:engineIdentifier :engineDescription :engineSeries :serialNumber :size :power :engineProductionDate :installDate).
 :engineIdentifier a bamm:Property;
     bamm:name "engineIdentifier";
-    bamm:description "OEM-specific identiifer/type of the installed engine"@en;
+    bamm:description "OEM-specific identifier/type of the installed engine"@en;
     bamm:preferredName "Engine ID:"@en;
     bamm:characteristic :Text;
     bamm:exampleValue "CKBY".
