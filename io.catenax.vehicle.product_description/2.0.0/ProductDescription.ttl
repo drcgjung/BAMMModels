@@ -9,7 +9,7 @@
 :engine a bamm:Property;
     bamm:name "engine";
     bamm:description "engine of the vehicle"@en;
-    bamm:preferredName "engine"@en;
+    bamm:preferredName "Engine"@en;
     bamm:characteristic :EngineCharacteristic.
 :EngineCharacteristic a bamm:Characteristic;
     bamm:name "EngineCharacteristic";
@@ -23,7 +23,7 @@
     bamm:properties (:engineIdentifier :engineDescription :engineSeries :serialNumber :size :power :engineProductionDate :installDate).
 :engineIdentifier a bamm:Property;
     bamm:name "engineIdentifier";
-    bamm:description "Identiifer/type of the installed engine"@en;
+    bamm:description "OEM-specific identiifer/type of the installed engine"@en;
     bamm:preferredName "Engine ID:"@en;
     bamm:characteristic :Text;
     bamm:exampleValue "CKBY".
@@ -36,7 +36,7 @@
 :engineSeries a bamm:Property;
     bamm:name "engineSeries";
     bamm:description "engine series"@en;
-    bamm:preferredName "vehicle engine series"@en;
+    bamm:preferredName "Vehicle engine series"@en;
     bamm:characteristic :Text;
     bamm:exampleValue "EA189".
 :serialNumber a bamm:Property;
@@ -60,7 +60,7 @@
 :engineProductionDate a bamm:Property;
     bamm:name "engineProductionDate";
     bamm:description "date when the engine was produced"@en;
-    bamm:preferredName "engine production date"@en;
+    bamm:preferredName "Engine production date"@en;
     bamm:characteristic :Timestamp;
     bamm:exampleValue "2017-10-20"^^xsd:date.
 :installDate a bamm:Property;
@@ -92,7 +92,7 @@
 :fuel a bamm:Property;
     bamm:name "fuel";
     bamm:description "the fuel type of the vehicle"@en;
-    bamm:preferredName "fuel"@en;
+    bamm:preferredName "Fuel"@en;
     bamm:characteristic :FuelCharacteristic;
     bamm:exampleValue "Diesel"^^:Fuel.
 :FuelCharacteristic a bamm:Characteristic;
@@ -169,29 +169,23 @@
     bamm:name "OriginalEquipmentManufacturer";
     bamm:description "describes one OEM to which this vehicle belongs to"@en;
     bamm:preferredName "OEM"@en;
-    bamm:properties (:wmiCode :wmiDescription :name [
+    bamm:properties (:wmiCode :wmiDescription [
   bamm:property :oemCatenaXIdentifier;
   bamm:optional "true"^^xsd:boolean
 ]).
 :wmiCode a bamm:Property;
     bamm:name "wmiCode";
-    bamm:description "short name/code of WMI code"@en;
+    bamm:description "short name/code of vehicle manufacturer according  to world manufacturer information(wmi). The wmiCode are the first 3 chars of the vehicle identification number.\nA list of in NHTSA registered wmiCodes can be found in attribute Wmi in table [vPICList_lite].[dbo].[Wmi] "@en;
     bamm:preferredName "WMI Code"@en;
     bamm:characteristic :OemShortNameTrait;
-    bamm:exampleValue "WBA".
+    bamm:exampleValue "WBA";
+    bamm:see <https://vpic.nhtsa.dot.gov/>.
 :wmiDescription a bamm:Property;
     bamm:name "wmiDescription";
-    bamm:description "long name/description of WMI code"@en;
-    bamm:preferredName "WMI Manufacturer Code"@en;
-    bamm:characteristic :Text;
-    bamm:exampleValue "BMW";
-    bamm:see <https://vpic.nhtsa.dot.gov/>.
-:name a bamm:Property;
-    bamm:name "name";
-    bamm:description "long name of OEM according NHTSA or other authorities. Has to be compliant with/linked to shortName / WMI code"@en;
+    bamm:description "name of OEM according NHTSA or other authorities. Has to be compliant with/linked wmiCode attribute.\nFor NHTSA: name of table [vPICList_lite].[dbo].[Manufacturer]"@en;
     bamm:preferredName "OEM name"@en;
     bamm:characteristic :Text;
-    bamm:exampleValue "Bayerische Motorenwerke";
+    bamm:exampleValue "BMW AG";
     bamm:see <https://vpic.nhtsa.dot.gov/>.
 :oemCatenaXIdentifier a bamm:Property;
     bamm:name "oemCatenaXIdentifier";
@@ -202,7 +196,7 @@
 :OemShortNameTrait a bamm-c:Trait;
     bamm:name "OemShortNameTrait";
     bamm-c:baseCharacteristic :WorldManufacturerInformation;
-    bamm-c:constraint :WMILength.
+    bamm-c:constraint :WorldManufacturerInformationCodeLength.
 :CatenaXIdTrait a bamm-c:Trait;
     bamm:name "CatenaXIdTrait";
     bamm:description "Trait to ensure data format for Catena-X ID"@en;
@@ -211,15 +205,8 @@
     bamm-c:constraint :UUIDv4RegularExpression.
 :WorldManufacturerInformation a bamm:Characteristic;
     bamm:name "WorldManufacturerInformation";
-    bamm:description "Describes the first 3 chars of a vehicle identification number"@en;
-    bamm:dataType xsd:string;
-    bamm:see <https://vpic.nhtsa.dot.gov/>.
-:WMILength a bamm-c:LengthConstraint;
-    bamm:name "WMILength";
-    bamm:description "Restricts the length of WMI to 2-3 chars"@en;
-    bamm:see <https://vpic.nhtsa.dot.gov/>;
-    bamm-c:maxValue "3"^^xsd:nonNegativeInteger;
-    bamm-c:minValue "2"^^xsd:nonNegativeInteger.
+    bamm:description "The wmiCode are the first 2 or 3 chars of a vehicle identification number (VIN)"@en;
+    bamm:dataType xsd:string.
 :UUIDv4 a bamm:Characteristic;
     bamm:name "UUIDv4";
     bamm:description "A version 4 UUID is a universally unique identifier that is generated using random 32 hexadecimal characters."@en;
@@ -467,8 +454,14 @@
     bamm:value "^[A-Z][A-Z][A-Z]$".
 :ProductDescription a bamm:Aspect;
     bamm:name "ProductDescription";
-    bamm:description "Unchangeable master data of one vehicle"@en;
-    bamm:preferredName "VehicleMasterData"@en;
+    bamm:description "Master data of one vehicle"@en;
+    bamm:preferredName "Vehicle master data"@en;
     bamm:properties (:oem :vehicle :body :equipments :production :sale :engine :fuel);
     bamm:operations ();
     bamm:events ().
+:WorldManufacturerInformationCodeLength a bamm-c:LengthConstraint;
+    bamm:name "WorldManufacturerInformationCodeLength";
+    bamm:description "Restricts the length of wmiCode to exactly 3 chars"@en;
+    bamm:see <https://vpic.nhtsa.dot.gov/>;
+    bamm-c:maxValue "3"^^xsd:nonNegativeInteger;
+    bamm-c:minValue "3"^^xsd:nonNegativeInteger.
