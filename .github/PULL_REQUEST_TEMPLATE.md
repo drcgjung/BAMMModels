@@ -20,7 +20,7 @@
 - [ ] units are referenced from the BAMM unit catalog whenever possible
 - [ ] **use constraints** to make known constraints from the use case explicit in the aspect model 
 - [ ] when relying on **external standards**, they are referenced through a **"see"** element
-- [ ] example values exists for non-entity properties
+- [ ] all properties with an [simple type](https://openmanufacturingplatform.github.io/sds-documentation/bamm-specification/v1.0.0/datatypes.html) have an example value
 
 ## Q3 Criteria
 (to be filled out by semantic modeling team before merge to main-branch)
