@@ -103,7 +103,7 @@
     bamm:operations ().
 :listOfClaims a bamm:Property;
     bamm:name "listOfClaims";
-    bamm:preferredName "listOfClaims"@en;a
+    bamm:preferredName "listOfClaims"@en;
     bamm:description "List of Claims"@en;
     bamm:characteristic :ListOfClaims.
 :ListOfClaims a bamm-c:List;
