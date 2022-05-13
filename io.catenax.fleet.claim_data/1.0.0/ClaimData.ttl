@@ -8,90 +8,93 @@
 
 :claimId a bamm:Property;
     bamm:name "claimId";
-    bamm:preferredName "Antragsnummer"@de-de;
+    bamm:preferredName "ClaimID"@en;
     bamm:description "Claim ID: Unique for each OEM"@en;
-    bamm:characteristic :Text.
+    bamm:characteristic :Text;
+    bamm:exampleValue "20222069015104".
 :Text a bamm:Characteristic;
     bamm:name "Text";
     bamm:description "Describes a Property which contains plain text. This is intended exclusively for human readable strings, not for identifiers, measurement values, etc."@en;
     bamm:dataType xsd:string.
 :partCatenaXId a bamm:Property;
     bamm:name "partCatenaXId";
-    bamm:description "ID of the affected part"@en;
-    bamm:characteristic :Text.
+    bamm:preferredName "PartCatenaXID"@en;
+    bamm:description "the ID of the affected part"@en;
+    bamm:characteristic :Text;
+    bamm:exampleValue "1239015104".
 :vehicle a bamm:Property;
     bamm:name "vehicle";
-    bamm:preferredName "vehicle"@en, "fahrzeug"@de-de;
+    bamm:preferredName "vehicle"@en;
     bamm:description "one single vehicle"@en;
     bamm:characteristic :Vehicle.
 :Vehicle a bamm:Characteristic;
     bamm:name "Vehicle";
-    bamm:preferredName "Vehicle"@en, "Fahrzeug"@de-de;
+    bamm:preferredName "Vehicle"@en;
     bamm:description "one single vehicle"@en;
     bamm:dataType :VehicleText.
 :VehicleText a bamm:Entity;
     bamm:name "VehicleText";
-    bamm:preferredName "VehicleText"@en, "FahrzeugText"@de-de;
+    bamm:preferredName "VehicleText"@en;
     bamm:description "one single vehicle"@en;
-    bamm:properties (:vehicleCatenaXId :vehicleAnonymizedId).
-:vehicleAnonymizedId a bamm:Property;
-    bamm:name "vehicleAnonymizedId";
-    bamm:description "link to diagnostic data set created for this claim"@en;
-    bamm:characteristic :Text.
+    bamm:properties (:vehicleCatenaXId :anonymizedId).
 :vehicleCatenaXId a bamm:Property;
     bamm:name "vehicleCatenaXId";
-    bamm:preferredName "vehicleCatenaXId"@de-de;
+    bamm:preferredName "vehicleCatenaXId"@en;
     bamm:description "Catena-X car ID /digital twin of car"@en;
-    bamm:characteristic :Text.
+    bamm:characteristic :Text;
+    bamm:exampleValue "1239015104".
 :diagnosticSessionId a bamm:Property;
     bamm:name "diagnosticSessionId";
-    bamm:preferredName "reference to diagnostic session ID"@en, "Verlinkung zur Diagnose Session"@de-de;
-    bamm:description "reference to a diagnostic session ID"@en;
+    bamm:preferredName "DiagnosticSessionID"@en;
+    bamm:description "references to a diagnostic session ID"@en;
     bamm:characteristic :Text.
 :repairMileage a bamm:Property;
     bamm:name "repairMileage";
-    bamm:preferredName "Mileage"@en, "KM-Stand Claim"@de-de;
-    bamm:description "mileage of the car when claim was reported"@en;
-    bamm:characteristic :RepairMileage.
-:repairDate a bamm:Property;
-    bamm:name "repairDate";
-    bamm:preferredName "Reparaturaufnahmedatum"@de-de;
-    bamm:description "date when claim was reported"@en;
-    bamm:characteristic bamm-c:Timestamp;
-    bamm:exampleValue "2022-02-04T14:48:54"^^xsd:dateTime.
-:technicianComment a bamm:Property;
-    bamm:name "technicianComment";
-    bamm:preferredName "Werkstatt Kommentar"@de-de;
-    bamm:description "short description of the claim from the technicians"@en;
-    bamm:characteristic bamm-c:MultiLanguageText.
-:customerComment a bamm:Property;
-    bamm:name "customerComment";
-    bamm:preferredName "Kundenkommentar "@de-de;
-    bamm:description "short description of the claim from customer view"@en;
-    bamm:characteristic bamm-c:MultiLanguageText.
-:part a bamm:Property;
-    bamm:name "part";
-    bamm:characteristic :PartCharacteristic.
-:partReplaced a bamm:Property;
-    bamm:name "partReplaced";
-    bamm:preferredName "flag if part was replaced"@en, "Kennzeichnung, ob Bauteil ausgetauscht wurde"@de-de;
-    bamm:description "flag is set if part was replaced\n1: replaced\n0: not replaced"@en;
-    bamm:characteristic bamm-c:Boolean;
-    bamm:exampleValue "1"^^xsd:boolean.
-:oemPartNumber a bamm:Property;
-    bamm:name "oemPartNumber";
-    bamm:preferredName "Part Number (ZB)"@de-de;
-    bamm:description "internal ID of  the defect part"@en;
-    bamm:characteristic :Text.
+    bamm:preferredName "Mileage"@en;
+    bamm:description "mileage of the car when the claim was reported"@en;
+    bamm:characteristic :RepairMileage;
+    bamm:exampleValue "10251"^^xsd:positiveInteger.
 :RepairMileage a bamm-c:Measurement;
     bamm:name "RepairMileage";
     bamm:preferredName "Mileage"@en;
     bamm:description "mileage of the car when claim was reported"@de-de;
     bamm:dataType xsd:positiveInteger;
     bamm-c:unit unit:kilometre.
+:repairDate a bamm:Property;
+    bamm:name "repairDate";
+    bamm:preferredName "RepairDate"@en;
+    bamm:description "references the date when claim was initial reported"@en;
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:exampleValue "2022-02-04T14:48:54"^^xsd:dateTime.
+:technicianComment a bamm:Property;
+    bamm:name "technicianComment";
+    bamm:preferredName "TechniciansComment"@de-de;
+    bamm:description "short description of the claim from the technicians"@en;
+    bamm:characteristic bamm-c:MultiLanguageText.
+:customerComment a bamm:Property;
+    bamm:name "customerComment";
+    bamm:preferredName "CustomerComment"@en;
+    bamm:description "short description of the claim from customer view"@en;
+    bamm:characteristic bamm-c:MultiLanguageText.
+:part a bamm:Property;
+    bamm:name "part";
+    bamm:preferredName "Part"@en;
+    bamm:description "the defect part which will be replaced or repaired"@en;
+    bamm:characteristic :PartCharacteristic.
+:PartCharacteristic a bamm-c:SingleEntity;
+    bamm:name "PartCharacteristic";
+    bamm:preferredName "PartCharacteristic"@en;
+    bamm:description "the specific part"@en;
+    bamm:dataType :Part.
+:oemPartNumber a bamm:Property;
+    bamm:name "oemPartNumber";
+    bamm:preferredName "OEMPartNumber"@en;
+    bamm:description "OEM internal ID of  the defect part"@en;
+    bamm:characteristic :Text;
+    bamm:exampleValue "1239015104".
 :oemPartName a bamm:Property;
     bamm:name "oemPartName";
-    bamm:preferredName "Name of defect part"@en, "Part Name (ZB)"@de-de;
+    bamm:preferredName "OEMPartName"@en;
     bamm:description "OEM internal Name of the affected part"@en;
     bamm:characteristic :Text;
     bamm:exampleValue "Bremsbelag".
@@ -100,7 +103,8 @@
     bamm:preferredName "ClaimData"@en;
     bamm:description "Claim data from a fleet"@en;
     bamm:properties (:listOfClaims);
-    bamm:operations ().
+    bamm:operations ();
+    bamm:events ().
 :listOfClaims a bamm:Property;
     bamm:name "listOfClaims";
     bamm:preferredName "listOfClaims"@en;
@@ -111,14 +115,25 @@
     bamm:preferredName "ListOfClaims"@en;
     bamm:description "List of Claims"@en;
     bamm:dataType :Claim.
-:PartCharacteristic a bamm-c:SingleEntity;
-    bamm:name "PartCharacteristic";
-    bamm:dataType :Part.
-:Part a bamm:Entity;
-    bamm:name "Part";
-    bamm:properties (:partCatenaXId :partReplaced :oemPartNumber :oemPartName).
 :Claim a bamm:Entity;
     bamm:name "Claim";
-    bamm:preferredName "Text"@en, "Text"@de-de;
+    bamm:preferredName "Text"@en;
     bamm:description "everything to describe a claim"@en;
     bamm:properties (:diagnosticSessionId :repairMileage :repairDate :technicianComment :customerComment :claimId :vehicle :part).
+:Part a bamm:Entity;
+    bamm:name "Part";
+    bamm:preferredName "Part"@en;
+    bamm:description "one specific part"@en;
+    bamm:properties (:partCatenaXId :replaced :oemPartNumber :oemPartName).
+:anonymizedId a bamm:Property;
+    bamm:name "anonymizedId";
+    bamm:preferredName "AnonymizedID"@en;
+    bamm:description "link to diagnostic data set created for this claim"@en;
+    bamm:characteristic :Text;
+    bamm:exampleValue "123015104".
+:replaced a bamm:Property;
+    bamm:name "replaced";
+    bamm:preferredName "Replaced"@en;
+    bamm:description "flag is set if part was replaced\n1: replaced\n0: not replaced"@en;
+    bamm:characteristic bamm-c:Boolean;
+    bamm:exampleValue "1"^^xsd:boolean.
