@@ -93,9 +93,9 @@ do
         echo "Deduced model id ${MODEL_ID}"
         
         #cat ${argument} | sed ${REPLACE_ORG_NEWLINE} | sed ${REPLACE_QUOTE}  | sed ${REPLACE_NEWLINE} > test.json
-        STATUS=$(echo '{"private": false, "publisher":"'${PUBLISHER}'", "status":"'${CURRENT_MODEL_STATUS}'", "type": "BAMM", "model":"' $( cat ${argument} | sed ${REPLACE_ORG_NEWLINE} | sed ${REPLACE_QUOTE}  | sed ${REPLACE_NEWLINE} ) '"}' | \
-            curl -s --location --request POST 'https://'${SEMANTIC_HUB} \
-                --header 'Content-Type: application/json' \
+        STATUS=$(echo $( cat ${argument} ) | \
+            curl -s --location --request POST "https://${SEMANTIC_HUB}?type=BAMM&status=${CURRENT_MODEL_STATUS}" \
+                --header 'Content-Type: text/plain' \
                 --header "Authorization: Bearer $ACCESS_TOKEN" \
                 -d @- -w '%{http_code}')
 #    --header 'Authorization: Basic dXNlcjpwYXNzd29yZA=='
@@ -109,9 +109,9 @@ do
             
             # Perform a scond modification try
             echo "Model ${MODEL_ID} already exists. Try to modify.";
-            STATUS=$(echo '{ "private": false, "publisher":"'${PUBLISHER}'", "status":"'${CURRENT_MODEL_STATUS}'", "type": "BAMM", "model":"' $( cat ${argument} | sed ${REPLACE_ORG_NEWLINE} | sed ${REPLACE_QUOTE}  | sed ${REPLACE_NEWLINE} ) '"}' | \
-                curl -s --location --request PUT 'https://'${SEMANTIC_HUB} \
-                --header 'Content-Type: application/json' \
+            STATUS=$(echo $( cat ${argument} ) | \
+                curl -s --location --request PUT "https://${SEMANTIC_HUB}?type=BAMM&status=${CURRENT_MODEL_STATUS}" \
+                --header 'Content-Type: text/plain' \
                 --header "Authorization: Bearer $ACCESS_TOKEN" \
                 -d @- -w '%{http_code}')
 #    --header 'Authorization: Basic dXNlcjpwYXNzd29yZA=='
