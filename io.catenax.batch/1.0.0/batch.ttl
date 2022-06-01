@@ -79,7 +79,7 @@
 :LocalIdentifierCharacteristic a bamm-c:Set;
     bamm:name "LocalIdentifierCharacteristic";
     bamm:preferredName "Local Identifier Characteristic"@en;
-    bamm:description "A batch may have multiple attributes, that uniquely identify a that batch in a specific dataspace (e.g. the manufacturer`s dataspace)"@en;
+    bamm:description "A batch may have multiple attributes, which uniquely identify that batch in a specific dataspace (e.g. the manufacturer`s dataspace)"@en;
     bamm:dataType :KeyValueList.
 :manufacturingInformation a bamm:Property;
     bamm:name "manufacturingInformation";
