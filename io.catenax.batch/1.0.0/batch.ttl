@@ -21,7 +21,7 @@
     bamm:preferredName "Country Code Characteristic"@en;
     bamm:description "ISO 3166-1 alpha-3 – three-letter country codes "@en;
     bamm:dataType xsd:string;
-    bamm:see <https%2525253A%2525252F%2525252Fwww.iso.org%2525252Fiso-3166-country-codes.html>.
+    bamm:see <https://www.iso.org/iso-3166-country-codes.html>.
 :UUIDv4RegularExpression a bamm-c:RegularExpressionConstraint;
     bamm:name "UUIDv4RegularExpression";
     bamm:preferredName "Catena-X Id Regular Expression"@en;
@@ -177,7 +177,7 @@
     bamm:preferredName "Classification Characteristic"@en;
     bamm:description "A part type must be placed into one of the following classes: 'component', 'product', 'software', ‘assembly’, 'tool', or 'raw material'."@en;
     bamm:dataType xsd:string;
-    bamm:see <http%2525253A%2525252F%2525252Fprivate.pdm-if.org%2525252Fweb%2525252Fpdm-if%2525252Frecommended-practices1>;
+    bamm:see <http://private.pdm-if.org/web/pdm-if/recommended-practices1>;
     bamm-c:values ("product" "raw material" "software" "assembly" "tool" "component").
 :Batch a bamm:Aspect;
     bamm:name "Batch";
@@ -213,15 +213,11 @@
 :measurementUnit a bamm:Property;
     bamm:name "measurementUnit";
     bamm:description "Unit of Measurement"@en;
-    bamm:see <https%253A%252F%252Fopenmanufacturingplatform.github.io%252Fsds-bamm-aspect-meta-model%252Fbamm-specification%252Fsnapshot%252Fappendix%252Funitcatalog.html>;
-    bamm:characteristic :UnitReference;
+    bamm:see <https://openmanufacturingplatform.github.io/sds-bamm-aspect-meta-model/bamm-specification/snapshot/appendix/unitcatalog.html>;
+    bamm:characteristic bamm-c:UnitReference;
     bamm:exampleValue "unit:litre"^^bamm:curie.
 :Literal a bamm:Characteristic;
     bamm:name "Literal";
     bamm:preferredName "Literal"@en;
     bamm:description "The quantifiable value in reference to the measurementUnit"@en;
     bamm:dataType xsd:double.
-:UnitReference a bamm:Characteristic;
-    bamm:name "UnitReference";
-    bamm:description "Describes a Property containing a reference to one of the units in the Unit Catalog."@en;
-    bamm:dataType bamm:curie.
