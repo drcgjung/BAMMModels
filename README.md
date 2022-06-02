@@ -8,6 +8,22 @@ They are also available in the Catena-X Semantic Hub, available [here](https://c
 # How to contribute
 If you plan to add another model or apply changes to existing ones please create a new branch and file a pull request so the the changes can be reviewed.
 
+# Status of model
+The models in this repository have status information which is also stored in a corresponding Semantic Hub. This information always corresponds to a specific version of the model. To indicate the status of model version in Git, one creates a file with the name `metadata.json` and places it in the same directory as the corresponding model file. An example `metadata.json` looks like:
+
+```
+{ "status" : "deprecate"} 
+```
+The following table lists the possible values for `status` and what they mean:
+
+status | status in Semantic Hub | description
+----| ---- | ---- |
+draft | DRAFT | This version of the model is under development and can change at any time.
+release | RELEASED | This version of the model is considered as stable and any modifications to the model trigger a new release and subsequentially a new version. 
+deprecate | DEPRECATED | This version of the model is considered to reach its end-of-life and should not be used anymore because it will be deleted later. 
+
+The metadata.json is only evaluated for models on the branch `main`. All other branches are considered as development branches and the models from these branches are therefore posted to a Semantic Hub with the status "DRAFT". 
+
 
 # Using the models
 The models can locally be processed with the [BAMM CLI](https://openmanufacturingplatform.github.io/sds-documentation/sds-documentation/index.html).
