@@ -1,7 +1,7 @@
 # Sychronization Action
-This action expects arrays which contain added, modified, renamded and delted files from the last commit. Based on this information, the action synchronizes the changes in the Git repository to a Semantic Hub instance. 
+This action expects arrays which contain added, modified, renamed and deleted files from the last commit. Based on this information, the action synchronizes the changes in the Git repository to a Semantic Hub instance. 
 
-The actual deployment is done through the execution of the deploy.sh script which can also be used outside of this action to end requests to a Semantic Hub. 
+The actual deployment is done through the execution of the deploy.sh script which can also be used outside of this action to send requests to a Semantic Hub. 
 
 
 ## Test Cases

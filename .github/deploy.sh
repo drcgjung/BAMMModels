@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 # Copyright (c) 2021 T-Systems International GmbH (Catena-X Consortium)
+# Copyright (c) 2022 Robert Bosch Manufacturing Solutions GmbH
 #
 # See the AUTHORS file(s) distributed with this work for additional
 # information regarding authorship.

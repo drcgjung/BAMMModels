@@ -15,7 +15,7 @@ try {
         deployModifiedFilesOnMain(modified);
         deleteAspects(removed);
     } else {
-        console.log("The synchronization sets the the changed models to the status 'DRAFT' and does not consider potential metadata.json files because it runs on a branch which is not the main-branch.")
+        console.log("The synchronization sets the changed models to the status 'DRAFT' and does not consider potential metadata.json files because it runs on a branch which is not the main-branch.")
         deployAspects(added);
         deployAspects(modified);
         deleteAspects(removed);
@@ -63,7 +63,7 @@ function deployAddedFilesOnMain(files) {
                     const metadata = JSON.parse(fs.readFileSync(metaDataPath));
                     status = metadata.status;
                 } catch (err) {
-                    console.log("Unable to load valid metadata for the model file " + file + " Assuming the status RELEASED now.")
+                    console.log("Unable to load valid metadata for the model file " + file + " . Assuming the status RELEASED now.")
                 } 
                 deploySingleAspect(file, status)
             }
