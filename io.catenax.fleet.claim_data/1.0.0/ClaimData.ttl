@@ -22,16 +22,6 @@
     bamm:description "the ID of the affected part"@en;
     bamm:characteristic :Text;
     bamm:exampleValue "1239015104".
-:vehicle a bamm:Property;
-    bamm:name "vehicle";
-    bamm:preferredName "vehicle"@en;
-    bamm:description "one single vehicle"@en;
-    bamm:characteristic :Vehicle.
-:Vehicle a bamm:Characteristic;
-    bamm:name "Vehicle";
-    bamm:preferredName "Vehicle"@en;
-    bamm:description "one single vehicle"@en;
-    bamm:dataType :VehicleText.
 :VehicleText a bamm:Entity;
     bamm:name "VehicleText";
     bamm:preferredName "VehicleText"@en;
@@ -43,23 +33,17 @@
     bamm:description "Catena-X car ID /digital twin of car"@en;
     bamm:characteristic :Text;
     bamm:exampleValue "1239015104".
+:anonymizedId a bamm:Property;
+    bamm:name "anonymizedId";
+    bamm:preferredName "AnonymizedID"@en;
+    bamm:description "link to diagnostic data set created for this claim"@en;
+    bamm:characteristic :Text;
+    bamm:exampleValue "123015104".
 :diagnosticSessionId a bamm:Property;
     bamm:name "diagnosticSessionId";
     bamm:preferredName "DiagnosticSessionID"@en;
     bamm:description "references to a diagnostic session ID"@en;
     bamm:characteristic :Text.
-:repairMileage a bamm:Property;
-    bamm:name "repairMileage";
-    bamm:preferredName "Mileage"@en;
-    bamm:description "mileage of the car when the claim was reported"@en;
-    bamm:characteristic :RepairMileage;
-    bamm:exampleValue "10251"^^xsd:positiveInteger.
-:RepairMileage a bamm-c:Measurement;
-    bamm:name "RepairMileage";
-    bamm:preferredName "Mileage"@en;
-    bamm:description "mileage of the car when claim was reported"@de-de;
-    bamm:dataType xsd:positiveInteger;
-    bamm-c:unit unit:kilometre.
 :repairDate a bamm:Property;
     bamm:name "repairDate";
     bamm:preferredName "RepairDate"@en;
@@ -86,6 +70,11 @@
     bamm:preferredName "PartCharacteristic"@en;
     bamm:description "the specific part"@en;
     bamm:dataType :Part.
+:Part a bamm:Entity;
+    bamm:name "Part";
+    bamm:preferredName "Part"@en;
+    bamm:description "one specific part"@en;
+    bamm:properties (:partCatenaXId :replaced :oemPartNumber :oemPartName).
 :oemPartNumber a bamm:Property;
     bamm:name "oemPartNumber";
     bamm:preferredName "OEMPartNumber"@en;
@@ -119,21 +108,32 @@
     bamm:name "Claim";
     bamm:preferredName "Text"@en;
     bamm:description "everything to describe a claim"@en;
-    bamm:properties (:diagnosticSessionId :repairMileage :repairDate :technicianComment :customerComment :claimId :vehicle :part).
-:Part a bamm:Entity;
-    bamm:name "Part";
-    bamm:preferredName "Part"@en;
-    bamm:description "one specific part"@en;
-    bamm:properties (:partCatenaXId :replaced :oemPartNumber :oemPartName).
-:anonymizedId a bamm:Property;
-    bamm:name "anonymizedId";
-    bamm:preferredName "AnonymizedID"@en;
-    bamm:description "link to diagnostic data set created for this claim"@en;
-    bamm:characteristic :Text;
-    bamm:exampleValue "123015104".
+    bamm:properties (:diagnosticSessionId :mileage :repairDate :technicianComment :customerComment :claimId :vehicleIdentifier :part).
 :replaced a bamm:Property;
     bamm:name "replaced";
     bamm:preferredName "Replaced"@en;
     bamm:description "flag is set if part was replaced\n1: replaced\n0: not replaced"@en;
     bamm:characteristic bamm-c:Boolean;
     bamm:exampleValue "1"^^xsd:boolean.
+:mileage a bamm:Property;
+    bamm:name "mileage";
+    bamm:preferredName "Mileage"@en;
+    bamm:description "mileage of the car when the claim was reported"@en;
+    bamm:characteristic :Mileage;
+    bamm:exampleValue "10251"^^xsd:positiveInteger.
+:vehicleIdentifier a bamm:Property;
+    bamm:name "vehicleIdentifier";
+    bamm:preferredName "vehicle"@en;
+    bamm:description "one single vehicle"@en;
+    bamm:characteristic :VehicleIdentifier.
+:Mileage a bamm-c:Measurement;
+    bamm:name "Mileage";
+    bamm:preferredName "Mileage"@en;
+    bamm:description "mileage of the car when claim was reported"@de-de;
+    bamm:dataType xsd:positiveInteger;
+    bamm-c:unit unit:kilometre.
+:VehicleIdentifier a bamm:Characteristic;
+    bamm:name "VehicleIdentifier";
+    bamm:preferredName "Vehicle"@en;
+    bamm:description "one single vehicle"@en;
+    bamm:dataType :VehicleText.
