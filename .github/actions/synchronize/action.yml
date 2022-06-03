@@ -1,0 +1,25 @@
+name: 'Deploy Changes'
+description: 'Action to deploy detected changes to a Semantic Hub'
+inputs:
+  ADDED:
+    description: 'The changed files, detected by a previous action'
+    required: true
+  MODIFIED:
+    description: 'The modified files, detected by a previous action'
+    required: true
+  REMOVED:
+    description: 'The removed files, detected by a previous action'
+    required: true
+  RENAMED:
+    description: 'The renamed files, detected by a previous action'
+    required: true
+  BRANCH:
+    description: 'The current branch'
+    required: false
+    default: 'refs/heads/abcdef'
+
+  
+runs:
+  using: "node16"
+  main: 'index.js'
+
