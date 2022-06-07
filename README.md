@@ -2,15 +2,14 @@
 
 # Aspect Model Repository for Catena-X Project
 The repository contains the aspect models based on [BAMM](https://openmanufacturingplatform.github.io/sds-documentation/bamm-specification/snapshot/index.html) for the Catena-X project.
-They are also available in the Catena-X Semantic Hub, available [here](https://catenaxintaksportal.germanywestcentral.cloudapp.azure.com/home/semantichub). The hub is a great place to browse existing models, and receive rendered views (diagrams, and human readable documentation) on them.
+They are also available in an instance of the [Catena-X Semantic Hub](https://catenaxintaksportal.germanywestcentral.cloudapp.azure.com/home/semantichub). The Semantic Hub is a great place to browse existing models, and receive rendered views (diagrams, and human readable documentation) on them.
 
 
 # Using the models
 The models can locally be processed with the [BAMM CLI](https://openmanufacturingplatform.github.io/sds-documentation/sds-documentation/index.html).
 It allows you to generate different artifacts (diagrams, example payload, java class files) out of it.
 
-to generate the usual set of artifacts this repository also contains a script, `generate.sh` which automates some steps, and might be useful for your task.
-The repository also contains a script, `generate.sh`, which you can use to generate a set of artifacts out of the models.
+To generate the commonly used set of artifacts, this repository also contains a script, `generate.sh`, which automates some steps, and might be useful for your task.
 
 Example call for the Material.ttl aspect
 ```
@@ -19,8 +18,8 @@ Example call for the Material.ttl aspect
 ```
 You will find a folder Material-artifacts in the root folder of the repository, which contains the generated artifacts.
 
-Limitations of the script: You need an internet connection to allow the script to download the BAMM-CLI and the catenaX style for the documentation. 
-Currently the script uses version 1.0.0 of the BAMM-CLI, which doesn't work properly on the Mac (graphics will not generate images [issue](https://github.com/OpenManufacturingPlatform/sds-sdk/issues/38)). 
+Limitations of the script: You need an internet connection to allow the script to download the BAMM-CLI and the Catena-X style for the documentation. 
+Currently the script uses version 1.0.2 of the BAMM-CLI, which doesn't work properly on the Mac (graphics will not generate images [issue](https://github.com/OpenManufacturingPlatform/sds-sdk/issues/38)). 
 
 # Status of model
 Each model has its life cycle and can thus have a different status. The Semantic Hub stores this status together with the model. This information always corresponds to a specific version of the model. To indicate the state of the model version in Git, one creates a file with the name `metadata.json` and places it in the same directory as the corresponding model file. An example `metadata.json` looks like this:
