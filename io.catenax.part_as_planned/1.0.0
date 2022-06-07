@@ -80,7 +80,7 @@
 :PartAsPlanned a bamm:Aspect;
     bamm:name "PartAsPlanned";
     bamm:preferredName "Part AsPlanned"@en;
-    bamm:description "A Part AsPlanned represent an item in the Catena-X Bill of Material (BOM) in As-Planned lifecycle status. "@en;
+    bamm:description "A Part AsPlanned represents an item in the Catena-X Bill of Material (BOM) in As-Planned lifecycle status. "@en;
     bamm:properties (:catenaXId :partTypeInformation [
   bamm:property :validityPeriod;
   bamm:optional "true"^^xsd:boolean
