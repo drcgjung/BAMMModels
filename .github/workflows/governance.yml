@@ -1,5 +1,6 @@
 #
 # Copyright (c) 2021 T-Systems International GmbH (Catena-X Consortium)
+# Copyright (c) 2022 Robert Bosch Manufacturing Solutions GmbH
 #
 # See the AUTHORS file(s) distributed with this work for additional
 # information regarding authorship.
@@ -62,16 +63,16 @@ jobs:
                 echo "::set-output name=workspace_uppercase::DEV042"
                 echo "::set-output name=status::-draft"
              elif [[ "${{github.ref}}" == refs/heads/main ]]; then
-                echo "Determined STAGING (int|RELEASED)"
+                echo "Determined STAGING (dev|RELEASED)"
                 echo "::set-output name=stage::STAGING"
-                echo "::set-output name=workspace::int"
-                echo "::set-output name=workspace_uppercase::INT"
+                echo "::set-output name=workspace::dev042"
+                echo "::set-output name=workspace_uppercase::DEV042"
                 echo "::set-output name=status::-release"
              else
-                echo "Determined DEVELOPMENT (int|DRAFT)"
+                echo "Determined DEVELOPMENT (dev|DRAFT)"
                 echo "::set-output name=stage::DEVELOPMENT"
-                echo "::set-output name=workspace::int"
-                echo "::set-output name=workspace_uppercase::INT"
+                echo "::set-output name=workspace::dev042"
+                echo "::set-output name=workspace_uppercase::DEV042"
                 echo "::set-output name=status::-draft"
              fi
           else 
@@ -110,7 +111,7 @@ jobs:
         # Format of the steps output context.
         # Can be 'space-delimited', 'csv', or 'json'.
         # Default: 'space-delimited'
-        format: 'space-delimited'
+        format: 'json'
 
     # get the latest sources
     - name: Checkout
@@ -127,32 +128,22 @@ jobs:
         CLIENT_ID: ${{ secrets[format('IDP_CLIENT_ID_{0}', env.WORKSPACE_UPPERCASE)] }}
         CLIENT_SECRET: ${{ secrets[format('IDP_CLIENT_SECRET_{0}', env.WORKSPACE_UPPERCASE)] }}
       run: |
-        access_token=$( curl --request POST \
+        response=$(curl --request POST \
         --url "https://$IDP_URL" \
         --header 'content-type: application/x-www-form-urlencoded' \
         --data-urlencode grant_type=client_credentials \
         --data-urlencode client_id=$CLIENT_ID \
-        --data-urlencode client_secret=$CLIENT_SECRET | jq -r '.access_token' )
+        --data-urlencode client_secret=$CLIENT_SECRET )
+        access_token=$( echo $response | jq -r '.access_token' )
 
         echo "ACCESS_TOKEN=$access_token" >> $GITHUB_ENV
-    
-    # Delete old aspects only if staging
-    - name: Delete Redundant Models
-      if: ${{ env.STATUS == '-release' }}
-      run: |
-          .github/deploy.sh -delete ${{ steps.changes.outputs.removed }} 
+        
+    - name: Synchronize
+      uses: ./.github/actions/synchronize
+      with:
+        ADDED: ${{ steps.changes.outputs.added }}
+        MODIFIED: ${{ steps.changes.outputs.modified }}
+        REMOVED:  ${{ steps.changes.outputs.removed }}
+        RENAMED: ${{ steps.changes.outputs.renamed  }}
+        BRANCH: ${{ github.ref }}
 
-    # Update existing aspects
-    - name: Update Existing Models
-      run: |
-          .github/deploy.sh ${{ env.STATUS }} ${{ steps.changes.outputs.modified }} 
-
-    # Create new aspects
-    - name: Create New Models
-      run: |
-          .github/deploy.sh ${{ env.STATUS }} ${{ steps.changes.outputs.added }} 
-
-    # Deprecate aspects
-    - name: Deprecate Aspects
-      run: |
-          .github/deploy.sh ${{ env.STATUS }} ${{ steps.changes.outputs.renamed }} 

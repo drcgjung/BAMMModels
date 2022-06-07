@@ -1,5 +1,7 @@
+#!/bin/bash
 #
 # Copyright (c) 2021 T-Systems International GmbH (Catena-X Consortium)
+# Copyright (c) 2022 Robert Bosch Manufacturing Solutions GmbH
 #
 # See the AUTHORS file(s) distributed with this work for additional
 # information regarding authorship.
@@ -27,12 +29,13 @@
 #            - PUBLISHER the publisher of the models (default: Catena-X Consortium)
 #            - ACCESS_TOKEN the access token needed to authenticate with the Semantic Hub API
 
+echo "Called Deploy to Semantic Hub with arguments: '$@'"
 if [[ -z "${WORKSPACE}" ]]; then
    WORKSPACE=dev042
 fi
 
 if [[ -z "${SEMANTIC_HUB}" ]]; then
-   SEMANTIC_HUB=catenax${WORKSPACE}akssrv.germanywestcentral.cloudapp.azure.com/semantics/api/v1/models
+   SEMANTIC_HUB=catenax${WORKSPACE}akssrv.germanywestcentral.cloudapp.azure.com/semantics/hub/api/v1/models
 fi
 
 if [[ -z "${PUBLISHER}" ]]; then
@@ -145,32 +148,19 @@ do
           # Perform a list query on the relevant models
           MODEL_NAME=${BASH_REMATCH[3]}
           MODEL_VERSION=${BASH_REMATCH[2]}
-          echo "About to delete ${argument} in ${SEMANTIC_HUB}. Assuming MODEL_NAME ${MODEL_NAME} and version ${MODEL_VERSION}"
-          JQ_QUERY=".[]|select(.id|endswith(\"${MODEL_VERSION}#${MODEL_NAME}\"))|.id"
-          URL="https://${SEMANTIC_HUB}?nameFilter=${MODEL_NAME}&namespaceFilter=${MODEL_VERSION}"
-          MODELS_TO_DELETE=($(curl -s --location --request GET ${URL} --header "Authorization: Bearer $ACCESS_TOKEN" | jq -r $JQ_QUERY))
-#    --header 'Authorization: Basic dXNlcjpwYXNzd29yZA=='
-          for element in ${MODELS_TO_DELETE[@]}
-          do
-
-            # Delete each of the relevant models
-            MODEL_TO_DELETE=${element//[$'\t\r\n']} 
-            URLENCODED_MODEL_TO_DELETE=${MODEL_TO_DELETE//#/%23}
-            echo "About to delete ${URLENCODED_MODEL_TO_DELETE} in ${SEMANTIC_HUB}"
-
-            URL="https://${SEMANTIC_HUB}/${URLENCODED_MODEL_TO_DELETE}"
-            STATUS=$(curl -s --location --request DELETE ${URL} --header "Authorization: Bearer $ACCESS_TOKEN" -w '%{http_code}')
-#    --header 'Authorization: Basic dXNlcjpwYXNzd29yZA=='
-            
-            echo "Got deletion status ${STATUS}"
+          MODEL_NAMESPACE=${BASH_REMATCH[1]}
+          echo "About to delete ${argument} in ${SEMANTIC_HUB}. Assuming version ${MODEL_VERSION} and namespace ${MODEL_NAMESPACE}"
+          URL="https://${SEMANTIC_HUB}/urn:bamm:${MODEL_NAMESPACE}:${MODEL_VERSION}%23"
+          echo "$URL"
+          STATUS=$(curl -s --location --request DELETE ${URL} --header "Authorization: Bearer $ACCESS_TOKEN" -w '%{http_code}')
+          echo "Got deletion status ${STATUS}"
             if [[ "${STATUS}" == *204 ]]; then
-              echo "Model ${URLENCODED_MODEL_TO_DELETE} was successfully deleted.";
+              echo "Namespace ${MODEL_NAMESPACE} was successfully deleted.";
             else 
               # Failure condition on deletion
               echo "Unknown deletion status ${STATUS}. Marking deployment as failed";
               SUCCESS="false"
             fi
-          done
         else
           # Ignore paths without proper naming
           echo "Model path ${MODEL_NAME} does not conform to the MODEL_NAME/VERSION/MODEL_NAME.ttl standard. The model cannot be looked up/deleted."
