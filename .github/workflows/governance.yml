@@ -57,22 +57,22 @@ jobs:
         run: |
           if [[ "${{github.repository}}" == catenax/BAMMmodels ]]; then
              if [[ "${{github.ref}}" == refs/heads/governance-development ]]; then
-                echo "Determined STAGING (dev|DRAFT)"
+                echo "Determined DEVELOPMENT (dev|DRAFT)"
                 echo "::set-output name=stage::STAGING"
                 echo "::set-output name=workspace::dev042"
                 echo "::set-output name=workspace_uppercase::DEV042"
                 echo "::set-output name=status::-draft"
              elif [[ "${{github.ref}}" == refs/heads/main ]]; then
-                echo "Determined STAGING (dev|RELEASED)"
+                echo "Determined STAGING (int|RELEASED)"
                 echo "::set-output name=stage::STAGING"
-                echo "::set-output name=workspace::dev042"
-                echo "::set-output name=workspace_uppercase::DEV042"
+                echo "::set-output name=workspace::int"
+                echo "::set-output name=workspace_uppercase::INT"
                 echo "::set-output name=status::-release"
              else
-                echo "Determined DEVELOPMENT (dev|DRAFT)"
+                echo "Determined DEVELOPMENT (int|DRAFT)"
                 echo "::set-output name=stage::DEVELOPMENT"
-                echo "::set-output name=workspace::dev042"
-                echo "::set-output name=workspace_uppercase::DEV042"
+                echo "::set-output name=workspace::int"
+                echo "::set-output name=workspace_uppercase::INT"
                 echo "::set-output name=status::-draft"
              fi
           else 
