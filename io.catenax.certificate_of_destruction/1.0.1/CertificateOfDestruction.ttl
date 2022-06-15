@@ -9,6 +9,7 @@
     bamm:name "CertificateOfDestruction";
     bamm:preferredName "Certificate of Destruction"@en;
     bamm:description "Information on the certificate of destruction. In german: Verwertungsnachweis"@en;
+    bamm:description "Information die den Verwertungsnachweis definiert."@de;
     bamm:properties (:dismantlingDate :serialNumber :vehicleOwnerProperties :vehicleProperties :returnPointProperties :dismantlerProperties :companyNumber);
     bamm:operations ();
     bamm:see <https://www.gesetze-im-internet.de/fzv_2011/Fanlage_8.html>.
@@ -52,7 +53,7 @@
 :DateCharacteristic a bamm:Characteristic;
     bamm:name "DateCharacteristic";
     bamm:preferredName "date characteristic"@en;
-    bamm:description "date characteristic"@en;
+    bamm:description "Date characteristic"@en;
     bamm:dataType xsd:date.
 :VehicleOwnerCharacteristic a bamm:Characteristic;
     bamm:name "VehicleOwnerCharacteristic";
@@ -82,7 +83,7 @@
 :Address a bamm:Characteristic;
     bamm:name "Address";
     bamm:preferredName "address"@en;
-    bamm:description "address characteristic which corresponds to the information given in the certificate of destruction"@en;
+    bamm:description "Address characteristic which corresponds to the information given in the certificate of destruction"@en;
     bamm:dataType :AddressEntity.
 :AddressEntity a bamm:Entity;
     bamm:name "AddressEntity";
@@ -150,7 +151,7 @@
 :country a bamm:Property;
     bamm:name "country";
     bamm:preferredName "country"@en;
-    bamm:description "country code"@en;
+    bamm:description "Country code"@en;
     bamm:characteristic :CountryCodeTrait.
 :ZipTrait a bamm-c:Trait;
     bamm:name "ZipTrait";
@@ -160,7 +161,7 @@
 :CountryCodeTrait a bamm-c:Trait;
     bamm:name "CountryCodeTrait";
     bamm:preferredName "country code trait"@en;
-    bamm:description "country code trait to restrict to the iso norm"@en;
+    bamm:description "Country code trait to restrict to the iso norm"@en;
     bamm-c:baseCharacteristic bamm-c:Text;
     bamm-c:constraint :IsoCodeConstraint.
 :isVehicleInformationComplete a bamm:Property;
@@ -191,7 +192,7 @@
 :citizenship a bamm:Property;
     bamm:name "citizenship";
     bamm:preferredName "citizenship"@en;
-    bamm:description "citizenship of the vehicle owner"@en;
+    bamm:description "Citizenship of the vehicle owner"@en;
     bamm:see <https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FList_of_ISO_3166_country_codes>;
     bamm:characteristic :CountryCodeTrait;
     bamm:exampleValue "DE".
@@ -213,7 +214,7 @@
 :ZipLength a bamm-c:LengthConstraint;
     bamm:name "ZipLength";
     bamm:preferredName "Zip Length"@en;
-    bamm:description "The maximal lenght of the the postal code is restricted to 14 chracters"@en;
+    bamm:description "The maximal length of the the postal code is restricted to 14 chracters"@en;
     bamm-c:maxValue "14"^^xsd:nonNegativeInteger.
 :VehicleOwnerEntity a bamm:Entity;
     bamm:name "VehicleOwnerEntity";
@@ -236,7 +237,7 @@
 :isVehicleWithdrawnFromService a bamm:Property;
     bamm:name "isVehicleWithdrawnFromService";
     bamm:preferredName "isVehicleWithdrawnFromService"@en;
-    bamm:description "True, if the vehicle has been withdrawn from the service and out of circulation"@en;
+    bamm:description "True if the vehicle has been withdrawn from the service and out of circulation"@en;
     bamm:characteristic bamm-c:Boolean.
 :receiverAuditorAddress a bamm:Property;
     bamm:name "receiverAuditorAddress";
@@ -246,48 +247,48 @@
 :receiverContact a bamm:Property;
     bamm:name "receiverContact";
     bamm:preferredName "receiver contact"@en;
-    bamm:description "contact information of the receiving company"@en;
+    bamm:description "Contact information of the receiving company"@en;
     bamm:characteristic :ContactCharacteristic.
 :receiverAuditorContact a bamm:Property;
     bamm:name "receiverAuditorContact";
     bamm:preferredName "receiver auditor contact"@en;
-    bamm:description "auditor contact information"@en;
+    bamm:description "Auditor contact information"@en;
     bamm:characteristic :ContactCharacteristic.
 :ContactCharacteristic a bamm:Characteristic;
     bamm:name "ContactCharacteristic";
     bamm:preferredName "contact characteristic"@en;
-    bamm:description "contact characteristic based on the contact information available in the certificate of destruction"@en;
+    bamm:description "Contact characteristic based on the contact information available in the certificate of destruction"@en;
     bamm:dataType :ContactEntity.
 :dismantlerContact a bamm:Property;
     bamm:name "dismantlerContact";
     bamm:preferredName "dismantler contact"@en;
-    bamm:description "dismantler contact information"@en;
+    bamm:description "Dismantler contact information"@en;
     bamm:characteristic :ContactCharacteristic.
 :dismantlerAuditorAddress a bamm:Property;
     bamm:name "dismantlerAuditorAddress";
     bamm:preferredName "dismantler auditor address"@en;
-    bamm:description "information about the auditor address"@en;
+    bamm:description "Information about the auditor address"@en;
     bamm:characteristic :Address.
 :dismantlerAuditorContact a bamm:Property;
     bamm:name "dismantlerAuditorContact";
     bamm:preferredName "dismantler auditor contact"@en;
-    bamm:description "information about the auditor contact"@en;
+    bamm:description "Information about the auditor contact"@en;
     bamm:characteristic :ContactCharacteristic.
 :identification a bamm:Property;
     bamm:name "identification";
     bamm:preferredName "vehicle identification number (VIN)"@en;
-    bamm:description "the unique vehicle identification number (VIN) of the vehicle "@en;
+    bamm:description "The unique vehicle identification number (VIN) of the vehicle "@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "WBAAY711X0KC28153".
 :vehicleOwnerAddress a bamm:Property;
     bamm:name "vehicleOwnerAddress";
     bamm:preferredName "vehicle owner address"@en;
-    bamm:description "address of the vehicle owner "@en;
+    bamm:description "Address of the vehicle owner "@en;
     bamm:characteristic :Address.
 :ContactEntity a bamm:Entity;
     bamm:name "ContactEntity";
     bamm:preferredName "contact entity"@en;
-    bamm:description "contact entity"@en;
+    bamm:description "Contact entity"@en;
     bamm:properties (:phone [
   bamm:property :fax;
   bamm:optional "true"^^xsd:boolean
@@ -295,12 +296,12 @@
 :phone a bamm:Property;
     bamm:name "phone";
     bamm:preferredName "phone"@en;
-    bamm:description "phone number"@en;
+    bamm:description "Phone number"@en;
     bamm:characteristic :PhoneTrait.
 :fax a bamm:Property;
     bamm:name "fax";
     bamm:preferredName "fax"@en;
-    bamm:description "fax number"@en;
+    bamm:description "Fax number"@en;
     bamm:characteristic :PhoneTrait.
 :PhoneTrait a bamm-c:Trait;
     bamm:name "PhoneTrait";
@@ -309,7 +310,7 @@
 :PhoneConstraint a bamm-c:RegularExpressionConstraint;
     bamm:name "PhoneConstraint";
     bamm:preferredName "phone constraint"@en;
-    bamm:description "phone constraint allow only numbers, whitespaces and an optional leading plus sign"@en;
+    bamm:description "Phone constraint allow only numbers, whitespaces and an optional leading plus sign"@en;
     bamm:value "[+]?[0-9 ]+".
 :model a bamm:Property;
     bamm:name "model";
