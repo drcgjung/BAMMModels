@@ -1,0 +1,147 @@
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix : <urn:bamm:io.openmanufacturing.digitaltwin:1.0.0#>.
+@prefix address-c: <urn:bamm:io.catenax.shared.address_characteristic:1.0.0#>.
+@prefix undefined: <urn:bamm:io.catenax.material_for_homologation:1.0.0#>.
+
+undefined:MaterialForHomologation a bamm:Aspect;
+    bamm:name "MaterialForHomologation";
+    bamm:properties ([
+  bamm:property :itemNumber;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :share;
+  bamm:optional "true"^^xsd:boolean
+] :vda :name :standard :materialNumber);
+    bamm:operations ();
+    bamm:preferredName "material for homologation"@en;
+    bamm:description "This model depicts a material belonging to articles in BOM."@en.
+:share a bamm:Property;
+    bamm:name "share";
+    bamm:preferredName "share"@en;
+    bamm:description "Proportion of the material."@en;
+    bamm:characteristic :Percentage;
+    bamm:exampleValue "20,1"^^xsd:double.
+:Percentage a bamm-c:Measurement;
+    bamm:name "Percentage";
+    bamm:preferredName "percentage"@en;
+    bamm:dataType xsd:double;
+    bamm-c:unit :percent.
+:name a bamm:Property;
+    bamm:name "name";
+    bamm:preferredName "name"@en;
+    bamm:description "Designation of the material."@en;
+    bamm:exampleValue "WTSt 37-2".
+:itemNumber a bamm:Property;
+    bamm:name "itemNumber";
+    bamm:preferredName "item number"@en;
+    bamm:description "Individual component to which the materials belong (no materials are assigned to nodes)"@en;
+    bamm:characteristic :ItemNumberTrait;
+    bamm:exampleValue "1.l.222.3333".
+:ItemNumberTrait a bamm-c:Trait;
+    bamm:name "ItemNumberTrait";
+    bamm-c:baseCharacteristic :ItemNumberCaracteristic;
+    bamm-c:constraint :ItemNumberConstraint.
+:ItemNumberCaracteristic a bamm:Characteristic;
+    bamm:name "ItemNumberCaracteristic";
+    bamm:preferredName "item number characteristic"@en;
+    bamm:dataType xsd:string.
+:ItemNumberConstraint a bamm-c:LengthConstraint;
+    bamm:name "ItemNumberConstraint";
+    bamm:preferredName "item number constraint"@en;
+    bamm-c:maxValue "200"^^xsd:nonNegativeInteger.
+:vda a bamm:Property;
+    bamm:name "vda";
+    bamm:preferredName "vda"@en;
+    bamm:description "German quality management system standard."@en;
+    bamm:characteristic :VDAPropertiesCharacteristic.
+:VDAPropertiesCharacteristic a bamm:Characteristic;
+    bamm:name "VDAPropertiesCharacteristic";
+    bamm:preferredName "vda properties characteristic"@en;
+    bamm:dataType :VDAPropertiesEntity.
+:VDAPropertiesEntity a bamm:Entity;
+    bamm:name "VDAPropertiesEntity";
+    bamm:properties (:mainGroup :subgroup);
+    bamm:preferredName "vda properties entity"@en.
+:mainGroup a bamm:Property;
+    bamm:name "mainGroup";
+    bamm:preferredName "main group"@en;
+    bamm:description "Main group according to material classification VDA 231-10."@en;
+    bamm:characteristic :MainGroupTrait;
+    bamm:exampleValue "1".
+:subgroup a bamm:Property;
+    bamm:name "subgroup";
+    bamm:preferredName "subgroup"@en;
+    bamm:description "First subgroup according to material classification VDA 231-11."@en;
+    bamm:characteristic :SubgroupTrait;
+    bamm:exampleValue "1.1".
+:standard a bamm:Property;
+    bamm:name "standard";
+    bamm:preferredName "standard"@en;
+    bamm:description "Standard in which the material is listed."@en;
+    bamm:characteristic :StandardTrait;
+    bamm:exampleValue "SEW 087 : 1981-06".
+:percent a unit:Unit;
+    bamm:name "percent";
+    bamm:preferredName "percent"@en;
+    unit:symbol "%";
+    unit:commonCode "P1".
+:materialNumber a bamm:Property;
+    bamm:name "materialNumber";
+    bamm:preferredName "material number"@en;
+    bamm:description "The number of the material in the standard."@en;
+    bamm:characteristic :MaterialNumberTrait;
+    bamm:exampleValue "1.8960".
+:MainGroupCharacteristic a bamm:Characteristic;
+    bamm:name "MainGroupCharacteristic";
+    bamm:preferredName "main group characteristic"@en;
+    bamm:dataType xsd:string.
+:MainGroupTrait a bamm-c:Trait;
+    bamm:name "MainGroupTrait";
+    bamm-c:baseCharacteristic :MainGroupCharacteristic;
+    bamm-c:constraint :MainGroupConstraint.
+:MainGroupConstraint a bamm-c:LengthConstraint;
+    bamm:name "MainGroupConstraint";
+    bamm:preferredName "main group constraint"@en;
+    bamm-c:maxValue "2"^^xsd:nonNegativeInteger.
+:SubgroupTrait a bamm-c:Trait;
+    bamm:name "SubgroupTrait";
+    bamm-c:baseCharacteristic :SubgroupCharacteristic;
+    bamm-c:constraint :SubgroupConstraint.
+:SubgroupCharacteristic a bamm:Characteristic;
+    bamm:name "SubgroupCharacteristic";
+    bamm:preferredName "subgroup characteristic"@en;
+    bamm:dataType xsd:string.
+:StandardTrait a bamm-c:Trait;
+    bamm:name "StandardTrait";
+    bamm-c:baseCharacteristic :StandardCharacteristic;
+    bamm-c:constraint :StandardConstraint.
+:StandardCharacteristic a bamm:Characteristic;
+    bamm:name "StandardCharacteristic";
+    bamm:preferredName "standard characteristic"@en;
+    bamm:dataType xsd:string.
+:MaterialNumberTrait a bamm-c:Trait;
+    bamm:name "MaterialNumberTrait";
+    bamm-c:baseCharacteristic :MaterialNumberCharacteristic;
+    bamm-c:constraint :MaterialNumberConstraint.
+:SubgroupConstraint a bamm-c:LengthConstraint;
+    bamm:name "SubgroupConstraint";
+    bamm:preferredName "subgroup constraint"@en;
+    bamm-c:maxValue "3"^^xsd:nonNegativeInteger.
+:MaterialNumberCharacteristic a bamm:Characteristic;
+    bamm:name "MaterialNumberCharacteristic";
+    bamm:preferredName "material number characteristic"@en;
+    bamm:dataType xsd:string.
+:StandardConstraint a bamm-c:LengthConstraint;
+    bamm:name "StandardConstraint";
+    bamm:preferredName "standard constraint"@en;
+    bamm-c:maxValue "20"^^xsd:nonNegativeInteger.
+:MaterialNumberConstraint a bamm-c:LengthConstraint;
+    bamm:name "MaterialNumberConstraint";
+    bamm:preferredName "material number constraint"@en;
+    bamm-c:maxValue "20"^^xsd:nonNegativeInteger.
