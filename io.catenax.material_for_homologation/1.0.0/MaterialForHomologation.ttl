@@ -9,18 +9,6 @@
 @prefix address-c: <urn:bamm:io.catenax.shared.address_characteristic:1.0.0#>.
 @prefix undefined: <urn:bamm:io.catenax.material_for_homologation:1.0.0#>.
 
-undefined:MaterialForHomologation a bamm:Aspect;
-    bamm:name "MaterialForHomologation";
-    bamm:properties ([
-  bamm:property :itemNumber;
-  bamm:optional "true"^^xsd:boolean
-] [
-  bamm:property :share;
-  bamm:optional "true"^^xsd:boolean
-] :vda :name :standard :materialNumber);
-    bamm:operations ();
-    bamm:preferredName "material for homologation"@en;
-    bamm:description "This model depicts a material belonging to articles in BOM."@en.
 :share a bamm:Property;
     bamm:name "share";
     bamm:preferredName "share"@en;
@@ -145,3 +133,15 @@ undefined:MaterialForHomologation a bamm:Aspect;
     bamm:name "MaterialNumberConstraint";
     bamm:preferredName "material number constraint"@en;
     bamm-c:maxValue "20"^^xsd:nonNegativeInteger.
+:MaterialForHomologation a bamm:Aspect;
+    bamm:name "MaterialForHomologation";
+    bamm:properties ([
+  bamm:property :itemNumber;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :share;
+  bamm:optional "true"^^xsd:boolean
+] :vda :name :standard :materialNumber);
+    bamm:operations ();
+    bamm:preferredName "material for homologation"@en;
+    bamm:description "Model to depict materials that describe and calculate the recycling quota for the homologation of a vehicle type."@en.
