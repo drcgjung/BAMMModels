@@ -17,6 +17,7 @@
     bamm:operations ();
     bamm:preferredName "PCF"@en;
     bamm:description "PCF is the abbreviation of Product Carbon Footprint. It indicates the climate impact of a product or component. The PCF aspect includes the relationship between a supplier and a customer with regards to a specific part or component and its according PCF value. No commonly used standards given yet."@en.
+
 :pcfSupplyRelation a bamm:Property;
     bamm:name "pcfSupplyRelation";
     bamm:preferredName "PCF Supply Relation"@en;
