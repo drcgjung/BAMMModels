@@ -2,25 +2,26 @@
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
 @prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
-@prefix : <urn:bamm:io.catenax.material_for_homologation:1.0.0#>.
 @prefix address-c: <urn:bamm:io.catenax.shared.address_characteristic:1.0.0#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix : <urn:bamm:io.catenax.material_for_homologation:1.0.0#>.
+
 
 :share a bamm:Property;
     bamm:name "share";
     bamm:preferredName "share"@en;
     bamm:description "Proportion of the material."@en;
     bamm:characteristic :ShareCharacteristic;
-    bamm:exampleValue "20,1"^^xsd:double.
+    bamm:exampleValue "20.1"^^xsd:double.
+
 :ShareCharacteristic a bamm-c:Measurement;
     bamm:name "ShareCharacteristic";
     bamm:preferredName "share characteristic"@en;
     bamm:dataType xsd:double;
-    bamm-c:unit :percent.
-:percent a unit:Unit;
-    bamm:name "percent";
-    bamm:preferredName "percent"@en;
-    unit:symbol "%";
-    unit:commonCode "P1".
+    bamm-c:unit unit:percent.
+
 :name a bamm:Property;
     bamm:name "name";
     bamm:preferredName "name"@en;
