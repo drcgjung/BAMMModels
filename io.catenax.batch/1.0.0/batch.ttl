@@ -141,7 +141,7 @@
 :customerPartId a bamm:Property;
     bamm:name "customerPartId";
     bamm:preferredName "Customer Part ID"@en;
-    bamm:description "Part ID as assigned by the manufacturer of the part. The Part ID identifies the part (as designed) in the customer`s dataspace. The Part ID does not reference a specific instance of a part and thus should not be confused with the serial number or batch number"@en;
+    bamm:description "Part ID as assigned by the manufacturer of the part. The Part ID identifies the part (as designed) in the customer`s dataspace. The Part ID does not reference a specific instance of a part and thus should not be confused with the serial number or batch number. Note: This property may only be populated in case there is a single customer for the batch."@en;
     bamm:characteristic :PartIdCharacteristic;
     bamm:exampleValue "PRT-12345".
 :nameAtManufacturer a bamm:Property;
@@ -177,47 +177,11 @@
     bamm:preferredName "Classification Characteristic"@en;
     bamm:description "A part type must be placed into one of the following classes: 'component', 'product', 'software', ‘assembly’, 'tool', or 'raw material'."@en;
     bamm:dataType xsd:string;
-    bamm:see <http://private.pdm-if.org/web/pdm-if/recommended-practices1>;
+    bamm:see <http://private.pdm-if.org/pdm-if/Frecommended-practices1>;
     bamm-c:values ("product" "raw material" "software" "assembly" "tool" "component").
 :Batch a bamm:Aspect;
     bamm:name "Batch";
     bamm:preferredName "Batch"@en;
     bamm:description "A batch is a quantity of (semi-) finished products or (raw) material product that have been produced under the same circumstances (e.g. same production location), as specified groups or amounts, within a certain time frame. Every batch can differ in the number or amount of products. Different batches can have varied specifications, e.g., different colors. A batch is identified via a Batch ID."@en;
-    bamm:properties (:catenaXId :localIdentifiers :manufacturingInformation :partTypeInformation [
-  bamm:property :size;
-  bamm:optional "true"^^xsd:boolean
-]);
-    bamm:operations ();
-    bamm:events ().
-:size a bamm:Property;
-    bamm:name "size";
-    bamm:preferredName "Size"@en;
-    bamm:description "Size of the batch, e.g. the number of objects inside the batch including a specific unit of measure."@en;
-    bamm:characteristic :SizeCharacteristic.
-:SizeCharacteristic a bamm-c:SingleEntity;
-    bamm:name "SizeCharacteristic";
-    bamm:preferredName "Size Characteristic"@en;
-    bamm:description "Describes the size of the batch"@en;
-    bamm:dataType :Quantity.
-:Quantity a bamm:Entity;
-    bamm:name "Quantity";
-    bamm:preferredName "Quantity"@en;
-    bamm:description "Comprises the size via a literal and the unit of measurement."@en;
-    bamm:properties (:literal :measurementUnit).
-:literal a bamm:Property;
-    bamm:name "literal";
-    bamm:preferredName "Literal"@en;
-    bamm:description "The literal related to the measurement unit"@en;
-    bamm:characteristic :Literal;
-    bamm:exampleValue "2.5"^^xsd:double.
-:measurementUnit a bamm:Property;
-    bamm:name "measurementUnit";
-    bamm:description "Unit of Measurement"@en;
-    bamm:see <https://openmanufacturingplatform.github.io/sds-bamm-aspect-meta-model/bamm-specification/snapshot/appendix/unitcatalog.html>;
-    bamm:characteristic bamm-c:UnitReference;
-    bamm:exampleValue "unit:litre"^^bamm:curie.
-:Literal a bamm:Characteristic;
-    bamm:name "Literal";
-    bamm:preferredName "Literal"@en;
-    bamm:description "The quantifiable value in reference to the measurementUnit"@en;
-    bamm:dataType xsd:double.
+    bamm:properties (:catenaXId :localIdentifiers :manufacturingInformation :partTypeInformation);
+    bamm:operations ().
