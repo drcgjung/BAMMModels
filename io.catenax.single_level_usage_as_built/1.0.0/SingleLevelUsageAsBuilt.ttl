@@ -23,12 +23,12 @@
     bamm:preferredName "UUID v4"@en;
     bamm:description "A version 4 UUID is a universally unique identifier that is generated using random 32 hexadecimal characters."@en;
     bamm:dataType xsd:string;
-    bamm:see <https%3A%2F%2Ftools.ietf.org%2Fhtml%2Frfc4122>.
+    bamm:see <https://datatracker.ietf.org/doc/html/rfc4122>.
 :UUIDv4RegularExpression a bamm-c:RegularExpressionConstraint;
     bamm:name "UUIDv4RegularExpression";
     bamm:preferredName "Catena-X Id Regular Expression"@en;
     bamm:description "The provided regular expression ensures that the UUID is composed of five groups of characters separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters (32 hexadecimal characters and 4 hyphens), optionally prefixed by \"urn:uuid:\" to make it an IRI."@en;
-    bamm:see <https%3A%2F%2Fdatatracker.ietf.org%2Fdoc%2Fhtml%2Frfc4122>;
+    bamm:see <https://datatracker.ietf.org/doc/html/rfc4122>;
     bamm:value "(^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$)|(^urn:uuid:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$)".
 :createdOn a bamm:Property;
     bamm:name "createdOn";
@@ -67,7 +67,7 @@
     bamm:description "Unit of Measurement for the quantity of serialized objects"@en;
     bamm:characteristic bamm-c:UnitReference;
     bamm:exampleValue "litre"^^bamm:curie;
-    bamm:see <https%3A%2F%2Fopenmanufacturingplatform.github.io%2Fsds-bamm-aspect-meta-model%2Fbamm-specification%2Fsnapshot%2Fappendix%2Funitcatalog.html>.
+    bamm:see <https://openmanufacturingplatform.github.io/sds-bamm-aspect-meta-model/bamm-specification/snapshot/appendix/unitcatalog.html>.
 :NumberOfObjects a bamm:Characteristic;
     bamm:name "NumberOfObjects";
     bamm:description "Quantifiable number of objects in reference to the measurementUnit"@en;
