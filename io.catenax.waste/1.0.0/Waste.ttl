@@ -7,6 +7,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 @prefix : <urn:bamm:io.openmanufacturing.digitaltwin:1.0.0#>.
 
+
 :Characteristic1 a bamm:Characteristic;
 :Waste a bamm:Aspect;
     bamm:name "Waste";
