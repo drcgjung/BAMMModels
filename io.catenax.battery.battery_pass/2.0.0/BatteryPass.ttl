@@ -8,6 +8,7 @@
 @prefix : <urn:bamm:io.catenax.battery.battery_pass:2.0.0#>.
 @prefix address-c: <urn:bamm:io.catenax.shared.address_characteristic:1.0.0#>.
 
+
 :BatteryPass a bamm:Aspect;
     bamm:name "BatteryPass";
     bamm:properties ([
