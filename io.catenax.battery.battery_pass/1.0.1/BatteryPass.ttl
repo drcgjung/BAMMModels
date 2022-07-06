@@ -5,50 +5,20 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
-@prefix : <urn:bamm:io.openmanufacturing.digitaltwin:1.0.0#>.
+@prefix : <urn:bamm:io.catenax.battery.battery_pass:1.0.1#>.
 @prefix address-c: <urn:bamm:io.catenax.shared.address_characteristic:1.0.0#>.
 
 :BatteryPass a bamm:Aspect;
     bamm:name "BatteryPass";
-    bamm:properties (:passportNumber :passportIssuer :hasEuConformationCertificate :brand :numberOfBatteryCells [
+    bamm:properties ([
   bamm:property :attachment;
   bamm:optional "true"^^xsd:boolean
-] :manufacturer :producer :electrochemicalProperties :physicalDimensions :stateOfBattery :batteryIdentification :manufacture :datePlacedOnMarket :cellChemistry :composition);
+] :manufacturer :producer :electrochemicalProperties :physicalDimensions :stateOfBattery :batteryIdentification :manufacture :datePlacedOnMarket :cellChemistry :composition :cO2FootprintTotal :temperaturerangeIdleState :warrantyPeriod :batteryCycleLife);
     bamm:operations ();
     bamm:preferredName "battery pass"@en;
     bamm:description "The battery pass describes information collected during the lifecycle of a battery"@en;
-    bamm:see <https%25252525252525253A%25252525252525252F%25252525252525252Feur-lex.europa.eu%25252525252525252Flegal-content%25252525252525252FEN%25252525252525252FTXT%25252525252525252F%25252525252525253Furi%25252525252525253DCELEX%2525252525252525253A52020PC0798>;
+    bamm:see <https%252525252525252525253A%252525252525252525252F%252525252525252525252Feur-lex.europa.eu%252525252525252525252Flegal-content%252525252525252525252FEN%252525252525252525252FTXT%252525252525252525252F%252525252525252525253Furi%252525252525252525253DCELEX%25252525252525252525253A52020PC0798>;
     bamm:events ().
-:passportNumber a bamm:Property;
-    bamm:name "passportNumber";
-    bamm:preferredName "passport number"@en;
-    bamm:description "The unique passport number of the battery"@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "A4711".
-:passportIssuer a bamm:Property;
-    bamm:name "passportIssuer";
-    bamm:preferredName "passport issuer"@en;
-    bamm:description "Name of the issuer of the battery passport"@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "Samsung".
-:hasEuConformationCertificate a bamm:Property;
-    bamm:name "hasEuConformationCertificate";
-    bamm:preferredName "has EU conformation certificate"@en;
-    bamm:description "Indicate whether there is an EU conformation certificate available for the battery. If the manufacturer has provided a certificate of conformity with European health, safety, and environmental protection standards then the battery is able to receive the CE mark."@en;
-    bamm:characteristic bamm-c:Boolean;
-    bamm:exampleValue "true"^^xsd:boolean.
-:brand a bamm:Property;
-    bamm:name "brand";
-    bamm:preferredName "brand"@en;
-    bamm:description "The name of the brand under which the producer intends to supply the batteries"@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "SmartWatch".
-:numberOfBatteryCells a bamm:Property;
-    bamm:name "numberOfBatteryCells";
-    bamm:preferredName "number of battery cells"@en;
-    bamm:description "Number of cell in a battery"@en;
-    bamm:characteristic :NumberOfBatteryCells;
-    bamm:exampleValue "200"^^xsd:integer.
 :attachment a bamm:Property;
     bamm:name "attachment";
     bamm:preferredName "attachment"@en;
@@ -82,18 +52,50 @@
 :batteryIdentification a bamm:Property;
     bamm:name "batteryIdentification";
     bamm:preferredName "battery identification"@en;
-    bamm:description "Information to identify the soecific battery."@en;
+    bamm:description "Information to identify a specific battery."@en;
     bamm:characteristic :BatteryIdentificationCharacteristic.
 :manufacture a bamm:Property;
     bamm:name "manufacture";
     bamm:preferredName "manufacture"@en;
+    bamm:description "Information about the manufacturing process of a battery"@en;
     bamm:characteristic :ManufactureCharacteristic.
-:NumberOfBatteryCells a bamm-c:Quantifiable;
-    bamm:name "NumberOfBatteryCells";
-    bamm:preferredName "number of battery cells"@en;
-    bamm:description "Number of cells in a battery"@en;
-    bamm:dataType xsd:integer;
-    bamm-c:unit unit:piece.
+:datePlacedOnMarket a bamm:Property;
+    bamm:name "datePlacedOnMarket";
+    bamm:preferredName "date placed on market"@en;
+    bamm:description "Date on which vehicle is produced i.e. when battery is put in the market or production date of the vehicle"@en;
+    bamm:characteristic bamm-c:Timestamp.
+:cellChemistry a bamm:Property;
+    bamm:name "cellChemistry";
+    bamm:preferredName "cell chemistry"@en;
+    bamm:description "Information about the cell chemistry of a battery cell"@en;
+    bamm:characteristic :CellChemistryCharacteristic.
+:composition a bamm:Property;
+    bamm:name "composition";
+    bamm:preferredName "composition"@en;
+    bamm:description "Information about the composition of a battery and the combination of materials"@en;
+    bamm:characteristic :CompositionCharacteristic.
+:cO2FootprintTotal a bamm:Property;
+    bamm:name "cO2FootprintTotal";
+    bamm:preferredName "co2 footprint total"@en;
+    bamm:description "The total carbon footprint of the battery, calculated as kg of carbon dioxide equivalent."@en;
+    bamm:characteristic :CO2FootprintTotalCharacteristic;
+    bamm:exampleValue "124"^^xsd:double.
+:temperaturerangeIdleState a bamm:Property;
+    bamm:name "temperaturerangeIdleState";
+    bamm:preferredName "warranty period"@en;
+    bamm:description "Commercial warranty period of the battery"@en;
+    bamm:characteristic :TemperatureRangeIdleStateCharacterisitic.
+:warrantyPeriod a bamm:Property;
+    bamm:name "warrantyPeriod";
+    bamm:preferredName "warranty period"@en;
+    bamm:description "Commercial warranty period of the battery"@en;
+    bamm:characteristic :WarrantyPeriodCharacterisitic;
+    bamm:exampleValue "60"^^xsd:positiveInteger.
+:batteryCycleLife a bamm:Property;
+    bamm:name "batteryCycleLife";
+    bamm:preferredName "battery cycle life"@en;
+    bamm:description "Property describing the cycle life of a battery"@en;
+    bamm:characteristic :BatteryCycleLifeCharacteristic.
 :AttachmentCharacteristic a bamm-c:Set;
     bamm:name "AttachmentCharacteristic";
     bamm:preferredName "attachment"@en;
@@ -112,35 +114,38 @@
 :ElectrochemicalPropertiesCharacteristic a bamm:Characteristic;
     bamm:name "ElectrochemicalPropertiesCharacteristic";
     bamm:preferredName "electrochemical properties characteristic"@en;
-    bamm:description "Characteristics to describe an electrochemical energy storage"@en;
+    bamm:description "Electrochemical characteristics to describe a battery"@en;
     bamm:dataType :ElectrochemicalPropertiesEntity.
 :PhysicalDimensionsCharacteristic a bamm:Characteristic;
     bamm:name "PhysicalDimensionsCharacteristic";
     bamm:preferredName "physical dimensions characteristic"@en;
+    bamm:description "Geometrical properties of the battery"@en;
     bamm:dataType :PhysicalDimensionsEntity.
 :StateOfBatteryCharacteristic a bamm:Characteristic;
     bamm:name "StateOfBatteryCharacteristic";
     bamm:preferredName "state of battery characteristic"@en;
+    bamm:description "The condition of the battery at the end of life i.e. when entering recycling scheme"@en;
     bamm:dataType :StateOfBatteryEntity.
 :BatteryIdentificationCharacteristic a bamm:Characteristic;
     bamm:name "BatteryIdentificationCharacteristic";
     bamm:preferredName "battery identification characteristic"@en;
+    bamm:description "Information to identify a specific battery."@en;
     bamm:dataType :BatteryIdentificationEntity.
 :ManufactureCharacteristic a bamm:Characteristic;
     bamm:name "ManufactureCharacteristic";
     bamm:preferredName "manufacture characteristic"@en;
+    bamm:description "Information about the manufacturing process of a battery"@en;
     bamm:dataType :ManufactureEntity.
-:dateOfManufacture a bamm:Property;
-    bamm:name "dateOfManufacture";
-    bamm:preferredName "date of manufacture"@en;
-    bamm:description "Manufacturing date of the battery"@en;
-    bamm:characteristic :DateOfManufactureCharacteristic;
-    bamm:exampleValue "2022-03-07"^^xsd:date.
-:DateOfManufactureCharacteristic a bamm:Characteristic;
-    bamm:name "DateOfManufactureCharacteristic";
-    bamm:preferredName "date of manufacture"@en;
-    bamm:description "The date of manufacturing"@en;
-    bamm:dataType xsd:date.
+:CellChemistryCharacteristic a bamm:Characteristic;
+    bamm:name "CellChemistryCharacteristic";
+    bamm:preferredName "cell chemistry"@en;
+    bamm:description "Information about the the cell chemistry of a battery cell"@en;
+    bamm:dataType :CellChemistryEntity.
+:CompositionCharacteristic a bamm:Characteristic;
+    bamm:name "CompositionCharacteristic";
+    bamm:preferredName "composition"@en;
+    bamm:description "Information about the composition of a battery and the combination of materials"@en;
+    bamm:dataType :CompositionEntity.
 :AttachmentEntity a bamm:Entity;
     bamm:name "AttachmentEntity";
     bamm:properties (:fileLocation :title);
@@ -158,21 +163,29 @@
     bamm:description "Entity encapsulating the details of a a producer of goods"@en.
 :ElectrochemicalPropertiesEntity a bamm:Entity;
     bamm:name "ElectrochemicalPropertiesEntity";
-    bamm:properties (:batteryPower :batteryEnergy :batteryVoltage :ratedCapacity :capacyFade :powerCapability :internalResistance);
+    bamm:properties (:batteryPower :maximumAllowedBatteryEnergy :batteryVoltage :ratedCapacity :capacyFade :internalResistance :capacityThresholdExhaustion :energyRoundtripEfficiency :energyRoundtripEfficiencyChange);
     bamm:preferredName "electrochemical properties entity"@en;
     bamm:description "Entity encapsulating the electrochemical details of a battery"@en.
 :PhysicalDimensionsEntity a bamm:Entity;
     bamm:name "PhysicalDimensionsEntity";
     bamm:properties (:length :width :height :diameter :weight);
-    bamm:preferredName "physical dimensions entity"@en.
+    bamm:preferredName "physical dimensions entity"@en;
+    bamm:description "Entity to bundle the characterisitics describing the physical dimensions"@en.
 :StateOfBatteryEntity a bamm:Entity;
     bamm:name "StateOfBatteryEntity";
     bamm:properties (:stateOfHealth :stateOfCharge :statusBattery);
-    bamm:preferredName "state of battery entity"@en.
+    bamm:preferredName "state of battery entity"@en;
+    bamm:description "Entity to bundle the characterisitics describing the state of a battery"@en.
 :BatteryIdentificationEntity a bamm:Entity;
     bamm:name "BatteryIdentificationEntity";
-    bamm:properties (:batteryType :batteryModel :batteryID);
-    bamm:preferredName "battery identification entity"@en.
+    bamm:properties (:batteryType :batteryModel :batteryIDDMCCode);
+    bamm:preferredName "battery identification entity"@en;
+    bamm:description "Entity to bundle the characterisitics describing the identification of a battery"@en.
+:ManufactureEntity a bamm:Entity;
+    bamm:name "ManufactureEntity";
+    bamm:properties (:dateOfManufacture :placeOfManufacture);
+    bamm:preferredName "manufacture entity"@en;
+    bamm:description "Entity to bundle the characterisitics describing the manufacture"@en.
 :fileLocation a bamm:Property;
     bamm:name "fileLocation";
     bamm:preferredName "file location"@en;
@@ -198,19 +211,12 @@
     bamm:name "address";
     bamm:preferredName "address"@en;
     bamm:description "An postal address"@en;
-    bamm:characteristic address-c:PostalAddress.
+    bamm:characteristic :PostalAddress.
 :batteryPower a bamm:Property;
     bamm:name "batteryPower";
-    bamm:preferredName "battery power"@en;
-    bamm:description "Power (W) of the battery."@en;
-    bamm:characteristic :BatteryPowerCharacteristic;
-    bamm:exampleValue "5"^^:BatteryPowerEntity.
-:batteryEnergy a bamm:Property;
-    bamm:name "batteryEnergy";
-    bamm:preferredName "battery energy"@en;
-    bamm:description "Energy (Wh) of the battery."@en;
-    bamm:characteristic :BatteryEnergyTrait;
-    bamm:exampleValue "250".
+    bamm:preferredName "attachment"@en;
+    bamm:description "Set of documents containing the description of battery components"@en;
+    bamm:characteristic :BatteryPowerCharacteristic.
 :batteryVoltage a bamm:Property;
     bamm:name "batteryVoltage";
     bamm:preferredName "battery voltage"@en;
@@ -219,51 +225,109 @@
 :ratedCapacity a bamm:Property;
     bamm:name "ratedCapacity";
     bamm:preferredName "rated capacity"@en;
-    bamm:characteristic :RatedCapacityCharacteristic.
+    bamm:description "The total number of ampere-hours (Ah) that can be withdrawn from a fully charged battery under specific conditions"@en;
+    bamm:characteristic :RatedCapacityCharacteristic;
+    bamm:exampleValue "210"^^xsd:decimal.
 :capacyFade a bamm:Property;
     bamm:name "capacyFade";
-    bamm:preferredName "capacy fade"@en;
-    bamm:characteristic :CapacyFadeCharacteristic.
+    bamm:preferredName "rated capacity"@en;
+    bamm:description "The total number of ampere-hours (Ah) that can be withdrawn from a fully charged battery under specific conditions"@en;
+    bamm:characteristic :CapacyFadeCharacteristic;
+    bamm:exampleValue "34"^^xsd:decimal.
+:internalResistance a bamm:Property;
+    bamm:name "internalResistance";
+    bamm:preferredName "internal resistance"@en;
+    bamm:description "Internal resistance in a battery cell or pack"@en;
+    bamm:characteristic :InternalResistanceCharacteristic.
+:capacityThresholdExhaustion a bamm:Property;
+    bamm:name "capacityThresholdExhaustion";
+    bamm:preferredName "internal resistance"@en;
+    bamm:description "Internal resistance in a battery cell or pack"@en;
+    bamm:characteristic :CapacityThresholdExhaustionCharacterisitic;
+    bamm:exampleValue "23"^^xsd:decimal.
+:energyRoundtripEfficiency a bamm:Property;
+    bamm:name "energyRoundtripEfficiency";
+    bamm:preferredName "energy roundtrip efficiency"@en;
+    bamm:description "Round-trip efficiency is the percentage of electricity put into storage"@en;
+    bamm:characteristic :EnergyRoundtripEfficiency;
+    bamm:exampleValue "56"^^xsd:decimal.
+:energyRoundtripEfficiencyChange a bamm:Property;
+    bamm:name "energyRoundtripEfficiencyChange";
+    bamm:preferredName "energy roundtrip efficiency"@en;
+    bamm:description "Round-trip efficiency is the percentage of electricity put into storage"@en;
+    bamm:characteristic :EnergyRoundtripEfficiencyChangeCharacterisitic;
+    bamm:exampleValue "67"^^xsd:decimal.
 :length a bamm:Property;
     bamm:name "length";
     bamm:preferredName "length"@en;
     bamm:description "Length of the item."@en;
     bamm:characteristic :MillimetreCharacteristic;
-    bamm:exampleValue "20000".
+    bamm:exampleValue "20000"^^xsd:integer.
 :width a bamm:Property;
     bamm:name "width";
     bamm:preferredName "width"@en;
     bamm:description "Width of the item."@en;
     bamm:characteristic :MillimetreCharacteristic;
-    bamm:exampleValue "1000".
+    bamm:exampleValue "1000"^^xsd:integer.
 :height a bamm:Property;
     bamm:name "height";
     bamm:preferredName "height"@en;
     bamm:description "Height of the item."@en;
     bamm:characteristic :MillimetreCharacteristic;
-    bamm:exampleValue "0.1".
+    bamm:exampleValue "0.1"^^xsd:integer.
 :diameter a bamm:Property;
     bamm:name "diameter";
     bamm:preferredName "diameter"@en;
     bamm:description "Diameter of the item."@en;
     bamm:characteristic :MillimetreCharacteristic;
-    bamm:exampleValue "0.03".
+    bamm:exampleValue "0.03"^^xsd:integer.
 :weight a bamm:Property;
     bamm:name "weight";
     bamm:preferredName "weight"@en;
     bamm:description "Weight of the item."@en;
     bamm:characteristic :KilogramCharacteristic;
-    bamm:exampleValue "100.7".
+    bamm:exampleValue "100.7"^^xsd:integer.
 :stateOfHealth a bamm:Property;
     bamm:name "stateOfHealth";
-    bamm:preferredName "battery type"@en;
-    bamm:description "B (R) - Evidence/Certificate of the health evaluation of a battery for its use following repurposing or remanufacturing operations"@en;
-    bamm:characteristic :StateOfHealthCharacteristic.
+    bamm:preferredName "width"@en;
+    bamm:description "Width of the item."@en;
+    bamm:characteristic :StateOfHealthCharacteristic;
+    bamm:exampleValue "12"^^xsd:integer.
 :stateOfCharge a bamm:Property;
     bamm:name "stateOfCharge";
     bamm:preferredName "state of charge"@en;
-    bamm:description "B - The value of the state of charge of the battery at the end of life i.e. when entering recycling scheme"@en;
-    bamm:characteristic :StateOfChargeCharacteristic.
+    bamm:description "The value of the state of charge of the battery at the end of life i.e. when entering recycling scheme"@en;
+    bamm:characteristic :StateOfChargeCharacteristic;
+    bamm:exampleValue "23"^^xsd:integer.
+:statusBattery a bamm:Property;
+    bamm:name "statusBattery";
+    bamm:preferredName "status battery"@en;
+    bamm:description "Status of the battery. Value list provided by the regulators"@en;
+    bamm:characteristic :Text;
+    bamm:exampleValue "first life/ waste/ repaired/ repurposed/ recycled".
+:batteryType a bamm:Property;
+    bamm:name "batteryType";
+    bamm:preferredName "battery type"@en;
+    bamm:description "Battery type as described by the contents of the battery e.g. cell chemistry"@en;
+    bamm:characteristic :Text;
+    bamm:exampleValue "LFP, Natrium, Li-Ion, NMC, NCA, Solid-State".
+:batteryModel a bamm:Property;
+    bamm:name "batteryModel";
+    bamm:preferredName "battery model"@en;
+    bamm:description "Battery type as described by the contents of the battery e.g. cell chemistry"@en;
+    bamm:characteristic :Text;
+    bamm:exampleValue "LFP, Natrium, Li-Ion, NMC, NCA, Solid-State".
+:dateOfManufacture a bamm:Property;
+    bamm:name "dateOfManufacture";
+    bamm:preferredName "date of manufacture"@en;
+    bamm:description "Manufacturing date of the battery"@en;
+    bamm:characteristic :Timestamp;
+    bamm:exampleValue "2022-03-07"^^xsd:date.
+:placeOfManufacture a bamm:Property;
+    bamm:name "placeOfManufacture";
+    bamm:preferredName "place of manufacture"@en;
+    bamm:description "Geographical details of the battery manufacture such as place, production site and country"@en;
+    bamm:characteristic :PostalAddress.
 :FileLocationCharacteristic a bamm:Characteristic;
     bamm:name "FileLocationCharacteristic";
     bamm:preferredName "file location"@en;
@@ -277,22 +341,53 @@
 :BatteryPowerCharacteristic a bamm:Characteristic;
     bamm:name "BatteryPowerCharacteristic";
     bamm:preferredName "battery power characteristic"@en;
+    bamm:description "Characterisitic to describe the power (W) properties of the batterie."@en;
     bamm:dataType :BatteryPowerEntity.
-:BatteryEnergyTrait a bamm-c:Trait;
-    bamm:name "BatteryEnergyTrait";
-    bamm-c:baseCharacteristic :BatteryEnergyCharacteristic;
-    bamm-c:constraint :MaximumAllowedBatteryEnergy.
 :BatteryVoltageCharacteristiC a bamm:Characteristic;
     bamm:name "BatteryVoltageCharacteristiC";
     bamm:preferredName "BatteryVoltageCharacteristic"@en;
+    bamm:description "Characterisitic to describe the voltage (V) properties of the batterie."@en;
     bamm:dataType :BatteryVoltageEntity.
 :RatedCapacityCharacteristic a bamm-c:Measurement;
     bamm:name "RatedCapacityCharacteristic";
     bamm:preferredName "rated capacity characteristic"@en;
+    bamm:description "The total number of ampere-hours (Ah) that can be withdrawn from a fully charged battery under specific conditions"@en;
+    bamm:dataType xsd:decimal;
     bamm-c:unit unit:ampere.
 :CapacyFadeCharacteristic a bamm-c:Measurement;
     bamm:name "CapacyFadeCharacteristic";
     bamm:preferredName "capacy fade characteristic"@en;
+    bamm:description "The decrease over time and upon usage in the amount of charge that a battery can deliver at the rated voltage, with respect to the original rated capacity declared by the manufacturer"@en;
+    bamm:dataType xsd:decimal;
+    bamm-c:unit unit:percent.
+:InternalResistanceCharacteristic a bamm:Characteristic;
+    bamm:name "InternalResistanceCharacteristic";
+    bamm:preferredName "internal resistance"@en;
+    bamm:description "Internal resistance in a battery cell or pack"@en;
+    bamm:dataType :InternalResistanceEntity.
+:MillimetreCharacteristic a bamm-c:Measurement;
+    bamm:name "MillimetreCharacteristic";
+    bamm:preferredName "millimetre characteristic"@en;
+    bamm:description "A measurment for the length/width/height of an item."@en;
+    bamm:dataType xsd:integer;
+    bamm-c:unit unit:millimetre.
+:KilogramCharacteristic a bamm-c:Measurement;
+    bamm:name "KilogramCharacteristic";
+    bamm:preferredName "kilogram characteristic"@en;
+    bamm:description "A measurement for the weight of an item."@en;
+    bamm:dataType xsd:integer;
+    bamm-c:unit unit:kilogram.
+:StateOfHealthCharacteristic a bamm-c:Measurement;
+    bamm:name "StateOfHealthCharacteristic";
+    bamm:preferredName "state of health characteristic"@en;
+    bamm:description "Evidence/Certificate of the health evaluation of a battery for its use following repurposing or remanufacturing operations"@en;
+    bamm:dataType xsd:integer;
+    bamm-c:unit unit:percent.
+:StateOfChargeCharacteristic a bamm-c:Measurement;
+    bamm:name "StateOfChargeCharacteristic";
+    bamm:preferredName "state of charge characteristic"@en;
+    bamm:description "The value of the state of charge of the battery at the end of life i.e. when entering recycling scheme"@en;
+    bamm:dataType xsd:integer;
     bamm-c:unit unit:percent.
 :ContactEntity a bamm:Entity;
     bamm:name "ContactEntity";
@@ -313,22 +408,14 @@
     bamm:description "Entity encapsulating the contact details"@en.
 :BatteryPowerEntity a bamm:Entity;
     bamm:name "BatteryPowerEntity";
-    bamm:properties (:batteryPowerProperty :batteryOriginalPower :batteryPowerFade :batteryPowerCapAt20Charge :batteryPowerCapAt80Charge);
-    bamm:preferredName "battery power entity"@en.
-:BatteryEnergyCharacteristic a bamm-c:Measurement;
-    bamm:name "BatteryEnergyCharacteristic";
-    bamm:preferredName "battery energy characteristic"@en;
-    bamm-c:unit unit:wattHour.
-:MaximumAllowedBatteryEnergy a bamm-c:RangeConstraint;
-    bamm:name "MaximumAllowedBatteryEnergy";
-    bamm:preferredName "maximum allowed battery energy"@en;
-    bamm:description "Second parameter used to calculate the ratio for the discharge rate as ratio between maximum allowed battery power (W) and battery energy (Wh)."@en;
-    bamm-c:lowerBoundDefinition bamm-c:GREATER_THAN;
-    bamm-c:upperBoundDefinition bamm-c:LESS_THAN.
+    bamm:properties (:maximumAllowedBatteryPower :originalPower :powerFade :powerCapAt20Charge :powerCapAt80Charge :originalPowerCapability :originalPowerCapabilityLimits);
+    bamm:preferredName "battery power entity"@en;
+    bamm:description "Entity to bundle the power properties of a battery."@en.
 :BatteryVoltageEntity a bamm:Entity;
     bamm:name "BatteryVoltageEntity";
-    bamm:properties (:batteryVoltageProperty :batteryVoltageNominal);
-    bamm:preferredName "battery voltage entity"@en.
+    bamm:properties (:minVoltage :nominalVoltage :maxVoltage);
+    bamm:preferredName "battery voltage entity"@en;
+    bamm:description "Entity to bundle the voltage properties of a battery."@en.
 :website a bamm:Property;
     bamm:name "website";
     bamm:preferredName "website"@en;
@@ -353,34 +440,6 @@
     bamm:description "Fax number with country and area code"@en;
     bamm:characteristic :PhoneNumberTrait;
     bamm:exampleValue "+49 89 0987654321".
-:batteryPowerProperty a bamm:Property;
-    bamm:name "batteryPowerProperty";
-    bamm:preferredName "battery power property"@en;
-    bamm:characteristic :BatteryPowerTrait.
-:batteryOriginalPower a bamm:Property;
-    bamm:name "batteryOriginalPower";
-    bamm:preferredName "battery original power"@en;
-    bamm:characteristic :BatteryOriginalPowerCharacteristic.
-:batteryPowerFade a bamm:Property;
-    bamm:name "batteryPowerFade";
-    bamm:preferredName "battery power fade"@en;
-    bamm:characteristic :BatteryPowerFadeCharacteristic.
-:batteryPowerCapAt20Charge a bamm:Property;
-    bamm:name "batteryPowerCapAt20Charge";
-    bamm:preferredName "battery power cap at 20 charge"@en;
-    bamm:characteristic :BatteryPowerCapAt20ChargeCharacteristic.
-:batteryPowerCapAt80Charge a bamm:Property;
-    bamm:name "batteryPowerCapAt80Charge";
-    bamm:preferredName "battery power cap at 80 charge"@en;
-    bamm:characteristic :BatteryPowerCapAt80Charge.
-:batteryVoltageProperty a bamm:Property;
-    bamm:name "batteryVoltageProperty";
-    bamm:preferredName "battery voltage property"@en;
-    bamm:characteristic :BatteryVoltageTrait.
-:batteryVoltageNominal a bamm:Property;
-    bamm:name "batteryVoltageNominal";
-    bamm:preferredName "battery voltage nominal"@en;
-    bamm:characteristic :BatteryVoltageNominal.
 :WebsiteCharacteristic a bamm:Characteristic;
     bamm:name "WebsiteCharacteristic";
     bamm:preferredName "website"@en;
@@ -395,334 +454,389 @@
     bamm:preferredName "PhoneNumberConstraint"@en;
     bamm:description "Constraint to allow only numbers, whitespaces and an optional leading '+' sign."@en;
     bamm:value "^[+]?[0-9 ]+$".
-:BatteryPowerTrait a bamm-c:Trait;
-    bamm:name "BatteryPowerTrait";
-    bamm-c:baseCharacteristic :BatteryPowerCharacterisitc;
-    bamm-c:constraint :MaximumAllowedBatteryPower.
-:BatteryOriginalPowerCharacteristic a bamm:Characteristic;
-    bamm:name "BatteryOriginalPowerCharacteristic";
-    bamm:preferredName "battery original power characteristic"@en.
-:BatteryPowerFadeCharacteristic a bamm:Characteristic;
-    bamm:name "BatteryPowerFadeCharacteristic";
-    bamm:preferredName "battery power fade characteristic"@en.
-:BatteryPowerCapAt20ChargeCharacteristic a bamm:Characteristic;
-    bamm:name "BatteryPowerCapAt20ChargeCharacteristic";
-    bamm:preferredName "battery power cap at 20 charge characteristic"@en.
-:BatteryPowerCapAt80Charge a bamm:Characteristic;
-    bamm:name "BatteryPowerCapAt80Charge";
-    bamm:preferredName "battery power cap at 80 charge characteristic"@en.
-:BatteryPowerCharacterisitc a bamm-c:Measurement;
-    bamm:name "BatteryPowerCharacterisitc";
-    bamm:preferredName "battery power characterisitc"@en;
-    bamm:dataType xsd:double;
-    bamm-c:unit unit:watt.
-:MaximumAllowedBatteryPower a bamm-c:RangeConstraint;
-    bamm:name "MaximumAllowedBatteryPower";
-    bamm:preferredName "maximum allowed batteryp ower"@en;
-    bamm:description "First parameter used to calculate the ratio for the discharge rate as ratio between maximum allowed battery power (W) and battery energy (Wh)."@en;
-    bamm-c:lowerBoundDefinition bamm-c:GREATER_THAN;
-    bamm-c:upperBoundDefinition bamm-c:LESS_THAN.
-:StateOfHealthCharacteristic a bamm-c:Measurement;
-    bamm:name "StateOfHealthCharacteristic";
-    bamm:preferredName "state of health characteristic"@en;
-    bamm:description "B (R) - Evidence/Certificate of the health evaluation of a battery for its use following repurposing or remanufacturing operations"@en;
-    bamm-c:unit unit:percent.
-:StateOfChargeCharacteristic a bamm-c:Measurement;
-    bamm:name "StateOfChargeCharacteristic";
-    bamm:preferredName "state of charge characteristic"@en;
-    bamm:description "B - The value of the state of charge of the battery at the end of life i.e. when entering recycling scheme"@en;
-    bamm-c:unit unit:percent.
-:BatteryVoltageTrait a bamm-c:Trait;
-    bamm:name "BatteryVoltageTrait";
-    bamm-c:baseCharacteristic :BatteryVoltageCharacteristic;
-    bamm-c:constraint :BatteryVoltageRangeConstrait.
-:BatteryVoltageNominal a bamm:Characteristic;
-    bamm:name "BatteryVoltageNominal";
-    bamm:preferredName "battery voltage nominal"@en.
-:BatteryVoltageCharacteristic a bamm:Characteristic;
-    bamm:name "BatteryVoltageCharacteristic";
-    bamm:preferredName "battery voltage characterisitic"@en.
-:BatteryVoltageRangeConstrait a bamm-c:RangeConstraint;
-    bamm:name "BatteryVoltageRangeConstrait";
-    bamm:preferredName "battery voltage range constrait"@en;
-    bamm-c:lowerBoundDefinition bamm-c:GREATER_THAN;
-    bamm-c:upperBoundDefinition bamm-c:LESS_THAN.
-:MillimetreCharacteristic a bamm-c:Measurement;
-    bamm:name "MillimetreCharacteristic";
-    bamm:preferredName "millimetre characteristic"@en;
-    bamm:description "A measurment for the length/width/height of an item."@en;
-    bamm-c:unit unit:millimetre.
-:KilogramCharacteristic a bamm-c:Measurement;
-    bamm:name "KilogramCharacteristic";
-    bamm:preferredName "kilogram characteristic"@en;
-    bamm:description "A measurement for the weight of an item."@en;
-    bamm-c:unit unit:kilogram.
-:batteryType a bamm:Property;
-    bamm:name "batteryType";
-    bamm:preferredName "battery type"@en;
-    bamm:characteristic :BatteryTypeCharacteristic.
-:batteryModel a bamm:Property;
-    bamm:name "batteryModel";
-    bamm:preferredName "battery model"@en;
-    bamm:characteristic :BatteryModelCharacterisitic.
-:batteryID a bamm:Property;
-    bamm:name "batteryID";
-    bamm:preferredName "battery ID"@en;
-    bamm:description "Battery ID DMC Code"@en;
-    bamm:characteristic :BatteryIDCharacterisitc.
-:BatteryTypeCharacteristic a bamm:Characteristic;
-    bamm:name "BatteryTypeCharacteristic";
-    bamm:preferredName "battery type characteristic"@en.
-:BatteryModelCharacterisitic a bamm:Characteristic;
-    bamm:name "BatteryModelCharacterisitic";
-    bamm:preferredName "battery model characterisitic"@en.
-:BatteryIDCharacterisitc a bamm:Characteristic;
-    bamm:name "BatteryIDCharacterisitc";
-    bamm:preferredName "battery ID characteristic"@en.
-:ManufactureEntity a bamm:Entity;
-    bamm:name "ManufactureEntity";
-    bamm:properties (:dateOfManufacture :placeOfManufacture);
-    bamm:preferredName "manufacture entity"@en.
-:placeOfManufacture a bamm:Property;
-    bamm:name "placeOfManufacture";
-    bamm:preferredName "place of manufacture"@en;
-    bamm:characteristic :PlaceOfManufactureCharacteristic.
-:PlaceOfManufactureCharacteristic a bamm:Characteristic;
-    bamm:name "PlaceOfManufactureCharacteristic";
-    bamm:preferredName "place of manufacture characteristic"@en;
-    bamm:description "The place of manufacturing"@en;
-    bamm:dataType xsd:string.
-:datePlacedOnMarket a bamm:Property;
-    bamm:name "datePlacedOnMarket";
-    bamm:preferredName "date placed on market"@en;
-    bamm:description "Date on which vehicle is produced i.e. when battery is put in the market or production date of the vehicle"@en;
-    bamm:characteristic bamm-c:Timestamp.
-:cellChemistry a bamm:Property;
-    bamm:name "cellChemistry";
-    bamm:preferredName "cell chemistry"@en;
-    bamm:characteristic :CellChemistryCharacteristic.
-:CellChemistryCharacteristic a bamm:Characteristic;
-    bamm:name "CellChemistryCharacteristic";
-    bamm:preferredName "cell chemistry"@en;
-    bamm:dataType :CellChemistryEntity.
 :CellChemistryEntity a bamm:Entity;
     bamm:name "CellChemistryEntity";
     bamm:properties (:cathodeActiveMaterials :cathodeCompositionOther :anodeActiveMaterials :anodeCompositionOther :electrolyteComposition :recyclateContentActiveMaterials);
-    bamm:preferredName "cell chemistry"@en.
+    bamm:preferredName "cell chemistry"@en;
+    bamm:description "Entity to bundle the characterisitics describing a battery's cell chemistry"@en.
 :cathodeActiveMaterials a bamm:Property;
     bamm:name "cathodeActiveMaterials";
     bamm:preferredName "cathode active materials"@en;
     bamm:description "The total amount of valuable materials contained in CAM material: Nickel, Cobalt, Lithium."@en;
-    bamm:characteristic :CathodeActiveMaterialsCharacteristic;
+    bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Cobalt: 1g; Lithium: 2,5g; Nickel: 1,2g".
-:CathodeActiveMaterialsCharacteristic a bamm-c:List;
-    bamm:name "CathodeActiveMaterialsCharacteristic";
-    bamm:preferredName "cathode active materials"@en;
-    bamm:description "The total amount of valuable materials contained in CAM material: Nickel, Cobalt, Lithium."@en;
-    bamm:dataType xsd:string.
 :cathodeCompositionOther a bamm:Property;
     bamm:name "cathodeCompositionOther";
     bamm:preferredName "cathode composition other"@en;
     bamm:description "The composition or materials contained in the Cathode"@en;
-    bamm:characteristic :CathodeCompositionOtherCharacteristic;
+    bamm:characteristic :Text;
     bamm:exampleValue "Chem A x,xx %; Chem B x,xx %".
-:CathodeCompositionOtherCharacteristic a bamm-c:List;
-    bamm:name "CathodeCompositionOtherCharacteristic";
-    bamm:preferredName "cathode composition other characteristic"@en;
-    bamm:dataType xsd:string.
 :anodeActiveMaterials a bamm:Property;
     bamm:name "anodeActiveMaterials";
     bamm:preferredName "anode active materials"@en;
     bamm:description "The total amount of valuable materials contained in Anode: graphite"@en;
-    bamm:characteristic :AnodeActiveMaterialsCharacterisitc;
+    bamm:characteristic :Text;
     bamm:exampleValue "Graphite: 2,5g".
-:AnodeActiveMaterialsCharacterisitc a bamm-c:List;
-    bamm:name "AnodeActiveMaterialsCharacterisitc";
-    bamm:preferredName "anode active materials"@en;
-    bamm:dataType xsd:string.
 :anodeCompositionOther a bamm:Property;
     bamm:name "anodeCompositionOther";
     bamm:preferredName "anode composition other"@en;
     bamm:description "The composition or materials contained in the Anode"@en;
-    bamm:characteristic :AnodeCompositionOtherCharacteristic;
+    bamm:characteristic :Text;
     bamm:exampleValue "Silicium: x,xx %".
 :electrolyteComposition a bamm:Property;
     bamm:name "electrolyteComposition";
     bamm:preferredName "electrolyte composition"@en;
     bamm:description "List of materials contained in the Electrolyte"@en;
-    bamm:characteristic :ElectrolyteCompositionCharacteristic;
+    bamm:characteristic :Text;
     bamm:exampleValue "sulfide compound 3,1% NASICON-type phosphate glass ceramics 10,5%".
-:AnodeCompositionOtherCharacteristic a bamm-c:List;
-    bamm:name "AnodeCompositionOtherCharacteristic";
-    bamm:preferredName "anode composition other"@en;
-    bamm:dataType xsd:string.
-:ElectrolyteCompositionCharacteristic a bamm-c:List;
-    bamm:name "ElectrolyteCompositionCharacteristic";
-    bamm:preferredName "electrolyte composition"@en;
-    bamm:dataType xsd:string.
+:recyclateContentActiveMaterials a bamm:Property;
+    bamm:name "recyclateContentActiveMaterials";
+    bamm:preferredName "recyclate content active materials"@en;
+    bamm:description "List of recovered Recyclate Content in Active Material Recycled. The following materials have to be reported on as a minimium: Cobalt, Lithium, Nickel, Lead"@en;
+    bamm:characteristic :Text;
+    bamm:exampleValue "Cobalt - 10,9% Lithium - 8,6% Nickel - 5,1% Lead - 8,5".
 :components a bamm:Property;
     bamm:name "components";
     bamm:preferredName "components"@en;
+    bamm:description "Properties of the batterie's comoponents."@en;
     bamm:characteristic :ComponentsCharacteristic.
 :ComponentsCharacteristic a bamm:Characteristic;
     bamm:name "ComponentsCharacteristic";
     bamm:preferredName "components"@en;
+    bamm:description "Characteristics of the batterie's comoponents."@en;
     bamm:dataType :CompomenentsEntity.
 :CompomenentsEntity a bamm:Entity;
     bamm:name "CompomenentsEntity";
     bamm:properties (:componentsSuppliers :componentsPartNumbers);
-    bamm:preferredName "components"@en.
+    bamm:preferredName "components"@en;
+    bamm:description "Entity to bundle the components properties of a battery."@en.
 :componentsSuppliers a bamm:Property;
     bamm:name "componentsSuppliers";
     bamm:preferredName "components suppliers"@en;
     bamm:description "Contact details of the suppliers of replacement parts / spare parts. Available fields should be like:\nName - Street - Number - ZIP Code - City - State - Country - Phone - Fax - Email - Website"@en;
     bamm:characteristic :ComponentsSuppliersCharacteristic;
     bamm:exampleValue "Address / phone number / email"^^:ComponentsSuppliersEntity.
-:ComponentsSuppliersCharacteristic a bamm:Characteristic;
-    bamm:name "ComponentsSuppliersCharacteristic";
-    bamm:preferredName "components suppliers"@en;
-    bamm:dataType :ComponentsSuppliersEntity.
-:ComponentsSuppliersEntity a bamm:Entity;
-    bamm:name "ComponentsSuppliersEntity";
-    bamm:properties (:address :contact);
-    bamm:preferredName "components suppliers"@en.
 :componentsPartNumbers a bamm:Property;
     bamm:name "componentsPartNumbers";
     bamm:preferredName "components part numbers"@en;
     bamm:description "The unique serial numbers of the different parts of a battery"@en;
-    bamm:characteristic :ComponentsPartNumbers;
+    bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Case xxxxxxx/xx; Controller xxxxxxx/xx".
-:ComponentsPartNumbers a bamm-c:List;
-    bamm:name "ComponentsPartNumbers";
-    bamm:preferredName "components part numbers"@en;
-    bamm:description "The unique serial numbers of the different parts of a battery"@en;
-    bamm:dataType xsd:string.
+:ComponentsSuppliersCharacteristic a bamm:Characteristic;
+    bamm:name "ComponentsSuppliersCharacteristic";
+    bamm:preferredName "components suppliers"@en;
+    bamm:description "Contact details of the suppliers of replacement parts / spare parts."@en;
+    bamm:dataType :ComponentsSuppliersEntity.
+:ComponentsSuppliersEntity a bamm:Entity;
+    bamm:name "ComponentsSuppliersEntity";
+    bamm:properties (:address :contact);
+    bamm:preferredName "components suppliers"@en;
+    bamm:description "Entity encapsulating the details of a components supplier"@en.
 :originalPowerCapability a bamm:Property;
     bamm:name "originalPowerCapability";
     bamm:preferredName "original power capability"@en;
     bamm:description "Performance ability of the high voltage battery i.e. the amount of energy that a battery is capable to provide over a given period of time"@en;
     bamm:characteristic :KilowattCharacteristic;
-    bamm:exampleValue "xxx,x kW (percentage only for during use)"^^xsd:decimal.
+    bamm:exampleValue "123"^^xsd:decimal.
 :KilowattCharacteristic a bamm-c:Measurement;
     bamm:name "KilowattCharacteristic";
     bamm:preferredName "kilowatt characteristic"@en;
     bamm:description "A measurement for the power of the battery."@en;
     bamm:dataType xsd:decimal;
     bamm-c:unit unit:kilowatt.
-:powerCapability a bamm:Property;
-    bamm:name "powerCapability";
-    bamm:preferredName "power capability"@en;
-    bamm:description "Performance ability of the high voltage battery i.e. the amount of energy that a battery is capable to provide over a given period of time"@en;
-    bamm:characteristic :PowerCapabilityCharacterisitic;
-    bamm:exampleValue "66 kW (% for during use)"^^:PowerCapabilityEntity.
-:PowerCapabilityCharacterisitic a bamm:Characteristic;
-    bamm:name "PowerCapabilityCharacterisitic";
-    bamm:preferredName "power capability"@en;
-    bamm:dataType :PowerCapabilityEntity.
-:PowerCapabilityEntity a bamm:Entity;
-    bamm:name "PowerCapabilityEntity";
-    bamm:properties (:originalPowerCapability :originalPowerCapabilityLimits);
-    bamm:preferredName "power capability entity"@en.
 :originalPowerCapabilityLimits a bamm:Property;
     bamm:name "originalPowerCapabilityLimits";
     bamm:preferredName "original power capability limits"@en;
     bamm:description "Performance ability of the high voltage battery according to limits i.e. how much power it can provide within given limits"@en;
     bamm:characteristic :KilowattCharacteristic;
-    bamm:exampleValue "xxx,x kW (percentage only for during use)"^^xsd:decimal.
-:statusBattery a bamm:Property;
-    bamm:name "statusBattery";
-    bamm:preferredName "status battery"@en;
-    bamm:description "Status of the battery. Value list provided by the regulators"@en;
-    bamm:characteristic :StatusBatteryCharacteristic;
-    bamm:exampleValue "first life/ waste/ repaired/ repurposed/ recycled".
-:StatusBatteryCharacteristic a bamm-c:List;
-    bamm:name "StatusBatteryCharacteristic";
-    bamm:preferredName "status battery"@en;
-    bamm:dataType xsd:string.
-:composition a bamm:Property;
-    bamm:name "composition";
-    bamm:preferredName "composition"@en;
-    bamm:characteristic :CompositionCharacteristic.
-:CompositionCharacteristic a bamm:Characteristic;
-    bamm:name "CompositionCharacteristic";
-    bamm:preferredName "composition"@en;
-    bamm:dataType :CompositionEntity.
+    bamm:exampleValue "123"^^xsd:decimal.
 :CompositionEntity a bamm:Entity;
     bamm:name "CompositionEntity";
     bamm:properties (:components :compositionOfBattery :criticalRawMaterials);
-    bamm:preferredName "composition"@en.
+    bamm:preferredName "composition"@en;
+    bamm:description "Entity to bundle the characterisitics describing a battery's composition"@en.
 :compositionOfBattery a bamm:Property;
     bamm:name "compositionOfBattery";
     bamm:preferredName "composition of battery"@en;
     bamm:description "Full composition of battery"@en;
     bamm:characteristic :CompositionOfBatteryCharacteristic;
     bamm:exampleValue "sulfide compound 8% NASICON-type phosphate glass ceramics 10,5% Polymer ABC 3,5%".
-:CompositionOfBatteryCharacteristic a bamm:Characteristic;
-    bamm:name "CompositionOfBatteryCharacteristic";
-    bamm:preferredName "composition of battery"@en;
-    bamm:dataType xsd:string.
 :criticalRawMaterials a bamm:Property;
     bamm:name "criticalRawMaterials";
     bamm:preferredName "critical raw materials"@en;
     bamm:description "List of critical raw materials (CRM) as specified by EU in a battery."@en;
     bamm:characteristic :CriticalRawMaterialsCharacteristic.
+:CompositionOfBatteryCharacteristic a bamm-c:List;
+    bamm:name "CompositionOfBatteryCharacteristic";
+    bamm:preferredName "composition of battery"@en;
+    bamm:dataType xsd:string.
 :CriticalRawMaterialsCharacteristic a bamm:Characteristic;
     bamm:name "CriticalRawMaterialsCharacteristic";
     bamm:preferredName "critical raw materials"@en;
     bamm:dataType xsd:string.
-:recyclateContentActiveMaterials a bamm:Property;
-    bamm:name "recyclateContentActiveMaterials";
-    bamm:preferredName "recyclate content active materials"@en;
-    bamm:description "List of recovered Recyclate Content in Active Material Recycled. The following materials have to be reported on as a minimium: Cobalt, Lithium, Nickel, Lead"@en;
-    bamm:characteristic :RecyclateContentActiveMaterialsCharacteristic;
-    bamm:exampleValue "Cobalt - 10,9% Lithium - 8,6% Nickel - 5,1% Lead - 8,5".
-:RecyclateContentActiveMaterialsCharacteristic a bamm-c:List;
-    bamm:name "RecyclateContentActiveMaterialsCharacteristic";
-    bamm:preferredName "recyclate content active materials"@en;
-    bamm:description "List of recovered Recyclate Content in Active Material Recycled. The following materials have to be reported on as a minimium: Cobalt, Lithium, Nickel, Lead"@en;
-    bamm:dataType xsd:string.
-:internalResistance a bamm:Property;
-    bamm:name "internalResistance";
-    bamm:preferredName "internal resistance"@en;
-    bamm:characteristic :InternalResistanceCharacteristic.
-:InternalResistanceCharacteristic a bamm:Characteristic;
-    bamm:name "InternalResistanceCharacteristic";
-    bamm:preferredName "internal resistance"@en;
-    bamm:dataType :InternalResistanceEntity.
 :InternalResistanceEntity a bamm:Entity;
     bamm:name "InternalResistanceEntity";
     bamm:properties (:cellInternalResistance :packInternalResistance :packInternalResistanceIncrease);
-    bamm:preferredName "internal resistance"@en.
+    bamm:preferredName "internal resistance"@en;
+    bamm:description "Entity to bundle the internal resistance properties of a battery."@en.
 :cellInternalResistance a bamm:Property;
     bamm:name "cellInternalResistance";
     bamm:preferredName "cell internal resistance"@en;
     bamm:description "The resistance offered by the cell in the flow of the current"@en;
     bamm:characteristic :MilliohmCharacteristic;
-    bamm:exampleValue "x,xxx mOhm"^^xsd:decimal.
-:MilliohmCharacteristic a bamm-c:Measurement;
-    bamm:name "MilliohmCharacteristic";
-    bamm:preferredName "milliohm characteristic"@en;
-    bamm:dataType xsd:decimal;
-    bamm-c:unit unit:milliohm.
+    bamm:exampleValue "45"^^xsd:decimal.
 :packInternalResistance a bamm:Property;
     bamm:name "packInternalResistance";
     bamm:preferredName "pack internal resistance"@en;
     bamm:description "Total internal resistance in a battery pack"@en;
     bamm:characteristic :OhmCharacterisitic;
-    bamm:exampleValue "xxx,xx Ohm"^^xsd:decimal.
-:OhmCharacterisitic a bamm-c:Measurement;
-    bamm:name "OhmCharacterisitic";
-    bamm:preferredName "ohm characterisitic"@en;
-    bamm:dataType xsd:decimal;
-    bamm-c:unit unit:ohm.
+    bamm:exampleValue "67"^^xsd:decimal.
 :packInternalResistanceIncrease a bamm:Property;
     bamm:name "packInternalResistanceIncrease";
     bamm:preferredName "pack internal resistanceIncrease"@en;
     bamm:description "Increase in internal resistance of a battery pack over a period of time"@en;
     bamm:characteristic :PercentCharacteristic;
-    bamm:exampleValue "x,xxxx % increase in Ohm"^^xsd:decimal.
+    bamm:exampleValue "23"^^xsd:decimal.
+:MilliohmCharacteristic a bamm-c:Measurement;
+    bamm:name "MilliohmCharacteristic";
+    bamm:preferredName "milliohm characteristic"@en;
+    bamm:dataType xsd:decimal;
+    bamm-c:unit unit:milliohm.
+:OhmCharacterisitic a bamm-c:Measurement;
+    bamm:name "OhmCharacterisitic";
+    bamm:preferredName "ohm characterisitic"@en;
+    bamm:dataType xsd:decimal;
+    bamm-c:unit unit:ohm.
 :PercentCharacteristic a bamm-c:Measurement;
     bamm:name "PercentCharacteristic";
     bamm:preferredName "percent characteristic"@en;
     bamm:dataType xsd:decimal;
     bamm-c:unit unit:percent.
+:CO2FootprintTotalCharacteristic a bamm-c:Measurement;
+    bamm:name "CO2FootprintTotalCharacteristic";
+    bamm:preferredName "co2 footprint total"@en;
+    bamm:description "The total carbon footprint of the battery, calculated as kg of carbon dioxide equivalent."@en;
+    bamm:dataType xsd:double;
+    bamm-c:unit unit:kilogram.
+:TemperatureRangeIdleStateCharacterisitic a bamm:Characteristic;
+    bamm:name "TemperatureRangeIdleStateCharacterisitic";
+    bamm:preferredName "temperature range idle state"@en;
+    bamm:description "The range of temperature the battery can withstand when not in use."@en;
+    bamm:dataType :TemperatureRangeIdleStateEntity.
+:TemperatureRangeIdleStateEntity a bamm:Entity;
+    bamm:name "TemperatureRangeIdleStateEntity";
+    bamm:properties (:temperatureRangeIdleStateLowerLimit :temperatureRangeIdleStateUpperLimit);
+    bamm:preferredName "temperature range idle state"@en;
+    bamm:description "Entity to bundle the characterisitics describing the battery's temperature range"@en.
+:temperatureRangeIdleStateLowerLimit a bamm:Property;
+    bamm:name "temperatureRangeIdleStateLowerLimit";
+    bamm:preferredName "temperature range idle state lower limit"@en;
+    bamm:description "The lower range of temperature the battery can withstand when not in use"@en;
+    bamm:characteristic :TemperatureRangeIdleStateLowerLimit;
+    bamm:exampleValue "67"^^xsd:decimal.
+:temperatureRangeIdleStateUpperLimit a bamm:Property;
+    bamm:name "temperatureRangeIdleStateUpperLimit";
+    bamm:preferredName "cathode composition other"@en;
+    bamm:description "The composition or materials contained in the Cathode"@en;
+    bamm:characteristic :TemperatureRangeIdleStateUpperLimit;
+    bamm:exampleValue "67"^^xsd:decimal.
+:TemperatureRangeIdleStateLowerLimit a bamm-c:Measurement;
+    bamm:name "TemperatureRangeIdleStateLowerLimit";
+    bamm:preferredName "temperature range idle state lower limit"@en;
+    bamm:dataType xsd:decimal;
+    bamm-c:unit unit:degreeCelsius.
+:TemperatureRangeIdleStateUpperLimit a bamm-c:Measurement;
+    bamm:name "TemperatureRangeIdleStateUpperLimit";
+    bamm:preferredName "temperature range idle state upper limit"@en;
+    bamm:dataType xsd:decimal;
+    bamm-c:unit unit:degreeCelsius.
+:CapacityThresholdExhaustionCharacterisitic a bamm-c:Measurement;
+    bamm:name "CapacityThresholdExhaustionCharacterisitic";
+    bamm:preferredName "capacity threshold exhaustion characterisitic"@en;
+    bamm:description "Capacity Threshold for Exhaustion as percentage value."@en;
+    bamm:dataType xsd:decimal;
+    bamm-c:unit unit:percent.
+:WarrantyPeriodCharacterisitic a bamm-c:Measurement;
+    bamm:name "WarrantyPeriodCharacterisitic";
+    bamm:preferredName "warranty period"@en;
+    bamm:dataType xsd:positiveInteger;
+    bamm-c:unit unit:month.
+:EnergyRoundtripEfficiency a bamm-c:Measurement;
+    bamm:name "EnergyRoundtripEfficiency";
+    bamm:preferredName "energy roundtrip efficiency"@en;
+    bamm:description "Round-trip efficiency is the percentage of electricity put into storage"@en;
+    bamm:dataType xsd:decimal;
+    bamm-c:unit unit:percent.
+:EnergyRoundtripEfficiencyChangeCharacterisitic a bamm-c:Measurement;
+    bamm:name "EnergyRoundtripEfficiencyChangeCharacterisitic";
+    bamm:preferredName "energy roundtrip efficiency change"@en;
+    bamm:description "Round-trip efficiency is the percentage of electricity put into storage after 50% of life of the battery"@en;
+    bamm:dataType xsd:decimal;
+    bamm-c:unit unit:percent.
+:BatteryCycleLifeCharacteristic a bamm:Characteristic;
+    bamm:name "BatteryCycleLifeCharacteristic";
+    bamm:preferredName "battery cycle life"@en;
+    bamm:description "Characterisitic describing the cycle life of a battery"@en;
+    bamm:dataType :BatteryCycleLifeEntity.
+:BatteryCycleLifeEntity a bamm:Entity;
+    bamm:name "BatteryCycleLifeEntity";
+    bamm:properties (:cycleLifeTestCRate :cycleLifeTestDepthOfDischarge :expectedLifetime);
+    bamm:preferredName "battery cycle life entity"@en;
+    bamm:description "Entity to bundle the characterisitics describing the cycle life of a battery"@en.
+:cycleLifeTestCRate a bamm:Property;
+    bamm:name "cycleLifeTestCRate";
+    bamm:preferredName "cycle life test c-rate"@en;
+    bamm:description "C-rate of Relevant Cycle-life Test"@en;
+    bamm:characteristic :CycleLifeTestCRateCharacterisitc;
+    bamm:exampleValue "45"^^xsd:decimal.
+:cycleLifeTestDepthOfDischarge a bamm:Property;
+    bamm:name "cycleLifeTestDepthOfDischarge";
+    bamm:preferredName "cycle-life test depth of discharge"@en;
+    bamm:description "Depth of discharge in the cycle-life test"@en;
+    bamm:characteristic :CycleLifeTestDepthOfDischargeCharacteristic;
+    bamm:exampleValue "23"^^xsd:decimal.
+:expectedLifetime a bamm:Property;
+    bamm:name "expectedLifetime";
+    bamm:preferredName "expected lifetime"@en;
+    bamm:description "Expected battery lifetime expressed in cycles, and reference test used "@en;
+    bamm:characteristic :ExpectedLifetime;
+    bamm:exampleValue "456"^^xsd:decimal.
+:CycleLifeTestCRateCharacterisitc a bamm-c:Measurement;
+    bamm:name "CycleLifeTestCRateCharacterisitc";
+    bamm:preferredName "cycle life test c-rate"@en;
+    bamm:description "C-rate of Relevant Cycle-life Test"@en;
+    bamm:dataType xsd:decimal;
+    bamm-c:unit unit:piece.
+:CycleLifeTestDepthOfDischargeCharacteristic a bamm-c:Measurement;
+    bamm:name "CycleLifeTestDepthOfDischargeCharacteristic";
+    bamm:preferredName "cycle life test depth of discharge"@en;
+    bamm:dataType xsd:decimal;
+    bamm-c:unit unit:percent.
+:ExpectedLifetime a bamm-c:Measurement;
+    bamm:name "ExpectedLifetime";
+    bamm:preferredName "expected lifetime"@en;
+    bamm:description "Expected battery lifetime expressed in cycles, and reference test used."@en;
+    bamm:dataType xsd:decimal;
+    bamm-c:unit unit:piece.
+:originalPower a bamm:Property;
+    bamm:name "originalPower";
+    bamm:preferredName "battery original power"@en;
+    bamm:description "Original power capability in Watts"@en;
+    bamm:characteristic :OriginalPowerCharacteristic;
+    bamm:exampleValue "7.56"^^xsd:float.
+:powerFade a bamm:Property;
+    bamm:name "powerFade";
+    bamm:preferredName "power fade"@en;
+    bamm:description "The decrease over time and upon usage in the amount of power that a battery can deliver at the rated voltage"@en;
+    bamm:characteristic :PowerFadeCharacteristic;
+    bamm:exampleValue "23"^^xsd:float.
+:PowerFadeCharacteristic a bamm-c:Measurement;
+    bamm:name "PowerFadeCharacteristic";
+    bamm:preferredName "power fade characteristic"@en;
+    bamm:description "The decrease over time and upon usage in the amount of power that a battery can deliver at the rated voltage"@en;
+    bamm:dataType xsd:float;
+    bamm-c:unit unit:percent.
+:powerCapAt20Charge a bamm:Property;
+    bamm:name "powerCapAt20Charge";
+    bamm:preferredName "power cap at 20 charge"@en;
+    bamm:description "Power (capability) at 20% state of charge. Description from the Regulation"@en;
+    bamm:characteristic :PowerCapAt20ChargeCharacteristic;
+    bamm:exampleValue "6,43"^^xsd:integer.
+:powerCapAt80Charge a bamm:Property;
+    bamm:name "powerCapAt80Charge";
+    bamm:preferredName "power cap at 80 charge"@en;
+    bamm:description "Power (capability) at 80% state of charge. Description from the Regulation"@en;
+    bamm:characteristic :PowerCapAt80Charge;
+    bamm:exampleValue "47"^^xsd:integer.
+:OriginalPowerCharacteristic a bamm-c:Measurement;
+    bamm:name "OriginalPowerCharacteristic";
+    bamm:preferredName "original power characteristic"@en;
+    bamm:description "Original power capability in Watts"@en;
+    bamm:dataType xsd:float;
+    bamm-c:unit unit:watt.
+:PowerCapAt20ChargeCharacteristic a bamm-c:Measurement;
+    bamm:name "PowerCapAt20ChargeCharacteristic";
+    bamm:preferredName "power cap at 20 charge characteristic"@en;
+    bamm:description "Power (capability) at 20% state of charge. Description from the Regulation"@en;
+    bamm:dataType xsd:integer;
+    bamm-c:unit unit:watt.
+:PowerCapAt80Charge a bamm-c:Measurement;
+    bamm:name "PowerCapAt80Charge";
+    bamm:preferredName "power cap at 80 charge characteristic"@en;
+    bamm:description "Power (capability) at 80% state of charge. Description from the Regulation"@en;
+    bamm:dataType xsd:integer;
+    bamm-c:unit unit:watt.
+:Text a bamm:Characteristic;
+    bamm:name "Text";
+    bamm:description "Describes a Property which contains plain text. This is intended exclusively for human readable strings, not for identifiers, measurement values, etc."@en;
+    bamm:dataType xsd:string.
+:batteryIDDMCCode a bamm:Property;
+    bamm:name "batteryIDDMCCode";
+    bamm:preferredName "battery ID DMC code"@en;
+    bamm:description "Digital Matrix Code (DMC) of the battery i.e. serial number allowing for unequivocal identification of a battery"@en;
+    bamm:characteristic :Text;
+    bamm:exampleValue "X123456789012X12345678901234567".
+:VoltCharacteristic a bamm-c:Measurement;
+    bamm:name "VoltCharacteristic";
+    bamm:preferredName "volt characteristic"@en;
+    bamm:description "Value of the nominal voltage the battery is rated for"@en;
+    bamm:dataType xsd:float;
+    bamm-c:unit unit:volt.
+:maximumAllowedBatteryPower a bamm:Property;
+    bamm:name "maximumAllowedBatteryPower";
+    bamm:preferredName "maximum allowed battery power"@en;
+    bamm:description "Maximum allowed battery power (W) of the battery."@en;
+    bamm:characteristic :MaximumAllowedBatteryPowerCharacteristic;
+    bamm:exampleValue "55000"^^xsd:float.
+:maximumAllowedBatteryEnergy a bamm:Property;
+    bamm:name "maximumAllowedBatteryEnergy";
+    bamm:preferredName "maximum allowed battery energy"@en;
+    bamm:description "Maximum allowed battery energy (Wh) of the battery."@en;
+    bamm:characteristic :MaximumAllowedBatteryEnergyCharacteristic;
+    bamm:exampleValue "90000"^^xsd:float.
+:MaximumAllowedBatteryEnergyCharacteristic a bamm-c:Measurement;
+    bamm:name "MaximumAllowedBatteryEnergyCharacteristic";
+    bamm:preferredName "maximum allowed battery energy"@en;
+    bamm:description "Characterisitic to describe the energy (Wh) properties of the batterie."@en;
+    bamm:dataType xsd:float;
+    bamm-c:unit unit:wattHour.
+:minVoltage a bamm:Property;
+    bamm:name "minVoltage";
+    bamm:preferredName "min voltage"@en;
+    bamm:description "Value of the minimal voltage the battery is rated for"@en;
+    bamm:characteristic :MinVoltageCharacteristic;
+    bamm:exampleValue "2"^^xsd:float.
+:maxVoltage a bamm:Property;
+    bamm:name "maxVoltage";
+    bamm:preferredName "max voltage"@en;
+    bamm:description "Value of the maximum voltage the battery is rated for"@en;
+    bamm:characteristic :MaxVoltage;
+    bamm:exampleValue "6"^^xsd:float.
+:MinVoltageCharacteristic a bamm-c:Measurement;
+    bamm:name "MinVoltageCharacteristic";
+    bamm:preferredName "min voltage characterisitic"@en;
+    bamm:description "Value of the minimal voltage the battery is rated for"@en;
+    bamm:dataType xsd:float;
+    bamm-c:unit unit:volt.
+:MaxVoltage a bamm-c:Measurement;
+    bamm:name "MaxVoltage";
+    bamm:preferredName "max voltage"@en;
+    bamm:description "Value of the maximum voltage the battery is rated for"@en;
+    bamm:dataType xsd:float;
+    bamm-c:unit unit:volt.
+:MaximumAllowedBatteryPowerCharacteristic a bamm-c:Measurement;
+    bamm:name "MaximumAllowedBatteryPowerCharacteristic";
+    bamm:preferredName "maximum allowed battery power"@en;
+    bamm:description "Maximum allowed battery power (W) of the battery."@en;
+    bamm:dataType xsd:float;
+    bamm-c:unit unit:watt.
+:Timestamp a bamm:Characteristic;
+    bamm:name "Timestamp";
+    bamm:description "Describes a Property which contains the date and time with an optional timezone."@en;
+    bamm:dataType xsd:date.
+:nominalVoltage a bamm:Property;
+    bamm:name "nominalVoltage";
+    bamm:preferredName "nominal voltage"@en;
+    bamm:description "Value of the nominal voltage the battery is rated for"@en;
+    bamm:characteristic :VoltCharacteristic;
+    bamm:exampleValue "4,3"^^xsd:float.
