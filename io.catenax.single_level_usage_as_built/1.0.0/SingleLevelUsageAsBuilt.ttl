@@ -97,6 +97,7 @@
   bamm:property :lastModifiedOn;
   bamm:optional "true"^^xsd:boolean
 ] :parentCatenaXId).
+
 :parentCatenaXId a bamm:Property;
     bamm:name "parentCatenaXId";
     bamm:preferredName "Catena-X Parent Identifier"@en;
