@@ -8,7 +8,6 @@
 @prefix : <urn:bamm:io.catenax.battery.battery_pass:2.0.0#>.
 @prefix address-c: <urn:bamm:io.catenax.shared.address_characteristic:1.0.0#>.
 
-
 :BatteryPass a bamm:Aspect;
     bamm:name "BatteryPass";
     bamm:properties ([
@@ -154,12 +153,12 @@
     bamm:description "Entity encapsulating the details of a attachment for the battery"@en.
 :ManufacturerEntity a bamm:Entity;
     bamm:name "ManufacturerEntity";
-    bamm:properties (:name :contact :address);
+    bamm:properties (:name :contact);    
     bamm:preferredName "manufacturer"@en;
     bamm:description "Entity encapsulating the details of a manufacturer of goods"@en.
 :ProducerEntity a bamm:Entity;
     bamm:name "ProducerEntity";
-    bamm:properties (:name :contact :address);
+    bamm:properties (:name :contact);
     bamm:preferredName "producer"@en;
     bamm:description "Entity encapsulating the details of a a producer of goods"@en.
 :ElectrochemicalPropertiesEntity a bamm:Entity;
@@ -212,7 +211,7 @@
     bamm:name "address";
     bamm:preferredName "address"@en;
     bamm:description "An postal address"@en;
-    bamm:characteristic :PostalAddress.
+    bamm:characteristic address-c:PostalAddress.
 :batteryPower a bamm:Property;
     bamm:name "batteryPower";
     bamm:preferredName "attachment"@en;
@@ -275,19 +274,19 @@
     bamm:preferredName "height"@en;
     bamm:description "Height of the item."@en;
     bamm:characteristic :MillimetreCharacteristic;
-    bamm:exampleValue "0.1"^^xsd:integer.
+    bamm:exampleValue "1"^^xsd:integer.
 :diameter a bamm:Property;
     bamm:name "diameter";
     bamm:preferredName "diameter"@en;
     bamm:description "Diameter of the item."@en;
     bamm:characteristic :MillimetreCharacteristic;
-    bamm:exampleValue "0.03"^^xsd:integer.
+    bamm:exampleValue "3"^^xsd:integer.
 :weight a bamm:Property;
     bamm:name "weight";
     bamm:preferredName "weight"@en;
     bamm:description "Weight of the item."@en;
     bamm:characteristic :KilogramCharacteristic;
-    bamm:exampleValue "100.7"^^xsd:integer.
+    bamm:exampleValue "1007"^^xsd:integer.
 :stateOfHealth a bamm:Property;
     bamm:name "stateOfHealth";
     bamm:preferredName "width"@en;
@@ -328,7 +327,7 @@
     bamm:name "placeOfManufacture";
     bamm:preferredName "place of manufacture"@en;
     bamm:description "Geographical details of the battery manufacture such as place, production site and country"@en;
-    bamm:characteristic :PostalAddress.
+    bamm:characteristic address-c:PostalAddress.
 :FileLocationCharacteristic a bamm:Characteristic;
     bamm:name "FileLocationCharacteristic";
     bamm:preferredName "file location"@en;
@@ -730,7 +729,7 @@
     bamm:preferredName "power fade"@en;
     bamm:description "The decrease over time and upon usage in the amount of power that a battery can deliver at the rated voltage"@en;
     bamm:characteristic :PowerFadeCharacteristic;
-    bamm:exampleValue "23"^^xsd:float.
+    bamm:exampleValue "23.0"^^xsd:float.
 :PowerFadeCharacteristic a bamm-c:Measurement;
     bamm:name "PowerFadeCharacteristic";
     bamm:preferredName "power fade characteristic"@en;
@@ -742,7 +741,7 @@
     bamm:preferredName "power cap at 20 charge"@en;
     bamm:description "Power (capability) at 20% state of charge. Description from the Regulation"@en;
     bamm:characteristic :PowerCapAt20ChargeCharacteristic;
-    bamm:exampleValue "6,43"^^xsd:integer.
+    bamm:exampleValue "643"^^xsd:integer.
 :powerCapAt80Charge a bamm:Property;
     bamm:name "powerCapAt80Charge";
     bamm:preferredName "power cap at 80 charge"@en;
@@ -788,7 +787,7 @@
     bamm:preferredName "maximum allowed battery power"@en;
     bamm:description "Maximum allowed battery power (W) of the battery."@en;
     bamm:characteristic :MaximumAllowedBatteryPowerCharacteristic;
-    bamm:exampleValue "55000"^^xsd:float.
+    bamm:exampleValue "55000.0"^^xsd:float.
 :maximumAllowedBatteryEnergy a bamm:Property;
     bamm:name "maximumAllowedBatteryEnergy";
     bamm:preferredName "maximum allowed battery energy"@en;
@@ -840,4 +839,4 @@
     bamm:preferredName "nominal voltage"@en;
     bamm:description "Value of the nominal voltage the battery is rated for"@en;
     bamm:characteristic :VoltCharacteristic;
-    bamm:exampleValue "4,3"^^xsd:float.
+    bamm:exampleValue "4.3"^^xsd:float.
