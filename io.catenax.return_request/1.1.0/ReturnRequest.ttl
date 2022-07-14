@@ -57,16 +57,16 @@
 :quantity a bamm:Property;
     bamm:name "quantity";
     bamm:preferredName "quantity"@en;
-    bamm:description "The desired quantity of the on the offered product in SKU."@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "50".
+    bamm:description "The desired quantity of the on the marketplace offered product in SKU."@en;
+    bamm:characteristic :QuantityCharacteristic;
+    bamm:exampleValue "50"^^xsd:float.
 :unitOfMeasure a bamm:Property;
     bamm:name "unitOfMeasure";
     bamm:preferredName "unit of measure"@en;
     bamm:description "The unit of measure (related to quantity)."@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "kg";
-    bamm:see <https%253A%252F%252Fresources.gs1us.org%252FGS1-US-Data-Hub-Help-Center%252FArtMID%252F3451%252FArticleID%252F116%252FUnit-of-Measure-Codes>.
+    bamm:see <https://resources.gs1us.org/GS1-US-Data-Hub-Help-Center/ArtMID/3451/ArticleID/116/Unit-of-Measure-Codes>.
 :validityPeriod a bamm:Property;
     bamm:name "validityPeriod";
     bamm:preferredName "validity period"@en;
@@ -75,6 +75,7 @@
 :priceRange a bamm:Property;
     bamm:name "priceRange";
     bamm:preferredName "price range"@en;
+    bamm:description "Range of monetary values."@en;
     bamm:characteristic :PriceRangeCharacteristic.
 :isRecall a bamm:Property;
     bamm:name "isRecall";
@@ -100,6 +101,7 @@
 :PriceRangeCharacteristic a bamm:Characteristic;
     bamm:name "PriceRangeCharacteristic";
     bamm:preferredName "price range characteristic"@en;
+    bamm:description "Characteristic to define range of monetary values."@en;
     bamm:dataType :PriceRangeEntity.
 :TimePeriodEntity a bamm:Entity;
     bamm:name "TimePeriodEntity";
@@ -108,6 +110,7 @@
     bamm:description "Entity defining a range of dates to define a time period."@en.
 :PriceRangeEntity a bamm:Entity;
     bamm:name "PriceRangeEntity";
+    bamm:description "Entity encapsulating the min and max value of the range of monetary values."@en;
     bamm:properties ([
   bamm:property :minPrice;
   bamm:optional "true"^^xsd:boolean
