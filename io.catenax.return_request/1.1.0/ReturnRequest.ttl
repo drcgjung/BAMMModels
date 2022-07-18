@@ -60,6 +60,11 @@
     bamm:description "The desired quantity of the on the marketplace offered product in SKU."@en;
     bamm:characteristic :QuantityCharacteristic;
     bamm:exampleValue "50"^^xsd:float.
+:QuantityCharacteristic a bamm:Characteristic;
+    bamm:name "QuantityCharacteristic";
+    bamm:preferredName "quantity characteristic"@en;
+    bamm:description "Characteristic describing the quantity"@en;
+    bamm:dataType xsd:float.
 :unitOfMeasure a bamm:Property;
     bamm:name "unitOfMeasure";
     bamm:preferredName "unit of measure"@en;
@@ -115,8 +120,7 @@
   bamm:property :minPrice;
   bamm:optional "true"^^xsd:boolean
 ] :maxPrice);
-    bamm:preferredName "price range entity"@en;
-    bamm:description "Entity defining a range of values for monetary ranges."@en.
+    bamm:preferredName "price range entity"@en.
 :startDate a bamm:Property;
     bamm:name "startDate";
     bamm:preferredName "start date"@en;
