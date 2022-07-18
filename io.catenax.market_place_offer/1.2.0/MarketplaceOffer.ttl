@@ -447,3 +447,4 @@
     bamm:preferredName "quantity characteristic"@en;
     bamm:description "The available quantity of the on the offered product in SKU."@en;
     bamm:dataType xsd:float.
+    
