@@ -18,7 +18,7 @@
     bamm:operations ();
     bamm:preferredName "battery pass"@en;
     bamm:description "The battery pass describes information collected during the lifecycle of a battery"@en;
-    bamm:see <https%253A%252F%252Feur-lex.europa.eu%252Flegal-content%252FEN%252FTXT%252F%253Furi%253DCELEX%253A52020PC0798>;
+    bamm:see <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52020PC0798>;
     bamm:events ().
 :attachment a bamm:Property;
     bamm:name "attachment";
@@ -352,25 +352,25 @@
     bamm:name "statusBattery";
     bamm:preferredName "status battery"@en;
     bamm:description "Status of the battery. Value list provided by the regulators"@en;
-    bamm:characteristic :Text;
+    bamm:characteristic bamm-c:Text;
     bamm:exampleValue "first life/ waste/ repaired/ repurposed/ recycled".
 :batteryType a bamm:Property;
     bamm:name "batteryType";
     bamm:preferredName "battery type"@en;
     bamm:description "Battery type as described by the contents of the battery e.g. cell chemistry"@en;
-    bamm:characteristic :Text;
+    bamm:characteristic bamm-c:Text;
     bamm:exampleValue "LFP, Natrium, Li-Ion, NMC, NCA, Solid-State".
 :batteryModel a bamm:Property;
     bamm:name "batteryModel";
     bamm:preferredName "battery model"@en;
     bamm:description "Battery type as described by the contents of the battery e.g. cell chemistry"@en;
-    bamm:characteristic :Text;
+    bamm:characteristic bamm-c:Text;
     bamm:exampleValue "LFP, Natrium, Li-Ion, NMC, NCA, Solid-State".
 :batteryIDDMCCode a bamm:Property;
     bamm:name "batteryIDDMCCode";
     bamm:preferredName "battery ID DMC code"@en;
     bamm:description "Digital Matrix Code (DMC) of the battery i.e. serial number allowing for unequivocal identification of a battery"@en;
-    bamm:characteristic :Text;
+    bamm:characteristic bamm-c:Text;
     bamm:exampleValue "X123456789012X12345678901234567".
 :dateOfManufacture a bamm:Property;
     bamm:name "dateOfManufacture";
@@ -387,37 +387,37 @@
     bamm:name "cathodeActiveMaterials";
     bamm:preferredName "cathode active materials"@en;
     bamm:description "The total amount of valuable materials contained in CAM material: Nickel, Cobalt, Lithium."@en;
-    bamm:characteristic :Text;
+    bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Cobalt: 1g; Lithium: 2,5g; Nickel: 1,2g".
 :cathodeCompositionOther a bamm:Property;
     bamm:name "cathodeCompositionOther";
     bamm:preferredName "cathode composition other"@en;
     bamm:description "The composition or materials contained in the Cathode"@en;
-    bamm:characteristic :Text;
+    bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Chem A x,xx %; Chem B x,xx %".
 :anodeActiveMaterials a bamm:Property;
     bamm:name "anodeActiveMaterials";
     bamm:preferredName "anode active materials"@en;
     bamm:description "The total amount of valuable materials contained in Anode: graphite"@en;
-    bamm:characteristic :Text;
+    bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Graphite: 2,5g".
 :anodeCompositionOther a bamm:Property;
     bamm:name "anodeCompositionOther";
     bamm:preferredName "anode composition other"@en;
     bamm:description "The composition or materials contained in the Anode"@en;
-    bamm:characteristic :Text;
+    bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Silicium: x,xx %".
 :electrolyteComposition a bamm:Property;
     bamm:name "electrolyteComposition";
     bamm:preferredName "electrolyte composition"@en;
     bamm:description "List of materials contained in the Electrolyte"@en;
-    bamm:characteristic :Text;
+    bamm:characteristic bamm-c:Text;
     bamm:exampleValue "sulfide compound 3,1% NASICON-type phosphate glass ceramics 10,5%".
 :recyclateContentActiveMaterials a bamm:Property;
     bamm:name "recyclateContentActiveMaterials";
     bamm:preferredName "recyclate content active materials"@en;
     bamm:description "List of recovered Recyclate Content in Active Material Recycled. The following materials have to be reported on as a minimium: Cobalt, Lithium, Nickel, Lead"@en;
-    bamm:characteristic :Text;
+    bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Cobalt - 10,9% Lithium - 8,6% Nickel - 5,1% Lead - 8,5".
 :components a bamm:Property;
     bamm:name "components";
@@ -527,10 +527,6 @@
     bamm:description "The value of the state of charge of the battery at the end of life i.e. when entering recycling scheme"@en;
     bamm:dataType xsd:integer;
     bamm-c:unit unit:percent.
-:Text a bamm:Characteristic;
-    bamm:name "Text";
-    bamm:description "Describes a Property which contains plain text. This is intended exclusively for human readable strings, not for identifiers, measurement values, etc."@en;
-    bamm:dataType xsd:string.
 :ComponentsCharacteristic a bamm:Characteristic;
     bamm:name "ComponentsCharacteristic";
     bamm:preferredName "components"@en;
@@ -690,7 +686,7 @@
     bamm:name "componentsPartNumbers";
     bamm:preferredName "components part numbers"@en;
     bamm:description "The unique serial numbers of the different parts of a battery"@en;
-    bamm:characteristic :Text;
+    bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Case xxxxxxx/xx; Controller xxxxxxx/xx".
 :PowerCharacteristic a bamm-c:Measurement;
     bamm:name "PowerCharacteristic";
@@ -755,8 +751,3 @@
     bamm:description "The decrease over time and upon usage in the amount of charge that a battery can deliver at the rated voltage, with respect to the original rated capacity declared by the manufacturer"@en;
     bamm:dataType xsd:decimal;
     bamm-c:unit unit:percent.
-address-c:thoroughfareValue bamm:characteristic :Text.
-address-c:thoroughfareNumber bamm:characteristic :Text.
-address-c:localityValue bamm:characteristic :Text.
-address-c:premiseValue bamm:characteristic :Text.
-address-c:postalDeliveryPointValue bamm:characteristic :Text.
