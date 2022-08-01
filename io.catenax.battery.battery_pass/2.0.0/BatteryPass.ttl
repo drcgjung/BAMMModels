@@ -122,6 +122,11 @@
     bamm:preferredName "battery identification characteristic"@en;
     bamm:description "Information to identify a specific battery."@en;
     bamm:dataType :BatteryIdentificationEntity.
+:ManufacturingCharacteristic a bamm:Characteristic;
+    bamm:name "ManufacturingCharacteristic";
+    bamm:preferredName "manufacturing characteristic"@en;
+    bamm:description "Information about the manufacturing process of a battery"@en;
+    bamm:dataType :ManufacturingEntity.
 :Datestamp a bamm:Characteristic;
     bamm:name "Datestamp";
     bamm:preferredName "datestamp"@en;
@@ -161,7 +166,31 @@
     bamm:dataType :BatteryCycleLifeEntity.
 :DocumentEntity a bamm:Entity;
     bamm:name "DocumentEntity";
-    bamm:properties (:packagingInstructions :transportationInstructions :vehicleDismantlingProcedure :batteryDismantlingProcedure :safetyMeasures :testReportsResults :declarationOfConformity :responsibleSourcing);
+    bamm:properties ([
+  bamm:property :packagingInstructions;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :transportationInstructions;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :vehicleDismantlingProcedure;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :batteryDismantlingProcedure;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :safetyMeasures;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :testReportsResults;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :declarationOfConformity;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :responsibleSourcing;
+  bamm:optional "true"^^xsd:boolean
+]);
     bamm:preferredName "document entity"@en;
     bamm:description "Entity encapsulating the details of a attachment for the battery"@en.
 :ManufacturerEntity a bamm:Entity;
@@ -375,43 +404,37 @@
     bamm:description "Digital Matrix Code (DMC) of the battery i.e. serial number allowing for unequivocal identification of a battery is describing a regulatory requirement."@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "X123456789012X12345678901234567".
-:cathodeCompositionOther a bamm:Property;
-    bamm:name "cathodeCompositionOther";
-    bamm:preferredName "cathode composition other"@en;
-    bamm:description "The composition or materials contained in the Cathode is describing a regulatory requirement."@en;
-    bamm:characteristic :CathodeCompositionOtherCharacteristic;
-    bamm:exampleValue "Chem A x,xx %; Chem B x,xx %"^^:MaterialNameAndWeightAndPercentageMassFractionEntity.
+:cathodeActiveMaterials a bamm:Property;
+    bamm:name "cathodeActiveMaterials";
+    bamm:preferredName "cathode active materials"@en;
+    bamm:description "The total amount of valuable materials contained in CAM material: Nickel, Cobalt, Lithium."@en;
+    bamm:characteristic :CathodeActiveMaterialsCharacterisitic.
+:recyclateContentActiveMaterials a bamm:Property;
+    bamm:name "recyclateContentActiveMaterials";
+    bamm:preferredName "recyclate content active materials"@en;
+    bamm:description "List of recovered Recyclate Content in Active Material Recycled is describing a regulatory requirement. The following materials have to be reported on as a minimium: Cobalt, Lithium, Nickel, Lead"@en;
+    bamm:characteristic :RecyclateContentActiveMaterialsCharacteristic.
 :anodeActiveMaterials a bamm:Property;
     bamm:name "anodeActiveMaterials";
     bamm:preferredName "anode active materials"@en;
     bamm:description "The total amount of valuable materials contained in Anode: graphite"@en;
-    bamm:characteristic :AnodeActiveMaterialsCharacteristic;
-    bamm:exampleValue "Graphite: 2,5g".
+    bamm:characteristic :AnodeActiveMaterialsCharacteristic.
+:cathodeCompositionOther a bamm:Property;
+    bamm:name "cathodeCompositionOther";
+    bamm:preferredName "cathode composition other"@en;
+    bamm:description "The composition or materials contained in the Cathode is describing a regulatory requirement."@en;
+    bamm:characteristic :CathodeCompositionOtherCharacteristic.
 :anodeCompositionOther a bamm:Property;
     bamm:name "anodeCompositionOther";
     bamm:preferredName "anode composition other"@en;
     bamm:description "The composition or materials contained in the anode is describing a regulatory requirement."@en;
-    bamm:characteristic :AnodeCompositionOtherCharacteristic;
-    bamm:exampleValue "Silicium: x,xx %"^^:MaterialNameAndWeightAndPercentageMassFractionEntity.
+    bamm:characteristic :AnodeCompositionOtherCharacteristic.
 :electrolyteComposition a bamm:Property;
     bamm:name "electrolyteComposition";
     bamm:preferredName "electrolyte composition"@en;
     bamm:description "List of materials contained in the electrolyte is describing a regulatory requirement."@en;
     bamm:see <https%3A%2F%2Feur-lex.europa.eu%2Flegal-content%2FEN%2FTXT%2F%3Furi%3DCELEX%3A52020DC0474>;
-    bamm:characteristic :ElectrolyteCompositionCharacteristic;
-    bamm:exampleValue "sulfide compound 3,1% NASICON-type phosphate glass ceramics 10,5%"^^:MaterialNameAndWeightAndPercentageMassFractionEntity.
-:recyclateContentActiveMaterials a bamm:Property;
-    bamm:name "recyclateContentActiveMaterials";
-    bamm:preferredName "recyclate content active materials"@en;
-    bamm:description "List of recovered Recyclate Content in Active Material Recycled is describing a regulatory requirement. The following materials have to be reported on as a minimium: Cobalt, Lithium, Nickel, Lead"@en;
-    bamm:characteristic :RecyclateContentActiveMaterialsCharacteristic;
-    bamm:exampleValue "Cobalt - 10,9% Lithium - 8,6% Nickel - 5,1% Lead - 8,5"^^:MaterialNameAndWeightAndPercentageMassFractionEntity.
-:cathodeActiveMaterials a bamm:Property;
-    bamm:name "cathodeActiveMaterials";
-    bamm:preferredName "cathode active materials"@en;
-    bamm:description "The total amount of valuable materials contained in CAM material: Nickel, Cobalt, Lithium."@en;
-    bamm:characteristic :CathodeActiveMaterialsCharacterisitic;
-    bamm:exampleValue "Cobalt: 1g; Lithium: 2,5g; Nickel: 1,2g".
+    bamm:characteristic :ElectrolyteCompositionCharacteristic.
 :components a bamm:Property;
     bamm:name "components";
     bamm:preferredName "components"@en;
@@ -421,8 +444,7 @@
     bamm:name "compositionOfBattery";
     bamm:preferredName "composition of battery"@en;
     bamm:description "Full composition of battery is describing a business requirement."@en;
-    bamm:characteristic :CompositionOfBatteryCharacteristic;
-    bamm:exampleValue "sulfide compound 8% NASICON-type phosphate glass ceramics 10,5% Polymer ABC 3,5%"^^:MaterialNameAndWeightAndPercentageMassFractionEntity.
+    bamm:characteristic :CompositionOfBatteryCharacteristic.
 :criticalRawMaterials a bamm:Property;
     bamm:name "criticalRawMaterials";
     bamm:preferredName "critical raw materials"@en;
@@ -458,6 +480,11 @@
     bamm:description "Expected battery lifetime expressed in cycles, and reference test used is describing a regulatory requirement."@en;
     bamm:characteristic :ExpectedLifetime;
     bamm:exampleValue "456"^^xsd:decimal.
+:AttachmentLinkCharacteristic a bamm-c:Set;
+    bamm:name "AttachmentLinkCharacteristic";
+    bamm:preferredName "attachment"@en;
+    bamm:description "Links the referenced attachments"@en;
+    bamm:dataType :AttachmentEntity.
 :BatteryPowerCharacteristic a bamm:Characteristic;
     bamm:name "BatteryPowerCharacteristic";
     bamm:preferredName "battery power characteristic"@en;
@@ -525,16 +552,43 @@
     bamm:description "The value of the state of charge of the battery at the end of life i.e. when entering recycling scheme is describing a business requirement."@en;
     bamm:dataType xsd:integer;
     bamm-c:unit unit:percent.
-:CathodeActiveMaterialsCharacterisitic a bamm:Characteristic;
+:CathodeCompositionOtherCharacteristic a bamm-c:Set;
+    bamm:name "CathodeCompositionOtherCharacteristic";
+    bamm:preferredName "cathode composition other"@en;
+    bamm:description "The composition or materials contained in the Cathode is describing a regulatory requirement."@en;
+    bamm:dataType :MaterialNameAndWeightAndPercentageMassFractionEntity.
+:AnodeActiveMaterialsCharacteristic a bamm-c:Set;
+    bamm:name "AnodeActiveMaterialsCharacteristic";
+    bamm:preferredName "anode active materials"@en;
+    bamm:description "The total amount of valuable materials contained in Anode: graphite"@en;
+    bamm:dataType :MaterialNameAndWeightAndPercentageMassFractionEntity.
+:AnodeCompositionOtherCharacteristic a bamm-c:Set;
+    bamm:name "AnodeCompositionOtherCharacteristic";
+    bamm:preferredName "anode composition other"@en;
+    bamm:description "The composition or materials contained in the anode is describing a regulatory requirement."@en;
+    bamm:dataType :MaterialNameAndWeightAndPercentageMassFractionEntity.
+:ElectrolyteCompositionCharacteristic a bamm-c:Set;
+    bamm:name "ElectrolyteCompositionCharacteristic";
+    bamm:preferredName "electrolyte composition"@en;
+    bamm:description "List of materials contained in the electrolyte is describing a regulatory requirement."@en;
+    bamm:see <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52020DC0474>;
+    bamm:dataType :MaterialNameAndWeightAndPercentageMassFractionEntity.
+:RecyclateContentActiveMaterialsCharacteristic a bamm-c:Set;
+    bamm:name "RecyclateContentActiveMaterialsCharacteristic";
+    bamm:preferredName "recyclate content active materials"@en;
+    bamm:description "List of recovered Recyclate Content in Active Material Recycled is describing a regulatory requirement. The following materials have to be reported on as a minimium: Cobalt, Lithium, Nickel, Lead"@en;
+    bamm:dataType :MaterialNameAndWeightAndPercentageMassFractionEntity.
+:CathodeActiveMaterialsCharacterisitic a bamm-c:Set;
     bamm:name "CathodeActiveMaterialsCharacterisitic";
     bamm:preferredName "cathode active materials"@en;
-    bamm:description "The total amount of valuable materials contained in CAM material: Nickel, Cobalt, Lithium."@en.
+    bamm:description "The total amount of valuable materials contained in CAM material: Nickel, Cobalt, Lithium."@en;
+    bamm:dataType :MaterialNameAndWeightAndPercentageMassFractionEntity.
 :ComponentsCharacteristic a bamm:Characteristic;
     bamm:name "ComponentsCharacteristic";
     bamm:preferredName "components"@en;
     bamm:description "Characteristics of the batterie's comoponents."@en;
     bamm:dataType :CompomenentsEntity.
-:CompositionOfBatteryCharacteristic a bamm:Characteristic;
+:CompositionOfBatteryCharacteristic a bamm-c:Set;
     bamm:name "CompositionOfBatteryCharacteristic";
     bamm:preferredName "composition of battery"@en;
     bamm:description "Full composition of battery is describing a business requirement."@en;
@@ -567,11 +621,6 @@
     bamm:description "Expected battery lifetime expressed in cycles, and reference test used is describing a regulatory requirement."@en;
     bamm:dataType xsd:decimal;
     bamm-c:unit unit:piece.
-:AttachmentLinkCharacteristic a bamm-c:Set;
-    bamm:name "AttachmentLinkCharacteristic";
-    bamm:preferredName "attachment"@en;
-    bamm:description "Links the referenced attachments"@en;
-    bamm:dataType :AttachmentEntity.
 :BatteryPowerEntity a bamm:Entity;
     bamm:name "BatteryPowerEntity";
     bamm:properties (:maximumAllowedBatteryPower :originalPower :powerFade :powerCapabilityAt20Charge :powerCapabilityAt80Charge :originalPowerCapability :originalPowerCapabilityLimits);
@@ -597,26 +646,22 @@
     bamm:properties (:componentsSupplier :componentsPartNumber);
     bamm:preferredName "components"@en;
     bamm:description "Entity to bundle the components properties of a battery."@en.
+:MaterialNameAndWeightAndPercentageMassFractionEntity a bamm:Entity;
+    bamm:name "MaterialNameAndWeightAndPercentageMassFractionEntity";
+    bamm:properties (:materialName [
+  bamm:property :matierialPercentageMassFraction;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :matierialWeight;
+  bamm:optional "true"^^xsd:boolean
+]);
+    bamm:preferredName "material name and weight and percent"@en;
+    bamm:description "Entity to bundle a material's name, weight and percentage of mass."@en.
 :AttachmentEntity a bamm:Entity;
     bamm:name "AttachmentEntity";
     bamm:properties (:fileLocation :title);
     bamm:preferredName "AttachmentEntity"@en;
     bamm:description "Entity encapsulating the details of a attachment for the battery"@en.
-:fileLocation a bamm:Property;
-    bamm:name "fileLocation";
-    bamm:preferredName "file location"@en;
-    bamm:description "Location of the file"@en;
-    bamm:characteristic :FileLocationCharacteristic.
-:title a bamm:Property;
-    bamm:name "title";
-    bamm:preferredName "title"@en;
-    bamm:description "Title of the attached file"@en;
-    bamm:characteristic bamm-c:Text.
-:FileLocationCharacteristic a bamm:Characteristic;
-    bamm:name "FileLocationCharacteristic";
-    bamm:preferredName "file location"@en;
-    bamm:description "The path to the file"@en;
-    bamm:dataType xsd:anyURI.
 :maximumAllowedBatteryPower a bamm:Property;
     bamm:name "maximumAllowedBatteryPower";
     bamm:preferredName "maximum allowed battery power"@en;
@@ -719,14 +764,28 @@
     bamm:name "componentsSupplier";
     bamm:preferredName "components supplier"@en;
     bamm:description "Contact details of the suppliers of replacement parts / spare parts is describing a regulatory requirement. Available fields should be like:\nName - Street - Number - ZIP Code - City - State - Country - Phone - Fax - Email - Website"@en;
-    bamm:characteristic :ComponentsSupplierCharacteristic;
-    bamm:exampleValue "Address / phone number / email"^^:ComponentsSupplierEntity.
+    bamm:characteristic :ComponentsSupplierCharacteristic.
 :componentsPartNumber a bamm:Property;
     bamm:name "componentsPartNumber";
     bamm:preferredName "components part number"@en;
     bamm:description "The unique serial numbers of the different parts of a battery is describing a regulatory requirement."@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Case xxxxxxx/xx; Controller xxxxxxx/xx".
+:fileLocation a bamm:Property;
+    bamm:name "fileLocation";
+    bamm:preferredName "file location"@en;
+    bamm:description "Location of the file"@en;
+    bamm:characteristic :FileLocationCharacteristic.
+:title a bamm:Property;
+    bamm:name "title";
+    bamm:preferredName "title"@en;
+    bamm:description "Title of the attached file"@en;
+    bamm:characteristic bamm-c:Text.
+:FileLocationCharacteristic a bamm:Characteristic;
+    bamm:name "FileLocationCharacteristic";
+    bamm:preferredName "file location"@en;
+    bamm:description "The path to the file"@en;
+    bamm:dataType xsd:anyURI.
 :PowerCharacteristic a bamm-c:Measurement;
     bamm:name "PowerCharacteristic";
     bamm:preferredName "power characteristic"@en;
@@ -787,11 +846,11 @@
     bamm:description "Round-trip efficiency is the percentage of electricity put into storage after 50% of life of the battery is describing a regulatory requirement."@en;
     bamm:dataType xsd:decimal;
     bamm-c:unit unit:percent.
-:ManufacturingCharacteristic a bamm:Characteristic;
-    bamm:name "ManufacturingCharacteristic";
-    bamm:preferredName "manufacturing characteristic"@en;
-    bamm:description "Information about the manufacturing process of a battery"@en;
-    bamm:dataType :ManufacturingEntity.
+:ComponentsSupplierCharacteristic a bamm-c:Set;
+    bamm:name "ComponentsSupplierCharacteristic";
+    bamm:preferredName "components supplier"@en;
+    bamm:description "Contact details of the suppliers of replacement parts / spare parts is describing a regulatory requirement."@en;
+    bamm:dataType :ComponentsSupplierEntity.
 :ManufacturingEntity a bamm:Entity;
     bamm:name "ManufacturingEntity";
     bamm:properties (:dateOfManufacturing :address);
@@ -803,11 +862,6 @@
     bamm:description "Manufacturing date of the battery is describing a regulatory requirement."@en;
     bamm:characteristic :Datestamp;
     bamm:exampleValue "2022-03-07"^^xsd:date.
-:ComponentsSupplierCharacteristic a bamm:Characteristic;
-    bamm:name "ComponentsSupplierCharacteristic";
-    bamm:preferredName "components supplier"@en;
-    bamm:description "Contact details of the suppliers of replacement parts / spare parts is describing a regulatory requirement."@en;
-    bamm:dataType :ComponentsSupplierEntity.
 :ComponentsSupplierEntity a bamm:Entity;
     bamm:name "ComponentsSupplierEntity";
     bamm:properties (:address :contact);
@@ -819,10 +873,6 @@
     bamm:description "Name of the material."@en;
     bamm:characteristic :Text;
     bamm:exampleValue "Graphite".
-:Text a bamm:Characteristic;
-    bamm:name "Text";
-    bamm:description "Describes a Property which contains plain text. This is intended exclusively for human readable strings, not for identifiers, measurement values, etc."@en;
-    bamm:dataType xsd:string.
 :GramCharacteristic a bamm-c:Measurement;
     bamm:name "GramCharacteristic";
     bamm:preferredName "gram characteristic"@en;
@@ -835,11 +885,6 @@
     bamm:description "Weight of the material (in gram)"@en;
     bamm:characteristic :GramCharacteristic;
     bamm:exampleValue "2.5"^^xsd:decimal.
-:RecyclateContentActiveMaterialsCharacteristic a bamm:Characteristic;
-    bamm:name "RecyclateContentActiveMaterialsCharacteristic";
-    bamm:preferredName "recyclate content active materials"@en;
-    bamm:description "List of recovered Recyclate Content in Active Material Recycled is describing a regulatory requirement. The following materials have to be reported on as a minimium: Cobalt, Lithium, Nickel, Lead"@en;
-    bamm:dataType :MaterialNameAndWeightAndPercentageMassFractionEntity.
 :matierialPercentageMassFraction a bamm:Property;
     bamm:name "matierialPercentageMassFraction";
     bamm:preferredName "matierial percentage mass fraction"@en;
@@ -852,34 +897,3 @@
     bamm:description "Percentage mass fraction of a material"@en;
     bamm:dataType xsd:decimal;
     bamm-c:unit unit:percent.
-:AnodeActiveMaterialsCharacteristic a bamm:Characteristic;
-    bamm:name "AnodeActiveMaterialsCharacteristic";
-    bamm:preferredName "anode active materials"@en;
-    bamm:description "The total amount of valuable materials contained in Anode: graphite"@en.
-:CathodeCompositionOtherCharacteristic a bamm:Characteristic;
-    bamm:name "CathodeCompositionOtherCharacteristic";
-    bamm:preferredName "cathode composition other"@en;
-    bamm:description "The composition or materials contained in the Cathode is describing a regulatory requirement."@en;
-    bamm:dataType :MaterialNameAndWeightAndPercentageMassFractionEntity.
-:AnodeCompositionOtherCharacteristic a bamm:Characteristic;
-    bamm:name "AnodeCompositionOtherCharacteristic";
-    bamm:preferredName "anode composition other"@en;
-    bamm:description "The composition or materials contained in the anode is describing a regulatory requirement."@en;
-    bamm:dataType :MaterialNameAndWeightAndPercentageMassFractionEntity.
-:ElectrolyteCompositionCharacteristic a bamm:Characteristic;
-    bamm:name "ElectrolyteCompositionCharacteristic";
-    bamm:preferredName "electrolyte composition"@en;
-    bamm:description "List of materials contained in the electrolyte is describing a regulatory requirement."@en;
-    bamm:see <https%3A%2F%2Feur-lex.europa.eu%2Flegal-content%2FEN%2FTXT%2F%3Furi%3DCELEX%3A52020DC0474>;
-    bamm:dataType :MaterialNameAndWeightAndPercentageMassFractionEntity.
-:MaterialNameAndWeightAndPercentageMassFractionEntity a bamm:Entity;
-    bamm:name "MaterialNameAndWeightAndPercentageMassFractionEntity";
-    bamm:properties (:materialName [
-  bamm:property :matierialPercentageMassFraction;
-  bamm:optional "true"^^xsd:boolean
-] [
-  bamm:property :matierialWeight;
-  bamm:optional "true"^^xsd:boolean
-]);
-    bamm:preferredName "material name and weight and percent"@en;
-    bamm:description "Entity to bundle a material's name, weight and percentage of mass."@en.
