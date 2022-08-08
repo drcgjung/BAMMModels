@@ -1,0 +1,3 @@
+# Sychronization Action
+This action takes all files from the current branch and uploads them to a given Semantic Hub instance. It thus expects the URL of the Semantic Hub to upload to as an input parameter. 
+Furthermore, there is an optional boolean parameter, which indicates whether the action was triggered for the main-Branch of the repository or for another branch. The reason is that only for the main-branch the status information in the metadata.json files are relevant while for another branch the status during the upload is set to DRAFT. The second paramter is optional and by default set to false (all models in status draft).
