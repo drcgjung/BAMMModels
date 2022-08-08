@@ -15,8 +15,8 @@ on:
     inputs:
       instance:
         description: 'The CX environment where to trigger the bulk upload'
-        type: string
-        required: false
+        type: choice
+        required: true
         default: 'dev'
         options:
           - dev
