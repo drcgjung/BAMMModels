@@ -55,8 +55,7 @@
     bamm:name "country";
     bamm:preferredName "Country"@en;
     bamm:description "Country of an address"@en;
-    bamm:characteristic :CountryCharacteristic;
-    bamm:exampleValue "DE-NI"^^:CountryEntity.
+    bamm:characteristic :CountryCharacteristic  .
 :postCode a bamm:Property;
     bamm:name "postCode";
     bamm:preferredName "Post Code"@en;
