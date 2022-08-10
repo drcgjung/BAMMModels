@@ -871,7 +871,7 @@
     bamm:name "materialName";
     bamm:preferredName "material name"@en;
     bamm:description "Name of the material."@en;
-    bamm:characteristic :Text;
+    bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Graphite".
 :GramCharacteristic a bamm-c:Measurement;
     bamm:name "GramCharacteristic";
