@@ -4,7 +4,7 @@
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
-@prefix : <urn:bamm:io.catenax.return_request:1.0.0#>.
+@prefix : <urn:bamm:io.catenax.return_request:1.0.1#>.
 
 :ReturnRequest a bamm:Aspect;
     bamm:name "ReturnRequest";
@@ -40,8 +40,7 @@
     bamm:name "desiredPrice";
     bamm:preferredName "desired price"@en;
     bamm:description "desired price"@en;
-    bamm:characteristic :PriceCharacteristic;
-    bamm:exampleValue "{cost: 50.45 , currency: EUR}"^^:Price.
+    bamm:characteristic :PriceCharacteristic.
 :productConditions a bamm:Property;
     bamm:name "productConditions";
     bamm:preferredName "product conditions"@en;
