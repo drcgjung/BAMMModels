@@ -4,7 +4,7 @@
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
-@prefix : <urn:bamm:io.catenax.return_request:1.0.1#>.
+@prefix : <urn:bamm:io.catenax.return_request:1.0.0#>.
 
 :ReturnRequest a bamm:Aspect;
     bamm:name "ReturnRequest";
