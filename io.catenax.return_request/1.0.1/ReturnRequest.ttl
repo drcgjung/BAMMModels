@@ -1,0 +1,95 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix : <urn:bamm:io.catenax.return_request:1.0.1#>.
+
+:ReturnRequest a bamm:Aspect;
+    bamm:name "ReturnRequest";
+    bamm:properties (:needsReturn :returnConditions :requestDate :latestReturnDate :desiredPrice :productConditions);
+    bamm:operations ();
+    bamm:preferredName "return request"@en;
+    bamm:description "Aspect to indicate if there is a return request for a product"@en.
+:needsReturn a bamm:Property;
+    bamm:name "needsReturn";
+    bamm:preferredName "needs return"@en;
+    bamm:description "Describes the fact whether a vehicle, assembly or part needs to be returned to requestor."@en;
+    bamm:characteristic bamm-c:Boolean;
+    bamm:exampleValue "true"^^xsd:boolean.
+:returnConditions a bamm:Property;
+    bamm:name "returnConditions";
+    bamm:preferredName "return conditions"@en;
+    bamm:description "Describes WHY a vehicle, assembly or part needs to be returned to the requestor and under which conditions."@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Wishes to buy".
+:requestDate a bamm:Property;
+    bamm:name "requestDate";
+    bamm:preferredName "request date"@en;
+    bamm:description "Describes date when the return request was placed in GMT timezone."@en;
+    bamm:characteristic :DateTimestamp;
+    bamm:exampleValue "2022-01-01"^^xsd:date.
+:latestReturnDate a bamm:Property;
+    bamm:name "latestReturnDate";
+    bamm:preferredName "latest return date"@en;
+    bamm:description "Describes until when the return request is valid in GMT timezone."@en;
+    bamm:characteristic :DateTimestamp;
+    bamm:exampleValue "2025-01-01"^^xsd:date.
+:desiredPrice a bamm:Property;
+    bamm:name "desiredPrice";
+    bamm:preferredName "desired price"@en;
+    bamm:description "desired price"@en;
+    bamm:characteristic :PriceCharacteristic.
+:productConditions a bamm:Property;
+    bamm:name "productConditions";
+    bamm:preferredName "product conditions"@en;
+    bamm:description "textual description of the product conditions"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "at least 1990 model".
+:DateTimestamp a bamm:Characteristic;
+    bamm:name "DateTimestamp";
+    bamm:preferredName "date timestamp"@en;
+    bamm:description "Timestamp for dates"@en;
+    bamm:dataType xsd:date.
+:PriceCharacteristic a bamm:Characteristic;
+    bamm:name "PriceCharacteristic";
+    bamm:preferredName "Price Characteristic"@en;
+    bamm:description "characteristic to describe the price. Different currencies are possible"@en;
+    bamm:dataType :Price.
+:Price a bamm:Entity;
+    bamm:name "Price";
+    bamm:properties (:cost :currency);
+    bamm:preferredName "Price"@en;
+    bamm:description "price of the returned article"@en.
+:cost a bamm:Property;
+    bamm:name "cost";
+    bamm:preferredName "cost"@en;
+    bamm:description "cost of the article"@en;
+    bamm:characteristic :CostCharacteristic.
+:currency a bamm:Property;
+    bamm:name "currency";
+    bamm:preferredName "currency"@en;
+    bamm:description "currency of the price of the return request conform to the ISO4217 in numerical codes"@en;
+    bamm:characteristic :CurrencyTrait;
+    bamm:exampleValue "EUR".
+:CostCharacteristic a bamm:Characteristic;
+    bamm:name "CostCharacteristic";
+    bamm:preferredName "Cost Characteristic"@en;
+    bamm:description "characteristic to describe the cost in a float type"@en;
+    bamm:dataType xsd:float.
+:CurrencyTrait a bamm-c:Trait;
+    bamm:name "CurrencyTrait";
+    bamm-c:baseCharacteristic :CurrencyCharacteristic;
+    bamm-c:constraint :CurrencyConstraint.
+:CurrencyCharacteristic a bamm:Characteristic;
+    bamm:name "CurrencyCharacteristic";
+    bamm:preferredName "CurrencyCharacteristic"@en;
+    bamm:description "Characteristic to represent the iso-code conform curreny entries as defined in the ISO4217 for numerical codes"@en;
+    bamm:dataType xsd:string;
+    bamm:see <https://www.iso.org/iso-4217-currency-codes.html> .
+:CurrencyConstraint a bamm-c:RegularExpressionConstraint;
+    bamm:name "CurrencyConstraint";
+    bamm:description "reduces the possible entry to three entries from A-Z"@en;
+    bamm:see <https://www.iso.org/iso-4217-currency-codes.html>;
+    bamm:value "^[A-Z]{3}$".
