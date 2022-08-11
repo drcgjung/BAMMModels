@@ -142,17 +142,11 @@
     bamm:see <https%3A%2F%2Fwww.iban.com%2Fcountry-codes>.
 :DateValue a bamm:Characteristic;
     bamm:name "DateValue";
-    bamm:description "ISO 8601  YYYY-MM-DD date without time zone"@en;
+    bamm:description "ISO 8601 YYYY-MM-DD date without time zone"@en;
     bamm:dataType xsd:date.
 :CatenaxBpnRegEx a bamm-c:RegularExpressionConstraint;
     bamm:name "CatenaxBpnRegEx";
     bamm:value "^(BPN)(L|S|A)(\\d{8})([a-zA-Z0-9]{4})$".
-:Constraint1 a bamm:Constraint;
-    bamm:name "Constraint1".
-:CountryCodeRegex a bamm-c:RegularExpressionConstraint;
-    bamm:name "CountryCodeRegex";
-    bamm:description "RegEx for 2 char code as defined in ISO 3166-2 like DE, PL, CN, ...\n"@en;
-    bamm:value "^[A-Z][A-Z]$".
 :CertificateState a bamm-c:Enumeration;
     bamm:name "CertificateState";
     bamm:dataType xsd:string;
