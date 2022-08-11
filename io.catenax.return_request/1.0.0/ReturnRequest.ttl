@@ -40,7 +40,8 @@
     bamm:name "desiredPrice";
     bamm:preferredName "desired price"@en;
     bamm:description "desired price"@en;
-    bamm:characteristic :PriceCharacteristic.
+    bamm:characteristic :PriceCharacteristic;
+    bamm:exampleValue "{cost: 50.45 , currency: EUR}"^^:Price.
 :productConditions a bamm:Property;
     bamm:name "productConditions";
     bamm:preferredName "product conditions"@en;
