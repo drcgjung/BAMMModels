@@ -5,7 +5,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
-@prefix : <urn:bamm:io.catenax.esr_certificates.esr_certificate_state_statistic:1.0.0#>.
+@prefix : <urn:bamm:com.catenax.esr_certificates.esr_certificate_state_statistic:1.0.0#>.
 
 :certificateName a bamm:Property;
     bamm:name "certificateName";
@@ -59,7 +59,7 @@
 :EsrCertificateStateStatistic a bamm:Aspect;
     bamm:name "EsrCertificateStateStatistic";
     bamm:preferredName "ESR Certificate StateS tatistic"@en;
-    bamm:description "State statistic for a Environmental and Social Responsibility (ESR) certificate"@en;
+    bamm:description "State statistic for an Environmental and Social Responsibility (ESR) certificate"@en;
     bamm:properties (:certificateName :certificateStateStatistic);
     bamm:operations ();
     bamm:events ().
