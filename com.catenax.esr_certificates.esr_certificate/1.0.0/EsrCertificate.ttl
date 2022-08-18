@@ -20,7 +20,7 @@
 :certificateData a bamm:Property;
     bamm:name "certificateData";
     bamm:preferredName "Certificate Data"@en;
-    bamm:description "A Environmental and Social Responsibility (ESR) certificate is described by a unique set of data for a given certificate type"@en;
+    bamm:description "An Environmental and Social Responsibility (ESR) certificate is described by a unique set of data for a given certificate type"@en;
     bamm:characteristic :CertificateDataCharacteristic.
 :CertificateDataCharacteristic a bamm:Characteristic;
     bamm:name "CertificateDataCharacteristic";
@@ -37,37 +37,37 @@
 :businessPartnerName a bamm:Property;
     bamm:name "businessPartnerName";
     bamm:preferredName "Business Partner Name"@en;
-    bamm:description "Company Name as listed at SupplyOn and to which the BP assigend the certificate"@en;
+    bamm:description "Company Name as listed by the Service Provider and to which the BP assigend the certificate"@en;
     bamm:characteristic :StringValue;
     bamm:exampleValue "Turbo Rybka GmbH".
 :businessPartnerStreet a bamm:Property;
     bamm:name "businessPartnerStreet";
     bamm:preferredName "Business Partner Street"@en;
-    bamm:description "Company Street as listed at SupplyOn and to which the BP assigend the certificate"@en;
+    bamm:description "Company Street as listed by the Service Provider and to which the BP assigend the certificate"@en;
     bamm:characteristic :StringValue;
     bamm:exampleValue "Balduin-Helmann-Str 215".
 :businessPartnerZip a bamm:Property;
     bamm:name "businessPartnerZip";
     bamm:preferredName "Business Partner Zip"@en;
-    bamm:description "Company ZIP code as listed at SupplyOn and to which the BP assigend the certificate"@en;
+    bamm:description "Company ZIP code as listed by the Service Provider and to which the BP assigend the certificate"@en;
     bamm:characteristic :StringValue;
     bamm:exampleValue "82256".
 :businessPartnerCity a bamm:Property;
     bamm:name "businessPartnerCity";
     bamm:preferredName "Business Partner City"@en;
-    bamm:description "Company city as listed at SupplyOn and to which the BP assigend the certificate"@en;
+    bamm:description "Company city as listed by the Service Provider and to which the BP assigend the certificate"@en;
     bamm:characteristic :StringValue;
     bamm:exampleValue "Fürstenfeldbruck".
 :businessPartnerRegion a bamm:Property;
     bamm:name "businessPartnerRegion";
     bamm:preferredName "Business Partner Region"@en;
-    bamm:description "Company region as listed at SupplyOn and to which the BP assigned the certificate. Mandatory in some countries like USA"@en;
+    bamm:description "Company region as listed by the Service Provider and to which the BP assigned the certificate. Mandatory in some countries like USA"@en;
     bamm:characteristic :StringValue;
     bamm:exampleValue "Bavaria".
 :businessPartnerCountryCode a bamm:Property;
     bamm:name "businessPartnerCountryCode";
     bamm:preferredName "Business Partner Country Code"@en;
-    bamm:description "ISO 3166-2 company country code as listed at SupplyOn and to which the BP assigend the certificate"@en;
+    bamm:description "ISO 3166-2 company country code as listed by the Service Provider and to which the BP assigend the certificate"@en;
     bamm:characteristic :CountryCodes;
     bamm:exampleValue "DE".
 :certificateVersion a bamm:Property;
@@ -93,7 +93,7 @@
     bamm:preferredName "Certificate Registration Number"@en;
     bamm:description "Registration number of the certificate as in the certification document"@en;
     bamm:characteristic :StringValue;
-    bamm:exampleValue "Only valid in combination with Certificate 1945934 TMS".
+    bamm:exampleValue "Only valid in combination with Certificate 1945934 TMS".
 :additionalCertificateRegistrationNumber a bamm:Property;
     bamm:name "additionalCertificateRegistrationNumber";
     bamm:preferredName "Additional Certificate Registration Number"@en;
@@ -154,11 +154,11 @@
 :EsrCertificate a bamm:Aspect;
     bamm:name "EsrCertificate";
     bamm:preferredName "ESR Certificate"@en;
-    bamm:description "Environmental and Social Responsibility (ESR)  certificate of the Business Partner (e.g. Supplier)"@en;
+    bamm:description "Environmental and Social Responsibility (ESR) certificate of the Business Partner (e.g. Supplier)"@en;
     bamm:properties (:certificateState :certificateData);
     bamm:operations ();
     bamm:events ().
 :CertificateNameEnumeration a bamm-c:Enumeration;
     bamm:name "CertificateNameEnumeration";
     bamm:dataType xsd:string;
-    bamm-c:values ("IS0 14001").
+    bamm-c:values ("IS014001").
