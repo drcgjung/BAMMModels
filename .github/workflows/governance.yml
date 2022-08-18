@@ -75,7 +75,7 @@ jobs:
       - name: Synchronize
         uses: ./.github/actions/synchronize
         env:
-          SEMANTIC_HUB: semantics.${{ github.event.inputs.instance }}.demo.catena-x.net/hub/api/v1/models
+          SEMANTIC_HUB: semantics.${{ env.WORKSPACE }}.demo.catena-x.net/hub/api/v1/models
         with:
           ADDED: ${{ steps.changes.outputs.added }}
           MODIFIED: ${{ steps.changes.outputs.modified }}
