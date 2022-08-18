@@ -11,6 +11,7 @@
     bamm:description "Aspect used for the Characteristic :PostalAddress to reference adress data"@en;
     bamm:properties (:address);
     bamm:operations ().
+
 :address a bamm:Property;
     bamm:name "address";
     bamm:preferredName "Adress"@en;
