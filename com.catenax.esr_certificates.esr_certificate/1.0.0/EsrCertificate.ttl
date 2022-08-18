@@ -39,7 +39,7 @@
     bamm:preferredName "Business Partner Name"@en;
     bamm:description "Company Name as listed by the Service Provider and to which the BP assigend the certificate"@en;
     bamm:characteristic :StringValue;
-    bamm:exampleValue "Turbo Rybka GmbH".
+    bamm:exampleValue "Example GmbH".
 :businessPartnerStreet a bamm:Property;
     bamm:name "businessPartnerStreet";
     bamm:preferredName "Business Partner Street"@en;
@@ -108,10 +108,10 @@
     bamm:exampleValue "A-99-2269".
 :certificationAgencyName a bamm:Property;
     bamm:name "certificationAgencyName";
-    bamm:preferredName "Certificate Registration Number"@en;
+    bamm:preferredName "Certificate Agency Name"@en;
     bamm:description "Certification agency name as in the certification document"@en;
     bamm:characteristic :StringValue;
-    bamm:exampleValue "VÜT Ost AG".
+    bamm:exampleValue "Certfication Example Agency AG".
 :certificateValidFrom a bamm:Property;
     bamm:name "certificateValidFrom";
     bamm:preferredName "Certificate Valid From"@en;
@@ -161,4 +161,4 @@
 :CertificateNameEnumeration a bamm-c:Enumeration;
     bamm:name "CertificateNameEnumeration";
     bamm:dataType xsd:string;
-    bamm-c:values ("IS014001").
+    bamm-c:values ("IS0 14001").
