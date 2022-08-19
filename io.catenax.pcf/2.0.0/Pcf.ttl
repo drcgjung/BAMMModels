@@ -33,7 +33,7 @@
     bamm:operations ();
     bamm:events ();
     bamm:preferredName "PCF (Product Carbon Footprint)"@en;
-    bamm:description "Normative: Each Product (Carbon) Footprint represents the carbon footprint of a product with values in accordance with the Pathfinder Framework. Non-normative: Each Product Footprint relates to a specific product, identified by one or more product identifiers. The Product Footprint is modeled as a multi purpose container for product-specific factors."@en;
+    bamm:description "Normative: Each Product (Carbon) Footprint represents the carbon footprint of a product with values in accordance with the Pathfinder Framework. Non-normative: Each Product Footprint relates to a specific product, identified by one or more product identifiers. The Product Footprint is modeled as a multi-purpose container for product-specific factors."@en;
     bamm:see <https://wbcsd.github.io/introduction/>.
 :productFootprintId a bamm:Property;
     bamm:name "productFootprintId";
