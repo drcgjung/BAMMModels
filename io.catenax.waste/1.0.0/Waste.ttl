@@ -9,11 +9,11 @@
 
 :Waste a bamm:Aspect;
     bamm:name "Waste";
-    bamm:properties (:identification :materialProperties :price :packagingType :riskPotential :formFactor);
+    bamm:properties (:identification :materialProperties :price :packagingType :riskPotential :formFactor :wasteDisposalDate);
     bamm:operations ();
     bamm:events ();
     bamm:preferredName "waste"@en;
-    bamm:description "Waste materials which occurs during dissasembly (tbd)."@en.
+    bamm:description "Waste materials which occurs from disassembly or production waste."@en.
 :identification a bamm:Property;
     bamm:name "identification";
     bamm:preferredName "identification"@en;
@@ -49,51 +49,76 @@
 :IdentificationCharacteristic a bamm:Characteristic;
     bamm:name "IdentificationCharacteristic";
     bamm:preferredName "identification"@en;
+    bamm:description "Identification and description of waste"@en;
     bamm:dataType :IdentificationEntity.
 :MaterialPropertiesCharacterisitc a bamm:Characteristic;
     bamm:name "MaterialPropertiesCharacterisitc";
     bamm:preferredName "material properties"@en;
+    bamm:description "The composition and materials waste consists of."@en;
     bamm:dataType :MaterialPropertiesEntity.
 :PriceCharacteristic a bamm:Characteristic;
     bamm:name "PriceCharacteristic";
     bamm:preferredName "price"@en;
+    bamm:description "The market index for a material predominating material composition of a product (relevant for production waste/scrap)."@en;
     bamm:dataType :PriceEntity.
 :RiskPotentialCharacterisitc a bamm:Characteristic;
     bamm:name "RiskPotentialCharacterisitc";
     bamm:preferredName "risk potential"@en;
+    bamm:description "Potential risks of the waste like hazardusness, odor and pH value."@en;
     bamm:dataType :RiskPotentialEntity.
+:IdentificationEntity a bamm:Entity;
+    bamm:name "IdentificationEntity";
+    bamm:properties (:wasteCode :wasteCodeDescription [
+  bamm:property :metalScrapIdentificationCode;
+  bamm:optional "true"^^xsd:boolean
+] :wasteCodeJurisdiction);
+    bamm:preferredName "identification"@en;
+    bamm:description "Entity encapsulating the describing details of waste"@en.
+:MaterialPropertiesEntity a bamm:Entity;
+    bamm:name "MaterialPropertiesEntity";
+    bamm:properties (:productComposition :productPurity :density);
+    bamm:preferredName "material properties"@en;
+    bamm:description "Entity encapsulating the details of the material properties of waste."@en.
+:PriceEntity a bamm:Entity;
+    bamm:name "PriceEntity";
+    bamm:properties (:marketIndexMaterialPrice :marketIndexCurrency);
+    bamm:preferredName "price"@en;
+    bamm:description "Entity encapsulating the details of the price of waste."@en.
+:RiskPotentialEntity a bamm:Entity;
+    bamm:name "RiskPotentialEntity";
+    bamm:properties (:hazardousness :phValue :odor :contamination);
+    bamm:preferredName "risk potential"@en;
+    bamm:description "Entity encapsulating the details of the risk potential of waste."@en.
 :wasteCode a bamm:Property;
     bamm:name "wasteCode";
     bamm:preferredName "Waste code"@en;
-    bamm:description "The waste code according to: https://www.gesetze-im-internet.de/avv/anlage.html"@en;
+    bamm:description "The waste code identifying the waste type"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "02 01 10";
     bamm:see <https://www.gesetze-im-internet.de/avv/anlage.html>.
 :wasteCodeDescription a bamm:Property;
     bamm:name "wasteCodeDescription";
     bamm:preferredName "Waste Code Description"@en;
-    bamm:description "The waste code description. According to: https://www.gesetze-im-internet.de/avv/anlage.html"@en;
+    bamm:description "The waste code description"@en;
     bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "metal waste".
+    bamm:exampleValue "metal waste";
+    bamm:see <https://www.gesetze-im-internet.de/avv/anlage.html>.
 :metalScrapIdentificationCode a bamm:Property;
     bamm:name "metalScrapIdentificationCode";
-    bamm:preferredName "Metal Scrap Identification Code"@en;
-    bamm:description "The scrap identification code according to: https://bdsv.de/de/resources/aktuelle%20Stahlschrottsortenliste%20Deutschland_nL.pdf\n\nAdditional (types of) scrap codes that should be selectable/visible can be found here: EU-27 and here (see sections for aluminum on page 9 and ferrous scrap on pages 19 onwards): http://www.scrap2.org/specs/ (e.g. \"Taboo\")"@en;
+    bamm:preferredName "waste code jurisdiction"@en;
+    bamm:description "The jurisdiction in which the waste code is valid (country, EU,...)"@en;
     bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "Shredded steel scrap or steel scrap from waste separation processed by similar methods";
-    bamm:see <https://bdsv.de/de/resources/aktuelle%20Stahlschrottsortenliste%20Deutschland_nL.pdf>.
+    bamm:exampleValue "02 01 10".
 :productComposition a bamm:Property;
     bamm:name "productComposition";
     bamm:preferredName "Product Composition"@en;
-    bamm:description "Material composition."@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "Plastics 30%, Cobalt 30%, Copper 12%".
+    bamm:description "Product material composition."@en;
+    bamm:characteristic :ProductCompositionCharacteristic.
 :productPurity a bamm:Property;
     bamm:name "productPurity";
     bamm:preferredName "product purity"@en;
     bamm:description "Material purity"@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "98 % aluminium".
+    bamm:characteristic :ProductPurityCharacteristic.
 :contamination a bamm:Property;
     bamm:name "contamination";
     bamm:preferredName "Contamination"@en;
@@ -106,34 +131,19 @@
     bamm:description "The product density."@en;
     bamm:characteristic :DensityCharacteristic;
     bamm:exampleValue "3"^^xsd:double.
-:DensityCharacteristic a bamm-c:Measurement;
-    bamm:name "DensityCharacteristic";
-    bamm:dataType xsd:double;
-    bamm-c:unit :kilogramPerCubicMetre.
-:kilogramPerCubicMetre a unit:Unit;
-    bamm:name "kilogramPerCubicMetre";
-    bamm:preferredName "kilogram per cubic metre"@en;
-    unit:quantityKind unit:density, unit:volumicMass, unit:concentrationOfB, unit:amountOfSubstance, unit:massDensity, unit:massConcentrationOfB;
-    unit:symbol "kg/m³";
-    unit:commonCode "KMQ".
 :marketIndexMaterialPrice a bamm:Property;
     bamm:name "marketIndexMaterialPrice";
     bamm:preferredName "Market Index Material Price"@en;
-    bamm:description "The market index for a material predominating material composition of a product (relevant for production waste/scrap). Example: https://www.bdsv.org/unser-service/markt-preise/"@en;
+    bamm:description "The market index for a material predominating material composition of a product (relevant for production waste/scrap)."@en;
     bamm:characteristic :MarketIndexMaterialPriceCharacterisitic;
-    bamm:exampleValue "300"^^xsd:double;
     bamm:see <https://www.bdsv.org/unser-service/markt-preise/>.
-:MarketIndexMaterialPriceCharacterisitic a bamm:Characteristic;
-    bamm:name "MarketIndexMaterialPriceCharacterisitic";
-    bamm:preferredName "market index material price"@en;
-    bamm:dataType xsd:double.
 :marketIndexCurrency a bamm:Property;
     bamm:name "marketIndexCurrency";
     bamm:preferredName "Market Index Currency"@en;
     bamm:description "The currency in which market index is calculated. According to: ISO 4217"@en;
-    bamm:characteristic bamm-c:Text;
+    bamm:characteristic :MarketIndexCurrencyTrait;
     bamm:exampleValue "EUR";
-    bamm:see <https://www.xe.com/iso4217.php>.
+    bamm:see <https%253A%252F%252Fwww.xe.com%252Fiso4217.php>.
 :hazardousness a bamm:Property;
     bamm:name "hazardousness";
     bamm:preferredName "Hazardousness"@en;
@@ -146,36 +156,220 @@
     bamm:description "The pH-value for liquids."@en;
     bamm:characteristic :PhValueCharacterisitc;
     bamm:exampleValue "5.5"^^xsd:double.
-:PhValueCharacterisitc a bamm:Characteristic;
-    bamm:name "PhValueCharacterisitc";
-    bamm:preferredName "pH value"@en;
-    bamm:dataType xsd:double.
 :odor a bamm:Property;
     bamm:name "odor";
     bamm:preferredName "Odor"@en;
     bamm:description "The product odor."@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Foul-smelling, sweetish".
-:IdentificationEntity a bamm:Entity;
-    bamm:name "IdentificationEntity";
-    bamm:properties (:wasteCode :wasteCodeDescription [
-  bamm:property :metalScrapIdentificationCode;
+:DensityCharacteristic a bamm-c:Measurement;
+    bamm:name "DensityCharacteristic";
+    bamm:dataType xsd:double;
+    bamm-c:unit :kilogramPerCubicMetre.
+:MarketIndexMaterialPriceCharacterisitic a bamm:Characteristic;
+    bamm:name "MarketIndexMaterialPriceCharacterisitic";
+    bamm:preferredName "market index material price"@en;
+    bamm:dataType :MarketIndexMaterialPriceEntity.
+:PhValueCharacterisitc a bamm:Characteristic;
+    bamm:name "PhValueCharacterisitc";
+    bamm:preferredName "pH value"@en;
+    bamm:dataType xsd:double.
+:kilogramPerCubicMetre a unit:Unit;
+    bamm:name "kilogramPerCubicMetre";
+    bamm:preferredName "kilogram per cubic metre"@en;
+    unit:quantityKind unit:density, unit:volumicMass, unit:concentrationOfB, unit:amountOfSubstance, unit:massDensity, unit:massConcentrationOfB;
+    unit:symbol "kg/m³";
+    unit:commonCode "KMQ".
+:MarketIndexMaterialPriceEntity a bamm:Entity;
+    bamm:name "MarketIndexMaterialPriceEntity";
+    bamm:properties ([
+  bamm:property :pricePerWeightInGram;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :pricePerWeightInKiloGram;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :pricePerVolumeInLitre;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :pricePerVolumeInMillilitre;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :pricePerAreaInSquareMeter;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :pricePerAreaInSquareMillimeter;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :pricePerLengthInMeter;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :pricePerLengthInMillimeter;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :pricePerPiece;
   bamm:optional "true"^^xsd:boolean
 ]);
-    bamm:preferredName "identification"@en;
-    bamm:description "Entity encapsulating the describing details of waste"@en.
-:MaterialPropertiesEntity a bamm:Entity;
-    bamm:name "MaterialPropertiesEntity";
-    bamm:properties (:productComposition :productPurity :contamination :density);
-    bamm:preferredName "material properties"@en;
-    bamm:description "Entity encapsulating the details of the material properties of waste."@en.
-:PriceEntity a bamm:Entity;
-    bamm:name "PriceEntity";
-    bamm:properties (:marketIndexMaterialPrice :marketIndexCurrency);
-    bamm:preferredName "price"@en;
-    bamm:description "Entity encapsulating the details of the price of waste."@en.
-:RiskPotentialEntity a bamm:Entity;
-    bamm:name "RiskPotentialEntity";
-    bamm:properties (:hazardousness :phValue :odor);
-    bamm:preferredName "risk potential"@en;
-    bamm:description "Entity encapsulating the details of the risk potential of waste."@en.
+    bamm:preferredName "market index material price"@en;
+    bamm:description "Entity encapsulating the details of the price of waste in regards of weight, volume, area or piece/amount."@en.
+:pricePerWeightInGram a bamm:Property;
+    bamm:name "pricePerWeightInGram";
+    bamm:preferredName "price per weight in gram"@en;
+    bamm:description "Price per weight in gram of waste material"@en;
+    bamm:characteristic :PricePerWeightInGramCharacteristic;
+    bamm:exampleValue "300"^^xsd:decimal.
+:PricePerWeightInGramCharacteristic a bamm:Characteristic;
+    bamm:name "PricePerWeightInGramCharacteristic";
+    bamm:preferredName "price per weight in gram"@en;
+    bamm:description "Price per weight in gram of waste material"@en;
+    bamm:dataType xsd:decimal.
+:pricePerWeightInKiloGram a bamm:Property;
+    bamm:name "pricePerWeightInKiloGram";
+    bamm:preferredName "price per weight in kilo gram"@en;
+    bamm:description "Price per weight in kilo gram of waste material"@en;
+    bamm:characteristic :PricePerWeightInKiloGramCharacterisitic;
+    bamm:exampleValue "1250"^^xsd:decimal.
+:PricePerWeightInKiloGramCharacterisitic a bamm:Characteristic;
+    bamm:name "PricePerWeightInKiloGramCharacterisitic";
+    bamm:preferredName "price per weight in kilo gram"@en;
+    bamm:description "Price per weight in kilo gram of waste material"@en;
+    bamm:dataType xsd:decimal.
+:pricePerVolumeInLitre a bamm:Property;
+    bamm:name "pricePerVolumeInLitre";
+    bamm:preferredName "price per volume in litre"@en;
+    bamm:description "Price per volume in litre of waste material"@en;
+    bamm:characteristic :PricePerVolumeInLitreCharacteristic;
+    bamm:exampleValue "1250"^^xsd:decimal.
+:PricePerVolumeInLitreCharacteristic a bamm:Characteristic;
+    bamm:name "PricePerVolumeInLitreCharacteristic";
+    bamm:preferredName "price per volume in litre"@en;
+    bamm:description "Price per volume in litre gram of waste material"@en;
+    bamm:dataType xsd:decimal.
+:pricePerVolumeInMillilitre a bamm:Property;
+    bamm:name "pricePerVolumeInMillilitre";
+    bamm:preferredName "price per volume in millilitre"@en;
+    bamm:description "Price per volume in millilitre of waste material"@en;
+    bamm:characteristic :PricePerVolumeInMillilitreCharacteristic;
+    bamm:exampleValue "300"^^xsd:decimal.
+:pricePerAreaInSquareMeter a bamm:Property;
+    bamm:name "pricePerAreaInSquareMeter";
+    bamm:preferredName "price per area in square meter"@en;
+    bamm:description "Price per area in square meter of waste material"@en;
+    bamm:characteristic :PricePerAreaInSquareMeterCharacteristic;
+    bamm:exampleValue "1250"^^xsd:decimal.
+:pricePerAreaInSquareMillimeter a bamm:Property;
+    bamm:name "pricePerAreaInSquareMillimeter";
+    bamm:preferredName "price per area in square millimeter"@en;
+    bamm:description "Price per area in square millimeter of waste material"@en;
+    bamm:characteristic :PricePerAreaInSquareMillimeterCharacteristic;
+    bamm:exampleValue "300"^^xsd:decimal.
+:pricePerLengthInMeter a bamm:Property;
+    bamm:name "pricePerLengthInMeter";
+    bamm:preferredName "price per length in meter"@en;
+    bamm:description "Price per length in meter of waste material"@en;
+    bamm:characteristic :PricePerLengthInMeterCharacteristic;
+    bamm:exampleValue "1250"^^xsd:decimal.
+:pricePerLengthInMillimeter a bamm:Property;
+    bamm:name "pricePerLengthInMillimeter";
+    bamm:preferredName "price per length in millimeter"@en;
+    bamm:description "Price per length in millimeter of waste material"@en;
+    bamm:characteristic :PricePerLengthInMillimeterCharacteristic;
+    bamm:exampleValue "300"^^xsd:decimal.
+:pricePerPiece a bamm:Property;
+    bamm:name "pricePerPiece";
+    bamm:preferredName "price per piece"@en;
+    bamm:description "Price per piece of waste material"@en;
+    bamm:characteristic :PricePerPieceCharacteristic;
+    bamm:exampleValue "2750"^^xsd:decimal.
+:MarketIndexCurrencyTrait a bamm-c:Trait;
+    bamm:name "MarketIndexCurrencyTrait";
+    bamm-c:baseCharacteristic bamm-c:Text;
+    bamm-c:constraint :LengthConstraint.
+:LengthConstraint a bamm-c:LengthConstraint;
+    bamm:name "LengthConstraint";
+    bamm:preferredName "length constraint"@en;
+    bamm-c:maxValue "3"^^xsd:nonNegativeInteger;
+    bamm-c:minValue "3"^^xsd:nonNegativeInteger.
+:PricePerVolumeInMillilitreCharacteristic a bamm:Characteristic;
+    bamm:name "PricePerVolumeInMillilitreCharacteristic";
+    bamm:preferredName "price per volume in millilitre"@en;
+    bamm:description "Price per volume in millilitre of waste material"@en;
+    bamm:dataType xsd:decimal.
+:PricePerAreaInSquareMeterCharacteristic a bamm:Characteristic;
+    bamm:name "PricePerAreaInSquareMeterCharacteristic";
+    bamm:preferredName "price per area in square meter"@en;
+    bamm:description "Price per area in square meter of waste material"@en;
+    bamm:dataType xsd:decimal.
+:PricePerAreaInSquareMillimeterCharacteristic a bamm:Characteristic;
+    bamm:name "PricePerAreaInSquareMillimeterCharacteristic";
+    bamm:preferredName "price per area in square millimeter"@en;
+    bamm:description "Price per area in square millimeter of waste material"@en;
+    bamm:dataType xsd:decimal.
+:PricePerLengthInMeterCharacteristic a bamm:Characteristic;
+    bamm:name "PricePerLengthInMeterCharacteristic";
+    bamm:preferredName "Price per length in meter of waste material"@en;
+    bamm:description "Price per length in meter of waste material"@en;
+    bamm:dataType xsd:decimal.
+:PricePerLengthInMillimeterCharacteristic a bamm:Characteristic;
+    bamm:name "PricePerLengthInMillimeterCharacteristic";
+    bamm:preferredName "price per length in millimeter"@en;
+    bamm:description "Price per length in millimeter of waste material"@en;
+    bamm:dataType xsd:decimal.
+:PricePerPieceCharacteristic a bamm:Characteristic;
+    bamm:name "PricePerPieceCharacteristic";
+    bamm:preferredName "price per piece"@en;
+    bamm:description "Price per piece of waste material"@en;
+    bamm:dataType xsd:decimal.
+:wasteCodeJurisdiction a bamm:Property;
+    bamm:name "wasteCodeJurisdiction";
+    bamm:preferredName "waste code jurisdiction"@en;
+    bamm:description "The jurisdiction in which the waste code is valid (country, EU,...)"@en;
+    bamm:characteristic :Text;
+    bamm:exampleValue "EU".
+:Text a bamm:Characteristic;
+    bamm:name "Text";
+    bamm:description "Describes a Property which contains plain text. This is intended exclusively for human readable strings, not for identifiers, measurement values, etc."@en;
+    bamm:dataType xsd:string.
+:wasteDisposalDate a bamm:Property;
+    bamm:name "wasteDisposalDate";
+    bamm:preferredName "waste disposal date"@en;
+    bamm:description "Date on which waste was incurred"@en;
+    bamm:characteristic :DateStamp;
+    bamm:exampleValue "16.08.2022"^^xsd:date.
+:DateStamp a bamm:Characteristic;
+    bamm:name "DateStamp";
+    bamm:preferredName "date stamp"@en;
+    bamm:description "Date on which waste was incurred"@en;
+    bamm:dataType xsd:date.
+:ProductCompositionCharacteristic a bamm-c:List;
+    bamm:name "ProductCompositionCharacteristic";
+    bamm:preferredName "product composition"@en;
+    bamm:description "Product material composition."@en;
+    bamm:dataType :ProductCompositionEntity.
+:ProductCompositionEntity a bamm:Entity;
+    bamm:name "ProductCompositionEntity";
+    bamm:properties (:materialName :materialWeightPercentage);
+    bamm:preferredName "product composition"@en;
+    bamm:description "Entity encapsulating the details of the product material properties (name and weight percentage) the waste consists of"@en.
+:materialName a bamm:Property;
+    bamm:name "materialName";
+    bamm:preferredName "material name"@en;
+    bamm:description "Name of the material"@en;
+    bamm:characteristic :Text;
+    bamm:exampleValue "Cobalt".
+:ProductPurityCharacteristic a bamm:Characteristic;
+    bamm:name "ProductPurityCharacteristic";
+    bamm:preferredName "product purity"@en;
+    bamm:description "Material purity"@en;
+    bamm:dataType :ProductCompositionEntity.
+:materialWeightPercentage a bamm:Property;
+    bamm:name "materialWeightPercentage";
+    bamm:preferredName "material weight percentage"@en;
+    bamm:description "The weight percentage of a specific material of the waste in percent."@en;
+    bamm:characteristic :PercentCharacterisitic;
+    bamm:exampleValue "30"^^xsd:decimal.
+:PercentCharacterisitic a bamm-c:Measurement;
+    bamm:name "PercentCharacterisitic";
+    bamm:preferredName "percent characterisitic"@en;
+    bamm:dataType xsd:decimal;
+    bamm-c:unit unit:percent.
