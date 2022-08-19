@@ -5,31 +5,31 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
-@prefix : <urn:bamm:io.catenax.physical_dimension:1.0.0#>.
+@prefix : <urn:bamm:io.catenax.shared.physical_dimension:1.0.0#>.
 
 :length a bamm:Property;
     bamm:name "length";
     bamm:preferredName "length"@en;
     bamm:description "Length of the item."@en;
-    bamm:characteristic :MillimetreCharacteristic;
+    bamm:characteristic :LengthCharacteristic;
     bamm:exampleValue "20000.1"^^xsd:double.
 :width a bamm:Property;
     bamm:name "width";
     bamm:preferredName "width"@en;
     bamm:description "Width of the item."@en;
-    bamm:characteristic :MillimetreCharacteristic;
+    bamm:characteristic :LengthCharacteristic;
     bamm:exampleValue "1000"^^xsd:double.
 :height a bamm:Property;
     bamm:name "height";
     bamm:preferredName "height"@en;
     bamm:description "Height of the item."@en;
-    bamm:characteristic :MillimetreCharacteristic;
+    bamm:characteristic :LengthCharacteristic;
     bamm:exampleValue "0.1"^^xsd:double.
 :diameter a bamm:Property;
     bamm:name "diameter";
     bamm:preferredName "diameter"@en;
     bamm:description "Diameter of the item."@en;
-    bamm:characteristic :MillimetreCharacteristic;
+    bamm:characteristic :LengthCharacteristic;
     bamm:exampleValue "0.03"^^xsd:double.
 :weight a bamm:Property;
     bamm:name "weight";
@@ -37,12 +37,6 @@
     bamm:description "Weight of the item"@en;
     bamm:characteristic :KilogramCharacteristic;
     bamm:exampleValue "100.7"^^xsd:double.
-:MillimetreCharacteristic a bamm-c:Measurement;
-    bamm:name "MillimetreCharacteristic";
-    bamm:preferredName "millimetre characteristic"@en;
-    bamm:description "a measurement for a lenght given in the unit millimetre"@en;
-    bamm:dataType xsd:double;
-    bamm-c:unit unit:millimetre.
 :KilogramCharacteristic a bamm-c:Measurement;
     bamm:name "KilogramCharacteristic";
     bamm:preferredName "kilogram characteristic"@en;
@@ -51,23 +45,25 @@
     bamm-c:unit unit:kilogram.
 :PhysicalDimensions a bamm:Aspect;
     bamm:name "PhysicalDimensions";
+    bamm:preferredName "physical dimensions"@en;
+    bamm:description "Describes the physical dimensions of an entity."@en;
     bamm:properties (:physicalDimensionsProperty);
     bamm:operations ();
-    bamm:preferredName "physical dimensions"@en;
-    bamm:description "Describes the physical dimensions of then entity."@en;
     bamm:events ().
 :physicalDimensionsProperty a bamm:Property;
     bamm:name "physicalDimensionsProperty";
     bamm:preferredName "physical dimensions"@en;
-    bamm:description "Describes the physical dimensions of then entity."@en;
+    bamm:description "Describes the physical dimensions of an entity."@en;
     bamm:characteristic :PhysicalDimensionsCharacteristic.
 :PhysicalDimensionsCharacteristic a bamm:Characteristic;
     bamm:name "PhysicalDimensionsCharacteristic";
     bamm:preferredName "physical dimensions"@en;
-    bamm:description "Describes the physical dimensions of then entity."@en;
+    bamm:description "Describes the physical dimensions of an entity."@en;
     bamm:dataType :PhysicalDimensionsEntity.
 :PhysicalDimensionsEntity a bamm:Entity;
     bamm:name "PhysicalDimensionsEntity";
+    bamm:preferredName "physical dimensions"@en;
+    bamm:description "Entity encapsulating the physical dimensions of an object."@en;
     bamm:properties ([
   bamm:property :weight;
   bamm:optional "true"^^xsd:boolean
@@ -83,6 +79,10 @@
 ] [
   bamm:property :length;
   bamm:optional "true"^^xsd:boolean
-]);
-    bamm:preferredName "physical dimensions"@en;
-    bamm:description "Entity encapsulating the physical dimensions of an object."@en.
+]).
+:LengthCharacteristic a bamm-c:Measurement;
+    bamm:name "LengthCharacteristic";
+    bamm:preferredName "length characteristic "@en;
+    bamm:description "a measurement for a lenght given in the unit millimetre"@en;
+    bamm:dataType xsd:double;
+    bamm-c:unit unit:millimetre.
