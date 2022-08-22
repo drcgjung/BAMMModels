@@ -26,49 +26,21 @@
 
 :Pcf a bamm:Aspect;
     bamm:name "Pcf";
-    bamm:properties (:productFootprintId :pcf :productFootprintSpecVersion :productFootprintVersion [
-  bamm:property :productFootprintUpdated;
+    bamm:properties (:id :pcf :specVersion :version [
+  bamm:property :updated;
   bamm:optional "true"^^xsd:boolean
-] :companyName :companyIds :productDescription :productIds :productCategoryCpc :productNameCompany :productFootprintComment);
+] :companyName :companyIds :productDescription :productId :productCategoryCpc :productNameCompany :comment);
     bamm:operations ();
     bamm:events ();
     bamm:preferredName "PCF (Product Carbon Footprint)"@en;
     bamm:description "Normative: Each Product (Carbon) Footprint represents the carbon footprint of a product with values in accordance with the Pathfinder Framework. Non-normative: Each Product Footprint relates to a specific product, identified by one or more product identifiers. The Product Footprint is modeled as a multi-purpose container for product-specific factors."@en;
     bamm:see <https://wbcsd.github.io/introduction/>.
-:productFootprintId a bamm:Property;
-    bamm:name "productFootprintId";
-    bamm:preferredName "Product Footprint Identifier"@en;
-    bamm:description "The product footprint identifier."@en;
-    bamm:see <https://wbcsd.github.io/introduction/>;
-    bamm:characteristic :ProductFootprintIdTrait;
-    bamm:exampleValue "3893bb5d-da16-4dc1-9185-11d97476c254".
 :pcf a bamm:Property;
     bamm:name "pcf";
     bamm:preferredName "PCF (Product Carbon Footprint)"@en;
     bamm:description "A PCF (Product Carbon Footprint) represents the carbon footprint of a product and related data in accordance with the Pathfinder Framework."@en;
     bamm:see <https://wbcsd.github.io/introduction/>;
     bamm:characteristic :PcfCharacteristic.
-:productFootprintSpecVersion a bamm:Property;
-    bamm:name "productFootprintSpecVersion";
-    bamm:preferredName "Product Footprint Specification Version"@en;
-    bamm:description "Version of the ProductFootprint data specification. The value of specVersion MUST be \"1.0.0\". Note: subsequent revisions of the ProductFootprint data specification will update this value according to the rules of Semantic Versioning 2.0.0."@en;
-    bamm:see <https://wbcsd.github.io/introduction/>;
-    bamm:characteristic :ProductFootprintSpecVersionTrait;
-    bamm:exampleValue "1.0.0".
-:productFootprintVersion a bamm:Property;
-    bamm:name "productFootprintVersion";
-    bamm:preferredName "ProductFootprintVersion"@en;
-    bamm:description "Whenever a data owner or a host system updates a Product Footprint it MUST set the version to be by strictly greater than the value of all preceding footprints."@en;
-    bamm:see <https://wbcsd.github.io/introduction/>;
-    bamm:characteristic :ProductFootprintVersionCharacteristic;
-    bamm:exampleValue "42"^^xsd:positiveInteger.
-:productFootprintUpdated a bamm:Property;
-    bamm:name "productFootprintUpdated";
-    bamm:preferredName "Updated"@en;
-    bamm:description "Product Footprint Updated"@en;
-    bamm:see <https://wbcsd.github.io/introduction/>;
-    bamm:characteristic bamm-c:Timestamp;
-    bamm:exampleValue "2022-05-22T21:47:35Z"^^xsd:dateTime.
 :companyName a bamm:Property;
     bamm:name "companyName";
     bamm:preferredName "Company Name"@en;
@@ -88,13 +60,6 @@
     bamm:see <https://wbcsd.github.io/introduction/>;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Car X model B type C".
-:productIds a bamm:Property;
-    bamm:name "productIds";
-    bamm:preferredName "Product IDs (Identifications)"@en;
-    bamm:description "Each of the values in the set is supposed to uniquely identify the product. "@en;
-    bamm:see <https://wbcsd.github.io/introduction/>;
-    bamm:characteristic :ProductIdsCharacteristic;
-    bamm:exampleValue "urn:ISBN:3-8273-7019-1".
 :productCategoryCpc a bamm:Property;
     bamm:name "productCategoryCpc";
     bamm:preferredName "Product Category "@en;
@@ -108,13 +73,6 @@
     bamm:description "Trade name of the product."@en;
     bamm:see <https://wbcsd.github.io/introduction/>;
     bamm:characteristic :NonEmptyString.
-:productFootprintComment a bamm:Property;
-    bamm:name "productFootprintComment";
-    bamm:preferredName "Comment"@en;
-    bamm:description "Additional information and instructions related to the calculation of the footprint, or other information which informs the ability to interpret, to audit or to verify the Product Footprint."@en;
-    bamm:see <https://wbcsd.github.io/introduction/>;
-    bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "Comment for Version 42".
 :ProductFootprintIdTrait a bamm-c:Trait;
     bamm:name "ProductFootprintIdTrait";
     bamm-c:baseCharacteristic bamm-c:Text;
@@ -164,8 +122,11 @@
     bamm:value "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$".
 :PcfEntity a bamm:Entity;
     bamm:name "PcfEntity";
-    bamm:properties (:declaredUnit :unitaryProductAmount :created :validityPeriodEnd :reportingPeriodStart :reportingPeriodEnd [
-  bamm:property :geographyCountrySubdivision;
+    bamm:properties (:declaredUnit :unitaryProductAmount :created [
+  bamm:property :validityPeriodEnd;
+  bamm:optional "true"^^xsd:boolean
+] :reportingPeriodStart :reportingPeriodEnd [
+  bamm:property :geographyCountrySubregion;
   bamm:optional "true"^^xsd:boolean
 ] [
   bamm:property :geographyCountry;
@@ -184,7 +145,7 @@
   bamm:optional "true"^^xsd:boolean
 ]);
     bamm:preferredName "PCF Entity"@en;
-    bamm:description "Entity for defining the properties of a pcf as specified by WBCSD."@en.
+    bamm:description "PCF Entity"@en.
 :ProductFootprintSpecVersionCharacteristic a bamm:Characteristic;
     bamm:name "ProductFootprintSpecVersionCharacteristic";
     bamm:preferredName "Product Footprint Specification Version Characteristic"@en;
@@ -249,13 +210,6 @@
     bamm:see <https://wbcsd.github.io/introduction/>;
     bamm:characteristic bamm-c:Timestamp;
     bamm:exampleValue "2022-01-01T00:00:00Z"^^xsd:dateTime.
-:geographyCountrySubdivision a bamm:Property;
-    bamm:name "geographyCountrySubdivision";
-    bamm:preferredName "Subdivision"@en;
-    bamm:description "Subdivision of a country"@en;
-    bamm:see <https://wbcsd.github.io/introduction/>;
-    bamm:characteristic :GeographyCountrySubdivisionTrait;
-    bamm:exampleValue "US-NY".
 :geographyCountry a bamm:Property;
     bamm:name "geographyCountry";
     bamm:preferredName "Country"@en;
@@ -328,6 +282,13 @@
     bamm:description "Summary of land (change) emissions and other"@en;
     bamm:see <https://wbcsd.github.io/introduction/>;
     bamm:characteristic :BiogenicEmissionsCharacteristic.
+:DeclaredUnitCharacteristic a bamm-c:Enumeration;
+    bamm:name "DeclaredUnitCharacteristic";
+    bamm:preferredName "Declared Unit Characteristic"@en;
+    bamm:description "Describes a Property containing an enumeration of valid units as specified by WBCSD"@en;
+    bamm:see <https://wbcsd.github.io/introduction/>;
+    bamm:dataType xsd:string;
+    bamm-c:values ("liter" "kilogram" "cubic meter" "kilowatt hour" "megajoule" "ton kilometer" "square meter").
 :UnitaryProductAmountTrait a bamm-c:Trait;
     bamm:name "UnitaryProductAmountTrait";
     bamm-c:baseCharacteristic :UnitaryProductAmountCharacteristic;
@@ -375,7 +336,7 @@
     bamm:preferredName "Product Or Sector Specific Rules Characteristic"@en;
     bamm:description "Product Or Sector Specific Rules Characteristic"@en;
     bamm:see <https://wbcsd.github.io/introduction/>;
-    bamm:dataType :ProductOrSectorSpecificRulesEntity.
+    bamm:dataType :ProductOrSectorSpecificRuleEntity.
 :FossilGhgEmissionsTrait a bamm-c:Trait;
     bamm:name "FossilGhgEmissionsTrait";
     bamm-c:baseCharacteristic :FossilGhgEmissionsCharacteristic;
@@ -458,15 +419,6 @@
     bamm:properties (:crossSectoralStandard);
     bamm:preferredName "Cross Sectoral Standard Entity"@en;
     bamm:description "Entity for defining a cross sectoral standard."@en;
-    bamm:see <https://wbcsd.github.io/introduction/>.
-:ProductOrSectorSpecificRulesEntity a bamm:Entity;
-    bamm:name "ProductOrSectorSpecificRulesEntity";
-    bamm:properties (:operator :ruleNames :otherOperatorName [
-  bamm:property :allocationRulesDescription;
-  bamm:optional "true"^^xsd:boolean
-]);
-    bamm:preferredName "Product Or Sector Specific Rules Entity"@en;
-    bamm:description "Product Or Sector Specific Rules Entity"@en;
     bamm:see <https://wbcsd.github.io/introduction/>.
 :FossilGhgEmissionsCharacteristic a bamm-c:Quantifiable;
     bamm:name "FossilGhgEmissionsCharacteristic";
@@ -629,10 +581,61 @@
     bamm:preferredName "Non Empty String Constraint"@en;
     bamm:description "Constraint which ensures that a string has at least one character."@en;
     bamm-c:minValue "1"^^xsd:nonNegativeInteger.
-:DeclaredUnitCharacteristic a bamm-c:Enumeration;
-    bamm:name "DeclaredUnitCharacteristic";
-    bamm:preferredName "Declared Unit Characteristic"@en;
-    bamm:description "Describes a Property containing an enumeration of valid units as specified by WBCSD"@en;
+:id a bamm:Property;
+    bamm:name "id";
+    bamm:preferredName "Product Footprint Identifier"@en;
+    bamm:description "The product footprint identifier."@en;
     bamm:see <https://wbcsd.github.io/introduction/>;
-    bamm:dataType xsd:string;
-    bamm-c:values ("liter" "kilogram" "cubic meter" "kilowatt hour" "megajoule" "ton kilometer" "square meter").
+    bamm:characteristic :ProductFootprintIdTrait;
+    bamm:exampleValue "3893bb5d-da16-4dc1-9185-11d97476c254".
+:specVersion a bamm:Property;
+    bamm:name "specVersion";
+    bamm:preferredName "Product Footprint Specification Version"@en;
+    bamm:description "Version of the ProductFootprint data specification. The value of specVersion MUST be \"1.0.0\". Note: subsequent revisions of the ProductFootprint data specification will update this value according to the rules of Semantic Versioning 2.0.0."@en;
+    bamm:see <https://wbcsd.github.io/introduction/>;
+    bamm:characteristic :ProductFootprintSpecVersionTrait;
+    bamm:exampleValue "1.0.0".
+:version a bamm:Property;
+    bamm:name "version";
+    bamm:preferredName "ProductFootprintVersion"@en;
+    bamm:description "Whenever a data owner or a host system updates a Product Footprint it MUST set the version to be by strictly greater than the value of all preceding footprints."@en;
+    bamm:see <https://wbcsd.github.io/introduction/>;
+    bamm:characteristic :ProductFootprintVersionCharacteristic;
+    bamm:exampleValue "42"^^xsd:positiveInteger.
+:productId a bamm:Property;
+    bamm:name "productId";
+    bamm:preferredName "Product IDs (Identifications)"@en;
+    bamm:description "Each of the values in the set is supposed to uniquely identify the product. "@en;
+    bamm:see <https://wbcsd.github.io/introduction/>;
+    bamm:characteristic :ProductIdsCharacteristic;
+    bamm:exampleValue "urn:ISBN:3-8273-7019-1".
+:comment a bamm:Property;
+    bamm:name "comment";
+    bamm:preferredName "Comment"@en;
+    bamm:description "Additional information and instructions related to the calculation of the footprint, or other information which informs the ability to interpret, to audit or to verify the Product Footprint."@en;
+    bamm:see <https://wbcsd.github.io/introduction/>;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Comment for Version 42".
+:updated a bamm:Property;
+    bamm:name "updated";
+    bamm:preferredName "Updated"@en;
+    bamm:description "Product Footprint Updated"@en;
+    bamm:see <https://wbcsd.github.io/introduction/>;
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:exampleValue "2022-05-22T21:47:35Z"^^xsd:dateTime.
+:geographyCountrySubregion a bamm:Property;
+    bamm:name "geographyCountrySubregion";
+    bamm:preferredName "Subregion"@en;
+    bamm:description "Subregion of a country"@en;
+    bamm:see <https://wbcsd.github.io/introduction/>;
+    bamm:characteristic :GeographyCountrySubdivisionTrait;
+    bamm:exampleValue "US-NY".
+:ProductOrSectorSpecificRuleEntity a bamm:Entity;
+    bamm:name "ProductOrSectorSpecificRuleEntity";
+    bamm:properties (:operator :ruleNames :otherOperatorName [
+  bamm:property :allocationRulesDescription;
+  bamm:optional "true"^^xsd:boolean
+]);
+    bamm:preferredName "Product Or Sector Specific Rule Entity"@en;
+    bamm:description "Product Or Sector Specific Rules Entity"@en;
+    bamm:see <https://wbcsd.github.io/introduction/>.
