@@ -13,6 +13,7 @@
     bamm:properties (:catenaXId :childParts);
     bamm:description "The aspect provides the child parts (one structural level down) which the given object assembles."@en;
     bamm:operations ().
+
 :catenaXId a bamm:Property;
     bamm:name "catenaXId";
     bamm:preferredName "Catena-X Identifier"@en;
