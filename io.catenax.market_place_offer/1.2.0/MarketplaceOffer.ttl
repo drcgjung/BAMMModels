@@ -108,7 +108,7 @@
 :status a bamm:Property;
     bamm:name "status";
     bamm:preferredName "status"@en;
-    bamm:description "The status of the product."@en;
+    bamm:description "The status of the offer."@en;
     bamm:characteristic :Status.
 :certificate a bamm:Property;
     bamm:name "certificate";
