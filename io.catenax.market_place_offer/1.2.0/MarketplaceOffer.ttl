@@ -66,7 +66,7 @@
     bamm:name "quantity";
     bamm:description "The available quantity of the on the offered product in SKU."@en;
     bamm:characteristic :QuantityCharacteristic;
-    bamm:exampleValue "50"^^xsd:float.
+    bamm:exampleValue "50.00"^^xsd:float.
 :unitOfMeasure a bamm:Property;
     bamm:name "unitOfMeasure";
     bamm:description "The unit of measure (related to quantity)."@en;
@@ -447,4 +447,3 @@
     bamm:preferredName "quantity characteristic"@en;
     bamm:description "The available quantity of the on the offered product in SKU."@en;
     bamm:dataType xsd:float.
-    
