@@ -30,7 +30,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
-@prefix : <urn:bamm:io.catenax.single_level_bom_as_planned:1.0.0#>.
+@prefix : <urn:bamm:io.catenax.single_level_bom_as_planned:1.0.1#>.
 
 :catenaXId a bamm:Property;
     bamm:name "catenaXId";
@@ -83,8 +83,7 @@
     bamm:name "quantity";
     bamm:preferredName "Quantity"@en;
     bamm:description "Quantity of which the child part is assembled into the parent part."@en;
-    bamm:characteristic :QuantityCharacteristic;
-    bamm:exampleValue "1 litre"^^:Quantity.
+    bamm:characteristic :QuantityCharacteristic.
 :lastModifiedOn a bamm:Property;
     bamm:name "lastModifiedOn";
     bamm:preferredName "Last Modification Date"@en;
