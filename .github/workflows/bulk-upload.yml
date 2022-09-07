@@ -1,5 +1,4 @@
 #
-# Copyright (c) 2021 T-Systems International GmbH (Catena-X Consortium)
 # Copyright (c) 2022 Robert Bosch Manufacturing Solutions GmbH
 #
 # See the AUTHORS file(s) distributed with this work for additional
@@ -9,27 +8,41 @@
 # additional information regarding license terms.
 #
 
-name: 0 Governance
+name: 2 Bulk
 
-
-on: [push]
+on:
+  workflow_dispatch:
+    inputs:
+      instance:
+        description: 'The CX environment where to trigger the bulk upload'
+        type: choice
+        required: true
+        default: 'dev'
+        options:
+          - dev
+          - int
 
 jobs:
-  synchronize-models:
-    name: 00 Determine Target Environment
+  bulk-upload:
+    name: 09 Deploy Semantic Models
     runs-on: ubuntu-latest
-    outputs:
-      stage: ${{ steps.setvars.outputs.stage }}
-      workspace: ${{ steps.setvars.outputs.workspace }}
-      workspace_uppercase: ${{ steps.setvars.outputs.workspace_uppercase }}
-      status: ${{ steps.setvars.outputs.status }}
-
+    env:
+      PUBLISHER: Catena-X Modelling Governance Body
     steps:
       - name: set environment variables
         run: |
-          echo "WORKSPACE=int" >> $GITHUB_ENV
-          echo "WORKSPACE_UPPERCASE=INT" >> $GITHUB_ENV
-          echo "url_prefix=demo" >> $GITHUB_ENV
+          echo "WORKSPACE=${{ github.event.inputs.instance }}" >> $GITHUB_ENV
+          workspace_uppercase=$(echo ${{ github.event.inputs.instance }} | tr '[:lower:]' '[:upper:]')
+          echo "WORKSPACE_UPPERCASE=$workspace_uppercase" >> $GITHUB_ENV
+          
+          echo "Selected workspace: ${workspace_uppercase}"
+
+          if [ ${{ github.event.inputs.instance }} == 'int' ]
+          then
+            echo "url_prefix=demo" >> $GITHUB_ENV
+          else
+            echo "url_prefix=${{ github.event.inputs.instance }}.demo" >> $GITHUB_ENV
+          fi
 
       - name: Checkout
         uses: actions/checkout@v2
@@ -37,15 +50,6 @@ jobs:
       - name: Execution Permission
         run: |
             chmod 777 .github/*.sh
-          
-      - name: Check Changes
-        id: changes
-        uses: jitterbit/get-changed-files@v1
-        with:
-          # Format of the steps output context.
-          # Can be 'space-delimited', 'csv', or 'json'.
-          # Default: 'space-delimited'
-          format: 'json'
       
       - name: Fetch Access Token
         id: token_request
@@ -72,13 +76,10 @@ jobs:
 
           echo "ACCESS_TOKEN=$access_token" >> $GITHUB_ENV
           
-      - name: Synchronize
-        uses: ./.github/actions/synchronize
+      - name: Bulk Upload
+        uses: ./.github/actions/bulk-upload
         env:
-          SEMANTIC_HUB: semantics.${{ env.WORKSPACE }}.demo.catena-x.net/hub/api/v1/models
+          SEMANTIC_HUB: semantics.${{ github.event.inputs.instance }}.demo.catena-x.net/hub/api/v1/models
         with:
-          ADDED: ${{ steps.changes.outputs.added }}
-          MODIFIED: ${{ steps.changes.outputs.modified }}
-          REMOVED:  ${{ steps.changes.outputs.removed }}
-          RENAMED: ${{ steps.changes.outputs.renamed  }}
           BRANCH: ${{ github.ref }}
+

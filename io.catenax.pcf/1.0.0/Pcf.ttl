@@ -1,0 +1,404 @@
+#######################################################################
+# Copyright (c) 2022 T-Systems International GmbH
+# Copyright (c) 2022 Robert Bosch Manufacturing Solutions GmbH
+# Copyright (c) 2022 Contributors to the Eclipse Foundation
+#
+# See the NOTICE file(s) distributed with this work for additional
+# information regarding copyright ownership.
+#
+# This work is made available under the terms of the 
+# Creative Commons Attribution 4.0 International (CC-BY-4.0) license, 
+# which is available at
+# https://creativecommons.org/licenses/by/4.0/legalcode.
+#
+# SPDX-License-Identifier: CC-BY-4.0
+#######################################################################
+
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix : <urn:bamm:io.catenax.pcf:1.0.0#>.
+@prefix catenax-c: <urn:bamm:io.catenax.shared.address_characteristic:1.0.0#>.
+
+:Pcf a bamm:Aspect;
+    bamm:name "Pcf";
+    bamm:properties ([
+  bamm:property :pcfSupplyRelation;
+  bamm:optional "true"^^xsd:boolean
+] :pcfCore :pcfTechnical);
+    bamm:operations ();
+    bamm:preferredName "PCF"@en;
+    bamm:description "PCF is the abbreviation of Product Carbon Footprint. It indicates the climate impact of a product or component. The PCF aspect includes the relationship between a supplier and a customer with regards to a specific part or component and its according PCF value. No commonly used standards given yet."@en.
+
+:pcfSupplyRelation a bamm:Property;
+    bamm:name "pcfSupplyRelation";
+    bamm:preferredName "PCF Supply Relation"@en;
+    bamm:description "The PCF (Product Carbon Footprint) supply relation describes the relationship between a supplier and a customer with regards to a specific part or component."@en;
+    bamm:characteristic :PcfSupplyRelationCharacteristic.
+:pcfCore a bamm:Property;
+    bamm:name "pcfCore";
+    bamm:preferredName "PCF Core"@en;
+    bamm:description "Core information for the PCF (Product Carbon Footprint)."@en;
+    bamm:characteristic :PcfCoreCharacteristic.
+:pcfTechnical a bamm:Property;
+    bamm:name "pcfTechnical";
+    bamm:preferredName "PCF Technical"@en;
+    bamm:description "Information about the collection and calculation methodology of the reported PCF (Product Carbon Footprint) data, e.g. regarding the use of calculation tools or databases, references (databases, regulations, standards, etc.)."@en;
+    bamm:characteristic :PcfTechnicalCharacteristic.
+:PcfSupplyRelationCharacteristic a bamm:Characteristic;
+    bamm:name "PcfSupplyRelationCharacteristic";
+    bamm:preferredName "PCF Supply Relation Characteristic"@en;
+    bamm:description "Characteristic to describe the relationship between a supplier and a customer with regards to a specific part or component."@en;
+    bamm:dataType :PcfSupplyRelationEntity.
+:PcfCoreCharacteristic a bamm-c:SingleEntity;
+    bamm:name "PcfCoreCharacteristic";
+    bamm:preferredName "PCF Core Characteristic"@en;
+    bamm:description "Characteristic for defining the core information for the PCF (Product Carbon Footprint)."@en;
+    bamm:dataType :PcfCoreEntity.
+:PcfTechnicalCharacteristic a bamm-c:SingleEntity;
+    bamm:name "PcfTechnicalCharacteristic";
+    bamm:preferredName "PCF Technical Characteristic"@en;
+    bamm:description "Characteristic for defining the relevant information about collection and calcuation methodology of a reported PCF (Product Carbon Footprint) value."@en;
+    bamm:dataType :PcfTechnicalEntity.
+:PcfSupplyRelationEntity a bamm:Entity;
+    bamm:name "PcfSupplyRelationEntity";
+    bamm:properties (:supplier :customer :part);
+    bamm:preferredName "PCF Supply Relation Entity"@en;
+    bamm:description "Entity for describing the relationship between a supplier and a customer with regards to a specific part or component."@en.
+:PcfCoreEntity a bamm:Entity;
+    bamm:name "PcfCoreEntity";
+    bamm:properties (:pcfValidityPeriod :pcfPrimaryDataShare :totalCO2eqPerUnitSupplier :totalCO2eqPerUnitTransport);
+    bamm:preferredName "PCF Core Entity"@en;
+    bamm:description "Core information for the PCF (Product Carbon Footprint)."@en.
+:PcfTechnicalEntity a bamm:Entity;
+    bamm:name "PcfTechnicalEntity";
+    bamm:properties ([
+  bamm:property :pcfReferencePeriod;
+  bamm:payloadName "pcfReferencePeriod"
+] [
+  bamm:property :pcfSystemBoundary;
+  bamm:payloadName "pcfSystemBoundary"
+] :pcfStandard :pcfSecondaryDataSource);
+    bamm:preferredName "PCF Technical Entity"@en;
+    bamm:description "Entity for defining the information about the collection and calculation methodology of a reported PCF (Product Carbon Footprint) value."@en.
+:supplier a bamm:Property;
+    bamm:name "supplier";
+    bamm:preferredName "Supplier"@en;
+    bamm:description "Contains all information about the supplier of a part/ component."@en;
+    bamm:characteristic :SupplierCharacteristic.
+:customer a bamm:Property;
+    bamm:name "customer";
+    bamm:preferredName "Customer"@en;
+    bamm:description "Contains all information about the customer of a part/ component."@en;
+    bamm:characteristic :CustomerCharacteristic.
+:part a bamm:Property;
+    bamm:name "part";
+    bamm:preferredName "Part"@en;
+    bamm:description "Part or component of a product."@en;
+    bamm:characteristic :PartCharacteristic.
+:pcfValidityPeriod a bamm:Property;
+    bamm:name "pcfValidityPeriod";
+    bamm:preferredName "PCF Validity Period"@en;
+    bamm:description "Defines the period where the PCF (Product Carbon Footprint) value is valid, given by a start and an end date."@en;
+    bamm:characteristic :ValidityPeriodCharacteristic.
+:pcfPrimaryDataShare a bamm:Property;
+    bamm:name "pcfPrimaryDataShare";
+    bamm:preferredName "PCF Primary Data Share"@en;
+    bamm:description "Share of the PCF (Product Carbon Footprint) that comes from primary data."@en;
+    bamm:characteristic :PcfPrimaryDataShareTrait;
+    bamm:exampleValue "20.0"^^xsd:float.
+:totalCO2eqPerUnitSupplier a bamm:Property;
+    bamm:name "totalCO2eqPerUnitSupplier";
+    bamm:preferredName "Total CO2 equivalent/Unit (Supplier)"@en;
+    bamm:description "Total CO2 equivalent per unit of the part / material (in kg), supplier's share."@en;
+    bamm:characteristic :PcfPerUnit;
+    bamm:exampleValue "230.00"^^xsd:float.
+:totalCO2eqPerUnitTransport a bamm:Property;
+    bamm:name "totalCO2eqPerUnitTransport";
+    bamm:preferredName "Total CO2 equivalent per Unit (Transport)"@en;
+    bamm:description "Total CO2 equivalent per unit of the part / material (in kg), transport share (from supplier to customer)."@en;
+    bamm:characteristic :PcfPerUnit;
+    bamm:exampleValue "0.5"^^xsd:float.
+:pcfReferencePeriod a bamm:Property;
+    bamm:name "pcfReferencePeriod";
+    bamm:preferredName "PCF Reference Period"@en;
+    bamm:description "Period for data collection of primary PCF (Product Carbon Footprint) data. Contains start and end date."@en;
+    bamm:characteristic :ReferencePeriodCharacteristic.
+:pcfSystemBoundary a bamm:Property;
+    bamm:name "pcfSystemBoundary";
+    bamm:preferredName "PCF System Boundary"@en;
+    bamm:description "Definition of PCF (Product Carbon Footprint) system boundary, e.g. \"cradle-to-gate\". This follows the LCA (Life Cycle Assessment) methodology."@en;
+    bamm:characteristic :PCFSystemBoundaryCharacteristic;
+    bamm:exampleValue "cradle-to-gate".
+:pcfStandard a bamm:Property;
+    bamm:name "pcfStandard";
+    bamm:preferredName "PCF Standard"@en;
+    bamm:description "Standard used for PCF (Product Carbon Footprint) calculation, e.g. ISO 14067, Worldsteel method, .."@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "ISO 14067".
+:pcfSecondaryDataSource a bamm:Property;
+    bamm:name "pcfSecondaryDataSource";
+    bamm:preferredName "PCF Secondary Data Source"@en;
+    bamm:description "Sources (databases) of secondary PCF (Product Carbon Footprint) data. Free text entry."@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "GaBi v2.3".
+:SupplierCharacteristic a bamm-c:SingleEntity;
+    bamm:name "SupplierCharacteristic";
+    bamm:preferredName "Supplier Characteristic"@en;
+    bamm:description "Characteristic for bundling the different properties of a supplier."@en;
+    bamm:dataType :SupplierEntity.
+:CustomerCharacteristic a bamm-c:SingleEntity;
+    bamm:name "CustomerCharacteristic";
+    bamm:preferredName "Customer Characteristic"@en;
+    bamm:description "Characteristic for bundling the different properties of a customer."@en;
+    bamm:dataType :CustomerEntity.
+:PartCharacteristic a bamm-c:SingleEntity;
+    bamm:name "PartCharacteristic";
+    bamm:preferredName "Part Characteristic"@en;
+    bamm:description "Characteristic for bundling the relevant information of a part."@en;
+    bamm:dataType :PartEntity.
+:ValidityPeriodCharacteristic a bamm-c:SingleEntity;
+    bamm:name "ValidityPeriodCharacteristic";
+    bamm:preferredName "Validity Period Characteristic"@en;
+    bamm:description "Defines a validity period given by a start and an end date."@en;
+    bamm:dataType :ValidityPeriod.
+:PcfPrimaryDataShareTrait a bamm-c:Trait;
+    bamm:name "PcfPrimaryDataShareTrait";
+    bamm-c:baseCharacteristic :PcfPrimaryDataShareCharacteristic;
+    bamm-c:constraint :PcfPrimaryDataShareConstraint.
+:PcfPerUnit a bamm-c:Measurement;
+    bamm:name "PcfPerUnit";
+    bamm:preferredName "PCF per Unit"@en;
+    bamm:description "PCF (Product Carbon Footprint) value per unit."@en;
+    bamm:dataType xsd:float;
+    bamm-c:unit :TotalCO2eqUnit.
+:ReferencePeriodCharacteristic a bamm-c:SingleEntity;
+    bamm:name "ReferencePeriodCharacteristic";
+    bamm:preferredName "Reference Period Characteristic"@en;
+    bamm:description "Reference period with start and end date."@en;
+    bamm:dataType :ReferencePeriodEntity.
+:PCFSystemBoundaryCharacteristic a bamm-c:Enumeration;
+    bamm:name "PCFSystemBoundaryCharacteristic";
+    bamm:preferredName "PCF System Boundary"@en;
+    bamm:description "Describes a property for the PCF (Product Carbon Footprint) system boundary. Allows fixed values, e.g. \"cradle-to-gate\". Selection might be extended over time."@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("cradle-to-gate").
+:SupplierEntity a bamm:Entity;
+    bamm:name "SupplierEntity";
+    bamm:properties (:distributionSite :productionSite [
+  bamm:property :productionRegion;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :mail;
+  bamm:optional "true"^^xsd:boolean
+] :contactDetails);
+    bamm:preferredName "Supplier Entity"@en;
+    bamm:description "Entity for bundling the properties of a supplier."@en.
+:CustomerEntity a bamm:Entity;
+    bamm:name "CustomerEntity";
+    bamm:properties (:deliverySite [
+  bamm:property :mail;
+  bamm:optional "true"^^xsd:boolean
+] :contactDetails);
+    bamm:preferredName "Customer Entity"@en;
+    bamm:description "Entity for bundling the properties of a customer."@en.
+:PartEntity a bamm:Entity;
+    bamm:name "PartEntity";
+    bamm:properties (:designation :catenaxUniqueID :partType :quantity);
+    bamm:preferredName "Part Entity"@en;
+    bamm:description "Entity which describes a part or component of a product."@en.
+:ValidityPeriod a bamm:Entity;
+    bamm:name "ValidityPeriod";
+    bamm:properties (:validityPeriodStart :validityPeriodEnd);
+    bamm:preferredName "Validity Period"@en;
+    bamm:description "Defines a validity period of a value given by a start and an end date."@en.
+:PcfPrimaryDataShareCharacteristic a bamm-c:Quantifiable;
+    bamm:name "PcfPrimaryDataShareCharacteristic";
+    bamm:preferredName "PCF Primary Data Share Characteristic"@en;
+    bamm:description "Characteristic for a PCF (Product Carbon Footprint) primary data share which is given in a percentage value."@en;
+    bamm:dataType xsd:float;
+    bamm-c:unit unit:percent.
+:PcfPrimaryDataShareConstraint a bamm-c:RangeConstraint;
+    bamm:name "PcfPrimaryDataShareConstraint";
+    bamm:preferredName "PCF Primary Data Share Constraint"@en;
+    bamm:description "Constraint for the PCF (Product Carbon Footprint) primary data share, defined as a float percentage value with a range between 0 and 100."@en;
+    bamm-c:minValue "0"^^xsd:float;
+    bamm-c:maxValue "100"^^xsd:float;
+    bamm-c:lowerBoundDefinition bamm-c:AT_LEAST;
+    bamm-c:upperBoundDefinition bamm-c:AT_MOST.
+:TotalCO2eqUnit a unit:Unit;
+    bamm:name "TotalCO2eqUnit";
+    bamm:preferredName "Total CO2 Equivalent Per Unit"@en;
+    unit:symbol "kgCO2e (GWP100)".
+:ReferencePeriodEntity a bamm:Entity;
+    bamm:name "ReferencePeriodEntity";
+    bamm:properties (:referencePeriodStart :referencePeriodEnd);
+    bamm:preferredName "Reference Period Entity"@en;
+    bamm:description "Reference period with start and end date."@en.
+:distributionSite a bamm:Property;
+    bamm:name "distributionSite";
+    bamm:preferredName "Distribution Site"@en;
+    bamm:description "Distribution site of supplier: where was the part delivered? Maybe the same as the production site in most cases, but could be different, which means that there is an additional transport from production site to distribution site."@en;
+    bamm:characteristic catenax-c:PostalAddress.
+:productionSite a bamm:Property;
+    bamm:name "productionSite";
+    bamm:preferredName "Production Site"@en;
+    bamm:description "Production site of supplier: where was the part produced?"@en;
+    bamm:characteristic catenax-c:PostalAddress.
+:productionRegion a bamm:Property;
+    bamm:name "productionRegion";
+    bamm:preferredName "Production Region"@en;
+    bamm:description "Region of the supplier production site. Mandatory if an exact or a unique address of the production site should not be available (for whatever reason)."@en;
+    bamm:characteristic :RegionCharacteristic;
+    bamm:exampleValue "EMEA".
+:mail a bamm:Property;
+    bamm:name "mail";
+    bamm:preferredName "Mail"@en;
+    bamm:description "E-mail address at which the responsible person or group for PCF processing in the company can be reached."@en;
+    bamm:characteristic :MailTrait;
+    bamm:exampleValue "sustainability@example.com".
+:contactDetails a bamm:Property;
+    bamm:name "contactDetails";
+    bamm:preferredName "Contact Details"@en;
+    bamm:description "Contains the contact information of a supplier or customer."@en;
+    bamm:characteristic :ContactCharacteristic.
+:deliverySite a bamm:Property;
+    bamm:name "deliverySite";
+    bamm:preferredName "DeliverySite"@en;
+    bamm:description "Delivery site of customer: to which location was the component shipped?"@en;
+    bamm:characteristic catenax-c:PostalAddress.
+:designation a bamm:Property;
+    bamm:name "designation";
+    bamm:preferredName "Designation"@en;
+    bamm:description "Designation of the part/ material."@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Automatikgetriebe 8HP 51".
+:catenaxUniqueID a bamm:Property;
+    bamm:name "catenaxUniqueID";
+    bamm:preferredName "Catenax Unique ID"@en;
+    bamm:description "The Catena-X unique identifier of the given object, valid for the Catena-X dataspace."@en;
+    bamm:characteristic :CatenaxUniqueIDTrait;
+    bamm:exampleValue "055c1128-0375-47c8-98de-7cf802c3241d".
+:partType a bamm:Property;
+    bamm:name "partType";
+    bamm:preferredName "Part Type"@en;
+    bamm:description "Declaration if part or material."@en;
+    bamm:characteristic :PartTypeCharacteristic;
+    bamm:exampleValue "Part".
+:quantity a bamm:Property;
+    bamm:name "quantity";
+    bamm:preferredName "Quantity"@en;
+    bamm:description "Declared unit amount."@en;
+    bamm:characteristic :QuantityCharacteristic;
+    bamm:exampleValue "40.00kg"^^:QuantityEntity.
+:validityPeriodStart a bamm:Property;
+    bamm:name "validityPeriodStart";
+    bamm:preferredName "Validity Period Start"@en;
+    bamm:description "Beginning of the period during which the data shown are valid."@en;
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:exampleValue "2022-01-01"^^xsd:dateTime.
+:validityPeriodEnd a bamm:Property;
+    bamm:name "validityPeriodEnd";
+    bamm:preferredName "Validity Period End"@en;
+    bamm:description "End of the period during which the data shown are valid."@en;
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:exampleValue "2022-12-31"^^xsd:dateTime.
+:referencePeriodStart a bamm:Property;
+    bamm:name "referencePeriodStart";
+    bamm:preferredName "Reference Period Start"@en;
+    bamm:description "Start date of the reference period."@en;
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:exampleValue "2019-05-01"^^xsd:dateTime.
+:referencePeriodEnd a bamm:Property;
+    bamm:name "referencePeriodEnd";
+    bamm:preferredName "Reference Period End"@en;
+    bamm:description "End date of the reference period."@en;
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:exampleValue "2020-04-30"^^xsd:dateTime.
+:RegionCharacteristic a bamm-c:Enumeration;
+    bamm:name "RegionCharacteristic";
+    bamm:preferredName "Region Characteristic"@en;
+    bamm:description "Entry of a list of valid regions (EMEA - Europe, Middle-East & Africa, NA - North America, SA - South America, AS - Asia, GLO - Global)."@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("EMEA" "NA" "SA" "AS" "GLO").
+:MailTrait a bamm-c:Trait;
+    bamm:name "MailTrait";
+    bamm-c:baseCharacteristic bamm-c:Text;
+    bamm-c:constraint :MailConstraint.
+:ContactCharacteristic a bamm-c:SingleEntity;
+    bamm:name "ContactCharacteristic";
+    bamm:preferredName "Contact Characteristic"@en;
+    bamm:description "Characteristic for bundling details of a contact."@en;
+    bamm:dataType :ContactEntity.
+:CatenaxUniqueIDTrait a bamm-c:Trait;
+    bamm:name "CatenaxUniqueIDTrait";
+    bamm-c:baseCharacteristic :UUIDv4Characteristic;
+    bamm-c:constraint :UUIDv4RegularExpression.
+:PartTypeCharacteristic a bamm-c:Enumeration;
+    bamm:name "PartTypeCharacteristic";
+    bamm:preferredName "Part Type Characteristic"@en;
+    bamm:description "Declaration if part or material."@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("Part" "Material").
+:QuantityCharacteristic a bamm-c:SingleEntity;
+    bamm:name "QuantityCharacteristic";
+    bamm:preferredName "Quantity Characteristic"@en;
+    bamm:description "Declared unit amount."@en;
+    bamm:dataType :QuantityEntity.
+:MailConstraint a bamm-c:RegularExpressionConstraint;
+    bamm:name "MailConstraint";
+    bamm:preferredName "Mail Constraint"@en;
+    bamm:description "Regular expression for mail address as defined in W3C (see https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address)."@en;
+    bamm:value "^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$".
+:ContactEntity a bamm:Entity;
+    bamm:name "ContactEntity";
+    bamm:properties (:contactId :contactName);
+    bamm:preferredName "Contact Entity"@en;
+    bamm:description "Entity for details of a contact (could be e.g. a supplier or a customer)."@en.
+:UUIDv4Characteristic a bamm:Characteristic;
+    bamm:name "UUIDv4Characteristic";
+    bamm:preferredName "UUID v4 Characteristic"@en;
+    bamm:description "Regular expression for UUID v4."@en;
+    bamm:dataType xsd:string.
+:UUIDv4RegularExpression a bamm-c:RegularExpressionConstraint;
+    bamm:name "UUIDv4RegularExpression";
+    bamm:preferredName "UUID v4 Regular Expression"@en;
+    bamm:description "Catena-X Unique ID Regular Expression."@en;
+    bamm:value "^[0-9a-fA-F]{8}\\\\b-[0-9a-fA-F]{4}\\\\b-[0-9a-fA-F]{4}\\\\b-[0-9a-fA-F]{4}\\\\b-[0-9a-fA-F]{12}$".
+:QuantityEntity a bamm:Entity;
+    bamm:name "QuantityEntity";
+    bamm:properties (:quantityValue :quanitityUnit);
+    bamm:preferredName "Quantity Entity"@en;
+    bamm:description "Entity for a quantity which consists of a value and a unit."@en.
+:contactId a bamm:Property;
+    bamm:name "contactId";
+    bamm:preferredName "Contact ID"@en;
+    bamm:description "Unique identifier of the contact, corresponds to CX_ID at BPDM (Business Partner Data Management)."@en;
+    bamm:characteristic bamm-c:Text.
+:contactName a bamm:Property;
+    bamm:name "contactName";
+    bamm:preferredName "Contact Name"@en;
+    bamm:description "Name of the contact."@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Muster AG".
+:quantityValue a bamm:Property;
+    bamm:name "quantityValue";
+    bamm:preferredName "Quantity Value"@en;
+    bamm:description "Value of a quantity."@en;
+    bamm:characteristic :QuantityValueCharacteristic;
+    bamm:exampleValue "40.00"^^xsd:float.
+:quanitityUnit a bamm:Property;
+    bamm:name "quanitityUnit";
+    bamm:preferredName "QuantityUnit"@en;
+    bamm:description "Unit for the value of a quantity."@en;
+    bamm:characteristic bamm-c:UnitReference;
+    bamm:exampleValue "kg"^^bamm:curie.
+:QuantityValueCharacteristic a bamm:Characteristic;
+    bamm:name "QuantityValueCharacteristic";
+    bamm:preferredName "Quantity Value Characteristic"@en;
+    bamm:description "Value of a quantity."@en;
+    bamm:dataType xsd:float.

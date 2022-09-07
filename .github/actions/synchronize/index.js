@@ -96,11 +96,6 @@ function deployModifiedFilesOnMain(files) {
     })
 }
 
-
-function deployAspects(files) {
-    deployAspects(files, "draft")
-}
-
 //TODO delay creation of single Aspects to prevent the Semantic Hub from overload.
 /*Postponing this TODO because we do not expect that this action will trigger for commits with a larger number of change requests for the Semantic Hub instance.*/
 function deploySingleAspect(file, status) {
@@ -122,9 +117,15 @@ function deploySingleAspect(file, status) {
 }
 
 function deployAspects(files, status) {
-    files.forEach((file) => {
-        deploySingleAspect(file, status)    
-    });
+    if(typeof status === 'undefined') {
+        files.forEach((file) => {
+            deploySingleAspect(file, "draft")
+        });
+    } else {
+        files.forEach((file) => {
+            deploySingleAspect(file, status)
+        });
+    }
 }
 
 /*
