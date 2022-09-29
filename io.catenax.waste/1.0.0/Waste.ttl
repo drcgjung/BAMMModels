@@ -1,7 +1,12 @@
 #######################################################################
 # Copyright (c) 2022 T-Systems International GmbH
-# Copyright (c) 2022 Robert Bosch Manufacturing Solutions GmbH
+# Copyright (c) 2022 Bayerische Motoren Werke Aktiengesellschaft
+# Copyright (c) 2022 Robert Bosch GmbH
+# Copyright (c) 2022 Henkel AG & Co. KGaA
+# Copyright (c) 2022 LRP Autorecycling Leipzig GmbH
 # Copyright (c) 2022 SAP SE
+# Copyright (c) 2022 ZF Friedrichshafen AG
+# Copyright (c) 2022 Circular Economy Solutions GmbH (C-ECO)
 # Copyright (c) 2022 Fraunhofer-Institut für Produktionstechnik und Automatisierung
 #
 # See the NOTICE file(s) distributed with this work for additional
