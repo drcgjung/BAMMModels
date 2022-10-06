@@ -109,8 +109,8 @@
     bamm:description "enumeration of possible fuel types of a vehicle"@en;
     bamm:preferredName "fuel type"@en;
     bamm:dataType xsd:string;
-    bamm:see <www.kba.de/SharedDocs/Downloads/DE/SV/sv221_m1_schad_pdf.pdf?__blob=publicationFile&v=3>;
-    bamm-c:values ("Unbekannt" "Diesel" "Benzin" "Vielstoff" "Elektro" "Flüssiggas" "Benzin/Flüssiggas" "Benzin/komp.Erdgas" "Hybr.Benzin/E" "Erdgas NG" "Hybr.Diesel/E" "Wasserstoff" "Hybr.Wasserst./E" "Wasserstoff/Benzin" "Wasserst./Benzin/E" "BZ/Wasserstoff" "BZ/Benzin" "BZ/Methanol" "BZ/Ethanol" "Hybr.Vielstoff/E" "Methan" "Benzin/Methan" "Hybr.Erdgas/E" "Benzin/Ethanol" "Hybr.Flüssiggas/E" "Hybr.B/E ext.aufl." "Hybr.D/E ext.aufl." "Hybr.LPG/E ext.aufl." "Hybr.W/E ext.aufl." "Hybr.V/E ext.aufl." "Hybr.NG/E ext.aufl." "Hybr.Wod.B/Eext.aufl" "Wasserstoff/NG" "Hybr.W/NG/E ext.aufl" "Ethanol" "Hybr.BZ/W/E" "Hybr.BZ/W/E ext. aufl." "Zweistoff LNG/Diesel" "Verflüssigtes Erdgas (LNG)" "Andere").
+    bamm-c:values ("Unbekannt" "Diesel" "Benzin" "Vielstoff" "Elektro" "Flüssiggas" "Benzin/Flüssiggas" "Benzin/komp.Erdgas" "Hybr.Benzin/E" "Erdgas NG" "Hybr.Diesel/E" "Wasserstoff" "Hybr.Wasserst./E" "Wasserstoff/Benzin" "Wasserst./Benzin/E" "BZ/Wasserstoff" "BZ/Benzin" "BZ/Methanol" "BZ/Ethanol" "Hybr.Vielstoff/E" "Methan" "Benzin/Methan" "Hybr.Erdgas/E" "Benzin/Ethanol" "Hybr.Flüssiggas/E" "Hybr.B/E ext.aufl." "Hybr.D/E ext.aufl." "Hybr.LPG/E ext.aufl." "Hybr.W/E ext.aufl." "Hybr.V/E ext.aufl." "Hybr.NG/E ext.aufl." "Hybr.Wod.B/Eext.aufl" "Wasserstoff/NG" "Hybr.W/NG/E ext.aufl" "Ethanol" "Hybr.BZ/W/E" "Hybr.BZ/W/E ext. aufl." "Zweistoff LNG/Diesel" "Verflüssigtes Erdgas (LNG)" "Andere");
+    bamm:see <www.kba.de/SharedDocs/Downloads/DE/SV/sv221_m1_schad_pdf.pdf?__blob=publicationFile&v=3>.
 :emptyWeight a bamm:Property;
     bamm:name "emptyWeight";
     bamm:description "The empty weight of the vehicle in kg as specified. For motor vehicles of class M1 registered up to December 31, 1996: Empty weight according to vehicle registration certificate or registration certificate Part I minus weight of tank contents at 90 percent filling. For motor vehicles of category M1 registered on or after January 1, 1997: Empty weight according to vehicle registration certificate or registration certificate Part I minus weight of tank contents at 90 percent filling and minus weight of driver (75 kg). For motor vehicles of class N1: empty weight according to the vehicle registration document or registration certificate Part I minus the weight of the tank contents with a 90 percent filling and minus the weight of the driver (75 kg)."@en;
@@ -174,8 +174,9 @@
     bamm:name "ProductDescription";
     bamm:description "vehicle specific data"@en;
     bamm:preferredName "Product Description"@en;
-    bamm:properties (:equipmentVariants :productionDateGMT :engine :mileage :fuel :emptyWeight :vehicleModel :bodyVariant :anonymisedIdentifier);
-    bamm:operations ().
+    bamm:properties (:equipmentVariants :productionDateGMT :engine :mileage :fuel :emptyWeight :vehicleModel :bodyVariant :anonymisedIdentifier :hsn :tsn);
+    bamm:operations ();
+    bamm:events ().
 :vehicleModel a bamm:Property;
     bamm:name "vehicleModel";
     bamm:description "base model / basic vehicle type"@en;
@@ -187,3 +188,27 @@
     bamm:description "anonymised IdentifierVehicle. Can be an anonymised number converted from a VIN"@en;
     bamm:preferredName "anonymisedIdentifier"@en;
     bamm:characteristic bamm-c:Text.
+:hsn a bamm:Property;
+    bamm:name "hsn";
+    bamm:description "The manufacturer's key number (Herstellerschlüsselnummer) is a four-digit numeric code that identifies the manufacturer of a motor vehicle or trailer"@en;
+    bamm:preferredName "HSN"@en;
+    bamm:characteristic :HsnCode;
+    bamm:exampleValue "0583".
+:tsn a bamm:Property;
+    bamm:name "tsn";
+    bamm:description "The type code number (Typschlüsselnummer ) is an eight-digit alphanumeric code that further identifies a manufacturer's vehicle type."@en;
+    bamm:preferredName "TSN"@en;
+    bamm:characteristic :TsnCode;
+    bamm:exampleValue "467".
+:HsnCode a bamm-c:Code;
+    bamm:name "HsnCode";
+    bamm:description "manufacturer's key number (Herstellerschlüsselnummer)"@en;
+    bamm:preferredName "HSN Code"@en;
+    bamm:dataType xsd:string;
+    bamm:see <https://www.kba.de/SharedDocs/Downloads/EN/SV/sv42_pdf_en.pdf>.
+:TsnCode a bamm-c:Code;
+    bamm:name "TsnCode";
+    bamm:description "type code number (Typschlüsselnummer )"@en;
+    bamm:preferredName "TSN Code"@en;
+    bamm:dataType xsd:string;
+    bamm:see <https://www.kba.de/SharedDocs/Downloads/EN/SV/sv42_pdf_en.pdf>.
