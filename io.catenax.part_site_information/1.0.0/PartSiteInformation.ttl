@@ -33,19 +33,28 @@
     bamm:description "A site is a delimited geographical area where a legal entity does business (geographical address with geo coordinates).A site always has a primary physical address. It is possible that further physical addresses are specified for the site. P.O. box details are only possible in addition to the physical address. A site has a 1:n relation to addresses, means at least 1 address is necessary and multiple addresses are possible."@en;
     bamm:characteristic :SitesCharacteristics;
     bamm:see <https%3A%2F%2Fconfluence.catena-x.net%2Fx%2FQkBHAw>.
-:Timestamp a bamm:Characteristic;
-    bamm:name "Timestamp";
-    bamm:description "Describes a Property which contains the date and time with an optional timezone."@en;
-    bamm:dataType xsd:dateTime.
 :SitesCharacteristics a bamm-c:Set;
     bamm:name "SitesCharacteristics";
     bamm:description "Sites Characteristics"@en;
     bamm:dataType :SiteEntity.
+:Timestamp a bamm:Characteristic;
+    bamm:name "Timestamp";
+    bamm:description "Describes a Property which contains the date and time with an optional timezone."@en;
+    bamm:dataType xsd:dateTime.
 :SiteEntity a bamm:Entity;
     bamm:name "SiteEntity";
     bamm:preferredName "SiteEntity"@en;
     bamm:description "SiteEntity"@en;
-    bamm:properties (:catenaXsiteId :function :functionValidFrom :functionValidUntil :externalSiteIdentifier).
+    bamm:properties (:catenaXsiteId :function [
+  bamm:property :functionValidFrom;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :functionValidUntil;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :externalSiteIdentifier;
+  bamm:optional "true"^^xsd:boolean
+]).
 :catenaXsiteId a bamm:Property;
     bamm:name "catenaXsiteId";
     bamm:preferredName "catenaXsiteId"@en;
