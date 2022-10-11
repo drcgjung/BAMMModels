@@ -174,7 +174,13 @@
     bamm:name "ProductDescription";
     bamm:description "vehicle specific data"@en;
     bamm:preferredName "Product Description"@en;
-    bamm:properties (:equipmentVariants :productionDateGMT :engine :mileage :fuel :emptyWeight :vehicleModel :bodyVariant :anonymisedIdentifier :hsn :tsn);
+    bamm:properties (:equipmentVariants :productionDateGMT :engine :mileage :fuel :emptyWeight :vehicleModel :bodyVariant :anonymisedIdentifier [
+  bamm:property :hsn;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :tsn;
+  bamm:optional "true"^^xsd:boolean
+]);
     bamm:operations ();
     bamm:events ().
 :vehicleModel a bamm:Property;
