@@ -5,7 +5,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
-@prefix : <urn:bamm:io.openmanufacturing.digitaltwin:1.0.0#>.
+@prefix : <urn:bamm:io.catenax.classified_load_collective:1.0.0#>.
 
 :countingMethod a bamm:Property;
     bamm:name "countingMethod";
