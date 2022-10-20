@@ -16,90 +16,102 @@
     bamm:description "Damage describes the weakening of a material or a part or an assembly during lifetime. It is a relative \nnon-negative value, reaching the value 1 when the critcal damage is reached."@en.
 :determinationStatus a bamm:Property;
     bamm:name "determinationStatus";
-    bamm:characteristic :StatusCharacteristic;
     bamm:preferredName "Damage Determination Status"@en;
-    bamm:description "Identification of vehicle status for damage value."@en.
+    bamm:description "Identification of vehicle status for damage value."@en;
+    bamm:characteristic :StatusCharacteristic.
+:damageValue a bamm:Property;
+    bamm:name "damageValue";
+    bamm:preferredName "damageValue"@en;
+    bamm:description "Damage value is a non negative number being zero for an intact component, increasing with increasing weakening and reaching value 1 if a critical weakening is reached. Damage is calculated from statistical data, so, values above 1 are possible."@en;
+    bamm:characteristic :DamageValue.
+:determinationMethod a bamm:Property;
+    bamm:name "determinationMethod";
+    bamm:preferredName "Damage determination method"@en;
+    bamm:description "Calculation of damage is based on models. Different models exists for different applications or from different sources. Therefore, the Method of determination is stored."@en;
+    bamm:characteristic :DeterminationMethodCharacteristic.
+:determinationLoaddataSource a bamm:Property;
+    bamm:name "determinationLoaddataSource";
+    bamm:preferredName "load data source"@en;
+    bamm:description "The source of the load data used to determine the damage is stored for information/interpretation."@en;
+    bamm:characteristic :LoaddataSourceCharacteristic.
 :StatusCharacteristic a bamm:Characteristic;
     bamm:name "StatusCharacteristic";
-    bamm:dataType :DeterminationStatus;
-    bamm:preferredName "status"@en.
+    bamm:preferredName "status"@en;
+    bamm:description "Status describes the date when this aspect is filled, the according mileage and according operating time. "@en;
+    bamm:dataType :DeterminationStatus.
 :DeterminationStatus a bamm:Entity;
     bamm:name "DeterminationStatus";
     bamm:properties (:mileage :date :operatingTime);
-    bamm:preferredName "DeterminationStatus"@en.
+    bamm:preferredName "DeterminationStatus"@en;
+    bamm:description "Status describes the date when this aspect is filled, the according mileage and according operating time. "@en.
 :mileage a bamm:Property;
     bamm:name "mileage";
-    bamm:characteristic :Mileage;
     bamm:preferredName "mileage"@en;
-    bamm:description "Mileage of the vehicle respectively part at date of determination"@en.
+    bamm:description "Mileage of the vehicle respectively part at determination"@en;
+    bamm:characteristic :Mileage.
 :date a bamm:Property;
     bamm:name "date";
-    bamm:characteristic bamm-c:Timestamp;
     bamm:preferredName "date of damage determination"@en;
-    bamm:description "Date of determination"@en.
+    bamm:description "Date of determination"@en;
+    bamm:characteristic bamm-c:Timestamp.
 :operatingTime a bamm:Property;
     bamm:name "operatingTime";
-    bamm:characteristic :OperatingTimeCharacteristic;
-    bamm:preferredName "Operating time"@en;
-    bamm:description "Operating hours at determination of damage"@en.
-:LoaddataSourceCharacteristic a bamm:Characteristic;
-    bamm:name "LoaddataSourceCharacteristic";
-    bamm:dataType :LoaddataSource;
-    bamm:preferredName "loaddata source"@en.
-:LoaddataSource a bamm:Entity;
-    bamm:name "LoaddataSource";
-    bamm:properties (:informationLoadCollective :sourceLoadCollective);
-    bamm:preferredName "Damage input information on loaddata"@en.
-:sourceLoadCollective a bamm:Property;
-    bamm:name "sourceLoadCollective";
-    bamm:characteristic :SourceLoadCollectiveCharacteristic;
-    bamm:preferredName "link to origin of load collective"@en.
-:SourceLoadCollectiveCharacteristic a bamm:Characteristic;
-    bamm:name "SourceLoadCollectiveCharacteristic";
-    bamm:dataType xsd:anyURI;
-    bamm:preferredName "link to load collective"@en;
-    bamm:description "link to load collective used to determine damage"@en.
-:OperatingTimeCharacteristic a bamm-c:Quantifiable;
-    bamm:name "OperatingTimeCharacteristic";
-    bamm:dataType xsd:duration;
-    bamm:preferredName "Operating Time"@en;
-    bamm-c:unit unit:hour.
-:CharacteristicOringLC a bamm-c:Enumeration;
-    bamm:name "CharacteristicOringLC";
-    bamm:dataType xsd:string;
-    bamm:preferredName "characteristic of origin of load collective"@en;
-    bamm:description "Origin of input load collective: measured, simulated, aggregated"@en;
-    bamm-c:values ("measured_OEM" "simulatedOEM" "logged_OEM").
+    bamm:preferredName "operating time "@en;
+    bamm:description "Operating time at determination"@en;
+    bamm:characteristic :OperatingTimeCharacteristic.
 :Mileage a bamm-c:Measurement;
     bamm:name "Mileage";
-    bamm:dataType xsd:nonNegativeInteger;
     bamm:preferredName "mileage"@en;
+    bamm:description "Mileage of the vehicle respectively part."@en;
+    bamm:dataType xsd:nonNegativeInteger;
     bamm-c:unit unit:kilometre.
-:damageValue a bamm:Property;
-    bamm:name "damageValue";
-    bamm:characteristic :DamageValue;
-    bamm:preferredName "damageValue"@en;
-    bamm:description "Damage value is a non negative number being zero for an intact component, increasing with increasing weakening and reaching value 1 if a critical weakening is reached. Damage is calculated from statistical data, so, values above 1 are possible."@en.
-:DamageValue a bamm:Characteristic;
-    bamm:name "DamageValue";
-    bamm:dataType xsd:float;
-    bamm:preferredName "DamageValue"@en.
-:determinationMethod a bamm:Property;
-    bamm:name "determinationMethod";
-    bamm:characteristic :DeterminationMethodCharacteristic;
-    bamm:preferredName "Damage determination method"@en;
-    bamm:description "Calculation of damage is based on models. Different models exists for different applications or from different sources. Therefore, the Method of determination is stored."@en.
-:determinationLoaddataSource a bamm:Property;
-    bamm:name "determinationLoaddataSource";
-    bamm:characteristic :LoaddataSourceCharacteristic;
-    bamm:preferredName "damage input information on load data"@en;
-    bamm:description "Determination of damage is based on usage information, the loading. Loads might measured or estimated or simulated; the source of load data is stored here."@en.
-:DeterminationMethodCharacteristic a bamm:Characteristic;
-    bamm:name "DeterminationMethodCharacteristic";
-    bamm:dataType xsd:string;
-    bamm:preferredName "determination method"@en.
+:OperatingTimeCharacteristic a bamm-c:Quantifiable;
+    bamm:name "OperatingTimeCharacteristic";
+    bamm:preferredName "Operating Time"@en;
+    bamm:description "Operating time (hours) for the vehicle respectively part."@en;
+    bamm:dataType xsd:duration;
+    bamm-c:unit unit:hour.
+:LoaddataSourceCharacteristic a bamm:Characteristic;
+    bamm:name "LoaddataSourceCharacteristic";
+    bamm:preferredName "loaddata source"@en;
+    bamm:description "Information on the origin of the used loadcollective. If available, the link to the loadcollective."@en;
+    bamm:dataType :LoaddataSource.
+:LoaddataSource a bamm:Entity;
+    bamm:name "LoaddataSource";
+    bamm:properties (:informationLoadCollective [
+  bamm:property :sourceLoadCollective;
+  bamm:optional "true"^^xsd:boolean
+]);
+    bamm:preferredName "Input information on loaddata"@en;
+    bamm:description "Information on the origin of the used loadcollective. If available, the link to the loadcollective."@en.
 :informationLoadCollective a bamm:Property;
     bamm:name "informationLoadCollective";
-    bamm:characteristic :CharacteristicOringLC;
     bamm:preferredName "information on origin of load collective"@en;
-    bamm:description "A load collective is used to calulated the damage. Information on the source of the load collective is stored."@en.
+    bamm:description "A load collective is used to calulated the damage. Information on the source of the load collective is stored."@en;
+    bamm:characteristic :OriginLCCharacteristic.
+:sourceLoadCollective a bamm:Property;
+    bamm:name "sourceLoadCollective";
+    bamm:preferredName "link to origin of load collective"@en;
+    bamm:description "The link to the load collective used to determine the damage, if available."@en;
+    bamm:characteristic :SourceLoadCollectiveCharacteristic.
+:SourceLoadCollectiveCharacteristic a bamm:Characteristic;
+    bamm:name "SourceLoadCollectiveCharacteristic";
+    bamm:preferredName "link load collective"@en;
+    bamm:description "link to load collective "@en;
+    bamm:dataType xsd:anyURI.
+:DamageValue a bamm:Characteristic;
+    bamm:name "DamageValue";
+    bamm:preferredName "DamageValue"@en;
+    bamm:description "Damage value is a non negative number being zero for an intact component, increasing with increasing weakening and reaching value 1 if a critical weakening is reached. Damage is calculated from statistical data, so, values above 1 are possible."@en;
+    bamm:dataType xsd:float.
+:DeterminationMethodCharacteristic a bamm:Characteristic;
+    bamm:name "DeterminationMethodCharacteristic";
+    bamm:preferredName "determination method"@en;
+    bamm:description "Information method to determine the damage like \"Miner modified\" or \"Arrhenius, A=1\". "@en;
+    bamm:dataType xsd:string.
+:OriginLCCharacteristic a bamm-c:Enumeration;
+    bamm:name "OriginLCCharacteristic";
+    bamm:preferredName "characteristic of origin of load collective"@en;
+    bamm:description "Origin of input load collective: measured, simulated, aggregated"@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("loggedOEM" "measuredOEM" "simulatedOEM" "loggedSupplier" "measuredSupplier" "simulatedSupplier" "otherOrigin").
