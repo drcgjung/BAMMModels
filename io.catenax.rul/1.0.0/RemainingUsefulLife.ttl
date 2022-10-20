@@ -16,52 +16,61 @@
 :RemainingMileage a bamm-c:Quantifiable;
     bamm:name "RemainingMileage";
     bamm:preferredName "remaining mileage"@en;
+    bamm:description "Expected addition mileage"@en;
     bamm:dataType xsd:nonNegativeInteger;
     bamm-c:unit unit:kilometre.
 :DeterminationStatus a bamm:Entity;
     bamm:name "DeterminationStatus";
     bamm:preferredName "DeterminationStatus"@en;
-    bamm:description "Remaining useful life is determined for current status of the vehicle (date, mileage, operating times) or a simulation with according mileage and operating tme. "@en;
+    bamm:description "Status describes the date when this aspect is filled, the according mileage and according operating time. "@en;
     bamm:properties (:mileage :date :operatingTime).
 :mileage a bamm:Property;
     bamm:name "mileage";
     bamm:preferredName "mileage"@en;
-    bamm:description "Mileage of the vehicle respectively part at date of determination the remaining usel life.\n"@en;
+    bamm:description "Mileage of the vehicle respectively part at date of determination.\n"@en;
     bamm:characteristic :Mileage;
     bamm:exampleValue "204000"^^xsd:nonNegativeInteger.
 :date a bamm:Property;
     bamm:name "date";
-    bamm:preferredName "date of rul determination"@en;
-    bamm:description "Date of determination the remaining usefule life."@en;
+    bamm:preferredName "date of determination"@en;
+    bamm:description "Date of determination."@en;
     bamm:characteristic :Timestamp.
 :operatingTime a bamm:Property;
     bamm:name "operatingTime";
     bamm:preferredName "Operating time"@en;
-    bamm:description "Operating hours at determination of remaining useful life."@en;
+    bamm:description "Operating time at determination."@en;
     bamm:characteristic :OperatingTimeCharacteristic.
 :Mileage a bamm-c:Measurement;
     bamm:name "Mileage";
     bamm:preferredName "mileage"@en;
+    bamm:description "Mileage of vehicle respectively part."@en;
     bamm:dataType xsd:nonNegativeInteger;
     bamm-c:unit unit:kilometre.
 :Timestamp a bamm:Characteristic;
     bamm:name "Timestamp";
     bamm:description "Describes a Property which contains the date and time with an optional timezone."@en;
     bamm:dataType xsd:date.
+:OperatingTimeCharacteristic a bamm-c:Quantifiable;
+    bamm:name "OperatingTimeCharacteristic";
+    bamm:preferredName "Operating Time"@en;
+    bamm:description "Operating time (hours) for the vehicle respectively part."@en;
+    bamm:dataType xsd:duration;
+    bamm-c:unit unit:hour.
 :determinationStatus a bamm:Property;
     bamm:name "determinationStatus";
-    bamm:preferredName "rulDeterminationStatus"@en;
+    bamm:preferredName "DeterminationStatus"@en;
     bamm:description "Remaining usefule life is determined at a specific  date with  acording mileage an operating time. This status should be stored to interpretate the calculated values remaingRunningDistance and RemainingOperatingTime."@en;
     bamm:characteristic :StatusCharacteristic.
 :StatusCharacteristic a bamm:Characteristic;
     bamm:name "StatusCharacteristic";
     bamm:preferredName "status"@en;
+    bamm:description "Status describes the date when this aspect is filled, the according mileage and according operating time. "@en;
     bamm:dataType :DeterminationStatus.
 :RemainingUsefulLife a bamm:Aspect;
     bamm:name "RemainingUsefulLife";
     bamm:preferredName "remaining useful life"@en;
-    bamm:description "remainingUsefulLife describes the approximated life of a part, a componet, an assembly, a vehicle. \nThe approximation is based on the damage due to usage and extrapolation. \nremainingUsefulLife can be a procentual number, or expressed in remainingDistance or remaingOperationTime or remainingAge."@en;
-    bamm:properties (:remainingRunningDistance :remainingOperatingTime :determinationStatus :determinationILoaddataSource);
+    bamm:description "Remaining useful Life (RuL) describes the approximated life of a part, a componet, an assembly, a vehicle. \nThe approximation is based on the damage due to usage and extrapolation. \nremainingUsefulLife can be a procentual number, or expressed in remainingDistance or remaingOperationTime or remainingAge."@en;
+    bamm:properties (:remainingRunningDistance :remainingOperatingTime :determinationStatus :determinationLoaddataSource);
     bamm:operations ();
     bamm:events ().
 :remainingOperatingTime a bamm:Property;
@@ -69,40 +78,40 @@
     bamm:preferredName "remainingOperatingTimes"@en;
     bamm:description "Expected additional operation time for the vehicle or part might without failure."@en;
     bamm:characteristic :RemainingOperatingTimeCharacteristic.
-:determinationILoaddataSource a bamm:Property;
-    bamm:name "determinationILoaddataSource";
+:determinationLoaddataSource a bamm:Property;
+    bamm:name "determinationLoaddataSource";
     bamm:preferredName "loaddata source"@en;
     bamm:description "The source of the load data used to determine the remaing usefule life is stored for information/interpretation."@en;
     bamm:characteristic :LoaddataSourceCharacteristic.
-:sourceLoadCollective a bamm:Property;
-    bamm:name "sourceLoadCollective";
-    bamm:preferredName "link to origin of load collective"@en;
-    bamm:description "A load collective is used to calulated the damage and the expected remaining useful for similar further usage. Information on the source of the load.collective is stored."@en;
-    bamm:characteristic :SourceLoadCollective.
 :RemainingOperatingTimeCharacteristic a bamm-c:Quantifiable;
     bamm:name "RemainingOperatingTimeCharacteristic";
     bamm:preferredName "RemainingOperatingTime"@en;
+    bamm:description "Expected addition operating time"@en;
     bamm:dataType xsd:duration;
     bamm-c:unit unit:hour.
-:OperatingTimeCharacteristic a bamm-c:Quantifiable;
-    bamm:name "OperatingTimeCharacteristic";
-    bamm:preferredName "Operating Time"@en;
-    bamm:dataType xsd:duration;
-    bamm-c:unit unit:hour.
-:SourceLoadCollective a bamm:Characteristic;
-    bamm:name "SourceLoadCollective";
-    bamm:preferredName "Link to load collective"@en;
-    bamm:description "Link to load collective"@en;
-    bamm:dataType xsd:anyURI.
 :LoaddataSourceCharacteristic a bamm:Characteristic;
     bamm:name "LoaddataSourceCharacteristic";
-    bamm:preferredName "load data source"@en;
+    bamm:preferredName "loaddata source"@en;
+    bamm:description "Information on the origin of the used loadcollective. If available, the link to the loadcollective."@en;
     bamm:dataType :LoaddataSource.
 :LoaddataSource a bamm:Entity;
     bamm:name "LoaddataSource";
-    bamm:preferredName "DeterminationInput"@en;
-    bamm:description "The source of the load data used to determine the remaing usefule life is stored for information/interpretation."@en;
-    bamm:properties (:informationOriginLoadCollective :sourceLoadCollective).
+    bamm:preferredName "Input information on loaddata"@en;
+    bamm:description "Information on the origin of the used loadcollective. If available, the link to the loadcollective."@en;
+    bamm:properties (:informationOriginLoadCollective [
+  bamm:property :sourceLoadCollective;
+  bamm:optional "true"^^xsd:boolean
+]).
+:sourceLoadCollective a bamm:Property;
+    bamm:name "sourceLoadCollective";
+    bamm:preferredName "link to origin of load collective"@en;
+    bamm:description "The link to the load collective used to determine the remaining useful life, if available."@en;
+    bamm:characteristic :SourceLoadCollective.
+:SourceLoadCollective a bamm:Characteristic;
+    bamm:name "SourceLoadCollective";
+    bamm:preferredName "link load collective"@en;
+    bamm:description "Link to load collective"@en;
+    bamm:dataType xsd:anyURI.
 :informationOriginLoadCollective a bamm:Property;
     bamm:name "informationOriginLoadCollective";
     bamm:preferredName "information on origin of load collective"@en;
@@ -113,4 +122,4 @@
     bamm:preferredName "characteristic of origin of load collective"@en;
     bamm:description "Origin of input load collective: measured, simulated, aggregated"@en;
     bamm:dataType xsd:string;
-    bamm-c:values ("measured_OEM" "simulated_OEM" "logged_OEM").
+    bamm-c:values ("loggedOEM" "measuredOEM" "simulatedOEM" "loggedSupplier" "measuredSupplier" "simulatedSupplier" "otherOrigin").
