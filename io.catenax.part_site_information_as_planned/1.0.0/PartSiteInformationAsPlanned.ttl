@@ -3,7 +3,7 @@
 @prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
-@prefix : <urn:bamm:io.catenax.part_site_information:1.0.0#>.
+@prefix : <urn:bamm:io.catenax.part_site_information_as_planned:1.0.0#>.
 
 :UUIDv4RegularExpression a bamm-c:RegularExpressionConstraint;
     bamm:name "UUIDv4RegularExpression";
@@ -18,7 +18,7 @@
 :catenaXId a bamm:Property;
     bamm:name "catenaXId";
     bamm:preferredName "Catena-X Identifier"@en;
-    bamm:description "The fully anonymous Catena-X ID of the serialized part, valid for the Catena-X dataspace."@en;
+    bamm:description "The Catena-X ID of the given item (i.e. a part type or part instance), valid for the Catena-X dataspace."@en;
     bamm:characteristic :CatenaXIdTrait;
     bamm:exampleValue "580d3adf-1981-44a0-a214-13d6ceed9379".
 :CatenaXIdTrait a bamm-c:Trait;
@@ -32,95 +32,58 @@
     bamm:preferredName "Sites"@en;
     bamm:description "A site is a delimited geographical area where a legal entity does business (geographical address with geo coordinates).A site always has a primary physical address. It is possible that further physical addresses are specified for the site. P.O. box details are only possible in addition to the physical address. A site has a 1:n relation to addresses, means at least 1 address is necessary and multiple addresses are possible."@en;
     bamm:characteristic :SitesCharacteristics;
-    bamm:see <https%3A%2F%2Fconfluence.catena-x.net%2Fx%2FQkBHAw>.
+    bamm:see <https://confluence.catena-x.net/x/QkBHAw>.
 :SitesCharacteristics a bamm-c:Set;
     bamm:name "SitesCharacteristics";
     bamm:description "Sites Characteristics"@en;
     bamm:dataType :SiteEntity.
-:Timestamp a bamm:Characteristic;
-    bamm:name "Timestamp";
-    bamm:description "Describes a Property which contains the date and time with an optional timezone."@en;
-    bamm:dataType xsd:dateTime.
 :SiteEntity a bamm:Entity;
     bamm:name "SiteEntity";
-    bamm:preferredName "SiteEntity"@en;
-    bamm:description "SiteEntity"@en;
+    bamm:preferredName "Site Entity"@en;
+    bamm:description "Site Entity"@en;
     bamm:properties (:catenaXsiteId :function [
   bamm:property :functionValidFrom;
   bamm:optional "true"^^xsd:boolean
 ] [
   bamm:property :functionValidUntil;
   bamm:optional "true"^^xsd:boolean
-] [
-  bamm:property :externalSiteIdentifier;
-  bamm:optional "true"^^xsd:boolean
 ]).
 :catenaXsiteId a bamm:Property;
     bamm:name "catenaXsiteId";
-    bamm:preferredName "catenaXsiteId"@en;
+    bamm:preferredName "Catena-X site identifier"@en;
     bamm:description "The identifier of the site according to Catena-X BPDM. The catenaXsiteId must be a valid Catena-X BPN. The BPN is a unique, unchangeable identifier for Business Partners / company locations from foundation to closure, regardless of the different business relationships / structures between or within the Business Partners or company locations."@en;
     bamm:characteristic :BpnCharacteristic;
     bamm:exampleValue "BPNS1234567890ZZ".
 :function a bamm:Property;
     bamm:name "function";
-    bamm:preferredName "Fuction"@en;
-    bamm:description "The function of the site i relation to the part (i.e. the activity within the value chain of the part that is performed at the site)"@en;
-    bamm:characteristic :FunctionCharacteristic.
+    bamm:preferredName "Function"@en;
+    bamm:description "The function of the site in relation to the part (i.e. the activity within the value chain of the part that is performed at the site)"@en;
+    bamm:characteristic :FunctionCharacteristic;
+    bamm:exampleValue "production".
 :functionValidFrom a bamm:Property;
     bamm:name "functionValidFrom";
-    bamm:preferredName "functionValidFrom"@en;
-    bamm:description "functionValidFrom"@en;
-    bamm:characteristic :Timestamp.
+    bamm:preferredName "Function valid from"@en;
+    bamm:description "Timestamp, from when the site has the specified function for the given part"@en;
+    bamm:characteristic bamm-c:Timestamp.
 :functionValidUntil a bamm:Property;
     bamm:name "functionValidUntil";
     bamm:preferredName "functionValidUntil"@en;
     bamm:description "Timestamp, until when the site has the specified function for the given part"@en;
-    bamm:characteristic :Timestamp.
-:externalSiteIdentifier a bamm:Property;
-    bamm:name "externalSiteIdentifier";
-    bamm:preferredName "externalSiteIdentifier"@en;
-    bamm:description "The identifier for a site within a specific organization"@en;
-    bamm:characteristic :ExternalSiteIdCharacteristic.
+    bamm:characteristic bamm-c:Timestamp.
 :BpnCharacteristic a bamm:Characteristic;
     bamm:name "BpnCharacteristic";
-    bamm:preferredName "BpnCharacteristic"@en;
-    bamm:description "A string of 16 characters:\nPrefix: 3 digits\t\t\t\t\nClassification: 1 digit\nIdentifier: 10 digits\nCheck Digit: 2 digits"@en;
+    bamm:preferredName "BPN Characteristic"@en;
+    bamm:description "A string of 16 characters:\nPrefix: 3 digits\t\t\t\t\nClassification: 1 digit\nIdentifier: 10 digits"@en;
     bamm:dataType xsd:string.
 :FunctionCharacteristic a bamm-c:Enumeration;
     bamm:name "FunctionCharacteristic";
-    bamm:preferredName "FunctionCharacteristic"@en;
-    bamm:description "functionCharacteristic"@en;
+    bamm:preferredName "Function Characteristic"@en;
     bamm:dataType xsd:string;
     bamm-c:values ("production").
-:ExternalSiteIdCharacteristic a bamm-c:Set;
-    bamm:name "ExternalSiteIdCharacteristic";
-    bamm:preferredName "externalSiteIdCharacteristic"@en;
-    bamm:description "externalSiteIdCharacteristic"@en;
-    bamm:dataType :ExternalSiteIdEntity.
-:ExternalSiteIdEntity a bamm:Entity;
-    bamm:name "ExternalSiteIdEntity";
-    bamm:preferredName "ExternalSiteIdEntity"@en;
-    bamm:description "ExternalSiteIdEntity"@en;
-    bamm:properties (:externalIdentifier :organization).
-:externalIdentifier a bamm:Property;
-    bamm:name "externalIdentifier";
-    bamm:preferredName "externalIdentifier"@en;
-    bamm:description "The external Identifier of the site, valid within the dataspece of the given organization."@en;
-    bamm:characteristic :ExternalIdentifierCharacteristic.
-:organization a bamm:Property;
-    bamm:name "organization";
-    bamm:preferredName "organization"@en;
-    bamm:description "The organization of the given external Identifier"@en;
-    bamm:characteristic :BpnCharacteristic;
-    bamm:exampleValue "BPNL1234567890ZZ".
-:ExternalIdentifierCharacteristic a bamm:Characteristic;
-    bamm:name "ExternalIdentifierCharacteristic";
-    bamm:preferredName "externalIdentifierCharacteristic"@en;
-    bamm:dataType xsd:string.
-:PartSiteInformation a bamm:Aspect;
-    bamm:name "PartSiteInformation";
-    bamm:preferredName "Part-Site-Information"@en;
-    bamm:description "The aspect provides site related information for a given item (i.e. a part or component that is uniquely identifiable within Catena-X via its Catena-X ID). A site is a delimited geographical area where a legal entity does business."@en;
+:PartSiteInformationAsPlanned a bamm:Aspect;
+    bamm:name "PartSiteInformationAsPlanned";
+    bamm:preferredName "Part Site Information as Planned"@en;
+    bamm:description "The aspect provides site related information for a given as planned item (i.e. a part type or part instance that is uniquely identifiable within Catena-X via its Catena-X ID). A site is a delimited geographical area where a legal entity does business. In the \"as planned\" lifecycle context all potentially related sites are listed including all sites where e.g. production of this part (type) is planned."@en;
     bamm:properties (:catenaXId :sites);
     bamm:operations ();
     bamm:events ().
