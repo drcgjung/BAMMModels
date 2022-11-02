@@ -74,7 +74,7 @@
   bamm:optional "true"^^xsd:boolean
 ]).
 :catenaXsiteId a bamm:Property;
-    bamm:name "catenaXsiteId";
+    bamm:name "catenaXSiteId";
     bamm:preferredName "Catena-X site identifier"@en;
     bamm:description "The identifier of the site according to Catena-X BPDM. The catenaXsiteId must be a valid Catena-X BPN. The BPN is a unique, unchangeable identifier for Business Partners / company locations from foundation to closure, regardless of the different business relationships / structures between or within the Business Partners or company locations."@en;
     bamm:characteristic :BpnCharacteristic;
