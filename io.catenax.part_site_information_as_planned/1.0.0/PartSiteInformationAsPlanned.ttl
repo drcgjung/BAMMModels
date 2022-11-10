@@ -56,11 +56,11 @@
     bamm:name "sites";
     bamm:preferredName "Sites"@en;
     bamm:description "A site is a delimited geographical area where a legal entity does business (geographical address with geo coordinates).A site always has a primary physical address. It is possible that further physical addresses are specified for the site. P.O. box details are only possible in addition to the physical address. A site has a 1:n relation to addresses, means at least 1 address is necessary and multiple addresses are possible."@en;
-    bamm:characteristic :SitesCharacteristics;
+    bamm:characteristic :SitesCharacteristic;
     bamm:see <https://confluence.catena-x.net/x/QkBHAw>.
-:SitesCharacteristics a bamm-c:Set;
-    bamm:name "SitesCharacteristics";
-    bamm:description "Sites Characteristics"@en;
+:SitesCharacteristic a bamm-c:Set;
+    bamm:name "SitesCharacteristic";
+    bamm:description "Sites Characteristic"@en;
     bamm:dataType :SiteEntity.
 :SiteEntity a bamm:Entity;
     bamm:name "SiteEntity";
