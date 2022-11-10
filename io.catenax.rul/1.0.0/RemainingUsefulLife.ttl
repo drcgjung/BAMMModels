@@ -1,3 +1,22 @@
+#######################################################################
+# Copyright (c) 2022 Allgemeine Deutsche Automobil-Club (ADAC) e.V
+# Copyright (c) 2022 Bayerische Motoren Werke Aktiengesellschaft
+# Copyright (c) 2022 Deutsches Zentrum für Luft- und Raumfahrt e. V. (DLR)
+# Copyright (c) 2022 Siemens AG
+# Copyright (c) 2022 ZF Friedrichshafen AG
+# Copyright (c) 2022 Contributors to the Eclipse Foundation
+#
+# See the NOTICE file(s) distributed with this work for additional
+# information regarding copyright ownership.
+#
+# This work is made available under the terms of the 
+# Creative Commons Attribution 4.0 International (CC-BY-4.0) license, 
+# which is available at
+# https://creativecommons.org/licenses/by/4.0/legalcode.
+#
+# SPDX-License-Identifier: CC-BY-4.0
+#######################################################################
+
 @prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
