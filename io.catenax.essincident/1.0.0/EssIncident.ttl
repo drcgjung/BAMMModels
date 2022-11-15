@@ -1,0 +1,13 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
+@prefix : <urn:bamm:io.catenax.essincident:1.0.0#>.
+
+:ESSIncident a bamm:Aspect;
+    bamm:name "tdb";
+    bamm:preferredName "tbd"@en;
+    bamm:description "tbd"@en;
+    bamm:properties ();
+    bamm:operations ()
