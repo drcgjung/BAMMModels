@@ -1,0 +1,87 @@
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:2.0.0#>.
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:2.0.0#>.
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:2.0.0#>.
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:2.0.0#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix : <urn:bamm:io.catenax.quality_task:1.0.0#>.
+
+:QualityTask a bamm:Aspect;
+    bamm:preferredName "QualityTask"@en;
+    bamm:description "A quality task (qTask) defines why data is exchanged between 2 or more companies and what insights should be generated out of the transferred data. In addition there is a flag, what happens with the transferred data when this qTask is closed"@en;
+    bamm:properties (:qTaskIdentifier :status :creationDate :title :description :component :dataDeletion :listOfCompanies);
+    bamm:operations ();
+    bamm:events ().
+:qTaskIdentifier a bamm:Property;
+    bamm:preferredName "q-Task ID"@en;
+    bamm:description "A unique quality task identifier where these list of parts analysis belong to."@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "BPN-811_2022_000001".
+:status a bamm:Property;
+    bamm:preferredName "Status"@en;
+    bamm:description "Status of this part analysis"@en;
+    bamm:characteristic :StatusCharakteristic;
+    bamm:exampleValue "new".
+:creationDate a bamm:Property;
+    bamm:preferredName "Creation Date"@en;
+    bamm:description "Timestamp when this qTask was created"@en;
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:exampleValue "2022-11-11"^^xsd:dateTime.
+:title a bamm:Property;
+    bamm:preferredName "Title"@en;
+    bamm:description "Working title for this qTask"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Evaluation of ComponentA in CarmodelB in country DE".
+:description a bamm:Property;
+    bamm:preferredName "Description"@en;
+    bamm:description "Description what should be done in this qTask"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Please evaluate why there is a high number of customers complaints with ComponentA if the vehicle is between 10000-30000km.".
+:component a bamm:Property;
+    bamm:preferredName "Component"@en;
+    bamm:description "The component that should be investigated in this qTask."@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "ComponentA".
+:dataDeletion a bamm:Property;
+    bamm:preferredName "Deletion policy"@en;
+    bamm:description "What should be done with the data after this qTask is closed"@en;
+    bamm:characteristic :DataDeletionEnumeration;
+    bamm:exampleValue "delete-data-after-closing".
+:listOfCompanies a bamm:Property;
+    bamm:preferredName "List of companies"@en;
+    bamm:description "A list of companies involved in this quality task"@en;
+    bamm:characteristic :ListOfCompanies.
+:StatusCharakteristic a bamm-c:Enumeration;
+    bamm:preferredName "StatusCharakteristic"@en;
+    bamm:description "Enumeration of the different status vlaues"@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("new" "in progress" "completed" "closed").
+:ListOfCompanies a bamm-c:List;
+    bamm:preferredName "Companies"@en;
+    bamm:description "A list of all companies involved in this qTask"@en;
+    bamm:dataType :Company.
+:Company a bamm:Entity;
+    bamm:preferredName "Company"@en;
+    bamm:description "One company involved in this qTask"@en;
+    bamm:properties (:cxBPN :name :contactEMail).
+:cxBPN a bamm:Property;
+    bamm:preferredName "CX Business partner number"@en;
+    bamm:description "Catena-X business partner number of this company"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "BPN-811".
+:name a bamm:Property;
+    bamm:preferredName "Company name"@en;
+    bamm:description "Name of the comapny"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Company A".
+:contactEMail a bamm:Property;
+    bamm:preferredName "Contact e-Mail"@en;
+    bamm:description "e-Mail adress of the contact person for this qTask"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Hans.Mueller@companyA.de".
+:DataDeletionEnumeration a bamm-c:Enumeration;
+    bamm:preferredName "Data deletion"@en;
+    bamm:description "Enumeration of possible data deletions entries."@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("delete-data-after-closing" "no-deletion-after-closing").
