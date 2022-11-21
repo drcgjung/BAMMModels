@@ -2,7 +2,7 @@
 
 # Aspect Model Repository for Catena-X Project
 The repository contains the aspect models based on [BAMM](https://openmanufacturingplatform.github.io/sds-documentation/bamm-specification/snapshot/index.html) for the Catena-X project.
-They are also available in an instance of the [Catena-X Semantic Hub](https://catenaxintaksportal.germanywestcentral.cloudapp.azure.com/home/semantichub). The Semantic Hub is a great place to browse existing models, and receive rendered views (diagrams, and human readable documentation) on them.
+They are also available in an instance of the [Catena-X Semantic Hub](https://portal.int.demo.catena-x.net/semantichub). The Semantic Hub is a great place to browse existing models, and receive rendered views (diagrams, and human readable documentation) on them.
 
 
 # Using the models
@@ -42,9 +42,9 @@ The `metadata.json` is only relevant for model files on the branch `main`. All o
 We have a governance process for the joint development of new and updated models which we describe [in more details under this link](GOVERNANCE.md). 
 
 ## Summary of Governance Process
-The governance process is **triggered by a domain expert** requesting a new model or model update. The **modeling team then reviews** the request to identify whether it is of interest for Catena-X and whether there is not already another model which can solve the raised issue (**Q1-Approval**). 
+The governance process is **triggered by a domain expert** requesting a new model or model update. The **modeling team then reviews** the request to identify whether it is of interest for Catena-X and whether there is not already another model which can solve the raised issue (indicating label **MS1-Approved**). 
 
-Once the request is accepted, **a modeling expert and the requesting domain expert create a solution**. The modeling expert then evaluates whether the new or updated model follows the modeling guidelines in Catena-X (**Q2-Approval**). In the last step, the **requesting use case and the modeling team approve** that the resulting model fulfills the initial requirement and can be adopted (**Q3-Approval**). As a result, the content of the new model version cannot change, and use cases are safe to use the model.
+Once the request is accepted, **a modeling expert and the requesting domain expert create a solution**. The modeling expert then evaluates whether the new or updated model follows the modeling guidelines in Catena-X (indicating label **MS2-Approved**). In the last step, the **requesting use case and the modeling team approve** that the resulting model fulfills the initial requirement and can be adopted (indicating label **MS3-Approved**). As a result, the content of the new model version cannot change, and use cases are safe to use the model.
 
 We do this process for each version of a model. So there can be multiple versions of the model with different content in different phases of the model life-cycle. 
 See the following section for more details on the different approvals and the life cycle. 
@@ -55,4 +55,4 @@ If you plan to add another model or apply changes to existing ones please create
 
 The project realizes the governance process using GitHub Actions. If the governance process needs an update you can 
 test your changes to the GitHub Workflow scripts by creating a branch called `governance-development`. The GitHub workflow
-runs any changes made to the branch `governance-development` against the SemanticHub dev instance `https://catenaxdev042aksportal.germanywestcentral.cloudapp.azure.com/home/semantichub`.
+runs any changes made to the branch `governance-development` against the SemanticHub dev instance integrated in `https://portal.dev.demo.catena-x.net/semantichub`.
