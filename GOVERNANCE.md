@@ -10,7 +10,7 @@ The following page introduces this process and the states in which a model can b
 The governance process brings together domain and modeling experts. **Domain experts** know their specific use case and bring in requirements regarding data that needs to be consumed and provided as part of the use case. **Modeling experts** are knowledgeable about the modeling approach and have an overview of other already existing models within Catena-X. 
 To create awareness of the ongoing model developments and perform joint decisions, we have regular meetings of the "Semantic Layer Modeling Team", which involves everyone interested in Aspect modeling topics around Catena-X. To get 
 
-### MS1 Request for Model
+### MS1 Request for Model Development
 When there is a requirement for a new or modified Aspect model, a domain expert from that use case initiates the modeling process by creating a new issue on GitHub (Tab: Issues -> Button: New Issue or [this link](https://github.com/catenax/BAMMmodels/issues/new/choose)). Depending on the type of request (new model, model update, model deprecation), one may use different templates for the issue.
 Based on the information given in the issue description, the modeling team decides whether to approve to progress with the development of this model. In that case, the modeling team assigns the label "Q1-Approved" and names a modeling expert who will support the domain expert in resolving the issue. 
 
@@ -38,9 +38,9 @@ To fascilitate the governance in GitHub we use a set of labels as described in t
 Model Update | A request for updating an existing model
 New Model | A request for a new model
 Deprecate | A request for deprecating an existing model
-Q1-Approved | Checklist "Q1 Ready for Development" is approved. When an issue gets this label, a GitHub action automatically generates a new development branch posts a reference in the issue.
-Q2-Approved | Checklist "Q2 Ready for Release" is approved.
-Q3-Approved | Checklist "Q3 Ready for Production" is approved. The associated pull request can be merged to "main".
+MS1-Approved | Checklist "MS1 Request for Model Developement" is approved. When an issue gets this label, a GitHub action automatically generates a new development branch posts a reference in the issue.
+MS2-Approved | Checklist "MS2 Valid Model" is approved.
+MS3-Approved | Checklist "MS3 Release Model" is approved. The associated pull request can be merged to "main".
 Review Required | For this PR or issue a review is requested.
 Modeling Team | This issue or PR should be discussed in the modeling team.
 
