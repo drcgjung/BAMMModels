@@ -10,10 +10,10 @@
 :QualityTask a bamm:Aspect;
     bamm:preferredName "QualityTask"@en;
     bamm:description "A quality task (qTask) defines why data is exchanged between 2 or more companies and what insights should be generated out of the transferred data. In addition there is a flag, what happens with the transferred data when this qTask is closed"@en;
-    bamm:properties (:qTaskIdentifier :status :creationDate :title :description :component :dataDeletion :listOfCompanies);
+    bamm:properties (:qTaskId :status :creationDate :title :description :component :dataDeletion :listOfCompanies);
     bamm:operations ();
     bamm:events ().
-:qTaskIdentifier a bamm:Property;
+:qTaskId a bamm:Property;
     bamm:preferredName "q-Task ID"@en;
     bamm:description "A unique quality task identifier where these list of parts analysis belong to."@en;
     bamm:characteristic bamm-c:Text;
@@ -57,6 +57,11 @@
     bamm:description "Enumeration of the different status vlaues"@en;
     bamm:dataType xsd:string;
     bamm-c:values ("new" "in progress" "completed" "closed").
+:DataDeletionEnumeration a bamm-c:Enumeration;
+    bamm:preferredName "Data deletion"@en;
+    bamm:description "Enumeration of possible data deletions entries."@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("delete-data-after-closing" "no-deletion-after-closing").
 :ListOfCompanies a bamm-c:List;
     bamm:preferredName "Companies"@en;
     bamm:description "A list of all companies involved in this qTask"@en;
@@ -80,8 +85,3 @@
     bamm:description "e-Mail adress of the contact person for this qTask"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Hans.Mueller@companyA.de".
-:DataDeletionEnumeration a bamm-c:Enumeration;
-    bamm:preferredName "Data deletion"@en;
-    bamm:description "Enumeration of possible data deletions entries."@en;
-    bamm:dataType xsd:string;
-    bamm-c:values ("delete-data-after-closing" "no-deletion-after-closing").
