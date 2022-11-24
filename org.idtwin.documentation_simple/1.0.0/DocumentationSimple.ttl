@@ -1,0 +1,118 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#> .
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#> .
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#> .
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix : <urn:bamm:org.idtwin.documentation_simple:1.0.0#>.
+
+:DocumentationSimple a bamm:Aspect;
+    bamm:name "ManufacturerDocumentationSimple";
+    bamm:preferredName "ManufacturerDocumentation"@en;
+    bamm:description "The Submodel defines a simplified set of manufacturer documentation to bring about information from manufacturer to operator of industrial equipment."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/Documentation>;
+    bamm:properties (:documents);
+    bamm:operations ().
+
+:documents a bamm:Property;
+    bamm:name "documents";
+    bamm:preferredName "documents"@en;
+    bamm:description "Set of documents"@en;
+    bamm:characteristic :Documents.
+	
+:Documents a bamm-c:Set;
+    bamm:name "Documents";
+    bamm:preferredName "documents"@en;
+    bamm:description "Set of documents."@en;
+    bamm:dataType :Document.
+	
+:Document a bamm:Entity;
+    bamm:name "Document";
+    bamm:preferredName "document"@en;
+    bamm:description "This SubmodelElementCollection holds the information for a VDI2770 Document entity."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/Document>;
+    bamm:properties (:documentId  :documentClassifications).
+	
+:documentId a bamm:Property;
+    bamm:name "documentId";
+    bamm:preferredName "document id"@en;
+    bamm:description "Set of document ids"@en;
+    bamm:characteristic :DocumentIdCharacteristic.
+	
+:DocumentIdCharacteristic a bamm-c:Set;
+    bamm:name "DocumentIdCharacteristic";
+    bamm:preferredName "document ids"@en;
+    bamm:dataType :DocumentIdEntity.
+	
+:DocumentIdEntity a bamm:Entity;
+    bamm:name "DocumentIdEntity";
+    bamm:preferredName "document id"@en;
+    bamm:description "..."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/DocumentId>;
+    bamm:properties ( :documentDomainId :valueId) .
+
+:documentDomainId a bamm:Property;
+    bamm:name "documentDomainId";
+    bamm:preferredName "documentDomainId"@en;
+    bamm:description "Identification of the domain in which the given DocumentId is unique. The domain ID can e.g. be the name or acronym of the providing organisation."@en;
+	bamm:see <http://admin-shell.io/vdi/2770/1/0/DocumentId/documentDomainId>;
+    bamm:characteristic bamm-c:Text . 
+
+:valueId a bamm:Property;
+    bamm:name "valueId";
+    bamm:preferredName "valueId"@en;
+    bamm:description "Identification number of the Document within a given domain, e.g. the providing organisation"@en;
+	bamm:see <http://admin-shell.io/vdi/2770/1/0/DocumentId/ValueId>;
+    bamm:characteristic bamm-c:Text . 
+	
+:documentClassifications a bamm:Property;
+    bamm:name "documentClassifications";
+    bamm:preferredName "document classifications"@en;
+    bamm:description "Set of documents"@en;
+    bamm:characteristic :DocumentClassificationCharacteristic.
+	
+:DocumentClassificationCharacteristic a bamm-c:Set;
+    bamm:name "DocumentClassificationCharacteristic";
+    bamm:preferredName "document classifications"@en;
+    bamm:dataType :DocumentClassification.
+	
+:DocumentClassification a bamm:Entity;
+    bamm:name "DocumentClassification";
+    bamm:preferredName "document classification"@en;
+    bamm:description "Set of information for describing the classification of the Document according to ClassificationSystems. \n Constraint: at least one classification according to VDI 2770 shall be provided."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/DocumentClassification>;
+    bamm:properties ( :classId :className) .
+	
+:PropertyString a bamm:Characteristic;
+    bamm:name "PropertyString";
+    bamm:preferredName "string property"@en;
+    bamm:description "Property with data type xsd:string"@en;
+    bamm:see <http://admin-shell.io/aas/Property>;
+    bamm:dataType xsd:string.
+		
+:classId a bamm:Property;
+    bamm:name "classId";
+    bamm:preferredName "Document class Id"@en;
+    bamm:description "Unique ID of the class of the Document within the ClassficationSystem of VDI2770:2018."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/DocumentClassification/ClassId>;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "03-02" .
+	
+:className a bamm:Property;
+    bamm:name "className";
+    bamm:preferredName "DocumentClassName"@en;
+    bamm:description "DocumentClassName"@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/DocumentClassification/ClassName>;
+    bamm:characteristic :MultiLanguageProperty .
+	
+:MultiLanguageProperty a bamm-c:Set;
+    bamm:name "MultiLanguageProperty";
+    bamm:preferredName "MultiLanguageProperty"@en;
+    bamm:description "A data element with multiple elements with datatype xsd:langstring"@en;
+    bamm:see <http://admin-shell.io/aas/MultiLanguageProperty>;
+    bamm:dataType rdf:langString.
+
+
+
+
+

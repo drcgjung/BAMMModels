@@ -2,8 +2,8 @@
 <!-- Please provide a short description about what this PR changes -->
 
 
-<!-- The Q2 and Q3 criteria are intended for merges to the main-branch. During the model development, for instance when merging to a feature branch, you may decide to not fill out the checklists. However, we recommend to follow the Q2 checklist during the development. The Q3 checklist becomes relevant for merges to the main-branch which implicitly is a release of the model. -->
-## Q2 Criteria
+<!-- The MS2 and MS3 criteria are intended for merges to the main-branch. During the model development, for instance when merging to a feature branch, you may decide to not fill out the checklists. However, we recommend to follow the MS2 checklist during the development. The MS3 checklist becomes relevant for merges to the main-branch which implicitly is a release of the model. -->
+## MS2 Criteria
 (to be filled out by PR reviewer)
 - [ ] the model **validates** with the BAMM SDS SDK in the latest stable version by the time of the Q2 check  (e.g., 'java -jar bamm-cli.jar -i \<path-to-aspect-model\> -v ). The  BAMM CLI is available [here](https://openmanufacturingplatform.github.io/sds-documentation/sds-developer-guide/dev-snapshot/tooling-guide/bamm-cli.html) and in [GitHub](https://github.com/OpenManufacturingPlatform/sds-sdk/releases)
 - [ ] use **Camel-Case** (e.g., "MyModelElement" or "TimeDifferenceGmtId", when in doubt follow https://google.github.io/styleguide/javaguide.html#s5.3-camel-case)
@@ -20,8 +20,9 @@
 - [ ] units are referenced from the BAMM unit catalog whenever possible
 - [ ] **use constraints** to make known constraints from the use case explicit in the aspect model 
 - [ ] when relying on **external standards**, they are referenced through a **"see"** element
+- [ ] all properties with an [simple type](https://openmanufacturingplatform.github.io/sds-documentation/bamm-specification/v1.0.0/datatypes.html) have an example value
 
-## Q3 Criteria
+## MS3 Criteria
 (to be filled out by semantic modeling team before merge to main-branch)
 - [ ] All required reviewers have approved this PR (see reviewers section)
 - [ ] The new aspect (version) will be implemented by at least one data provider

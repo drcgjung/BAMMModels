@@ -1,0 +1,85 @@
+#
+# Copyright (c) 2022 Robert Bosch Manufacturing Solutions GmbH
+#
+# See the AUTHORS file(s) distributed with this work for additional
+# information regarding authorship.
+#
+# See the LICENSE file(s) distributed with this work for
+# additional information regarding license terms.
+#
+
+name: 2 Bulk
+
+on:
+  workflow_dispatch:
+    inputs:
+      instance:
+        description: 'The CX environment where to trigger the bulk upload'
+        type: choice
+        required: true
+        default: 'dev'
+        options:
+          - dev
+          - int
+
+jobs:
+  bulk-upload:
+    name: 09 Deploy Semantic Models
+    runs-on: ubuntu-latest
+    env:
+      PUBLISHER: Catena-X Modelling Governance Body
+    steps:
+      - name: set environment variables
+        run: |
+          echo "WORKSPACE=${{ github.event.inputs.instance }}" >> $GITHUB_ENV
+          workspace_uppercase=$(echo ${{ github.event.inputs.instance }} | tr '[:lower:]' '[:upper:]')
+          echo "WORKSPACE_UPPERCASE=$workspace_uppercase" >> $GITHUB_ENV
+          
+          echo "Selected workspace: ${workspace_uppercase}"
+
+          if [ ${{ github.event.inputs.instance }} == 'int' ]
+          then
+            echo "url_prefix=demo" >> $GITHUB_ENV
+          else
+            echo "url_prefix=${{ github.event.inputs.instance }}.demo" >> $GITHUB_ENV
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Execution Permission
+        run: |
+            chmod 777 .github/*.sh
+      
+      - name: Fetch Access Token
+        id: token_request
+        env:
+          CLIENT_ID: ${{ secrets[format('IDP_CLIENT_ID_{0}', env.WORKSPACE_UPPERCASE)] }}
+          CLIENT_SECRET: ${{ secrets[format('IDP_CLIENT_SECRET_{0}', env.WORKSPACE_UPPERCASE)] }}
+          IDP_URL: centralidp.${{ env.url_prefix }}.catena-x.net/auth/realms/CX-Central/protocol/openid-connect/token
+        run: |
+          response=$(curl --request POST \
+          --url "https://$IDP_URL" \
+          --header 'content-type: application/x-www-form-urlencoded' \
+          --data-urlencode grant_type=client_credentials \
+          --data-urlencode client_id=$CLIENT_ID \
+          --data-urlencode client_secret=$CLIENT_SECRET )
+          access_token=$( echo $response | jq -r '.access_token' )
+          
+          # echo $access_token
+
+          if [ $access_token == null ]
+          then
+            echo "Error: Got empty token"
+            exit 1
+          fi
+
+          echo "ACCESS_TOKEN=$access_token" >> $GITHUB_ENV
+          
+      - name: Bulk Upload
+        uses: ./.github/actions/bulk-upload
+        env:
+          SEMANTIC_HUB: semantics.${{ github.event.inputs.instance }}.demo.catena-x.net/hub/api/v1/models
+        with:
+          BRANCH: ${{ github.ref }}
+

@@ -1,0 +1,11 @@
+name: 'Bulk Upload to Semantic Hub'
+description: 'Action to upload the current state of the repository to an instance of the Semantic Hub'
+inputs:
+  BRANCH: 
+    description: 'The name of the current branch. This is required by the action to decide whether it works on the main-branch and should consider the status in the metadata.json file or assume another branch and the status to DRAFT.'
+    required: true
+  
+runs:
+  using: "node16"
+  main: 'indexBulk.js'
+

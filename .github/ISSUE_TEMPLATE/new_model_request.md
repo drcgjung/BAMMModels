@@ -15,7 +15,7 @@ labels: creation
 ## Example Data
 <!-- How might a data exchange look like, please give an example of what kind of data is transferred -->
 
-## Q1 Criteria
+## MS1 Criteria
 <!-- This checklist is filled by the issue reviewer -->
 - [ ] The proposed aspect model does not exist already
 - [ ] The proposed aspect model does not extend an existing aspect but introduces completely new functionality

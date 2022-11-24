@@ -1,0 +1,392 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#> .
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#> .
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#> .
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix : <urn:bamm:org.idtwin.documentation:1.0.0#>.
+
+:ManufacturerDocumentation a bamm:Aspect;
+    bamm:name "ManufacturerDocumentation";
+    bamm:preferredName "ManufacturerDocumentation"@en;
+    bamm:description "The Submodel defines a set of manufacturer documentation to bring about information from manufacturer to operator of industrial equipment."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/Documentation>;
+    bamm:properties (:documents);
+    bamm:operations ().
+
+:documents a bamm:Property;
+    bamm:name "documents";
+    bamm:preferredName "documents"@en;
+    bamm:description "Set of documents"@en;
+    bamm:characteristic :Documents.
+	
+:Documents a bamm-c:Set;
+    bamm:name "Documents";
+    bamm:preferredName "documents"@en;
+    bamm:description "Set of documents."@en;
+    bamm:dataType :Document.
+	
+:Document a bamm:Entity;
+    bamm:name "Document";
+    bamm:preferredName "document"@en;
+    bamm:description "This SubmodelElementCollection holds the information for a VDI2770 Document entity."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/Document>;
+    bamm:properties (:documentId  :documentClassifications   [
+  bamm:property :documentEntities;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :documentVersions;
+  bamm:optional "true"^^xsd:boolean
+] ).
+	
+:documentId a bamm:Property;
+    bamm:name "documentId";
+    bamm:preferredName "document id"@en;
+    bamm:description "Set of document ids"@en;
+    bamm:characteristic :DocumentIdCharacteristic.
+	
+:DocumentIdCharacteristic a bamm-c:Set;
+    bamm:name "DocumentIdCharacteristic";
+    bamm:preferredName "document ids"@en;
+    bamm:dataType :DocumentIdEntity.
+	
+:DocumentIdEntity a bamm:Entity;
+    bamm:name "DocumentIdEntity";
+    bamm:preferredName "document id"@en;
+    bamm:description "..."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/DocumentId>;
+    bamm:properties ( :documentDomainId :valueId  [
+  bamm:property :isPrimary;
+  bamm:optional "true"^^xsd:boolean
+]) .
+
+:documentDomainId a bamm:Property;
+    bamm:name "documentDomainId";
+    bamm:preferredName "documentDomainId"@en;
+    bamm:description "Identification of the domain in which the given DocumentId is unique. The domain ID can e.g. be the name or acronym of the providing organisation."@en;
+	bamm:see <http://admin-shell.io/vdi/2770/1/0/DocumentId/documentDomainId>;
+    bamm:characteristic bamm-c:Text . 
+
+:valueId a bamm:Property;
+    bamm:name "valueId";
+    bamm:preferredName "valueId"@en;
+    bamm:description "Identification number of the Document within a given domain, e.g. the providing organisation"@en;
+	bamm:see <http://admin-shell.io/vdi/2770/1/0/DocumentId/ValueId>;
+    bamm:characteristic bamm-c:Text . 
+	
+:documentClassifications a bamm:Property;
+    bamm:name "documentClassifications";
+    bamm:preferredName "document classifications"@en;
+    bamm:description "Set of documents"@en;
+    bamm:characteristic :DocumentClassificationCharacteristic.
+	
+:DocumentClassificationCharacteristic a bamm-c:Set;
+    bamm:name "DocumentClassificationCharacteristic";
+    bamm:preferredName "document classifications"@en;
+    bamm:dataType :DocumentClassification.
+	
+:DocumentClassification a bamm:Entity;
+    bamm:name "DocumentClassification";
+    bamm:preferredName "document classification"@en;
+    bamm:description "Set of information for describing the classification of the Document according to ClassificationSystems. \n Constraint: at least one classification according to VDI 2770 shall be provided."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/DocumentClassification>;
+    bamm:properties ( :classId :className [
+  bamm:property :documentClassificationSystem;
+  bamm:optional "true"^^xsd:boolean
+]) .
+	
+:DocumentVersion a bamm:Entity;
+    bamm:name "DocumentVersion";
+    bamm:preferredName "Entity"@en;
+    bamm:description "Explanation: This SubmodelElementCollection holds the information for a VDI2770 DocumentVersion entity."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/DocumentVersion>;
+    bamm:properties (:languages :documentVersionId :title :summary  [
+  bamm:property :keyWords;
+  bamm:optional "true"^^xsd:boolean
+]  :setDate :statusValue :role :organizationOfficialName :organizationName :digitalFiles).	
+
+	
+:PropertyString a bamm:Characteristic;
+    bamm:name "PropertyString";
+    bamm:preferredName "string property"@en;
+    bamm:description "Property with data type xsd:string"@en;
+    bamm:see <http://admin-shell.io/aas/Property>;
+    bamm:dataType xsd:string.
+	
+:documentClassificationSystem a bamm:Property;
+    bamm:name "documentClassificationSystem";
+    bamm:preferredName "document classification system"@en;
+    bamm:description "Identification of the classification system. For classification according VDI2270 always set to VDI2770:2018."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/DocumentClassification/ClassificationSystem>;
+    bamm:characteristic :PropertyString;
+    bamm:exampleValue "VDI2770:2018" .
+
+:isPrimary a bamm:Property;
+    bamm:name "isPrimary";
+    bamm:preferredName "is primary documentId"@en;
+    bamm:description "True, if the DocumentId is the primary document id of the document."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/DocumentId/isPrimary>;
+    bamm:characteristic :PropertyBoolean;
+    bamm:exampleValue "true"^^xsd:boolean.
+	
+:PropertyBoolean a bamm:Characteristic;
+    bamm:name "PropertyBoolean";
+    bamm:preferredName "boolean property"@en;
+    bamm:description "property with datatype xsd:boolean"@en;
+    bamm:see <http://admin-shell.io/aas/Property>;
+    bamm:dataType xsd:boolean.
+	
+:classId a bamm:Property;
+    bamm:name "classId";
+    bamm:preferredName "Document class Id"@en;
+    bamm:description "Unique ID of the class of the Document within the ClassficationSystem of VDI2770:2018."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/DocumentClassification/ClassId>;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "03-02" .
+	
+:className a bamm:Property;
+    bamm:name "className";
+    bamm:preferredName "DocumentClassName"@en;
+    bamm:description "DocumentClassName"@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/DocumentClassification/ClassName>;
+    bamm:characteristic :MultiLanguageProperty .
+	
+:MultiLanguageProperty a bamm-c:Set;
+    bamm:name "MultiLanguageProperty";
+    bamm:preferredName "MultiLanguageProperty"@en;
+    bamm:description "A data element with multiple elements with datatype xsd:langstring"@en;
+    bamm:see <http://admin-shell.io/aas/MultiLanguageProperty>;
+    bamm:dataType rdf:langString.
+	
+:title a bamm:Property;
+    bamm:name "title";
+    bamm:preferredName "Property"@en;
+    bamm:description "List of language-dependent titles of the Document."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/DocumentVersion/Title>;
+    bamm:characteristic :MultiLanguageProperty .
+
+:summary a bamm:Property;
+    bamm:name "summary";
+    bamm:preferredName "summary"@en;
+    bamm:description "List of language-dependent summaries of the Document."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/DocumentDescription/Summary>;
+    bamm:characteristic :MultiLanguageProperty.
+	
+:keyWords a bamm:Property;
+    bamm:name "keyWords";
+    bamm:preferredName "key words"@en;
+    bamm:description "List of language-dependent keywords of the Document."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/DocumentDescription/KeyWords>;
+    bamm:characteristic :MultiLanguageProperty .
+	
+:documentEntities a bamm:Property;
+    bamm:name "documentEntities";
+    bamm:preferredName "document entities"@en;
+    bamm:description "Identifies entities, which are subject to the document."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0//Document/ReferencedObjects>;
+    bamm:characteristic :ReferenceElementSet .
+
+:ReferenceElementSet a bamm-c:Set ;
+    bamm:name "ReferenceElementSet";
+    bamm:preferredName "set of reference elements"@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/Document/ReferencedObject>;
+    bamm-c:elementCharacteristic :ReferenceElement.
+
+:ReferenceElement a bamm:Characteristic;
+    bamm:name "ReferenceElement";
+    bamm:preferredName "Reference Element"@en;
+    bamm:description "Reference Element"@en;
+    bamm:see <http://admin-shell.io/aas/ReferenceElement>;
+    bamm:dataType xsd:string.
+	
+:documentVersions a bamm:Property;
+    bamm:name "documentVersions";
+    bamm:preferredName "document versions"@en;
+    bamm:description "Information elements of individual VDI 2770 DocumentVersion entities."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/Document/DocumentVersion>;
+    bamm:characteristic :DocumentVersions .
+	
+:DocumentVersions a bamm-c:Set;
+    bamm:name "DocumentVersions";
+    bamm:preferredName "document versions"@en;
+    bamm:description "Information elements of individual VDI 2770 DocumentVersion entities"@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/Document/documentVersions>;
+    bamm:dataType :DocumentVersion.
+	
+:languages a bamm:Property;
+    bamm:name "languages";
+    bamm:preferredName "Languages"@en;
+    bamm:description "Each property codes one language identification according ISO 639 of the languages used in the Document."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/DocumentVersion/Language>;
+    bamm:characteristic :LanguageSet.
+	
+:LanguageSet a bamm-c:Set;
+    bamm:name "LanguageSet";
+    bamm:preferredName "Set of Languages"@en;
+    bamm:description "Set of Languages"@en;
+    bamm:dataType :Language.
+	
+:language a bamm:Property;
+    bamm:name "language";
+    bamm:preferredName "language"@en;
+    bamm:description "language"@en;
+    bamm:characteristic bamm-c:Language;
+    bamm:exampleValue "en".
+	
+:documentVersionId a bamm:Property;
+    bamm:name "documentVersionId";
+    bamm:preferredName "DocumentVersionId"@en;
+    bamm:description "Unambigous identification of a DocumentVersion within a set of DocumentVersions of a Document"@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/DocumentVersion/DocumentVersionId>;
+    bamm:characteristic :DocumentVersionId;
+    bamm:exampleValue "V1.2".
+	
+:DocumentVersionId a bamm:Characteristic;
+    bamm:name "DocumentVersionId";
+    bamm:preferredName "Document VersionId"@en;
+    bamm:description "Unambigous identification of a DocumentVersion within a set of DocumentVersions of a Document."@en;
+	bamm:dataType xsd:string ;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/DocumentVersionId>.
+	
+:setDate a bamm:Property;
+    bamm:name "setDate";
+    bamm:preferredName "set date"@en;
+    bamm:description "Date when the document was introduced into the AAS or set to its status. Format is YYYY-MM-dd."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/LifeCycleStatus/SetDate>;
+    bamm:characteristic bamm-c:Timestamp ;
+    bamm:exampleValue "2020-02-06"^^xsd:dateTime .
+	
+:statusValue a bamm:Property;
+    bamm:name "statusValue";
+    bamm:preferredName "status value"@en;
+    bamm:description "Each document version represents a point in time in the document life cycle. This status value refers to the milestones in the document life cycle. The following two values should be used for the application of this guideline: InReview (under review), Released (released)."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/LifeCycleStatus/StatusValue>;
+    bamm:characteristic :StatusValueCharacteristic .
+	
+:StatusValueCharacteristic a bamm-c:Enumeration;
+    bamm:name "StatusValueCharacteristic";
+    bamm:preferredName "Status Value"@en;
+    bamm:description "Each document version represents a point in time in the document life cycle. This status value refers to the milestones in the document life cycle. The following two values should be used for the application of this guideline: InReview (under review), Released (released)."@en;
+	bamm:dataType :TypeOfStatusValue ;
+	bamm-c:values ( :InReview :Released ) .
+	
+:TypeOfStatusValue a bamm:Entity ;
+	bamm:name "TypeOfStatusValue" ;
+	bamm:properties (:status [ bamm:property :index; bamm:notInPayload "true"^^xsd:boolean ] [ bamm:property :description; bamm:notInPayload "true"^^xsd:boolean ] [
+  bamm:property :see;
+  bamm:notInPayload "true"^^xsd:boolean;
+]) .
+
+:description a bamm:Property ;
+    bamm:name "description";
+	bamm:characteristic bamm-c:Text .
+
+:status a bamm:Property ;
+    bamm:name "status";
+	bamm:characteristic bamm-c:Text .
+	
+:see a bamm:Property;
+    bamm:name "see";
+    bamm:characteristic bamm-c:ResourcePath.
+
+:index a bamm:Property;
+    bamm:name "index";
+    bamm:characteristic :IndexCharacteristic.
+	
+:IndexCharacteristic a bamm:Characteristic;
+    bamm:name "IndexCharacteristic";
+    bamm:dataType xsd:positiveInteger.
+
+:role a bamm:Property;
+    bamm:name "role";
+    bamm:preferredName "Role"@en;
+    bamm:description "Defined role of the organisation according to the following selection list: Author, Customer, Supplier, Manufacturer, Responsible."@en;
+    bamm:characteristic :Role.
+	
+:Role a bamm-c:Enumeration;
+    bamm:name "Role";
+    bamm:preferredName "Role"@en;
+    bamm:description "Defined role of the organisation according to the following selection list: Author, Customer, Supplier, Manufacturer, Responsible."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/LifeCycleStatus/StatusValue>;
+    bamm:dataType xsd:string ;
+	bamm-c:values ( "Author" "Customer" "Supplier" "Manufacturer" "Responsible" ) .
+	
+:organizationOfficialName a bamm:Property;
+    bamm:name "organizationOfficialName";
+    bamm:preferredName "Organization Official Name"@en;
+    bamm:description "Official name of the organisation providing the manufacturer information, that is, often, the manufacturer."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/Organization/OrganizationOfficialName>;
+    bamm:characteristic :OrganizationName;
+    bamm:exampleValue "Example company Ltd.".
+	
+:OrganizationName a bamm:Characteristic;
+    bamm:name "OrganizationName";
+    bamm:preferredName "Organization Name"@en;
+    bamm:description "Organization name, either official or commonly used"@en;
+    bamm:dataType xsd:string.
+	
+:organizationName a bamm:Property;
+    bamm:name "organizationName";
+    bamm:preferredName "Organization Name"@en;
+    bamm:description "Commonly used designation of the organisation providing the manufacturer information, that is, often, the manufacturer."@en;
+    bamm:characteristic :OrganizationName;
+    bamm:exampleValue "Example company".
+	
+:digitalFiles a bamm:Property;
+    bamm:name "digitalFiles";
+    bamm:preferredName "digital files"@en;
+    bamm:description "MIME-Type, file name and file contents given by the File SubmodelElement. Constraint: the MIME type needs to match the file type.  Constraint: at least one PDF/A file type shall be provided."@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/StoredDocumentRepresentation/DigitalFiles>;
+    bamm:characteristic :DigitalFiles.
+	
+:DigitalFiles a bamm-c:Set;
+    bamm:name "DigitalFiles";
+    bamm:preferredName "Digital files"@en;
+    bamm:description "set of digital files"@en;
+    bamm:see <http://admin-shell.io/vdi/2770/1/0/StoredDocumentRepresentation/DigitalFiles>;
+    bamm:dataType :DigitalFile.
+	
+:value a bamm:Property;
+    bamm:name "value";
+    bamm:preferredName "value"@en;
+    bamm:description "value"@en;
+    bamm:characteristic bamm-c:ResourcePath;
+    bamm:exampleValue "/aasx/documentation/docu_cecc_fullmanual_DE.PDF"^^xsd:anyURI .
+
+:mimeType a bamm:Property;
+    bamm:name "mimeType";
+    bamm:preferredName "mime type"@en;
+    bamm:description "Mime type of a file."@en;
+    bamm:characteristic bamm-c:MimeType ;
+    bamm:exampleValue "application/pdf".
+
+
+	
+:Language a bamm:Entity;
+    bamm:name "Language";
+    bamm:preferredName "language"@en;
+    bamm:description "language"@en;
+    bamm:properties (:language).
+	
+:DigitalFile a bamm:Entity;
+    bamm:name "DigitalFile";
+    bamm:preferredName "File"@en;
+    bamm:description "File"@en;
+    bamm:properties (:value :mimeType).
+	
+:InReview a :TypeOfStatusValue;
+    :status "InReview";
+	:index 1;
+    :description "InReview (under review)"@en;
+    :see <http://admin-shell.io/vdi/2770/1/0/LifeCycleStatus/StatusValue/InReview>.
+	
+:Released a :TypeOfStatusValue;
+    :status "Released";
+	:index 2;
+    :description "Released (released)"@en;
+    :see <http://admin-shell.io/vdi/2770/1/0/LifeCycleStatus/StatusValue/Released>.
+	
+
+
+
+

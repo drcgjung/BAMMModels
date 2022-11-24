@@ -1,0 +1,65 @@
+@prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
+@prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
+@prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
+@prefix unit: <urn:bamm:io.openmanufacturing:unit:1.0.0#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix : <urn:bamm:io.catenax.pcf_technical_data:1.0.0#>.
+
+:pcfStandard a bamm:Property;
+    bamm:name "pcfStandard";
+    bamm:preferredName "PCF Standard"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:description "Standard used for PCF (Product Carbon Footprint) calculation, e.g. ISO 14067, Worldsteel method, ..."@en;
+    bamm:exampleValue "ISO 14067".
+:pcfSystemBoundary a bamm:Property;
+    bamm:name "pcfSystemBoundary";
+    bamm:preferredName "PCF System boundary"@en;
+    bamm:characteristic :PCFSystemBoundaryCharacteristic;
+    bamm:description "Definition of PCF (Product Carbon Footprint) system boundary, e.g. \"cradle-to-gate\". This follows the LCA (Life Cycle Assessment) methodology."@en;
+    bamm:exampleValue "cradle-to-gate".
+:PCFSystemBoundaryCharacteristic a bamm-c:Enumeration;
+    bamm:name "PCFSystemBoundaryCharacteristic";
+    bamm:description "Describes a Property for the PCF system boundary. Allows fixed values e.g. \"cradle-to-gate\". Selection might be extended over time."@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("cradle-to-gate").
+:pcfSecondaryDataSource a bamm:Property;
+    bamm:name "pcfSecondaryDataSource";
+    bamm:preferredName "PCF Secondary data source"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:description "Sources (databases) of secondary PCF (Product Carbon Footprint) data. Free text entry"@en;
+    bamm:exampleValue "GaBi v2.3".
+:PcfTechnical a bamm:Aspect;
+    bamm:name "PcfTechnical";
+    bamm:preferredName "PCF Technical"@en;
+    bamm:description "Information about the collection and calculation methodology of the reported PCF (Product Carbon Footprint) data, e.g. regarding the use of calculation tools or databases, references (databases, regulations, standards, etc.)"@en;
+    bamm:properties (:pcfStandard :pcfSystemBoundary :pcfSecondaryDataSource :pcfReferencePeriod);
+    bamm:operations ().
+:pcfReferencePeriod a bamm:Property;
+    bamm:name "pcfReferencePeriod";
+    bamm:preferredName "PCF Reference Period"@en;
+    bamm:characteristic :ReferencePeriodCharacteristic;
+    bamm:description "Period for data collection of primary PCF (Product Carbon Footprint) data. Contains start and end date."@en.
+:ReferencePeriodCharacteristic a bamm-c:SingleEntity;
+    bamm:name "ReferencePeriodCharacteristic";
+    bamm:preferredName "Reference Period Characteristic"@en;
+    bamm:description "Reference period with start and end date"@en;
+    bamm:dataType :ReferencePeriodEntity.
+:ReferencePeriodEntity a bamm:Entity;
+    bamm:name "ReferencePeriodEntity";
+    bamm:preferredName "Reference Period Entity"@en;
+    bamm:description "Reference period with start and end date"@en;
+    bamm:properties (:referencePeriodStart :referencePeriodEnd).
+:referencePeriodEnd a bamm:Property;
+    bamm:name "referencePeriodEnd";
+    bamm:preferredName "Reference period end"@en;
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:description "Reference period end date"@en;
+    bamm:exampleValue "2020-04-30"^^xsd:dateTime.
+:referencePeriodStart a bamm:Property;
+    bamm:name "referencePeriodStart";
+    bamm:preferredName "Reference period start"@en;
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:description "Start date for reference period"@en;
+    bamm:exampleValue "2019-05-01"^^xsd:dateTime.
