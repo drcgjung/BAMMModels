@@ -26,7 +26,7 @@ on:
 
 jobs:
   branch:
-    if: ${{ github.event.label.name == 'Q1-Approved' }}
+    if: ${{ github.event.label.name == 'MS1-Approved' }}
     runs-on: ubuntu-latest
     steps:
 

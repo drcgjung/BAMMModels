@@ -9,7 +9,7 @@ labels: deprecate
 ## Update Reason
 <!-- Please describe why the referenced model should be deprecated -->
 
-## Q1 Criteria
+## MS1 Criteria
 <!-- This checklist is filled by the issue reviewer -->
 - [ ] The model that should be deprecated exists and is not deprecated already
 - [ ] The respective model does not affect existing use cases (aspect is either used in higher versions or replaced by a different aspect)

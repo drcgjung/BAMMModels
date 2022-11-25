@@ -9,7 +9,7 @@ labels: update
 ## Update Reason
 <!-- Please describe why the current version of the aspect model is insufficient to serve the use case and how an update to the model definition could improve the use case -->
 
-## Q1 Criteria
+## MS1 Criteria
 <!-- This checklist is filled by the issue reviewer -->
 - [ ] The model that should be updated exists
 - [ ] The referenced use case exists
