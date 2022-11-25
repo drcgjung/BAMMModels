@@ -1,3 +1,22 @@
+#######################################################################
+# Copyright (c) 2022 Allgemeine Deutsche Automobil-Club (ADAC) e.V
+# Copyright (c) 2022 Bayerische Motoren Werke Aktiengesellschaft
+# Copyright (c) 2022 Deutsches Zentrum für Luft- und Raumfahrt e. V. (DLR)
+# Copyright (c) 2022 Siemens AG
+# Copyright (c) 2022 ZF Friedrichshafen AG
+# Copyright (c) 2022 Contributors to the Eclipse Foundation
+#
+# See the NOTICE file(s) distributed with this work for additional
+# information regarding copyright ownership.
+#
+# This work is made available under the terms of the 
+# Creative Commons Attribution 4.0 International (CC-BY-4.0) license, 
+# which is available at
+# https://creativecommons.org/licenses/by/4.0/legalcode.
+#
+# SPDX-License-Identifier: CC-BY-4.0
+#######################################################################
+
 @prefix bamm: <urn:bamm:io.openmanufacturing:meta-model:1.0.0#>.
 @prefix bamm-c: <urn:bamm:io.openmanufacturing:characteristic:1.0.0#>.
 @prefix bamm-e: <urn:bamm:io.openmanufacturing:entity:1.0.0#>.
@@ -5,7 +24,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
-@prefix : <urn:bamm:io.catenax.classified_load_collective:1.0.0#>.
+@prefix : <urn:bamm:io.catenax.classified_load_spectrum:1.0.0#>.
 
 :countingMethod a bamm:Property;
     bamm:name "countingMethod";
@@ -15,7 +34,7 @@
     bamm:exampleValue "TimeAtLevel".
 :CountingMethodCharacteristic a bamm-c:Enumeration;
     bamm:name "CountingMethodCharacteristic";
-    bamm:description "Specification of counting method. EventCount, PeakCount, MaximunCount  specify the number of events. RangeCount specify the amplitudes of load cycles, Rangedifference of load classes Rainflow describes the number of closed hystersis fron one class to another class. Different procedures exists , the default is 4-point-method. If 3-point-method or HCM method is used, the corresponding values should be used. LRD means load revolution distribution describing the load collectives for gear sets.  "@en;
+    bamm:description "Specification of counting method. EventCount, PeakCount, MaximunCount  specify the number of events. RangeCount specify the amplitudes of load cycles, Rangedifference of load classes Rainflow describes the number of closed hystersis fron one class to another class. Different procedures exists , the default is 4-point-method. If 3-point-method or HCM method is used, the corresponding values should be used. LRD means load revolution distribution describing the load spectra for gear sets.  "@en;
     bamm:dataType xsd:string;
     bamm-c:values ("Rainflow" "LRD" "EventCount" "TimeAtLevel" "RangeCount" "PeakCount" "MaximumCount" "Rainflow3Point" "Rainflow" "RainflowHCM").
 :CountedValueCharacteristic a bamm:Characteristic;
@@ -24,18 +43,18 @@
     bamm:dataType xsd:string.
 :header a bamm:Property;
     bamm:name "header";
-    bamm:preferredName "Header Classified Load Collective"@en;
+    bamm:preferredName "Header Classified Load Spectrum"@en;
     bamm:characteristic :HeaderCharacteristic;
-    bamm:description "Information on the classified load collective including kind of classificationen, Classes, Limits"@en.
+    bamm:description "Information on the classified load spectrum including kind of classificationen, Classes, Limits"@en.
 :HeaderCharacteristic a bamm:Characteristic;
     bamm:name "HeaderCharacteristic";
     bamm:preferredName "Header"@en;
-    bamm:description "Information on the classified load collective including kind of classificationen, Classes, Limits"@en;
+    bamm:description "Information on the classified load spectrum including kind of classificationen, Classes, Limits"@en;
     bamm:dataType :HeaderEntity.
 :HeaderEntity a bamm:Entity;
     bamm:name "HeaderEntity";
-    bamm:preferredName "Header Classified Load Collective"@en;
-    bamm:description "Information on the classified load collective including kind of classificationen, Classes, Limits"@en;
+    bamm:preferredName "Header Classified Load Spectrum"@en;
+    bamm:description "Information on the classified load spectrum including kind of classificationen, Classes, Limits"@en;
     bamm:properties (:channels :countingMethod [
   bamm:property :countingValue;
   bamm:optional "true"^^xsd:boolean
@@ -118,7 +137,7 @@
     bamm:dataType xsd:float.
 :body a bamm:Property;
     bamm:name "body";
-    bamm:preferredName "Body Classified Load Collective"@en;
+    bamm:preferredName "Body classified load spectrum"@en;
     bamm:characteristic :BodyCharacteristic;
     bamm:description "List of load channel classes and corresponding counts"@en.
 :BodyCharacteristic a bamm-c:SingleEntity;
@@ -137,60 +156,82 @@
     bamm:name "counts";
     bamm:characteristic :CountsCharacteristic;
     bamm:description "List of counts according to the load channel lists."@en.
+:ClassesList a bamm-c:List;
+    bamm:name "ClassesList";
+    bamm:description "Several load channel classes  are sorted in a list. For rainflow counting, a load channel has two channel class lists, from-class and to-class. \n"@en;
+    bamm:dataType :ClassesListEntity.
 :CountsCharacteristic a bamm:Characteristic;
     bamm:name "CountsCharacteristic";
     bamm:description "List of counts according to the load channel lists."@en;
     bamm:dataType :CountsEntity.
+:ClassesListEntity a bamm:Entity;
+    bamm:name "ClassesListEntity";
+    bamm:description "Each channel class list are identified by the name and contains the list of classes describing the load.\n"@en;
+    bamm:properties (:classList :className).
 :CountsEntity a bamm:Entity;
     bamm:name "CountsEntity";
     bamm:description "List of counts according to the load channel lists."@en;
     bamm:properties (:countsName :countsList).
+:classList a bamm:Property;
+    bamm:name "classList";
+    bamm:characteristic :ClassListCharacteristic;
+    bamm:description "The class list contains the classes describing the load. The loading is the combination of all load channel classes, therefore, duplicates are possible."@en;
+    bamm:exampleValue "5"^^xsd:positiveInteger.
+:className a bamm:Property;
+    bamm:name "className";
+    bamm:characteristic :ClassNameCharacteristic;
+    bamm:description "Channel name extended by \"-class\". In case of rainflow counting, the extention is from-class and to-class."@en;
+    bamm:exampleValue "Torque_Inputshaft-class".
 :countsName a bamm:Property;
     bamm:name "countsName";
     bamm:preferredName "counting value"@en;
     bamm:characteristic :CountsNameCharacteristic;
     bamm:description "Name of the counted value: \"Counts\" or \"Time\" or\" Revolutions\""@en;
     bamm:exampleValue "Time".
-:classList a bamm:Property;
-    bamm:name "classList";
-    bamm:characteristic :ClassListCharacteristic;
-    bamm:description "The class list contains the classes describing the load. The loading is the combination of all load channel classes, therefore, duplicates are possible."@en;
-    bamm:exampleValue "5"^^xsd:positiveInteger.
-:ClassListCharacteristic a bamm-c:List;
-    bamm:name "ClassListCharacteristic";
-    bamm:description "List of load classes "@en;
-    bamm:dataType xsd:positiveInteger.
+:countsList a bamm:Property;
+    bamm:name "countsList";
+    bamm:characteristic :Counts;
+    bamm:description "List of counts according to the load channel lists."@en;
+    bamm:exampleValue "7.9"^^xsd:double.
+:CountsNameCharacteristic a bamm:Characteristic;
+    bamm:name "CountsNameCharacteristic";
+    bamm:description "Name of countings, \"Counts\" or \"Time\"  or \"revolutions\"."@en;
+    bamm:dataType xsd:string.
 :Counts a bamm-c:List;
     bamm:name "Counts";
     bamm:preferredName "Counts"@en;
     bamm:description "Counts of loads in the respective loadingclass. might be event counts, time counting or revolution counts - depending on the CountingMethod and CountingUnit\n"@en;
     bamm:dataType xsd:double.
+:ClassListCharacteristic a bamm-c:List;
+    bamm:name "ClassListCharacteristic";
+    bamm:description "List of load classes "@en;
+    bamm:dataType xsd:positiveInteger.
 :metadata a bamm:Property;
     bamm:name "metadata";
     bamm:preferredName "metadata"@en;
     bamm:characteristic :MetadataCharacteristic;
-    bamm:description "all information decribing the source, purpose and application of the load collective."@en.
+    bamm:description "all information decribing the source, purpose and application of the load spectrum."@en.
 :MetadataCharacteristic a bamm:Characteristic;
     bamm:name "MetadataCharacteristic";
     bamm:preferredName "Metadata"@en;
-    bamm:description "All information decribing the source, purpose and application of the load collective."@en;
+    bamm:description "All information decribing the source, purpose and application of the load spectrum."@en;
     bamm:dataType :Metadata.
 :Metadata a bamm:Entity;
     bamm:name "Metadata";
     bamm:preferredName "metadata"@en;
-    bamm:description "All information decribing the source, purpose and application of the load collective."@en;
+    bamm:description "All information decribing the source, purpose and application of the load spectrum."@en;
     bamm:properties (:componentDescription :routeDescription :projectDescription :status).
 :componentDescription a bamm:Property;
     bamm:name "componentDescription";
     bamm:preferredName "component"@en;
     bamm:characteristic :ComponentCharacteristic;
-    bamm:description "Component or assembly the load collective is valid for. A ZF_lrd counted load collective  belomgs to a gear set while a temperature load collective belong to the part where the temperature is measured (gear oil or IGBT). "@en;
+    bamm:description "Component or assembly the load spectrum is valid for. A ZF_lrd counted load spectrum  belomgs to a gear set while a temperature load spectrum belong to the part where the temperature is measured (gear oil or IGBT). "@en;
     bamm:exampleValue "gear set".
 :routeDescription a bamm:Property;
     bamm:name "routeDescription";
     bamm:preferredName "route description"@en;
     bamm:characteristic bamm-c:Text;
-    bamm:description "Information on the route which the load collective is representing. For example \"city munich heavy trailer\" or \"motorway light trailer agil driver\"."@en;
+    bamm:description "Information on the route which the load spectrum is representing. For example \"city munich heavy trailer\" or \"motorway light trailer agil driver\"."@en;
     bamm:exampleValue "\"city munich heavy trailer\"".
 :projectDescription a bamm:Property;
     bamm:name "projectDescription";
@@ -205,7 +246,7 @@
     bamm:description "Identification of vehicle status"@en.
 :ComponentCharacteristic a bamm:Characteristic;
     bamm:name "ComponentCharacteristic";
-    bamm:description "Component or assembly the load collective is valid for. A ZF_lrd counted load collective  belomgs to a gear set while a temperature load collective belong to the part where the temperature is measured (gear oil or IGBT). "@en;
+    bamm:description "Component or assembly the load spectrum is valid for. A ZF_lrd counted load spectrum  belomgs to a gear set while a temperature load spectrum belong to the part where the temperature is measured (gear oil or IGBT). "@en;
     bamm:dataType xsd:string.
 :StatusCharacteristic a bamm:Characteristic;
     bamm:name "StatusCharacteristic";
@@ -220,7 +261,7 @@
   bamm:property :mileage;
   bamm:optional "true"^^xsd:boolean
 ] :date [
-  bamm:property :operatingTime;
+  bamm:property :operatingHours;
   bamm:optional "true"^^xsd:boolean
 ]).
 :mileage a bamm:Property;
@@ -231,106 +272,80 @@
     bamm:exampleValue "123456"^^xsd:nonNegativeInteger.
 :date a bamm:Property;
     bamm:name "date";
-    bamm:characteristic :Timestamp;
-    bamm:description "date representing the load collective"@en;
-    bamm:exampleValue "2022-05-21"^^xsd:date.
-:operatingTime a bamm:Property;
-    bamm:name "operatingTime";
-    bamm:preferredName "operating Time"@en;
-    bamm:characteristic :OperationgTimeCharacteristic;
-    bamm:description "Operating time (hours) covered by the load collective."@en;
-    bamm:exampleValue "2345".
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:description "date representing the load spectrum"@en.
+:operatingHours a bamm:Property;
+    bamm:name "operatingHours";
+    bamm:preferredName "operating Hours"@en;
+    bamm:characteristic :OperatingHoursCharacteristic;
+    bamm:description "Operating hours covered by the load spectrum."@en;
+    bamm:exampleValue "3456.2"^^xsd:float.
 :Mileage a bamm-c:Measurement;
     bamm:name "Mileage";
     bamm:preferredName "mileage"@en;
     bamm:description "Mileage of the vehicle respectively part."@en;
     bamm:dataType xsd:nonNegativeInteger;
     bamm-c:unit unit:kilometre.
-:OperationgTimeCharacteristic a bamm:Characteristic;
-    bamm:name "OperationgTimeCharacteristic";
-    bamm:preferredName "Operating Time"@en;
-    bamm:description "Operating time (hours) for the vehicle respectively part."@en;
-    bamm:dataType xsd:string.
-:ClassifiedLoadCollective a bamm:Aspect;
-    bamm:name "ClassifiedLoadCollective";
-    bamm:preferredName "Classified Load Collective"@en;
-    bamm:description "load collective with classified loads "@en;
-    bamm:properties (:header :body :metadata :targetComponentID [
-  bamm:property :residuum;
-  bamm:optional "true"^^xsd:boolean
-]);
-    bamm:operations ();
-    bamm:events ().
+:OperatingHoursCharacteristic a bamm-c:Measurement;
+    bamm:name "OperatingHoursCharacteristic";
+    bamm:preferredName "Operating Hours"@en;
+    bamm:description "Operating hours for the vehicle respectively part."@en;
+    bamm:dataType xsd:float;
+    bamm-c:unit unit:hour.
 :targetComponentID a bamm:Property;
     bamm:name "targetComponentID";
     bamm:characteristic :TargetComponentIDCharacteristic;
     bamm:description "CX-ID /AAS-ID des Zwilling "@en.
-:residuum a bamm:Property;
-    bamm:name "residuum";
-    bamm:preferredName "Residuum"@en;
-    bamm:characteristic :ResiduumCharacteristic;
-    bamm:description "Residuum of load history i case of rainflow counting"@en.
 :TargetComponentIDCharacteristic a bamm:Characteristic;
     bamm:name "TargetComponentIDCharacteristic";
     bamm:preferredName "TargetComponentID"@en;
     bamm:description "Asset ID of the specific parent: vehicle or gearbox or battery"@en;
     bamm:dataType xsd:anyURI.
+:residuum a bamm:Property;
+    bamm:name "residuum";
+    bamm:preferredName "Residuum"@en;
+    bamm:characteristic :ResiduumCharacteristic;
+    bamm:description "Residuum of load history i case of rainflow counting"@en.
 :ResiduumCharacteristic a bamm:Characteristic;
     bamm:name "ResiduumCharacteristic";
     bamm:preferredName "Residuum"@en;
     bamm:description "Rainflow counting is restricted to one channel. Unclosed hystereses are described as list of classes."@en;
     bamm:dataType :ResiduumEntity.
-:ClassesList a bamm-c:List;
-    bamm:name "ClassesList";
-    bamm:description "Several load channel classes  are sorted in a list. For rainflow counting, a load channel has two channel class lists, from-class and to-class. \n"@en;
-    bamm:dataType :ClassesListEntity.
-:ClassesListEntity a bamm:Entity;
-    bamm:name "ClassesListEntity";
-    bamm:description "Each channel class list are identified by the name and contains the list of classes describing the load.\n"@en;
-    bamm:properties (:classList :className).
-:className a bamm:Property;
-    bamm:name "className";
-    bamm:characteristic :ClassNameCharacteristic;
-    bamm:description "Channel name extended by \"-class\". In case of rainflow counting, the extention is from-class and to-class."@en;
-    bamm:exampleValue "Torque_Inputshaft-class".
-:ClassNameCharacteristic a bamm:Characteristic;
-    bamm:name "ClassNameCharacteristic";
-    bamm:description "Name of the load channel class"@en;
-    bamm:dataType xsd:string.
-:CountsNameCharacteristic a bamm:Characteristic;
-    bamm:name "CountsNameCharacteristic";
-    bamm:description "Name of countings, \"Counts\" or \"Time\"  or \"revolutions\"."@en;
-    bamm:dataType xsd:string.
-:countsList a bamm:Property;
-    bamm:name "countsList";
-    bamm:characteristic :Counts;
-    bamm:description "List of counts according to the load channel lists."@en;
-    bamm:exampleValue "7.9"^^xsd:double.
-:Timestamp a bamm:Characteristic;
-    bamm:name "Timestamp";
-    bamm:description "Describes a Property which contains the date and time with an optional timezone."@en;
-    bamm:dataType xsd:date.
 :ResiduumEntity a bamm:Entity;
     bamm:name "ResiduumEntity";
     bamm:preferredName "Residuum"@en;
     bamm:description "Rainflow counting is restricted to one channel. Unclosed hystereses are described as list of classes."@en;
     bamm:properties (:residuumClassName :residuumList).
+:residuumClassName a bamm:Property;
+    bamm:name "residuumClassName";
+    bamm:characteristic :ResiduumClassNameCharacteristic;
+    bamm:description "Name of the load channel extended by -class"@en;
+    bamm:exampleValue "Temp_Oil-class".
 :residuumList a bamm:Property;
     bamm:name "residuumList";
     bamm:preferredName "Residuum list"@en;
     bamm:characteristic :ResiduumListCharacteristic;
     bamm:description "List of load-classes not defining a closed hysterese."@en;
     bamm:exampleValue "6"^^xsd:positiveInteger.
-:ResiduumListCharacteristic a bamm-c:List;
-    bamm:name "ResiduumListCharacteristic";
-    bamm:description "List of load-classes not defining a closed hysterese."@en;
-    bamm:dataType xsd:positiveInteger.
 :ResiduumClassNameCharacteristic a bamm:Characteristic;
     bamm:name "ResiduumClassNameCharacteristic";
     bamm:description "Channelname extended by -class"@en;
     bamm:dataType xsd:string.
-:residuumClassName a bamm:Property;
-    bamm:name "residuumClassName";
-    bamm:characteristic :ResiduumClassNameCharacteristic;
-    bamm:description "Name of the load channel extended by -class"@en;
-    bamm:exampleValue "Temp_Oil-class".
+:ResiduumListCharacteristic a bamm-c:List;
+    bamm:name "ResiduumListCharacteristic";
+    bamm:description "List of load-classes not defining a closed hysterese."@en;
+    bamm:dataType xsd:positiveInteger.
+:ClassNameCharacteristic a bamm:Characteristic;
+    bamm:name "ClassNameCharacteristic";
+    bamm:description "Name of the load channel class"@en;
+    bamm:dataType xsd:string.
+:ClassifiedLoadSpectrum a bamm:Aspect;
+    bamm:name "ClassifiedLoadSpectrum";
+    bamm:preferredName "Classified Load Spectrum"@en;
+    bamm:description "load spectrum with classified loads "@en;
+    bamm:properties (:header :body :metadata :targetComponentID [
+  bamm:property :residuum;
+  bamm:optional "true"^^xsd:boolean
+]);
+    bamm:operations ();
+    bamm:events ().
