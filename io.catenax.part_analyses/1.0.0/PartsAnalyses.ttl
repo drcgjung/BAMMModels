@@ -5,7 +5,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
-@prefix : <urn:bamm:io.catenax.parts_analyses:1.0.0#>.
+@prefix : <urn:bamm:io.catenax.part_analysis:1.0.0#>.
 
 :UUIDv4RegularExpression a bamm-c:RegularExpressionConstraint;
     bamm:preferredName "Catena-X Id Regular Expression"@en;
@@ -33,7 +33,7 @@
 ] [
   bamm:property :customerPartIdentifier;
   bamm:optional "true"^^xsd:boolean
-] :nameAtManufacturer :status :isDefect :resultsDescription).
+] :nameAtManufacturer :status :isDefect :resultsDescription :qTaskIdentifier).
 :catenaXIdentifier a bamm:Property;
     bamm:preferredName "Catena-X ID"@en;
     bamm:description "The fully anonymous Catena-X ID of the analyzed part - only available after digital twin registry is fully operational"@en;
@@ -73,6 +73,12 @@
     bamm:description "Detailed description of part analysis results."@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Corrossion on component xyz in steering motor".
+:StatusCharakteristic a bamm-c:State;
+    bamm:preferredName "StatusCharakteristic"@en;
+    bamm:description "Enumeration of the different status values"@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("new" "in progress" "completed" "closed");
+    bamm-c:defaultValue "new".
 :qTaskIdentifier a bamm:Property;
     bamm:preferredName "q-Task ID"@en;
     bamm:description "A unique quality task identifier where these list of parts analysis belong to."@en;
@@ -81,7 +87,7 @@
 :PartAnalyses a bamm:Aspect;
     bamm:preferredName "Part Analysis"@en;
     bamm:description "List of part analysis for one quality task"@en;
-    bamm:properties (:qTaskIdentifier :listOfPartAnalyses);
+    bamm:properties (:listOfPartAnalyses);
     bamm:operations ();
     bamm:events ().
 :listOfPartAnalyses a bamm:Property;
@@ -92,8 +98,3 @@
     bamm:preferredName "Parts Analyses"@en;
     bamm:description "A list for all parts analyses"@en;
     bamm:dataType :PartAnalysis.
-:StatusCharakteristic a bamm-c:Enumeration;
-    bamm:preferredName "StatusCharakteristic"@en;
-    bamm:description "Enumeration of the different status vlaues"@en;
-    bamm:dataType xsd:string;
-    bamm-c:values ("new" "in progress" "completed" "closed").
