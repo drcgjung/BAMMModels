@@ -52,11 +52,12 @@
     bamm:preferredName "List of companies"@en;
     bamm:description "A list of companies involved in this quality task"@en;
     bamm:characteristic :ListOfCompanies.
-:StatusCharakteristic a bamm-c:Enumeration;
+:StatusCharakteristic a bamm-c:State;
     bamm:preferredName "StatusCharakteristic"@en;
-    bamm:description "Enumeration of the different status vlaues"@en;
+    bamm:description "Enumeration of the different status values"@en;
     bamm:dataType xsd:string;
-    bamm-c:values ("new" "in progress" "completed" "closed").
+    bamm-c:values ("new" "in progress" "completed" "closed");
+    bamm-c:defaultValue "new".
 :DataDeletionEnumeration a bamm-c:Enumeration;
     bamm:preferredName "Data deletion"@en;
     bamm:description "Enumeration of possible data deletions entries."@en;
