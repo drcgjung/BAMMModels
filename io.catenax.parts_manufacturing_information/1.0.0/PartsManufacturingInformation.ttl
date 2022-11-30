@@ -70,6 +70,9 @@
     bamm:properties ([
   bamm:property :catenaXId;
   bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :qTaskId;
+  bamm:optional "true"^^xsd:boolean
 ] :manufacturerPartIdentifier [
   bamm:property :manufacturerSerialPartNumber;
   bamm:optional "true"^^xsd:boolean
@@ -78,6 +81,11 @@
     bamm:preferredName "Catena-X ID"@en;
     bamm:description "The fully anonymous Catena-X ID of the manufactured part - only available after digital twin registry is fully operational"@en;
     bamm:characteristic :CatenaXIdTrait.
+:qTaskId a bamm:Property;
+    bamm:preferredName "q-Task ID"@en;
+    bamm:description "A unique quality task identifier where this list of manufacturing data belongs to. Optional to ensure that also Diagnostic Data without assigned qTask can be exchanged."@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "BPN-811_2022_000001".
 :manufacturingInformation a bamm:Property;
     bamm:preferredName "Manufacturing information"@en;
     bamm:description "Collection of standardized manufacturing information"@en;
