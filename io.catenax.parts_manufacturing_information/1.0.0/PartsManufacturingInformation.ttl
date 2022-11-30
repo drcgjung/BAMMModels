@@ -35,67 +35,46 @@
     bamm:description "Trait to ensure data format for Catena-X ID"@en;
     bamm-c:constraint :UUIDv4RegularExpression;
     bamm-c:baseCharacteristic :UUIDv4.
-:manufacturerPartIdentifier a bamm:Property;
-    bamm:preferredName "Manufacturer Part ID"@en;
-    bamm:description "Part Id of the analyzed part as assigned by the manufacturer of the part. The Part Id identifies the part type and is not unique for each serial part"@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "123-0.740-3434-A".
 :manufacturerSerialPartNumber a bamm:Property;
-    bamm:preferredName "Manufacturer serial part identifier ID"@en;
-    bamm:description "Serial part number of the manufactured part. Not available for common parts."@en;
+    bamm:preferredName "Manufacturer serial part number"@en;
+    bamm:description "Serial part number given by  the manufacturer. Not available for common parts."@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "436347347.4343884384.FTG.538348".
 :nameAtManufacturer a bamm:Property;
-    bamm:preferredName "Manufacturer part name ID"@en;
-    bamm:description "Name of the analyzed part as assigned by the manufacturer of the part."@en;
+    bamm:preferredName "Manufacturer part name"@en;
+    bamm:description "Name of the manufactured part as given by the manufacturer."@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Steering assembly".
 :PartsManufacturingInformation a bamm:Aspect;
     bamm:preferredName "Parts manufacturing information"@en;
     bamm:description "This aspect model is used to exchange manufacturing-oriented information of several parts, e.g. for quality tasks"@en;
-    bamm:properties (:listOfManufacturIngInformation);
+    bamm:properties (:listOfManufacturedParts);
     bamm:operations ();
     bamm:events ().
-:listOfManufacturIngInformation a bamm:Property;
-    bamm:preferredName "List Of manufacturing information"@en;
-    bamm:description "A list of manufacturing-oriented parts information"@en;
-    bamm:characteristic :ListOfManufacturIngInformation.
-:ListOfManufacturIngInformation a bamm-c:List;
-    bamm:preferredName "Manufacturing information"@en;
-    bamm:description "A list of manufacturing-related part information"@en;
-    bamm:dataType :PartManufacturingInformation.
-:PartManufacturingInformation a bamm:Entity;
-    bamm:preferredName "Part manufacturIng information"@en;
-    bamm:description "Manufacturing information for one part. Important attributes are defined. Besides that there is a key:value list to exchange further non-standardized attributes for this part"@en;
-    bamm:properties ([
-  bamm:property :catenaXId;
-  bamm:optional "true"^^xsd:boolean
-] [
-  bamm:property :qTaskId;
-  bamm:optional "true"^^xsd:boolean
-] :manufacturerPartIdentifier [
-  bamm:property :manufacturerSerialPartNumber;
-  bamm:optional "true"^^xsd:boolean
-] :nameAtManufacturer :manufacturingInformation).
+:listOfManufacturedParts a bamm:Property;
+    bamm:preferredName "Manufactured parts"@en;
+    bamm:description "A list of manufactured parts and their porperties"@en;
+    bamm:characteristic :ListOfManufacturedParts.
 :catenaXId a bamm:Property;
     bamm:preferredName "Catena-X ID"@en;
     bamm:description "The fully anonymous Catena-X ID of the manufactured part - only available after digital twin registry is fully operational"@en;
     bamm:characteristic :CatenaXIdTrait.
 :qTaskId a bamm:Property;
     bamm:preferredName "q-Task ID"@en;
-    bamm:description "A unique quality task identifier where this list of manufacturing data belongs to. Optional to ensure that also Diagnostic Data without assigned qTask can be exchanged."@en;
+    bamm:description "A unique quality task identifier where this part manufacturing information belongs to. Optional to ensure that also PartsManufacturingInformation can be exchanged without having a qTask."@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "BPN-811_2022_000001".
 :manufacturingInformation a bamm:Property;
     bamm:preferredName "Manufacturing information"@en;
-    bamm:description "Collection of standardized manufacturing information"@en;
+    bamm:description "Collection of defined manufacturing-related properties for this part"@en;
     bamm:characteristic :ManufacturingCharacteristic.
 :ManufacturingCharacteristic a bamm:Characteristic;
     bamm:preferredName "Manufacturing Characteristic"@en;
+    bamm:description "Collection of defined manufacturing-related properties for this part"@en;
     bamm:dataType :Manufacturing.
 :Manufacturing a bamm:Entity;
     bamm:preferredName "Manufacturing"@en;
-    bamm:description "Collection of standardized manufacturing information"@en;
+    bamm:description "Collection of defined manufacturing-related properties for this part"@en;
     bamm:properties (:date :country :plantId :plantDescription :batchId [
   bamm:property :productionLine;
   bamm:optional "true"^^xsd:boolean
@@ -111,22 +90,22 @@
 ]).
 :date a bamm:Property;
     bamm:preferredName "Production Date"@en;
-    bamm:description "Timestamp of the manufacturing date as the final step in production process (e.g. final quality check, ready-for-shipment event)"@en;
+    bamm:description "Date of manufacturing"@en;
     bamm:characteristic bamm-c:Timestamp;
     bamm:exampleValue "2022-02-04T14:48:54"^^xsd:dateTime.
 :country a bamm:Property;
     bamm:preferredName "Country code"@en;
     bamm:description "Country code where the part was manufactured"@en;
     bamm:characteristic :ProductionCountryCodeTrait;
-    bamm:exampleValue "HUR".
+    bamm:exampleValue "DEU".
 :plantId a bamm:Property;
     bamm:preferredName "Plant id"@en;
-    bamm:description "Manufacturer-specific identifier of a the production plant of this vehicle\t"@en;
+    bamm:description "Manufacturer-specific identifier of a the production plant of this part"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "00001".
 :plantDescription a bamm:Property;
     bamm:preferredName "Plant description"@en;
-    bamm:description "Manufacturer-specific description of the production plant of the vehicle"@en;
+    bamm:description "Manufacturer-specific description of the production plant of this part"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Feuerbach Plant".
 :batchId a bamm:Property;
@@ -150,7 +129,7 @@
     bamm:exampleValue "1"^^xsd:positiveInteger.
 :addtionalInformation a bamm:Property;
     bamm:preferredName "Additional information"@en;
-    bamm:description "You can use this key:value list for additional information"@en;
+    bamm:description "You can use this key:value list for additional properties that were not defined in this aspect model."@en;
     bamm:characteristic :ListOfAdditionalInformation.
 :PositiveNumber a bamm:Characteristic;
     bamm:dataType xsd:positiveInteger.
@@ -171,3 +150,25 @@
     bamm:description "Value for this additional information"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Stainless steel".
+:ListOfManufacturedParts a bamm-c:List;
+    bamm:preferredName "Manufactured  Parts"@en;
+    bamm:description "A list of manufactured parts"@en;
+    bamm:dataType :ManufacturedPart.
+:ManufacturedPart a bamm:Entity;
+    bamm:preferredName "Manufactured part"@en;
+    bamm:description "Manufacturing information for one part. Important properties are standardized. Besides that there is a key:value list to exchange further non-standardized properties for this part"@en;
+    bamm:properties ([
+  bamm:property :catenaXId;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :qTaskId;
+  bamm:optional "true"^^xsd:boolean
+] :manufacturerId [
+  bamm:property :manufacturerSerialPartNumber;
+  bamm:optional "true"^^xsd:boolean
+] :nameAtManufacturer :manufacturingInformation).
+:manufacturerId a bamm:Property;
+    bamm:preferredName "Manufacturer ID"@en;
+    bamm:description "Identifier assigned by the manufacturer for this specific part. In case of common parts: This identifier is not unique."@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "123-0.740-3434-A".
