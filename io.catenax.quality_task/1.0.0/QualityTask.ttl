@@ -22,7 +22,7 @@
 :status a bamm:Property;
     bamm:preferredName "Status"@en;
     bamm:description "Status of this quality task"@en;
-    bamm:characteristic :StatusCharakteristic;
+    bamm:characteristic :StatusCharacteristic;
     bamm:exampleValue "new".
 :creationDate a bamm:Property;
     bamm:preferredName "Creation Date"@en;
@@ -53,11 +53,6 @@
     bamm:preferredName "List of companies"@en;
     bamm:description "A list of companies involved in this quality task"@en;
     bamm:characteristic :ListOfCompanies.
-:StatusCharakteristic a bamm-c:Enumeration;
-    bamm:preferredName "StatusCharacteristic"@en;
-    bamm:description "Enumeration of the different status values"@en;
-    bamm:dataType xsd:string;
-    bamm-c:values ("new" "in progress" "completed" "closed").
 :DataDeletionEnumeration a bamm-c:Enumeration;
     bamm:preferredName "Data deletion"@en;
     bamm:description "Enumeration of possible data deletions entries."@en;
@@ -81,3 +76,8 @@
     bamm:description "Name of the comapny"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Company A".
+:StatusCharacteristic a bamm-c:Enumeration;
+    bamm:preferredName "Status Characteristic"@en;
+    bamm:description "Enumeration of the different status values"@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("new" "in progress" "completed" "closed").
