@@ -5,7 +5,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
-@prefix : <urn:bamm:io.catenax.parts_manufacturing_information:1.0.0#>.
+@prefix : <urn:bamm:io.catenax.manufactured_parts_quality_information:1.0.0#>.
 
 :ProductionCountryCodeTrait a bamm-c:Trait;
     bamm:preferredName "Production Country Code Trait"@en;
@@ -45,8 +45,8 @@
     bamm:description "Name of the manufactured part as given by the manufacturer."@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Steering assembly".
-:PartsManufacturingInformation a bamm:Aspect;
-    bamm:preferredName "Parts manufacturing information"@en;
+:ManufacturedPartsQualityInformation a bamm:Aspect;
+    bamm:preferredName "Quality information for parts"@en;
     bamm:description "This aspect model is used to exchange manufacturing-oriented information of several parts, e.g. for quality tasks"@en;
     bamm:properties (:listOfManufacturedParts);
     bamm:operations ();
@@ -55,13 +55,18 @@
     bamm:preferredName "Manufactured parts"@en;
     bamm:description "A list of manufactured parts and their porperties"@en;
     bamm:characteristic :ListOfManufacturedParts.
+:ListOfManufacturedParts a bamm-c:List;
+    bamm:preferredName "Manufactured  Parts"@en;
+    bamm:description "A list of manufactured parts"@en;
+    bamm:dataType :ManufacturedPart.
 :catenaXId a bamm:Property;
     bamm:preferredName "Catena-X ID"@en;
     bamm:description "The fully anonymous Catena-X ID of the manufactured part - only available after digital twin registry is fully operational"@en;
-    bamm:characteristic :CatenaXIdTrait.
-:qTaskId a bamm:Property;
-    bamm:preferredName "q-Task ID"@en;
-    bamm:description "A unique quality task identifier where this part manufacturing information belongs to. Optional to ensure that also PartsManufacturingInformation can be exchanged without having a qTask."@en;
+    bamm:characteristic :CatenaXIdTrait;
+    bamm:exampleValue "urn:uuid:580d3adf-1981-44a0-a214-13d6ceed9001".
+:qualityTaskId a bamm:Property;
+    bamm:preferredName "Quality Task ID"@en;
+    bamm:description "A unique quality task identifier where this manufacturing information belongs to. Optional to ensure that also data exchange without having a quality task."@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "BPN-811_2022_000001".
 :manufacturingInformation a bamm:Property;
@@ -109,6 +114,7 @@
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Feuerbach Plant".
 :batchId a bamm:Property;
+    bamm:preferredName "Batch number"@en;
     bamm:description "Manufacturer-specific batch identifier: In which batch was this part manufactured"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "20220204_466".
@@ -150,10 +156,6 @@
     bamm:description "Value for this additional information"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Stainless steel".
-:ListOfManufacturedParts a bamm-c:List;
-    bamm:preferredName "Manufactured  Parts"@en;
-    bamm:description "A list of manufactured parts"@en;
-    bamm:dataType :ManufacturedPart.
 :ManufacturedPart a bamm:Entity;
     bamm:preferredName "Manufactured part"@en;
     bamm:description "Manufacturing information for one part. Important properties are standardized. Besides that there is a key:value list to exchange further non-standardized properties for this part"@en;
@@ -161,7 +163,7 @@
   bamm:property :catenaXId;
   bamm:optional "true"^^xsd:boolean
 ] [
-  bamm:property :qTaskId;
+  bamm:property :qualityTaskId;
   bamm:optional "true"^^xsd:boolean
 ] :manufacturerId [
   bamm:property :manufacturerSerialPartNumber;
