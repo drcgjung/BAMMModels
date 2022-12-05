@@ -37,7 +37,8 @@
 :catenaXIdentifier a bamm:Property;
     bamm:preferredName "Catena-X ID"@en;
     bamm:description "The fully anonymous Catena-X ID of the analyzed part - only available after digital twin registry is fully operational"@en;
-    bamm:characteristic :CatenaXIdTrait.
+    bamm:characteristic :CatenaXIdTrait;
+    bamm:exampleValue "urn:uuid:580d3adf-1981-44a0-a214-13d6ceed9000".
 :manufacturerPartIdentifier a bamm:Property;
     bamm:preferredName "Manufacturer Part ID"@en;
     bamm:description "Part Id of the analyzed part as assigned by the manufacturer of the part. The Part Id identifies the part type and is not unique for each serial part"@en;
@@ -61,7 +62,7 @@
 :status a bamm:Property;
     bamm:preferredName "Status"@en;
     bamm:description "Status of this part analysis"@en;
-    bamm:characteristic :StatusCharakteristic;
+    bamm:characteristic :StatusCharacteristic;
     bamm:exampleValue "new".
 :isDefect a bamm:Property;
     bamm:preferredName "Part defect flag"@en;
@@ -69,12 +70,17 @@
     bamm:characteristic bamm-c:Boolean;
     bamm:exampleValue "true"^^xsd:boolean.
 :resultsDescription a bamm:Property;
-    bamm:preferredName "Analysis results"@en;
+    bamm:preferredName "Several results of analysis"@en;
     bamm:description "Detailed description of part analysis results."@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Corrossion on component xyz in steering motor".
-:StatusCharakteristic a bamm-c:Enumeration;
-    bamm:preferredName "StatusCharakteristic"@en;
+:qualityTaskId a bamm:Property;
+    bamm:preferredName "Quality Task ID"@en;
+    bamm:description "A unique quality task identifier where these list of parts analysis belong to."@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "BPN-811_2022_000001".
+:StatusCharacteristic a bamm-c:Enumeration;
+    bamm:preferredName "StatusCharacteristic"@en;
     bamm:description "Enumeration of the different status values"@en;
     bamm:dataType xsd:string;
     bamm-c:values ("new" "in progress" "completed" "closed").
@@ -92,8 +98,3 @@
     bamm:preferredName "Parts Analyses"@en;
     bamm:description "A list for all parts analyses"@en;
     bamm:dataType :PartAnalysis.
-:qualityTaskId a bamm:Property;
-    bamm:preferredName "Quality Task ID"@en;
-    bamm:description "A unique quality task identifier where these list of parts analysis belong to."@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "BPN-811_2022_000001".
