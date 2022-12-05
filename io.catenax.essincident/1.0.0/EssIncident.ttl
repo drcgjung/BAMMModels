@@ -125,7 +125,7 @@
 ] [
   bamm:property :address;
   bamm:optional "true"^^xsd:boolean
-]);
+] :essOriginatorBpnL :essOriginatorCxMember :essOriginatorBpnAvailable :essOriginatorBpnS :essOriginatorBpnA);
     bamm:preferredName "ESS Company Information Entity"@en;
     bamm:description "ESS Company Information Entity"@en.
 :EssContactInformationEntity a bamm:Entity;
@@ -159,13 +159,13 @@
     bamm:exampleValue "2022-05-22T21:47:35Z"^^xsd:dateTime.
 :incidentDate a bamm:Property;
     bamm:name "incidentDate";
-    bamm:preferredName "Incident Date"@en;
+    bamm:preferredName "Date of Incident"@en;
     bamm:description "Date and time information about when an incident in the context of ESS (Environmental and Social Standards) occurred"@en;
     bamm:characteristic bamm-c:Timestamp;
     bamm:exampleValue "2022-04-01T08:45:00Z"^^xsd:dateTime.
 :incidentDuration a bamm:Property;
     bamm:name "incidentDuration";
-    bamm:preferredName "Incident Duration"@en;
+    bamm:preferredName "Duration of Incident"@en;
     bamm:description "Information about how long an incident in the context of ESS (Environmental and Social Standards) occurred"@en;
     bamm:characteristic :IncidentDurationCharacteristic;
     bamm:exampleValue "> 6 months".
@@ -224,8 +224,8 @@
     bamm:exampleValue "Mercury".
 :industry a bamm:Property;
     bamm:name "industry";
-    bamm:preferredName "Industry"@en;
-    bamm:description "Industry / branch that causes the incident"@en;
+    bamm:preferredName "Industry / Branch"@en;
+    bamm:description "Industry / Branch that causes the incident"@en;
     bamm:characteristic :IndustryCharacteristic;
     bamm:exampleValue "Manufacture of components / intermediates".
 :essOriginatorCountry a bamm:Property;
@@ -242,7 +242,7 @@
     bamm:exampleValue "DE-BW".
 :essOriginatorCoordinates a bamm:Property;
     bamm:name "essOriginatorCoordinates";
-    bamm:preferredName "ESS Originator Coordinates"@en;
+    bamm:preferredName "ESS Originator Geographic data / Coordinates"@en;
     bamm:description "Exact geographic position of an incident in the context of ESS (Environmental and Social Standards)"@en;
     bamm:characteristic :EssOriginatorCoordinatesCharacteristic.
 :essOriginatorCompanyName a bamm:Property;
@@ -256,6 +256,23 @@
     bamm:preferredName "Address"@en;
     bamm:description "Simple form of an address which can belong to a person, organisation, company etc."@en;
     bamm:characteristic :AddressCharacteristic.
+:essOriginatorBpnL a bamm:Property;
+    bamm:name "essOriginatorBpnL";
+    bamm:preferredName "ESS Originator BPN-L"@en;
+    bamm:description "BPN-L ID of the company headquarter that causes the incident"@en;
+    bamm:characteristic :EssOriginatorBpnCharacteristic.
+:essOriginatorCxMember a bamm:Property;
+    bamm:name "essOriginatorCxMember";
+    bamm:preferredName "ESS Originator CX Member"@en;
+    bamm:description "Return flag (y/n) that company that causes the ESS incident is a CX member (or not)"@en;
+    bamm:characteristic bamm-c:Boolean;
+    bamm:exampleValue "yes"^^xsd:boolean.
+:essOriginatorBpnAvailable a bamm:Property;
+    bamm:name "essOriginatorBpnAvailable";
+    bamm:preferredName "ESs Originator BPN available"@en;
+    bamm:description "Return flag (y/n) that company that causes the ESS incident has a BPN-L/-S/-A in CX (but no CX membership)"@en;
+    bamm:characteristic bamm-c:Boolean;
+    bamm:exampleValue "Yes"^^xsd:boolean.
 :contactName a bamm:Property;
     bamm:name "contactName";
     bamm:preferredName "Contact Name"@en;
@@ -330,6 +347,11 @@
     bamm:preferredName "Address Characteristic"@en;
     bamm:description "Characteristic for defining an address which can belong to a person, an orginisation a company or any other."@en;
     bamm:dataType :AddressEntity.
+:EssOriginatorBpnCharacteristic a bamm-c:SingleEntity;
+    bamm:name "EssOriginatorBpnCharacteristic";
+    bamm:preferredName "Ess Originator BPN Characteristic"@en;
+    bamm:description "Ess Originator BPN Characteristic"@en;
+    bamm:dataType :BpnEntity.
 :ContactMailTrait a bamm-c:Trait;
     bamm:name "ContactMailTrait";
     bamm:preferredName "Contact Mail Trait"@en;
@@ -381,6 +403,12 @@
     bamm:preferredName "Contact Mail Constraint"@en;
     bamm:description "Regular expression for a contact mail address."@en;
     bamm:value "^[a-zA-Z0-9.!#$%&’*+\\\\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\\\.[a-zA-Z0-9-]+)*$".
+:incidentSubcategoryProperty a bamm:Property;
+    bamm:name "incidentSubcategoryProperty";
+    bamm:preferredName "Incident Subcategory Property"@en;
+    bamm:description "Incident Subcategory Property"@en;
+    bamm:characteristic :IncidentSubcategories;
+    bamm:exampleValue "Child Labour".
 :longitude a bamm:Property;
     bamm:name "longitude";
     bamm:preferredName "Longitude"@en;
@@ -411,6 +439,12 @@
     bamm:description "Name of a city belonging to an address."@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Musterstadt".
+:IncidentSubcategories a bamm-c:Enumeration;
+    bamm:name "IncidentSubcategories";
+    bamm:preferredName "Incident Subcategories"@en;
+    bamm:description "Characteristic for defining subcategories of an incident in the context of ESS (Environmental and Social Standards)."@en;
+    bamm:dataType xsd:string;
+    bamm-c:values ("Child labour" "Forced labour" "Slavery" "Work safety" "Freedom of association" "Discrimination" "Minimum wage" "Environmental pollution" "Forced eviction" "Force by state security" "Usage of Mercury" "Usage of harmful chemicals" "Non-environmental friendly handling of waste" "Import and export of hazardous waste").
 :LongitudeTrait a bamm-c:Trait;
     bamm:name "LongitudeTrait";
     bamm:preferredName "Longitude Trait"@en;
@@ -443,15 +477,40 @@
     bamm:preferredName "Latitude Constraint"@en;
     bamm:description "Regular expression for latitude information of geographic coordinates."@en;
     bamm:value "^(\\+|-)?(?:90(?:(?:\\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\\.[0-9]{1,6})?))$".
-:IncidentSubcategories a bamm-c:Enumeration;
-    bamm:name "IncidentSubcategories";
-    bamm:preferredName "Incident Subcategories"@en;
-    bamm:description "Characteristic for defining subcategories of an incident in the context of ESS (Environmental and Social Standards)."@en;
-    bamm:dataType xsd:string;
-    bamm-c:values ("Child labour" "Forced labour" "Slavery" "Work safety" "Freedom of association" "Discrimination" "Minimum wage" "Environmental pollution" "Forced eviction" "Force by state security" "Usage of Mercury" "Usage of harmful chemicals" "Non-environmental friendly handling of waste" "Import and export of hazardous waste").
-:incidentSubcategoryProperty a bamm:Property;
-    bamm:name "incidentSubcategoryProperty";
-    bamm:preferredName "Incident Subcategory Property"@en;
-    bamm:description "Incident Subcategory Property"@en;
-    bamm:characteristic :IncidentSubcategories;
-    bamm:exampleValue "Child Labour".
+:BpnEntity a bamm:Entity;
+    bamm:name "BpnEntity";
+    bamm:properties (:bpnProperty);
+    bamm:preferredName "BPN (Business Partner Number) Entity"@en;
+    bamm:description "Internal or external juristic, a company that is having a business relation with another Business Partner"@en.
+:bpnProperty a bamm:Property;
+    bamm:name "bpnProperty";
+    bamm:preferredName "BPN Property"@en;
+    bamm:description "BPN Property"@en;
+    bamm:characteristic :BPN;
+    bamm:exampleValue "BPNL1234567890ZZ".
+:BPN a bamm-c:Trait;
+    bamm:name "BPN";
+    bamm:preferredName "BPN Business Partner Number"@en;
+    bamm:description "BPN Business Partner Number"@en;
+    bamm-c:baseCharacteristic :BpnCharacteristic;
+    bamm-c:constraint :BpnConstraint.
+:BpnCharacteristic a bamm:Characteristic;
+    bamm:name "BpnCharacteristic";
+    bamm:preferredName "BPN Characteristic"@en;
+    bamm:description "BPN Characteristic"@en;
+    bamm:dataType xsd:string.
+:BpnConstraint a bamm-c:RegularExpressionConstraint;
+    bamm:name "BpnConstraint";
+    bamm:preferredName "BPN Constraint"@en;
+    bamm:description "Business Partner Number Contraint"@en;
+    bamm:value "^(BPN)(L|S|A)(\\\\d{8})([a-zA-Z0-9]{4})$".
+:essOriginatorBpnS a bamm:Property;
+    bamm:name "essOriginatorBpnS";
+    bamm:preferredName "ESS Originator BPN-S"@en;
+    bamm:description "BPN-S ID of the company headquarter that causes the incident"@en;
+    bamm:characteristic :EssOriginatorBpnCharacteristic.
+:essOriginatorBpnA a bamm:Property;
+    bamm:name "essOriginatorBpnA";
+    bamm:preferredName "ESS Originator BPN A"@en;
+    bamm:description "BPN-A ID of the company headquarter that causes the incident"@en;
+    bamm:characteristic :EssOriginatorBpnCharacteristic.
