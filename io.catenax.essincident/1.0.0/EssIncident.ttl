@@ -96,7 +96,10 @@
     bamm:description "ESS Incident Information Entity"@en.
 :EssProductInformationEntity a bamm:Entity;
     bamm:name "EssProductInformationEntity";
-    bamm:properties (:productCommodity [
+    bamm:properties ([
+  bamm:property :productCommodity;
+  bamm:optional "true"^^xsd:boolean
+] [
   bamm:property :uniquePartNumber;
   bamm:optional "true"^^xsd:boolean
 ] :productDescription [
@@ -125,12 +128,42 @@
 ] [
   bamm:property :address;
   bamm:optional "true"^^xsd:boolean
-] :essOriginatorBpnL :essOriginatorCxMember :essOriginatorBpnAvailable :essOriginatorBpnS :essOriginatorBpnA);
+] [
+  bamm:property :essOriginatorBpnL;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :essOriginatorCxMember;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :essOriginatorBpnAvailable;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :essOriginatorBpnS;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :essOriginatorBpnA;
+  bamm:optional "true"^^xsd:boolean
+]);
     bamm:preferredName "ESS Company Information Entity"@en;
     bamm:description "ESS Company Information Entity"@en.
 :EssContactInformationEntity a bamm:Entity;
     bamm:name "EssContactInformationEntity";
-    bamm:properties (:contactName :contactMail :contactPhone :address :essIncidentIssuerCompanyName);
+    bamm:properties ([
+  bamm:property :contactName;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :contactMail;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :contactPhone;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :address;
+  bamm:optional "true"^^xsd:boolean
+] [
+  bamm:property :essIncidentIssuerCompanyName;
+  bamm:optional "true"^^xsd:boolean
+] :issuerId :flagAnonymous);
     bamm:preferredName "ESS Contact Information Entity"@en;
     bamm:description "ESS Contact Information Entity"@en.
 :incidentCategory a bamm:Property;
@@ -301,6 +334,12 @@
     bamm:description "Phone number of a contact."@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "+49-123-456789".
+:essIncidentIssuerCompanyName a bamm:Property;
+    bamm:name "essIncidentIssuerCompanyName";
+    bamm:preferredName "ESS Incident Issuer Company Name"@en;
+    bamm:description "Company name of incident issuer"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "Greenpeace".
 :IncidentCategoryCharacteristic a bamm-c:Enumeration;
     bamm:name "IncidentCategoryCharacteristic";
     bamm:preferredName "Incident Category Characteristic"@en;
@@ -454,6 +493,12 @@
     bamm:description "Name of a city belonging to an address."@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "Model City".
+:bpnProperty a bamm:Property;
+    bamm:name "bpnProperty";
+    bamm:preferredName "BPN Property"@en;
+    bamm:description "BPN Property"@en;
+    bamm:characteristic :BPN;
+    bamm:exampleValue "BPNL1234567890ZZ".
 :IncidentSubcategories a bamm-c:Enumeration;
     bamm:name "IncidentSubcategories";
     bamm:preferredName "Incident Subcategories"@en;
@@ -492,12 +537,6 @@
     bamm:preferredName "Latitude Constraint"@en;
     bamm:description "Regular expression for latitude information of geographic coordinates."@en;
     bamm:value "^(\\+|-)?(?:90(?:(?:\\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\\.[0-9]{1,6})?))$".
-:bpnProperty a bamm:Property;
-    bamm:name "bpnProperty";
-    bamm:preferredName "BPN Property"@en;
-    bamm:description "BPN Property"@en;
-    bamm:characteristic :BPN;
-    bamm:exampleValue "BPNL1234567890ZZ".
 :BPN a bamm-c:Trait;
     bamm:name "BPN";
     bamm:preferredName "BPN Business Partner Number"@en;
@@ -514,9 +553,15 @@
     bamm:preferredName "BPN Constraint"@en;
     bamm:description "Business Partner Number Contraint"@en;
     bamm:value "^(BPN)(L|S|A)(\\\\d{8})([a-zA-Z0-9]{4})$".
-:essIncidentIssuerCompanyName a bamm:Property;
-    bamm:name "essIncidentIssuerCompanyName";
-    bamm:preferredName "ESS Incident Issuer Company Name"@en;
-    bamm:description "Company name of incident issuer"@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "Greenpeace".
+:issuerId a bamm:Property;
+    bamm:name "issuerId";
+    bamm:preferredName "Issuer ID"@en;
+    bamm:description "System generated unique identifier of incident issuer"@en;
+    bamm:characteristic :UUIDv4;
+    bamm:exampleValue "9a47b3c8-b6d4-44f1-99ba-6bdb33916cac".
+:flagAnonymous a bamm:Property;
+    bamm:name "flagAnonymous";
+    bamm:preferredName "Flag anonymous"@en;
+    bamm:description "Flag that Incident issuer wants to be anonymous"@en;
+    bamm:characteristic bamm-c:Boolean;
+    bamm:exampleValue "no"^^xsd:boolean.
