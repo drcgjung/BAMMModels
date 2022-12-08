@@ -68,6 +68,10 @@
     bamm:preferredName "ListOfParts"@en;
     bamm:description "a list of parts which will be replaced or repaired"@en;
     bamm:characteristic :ListOfPartsCharacteristic.
+:qualityTaskIdentifier a bamm:Property;
+    bamm:preferredName "QualityTaskIdentifier"@en;
+    bamm:description "Reference to  Quality Task: A unique identifier. The company creating this quality task sets this identifer. The identifier should contain the BPN to make it unique inside CX network"@en;
+    bamm:characteristic bamm-c:Text.
 :damageCode a bamm:Property;
     bamm:preferredName "DamageCode"@en;
     bamm:description "OEM-specific damage code"@en;
@@ -94,14 +98,17 @@
     bamm:properties ([
   bamm:property :vehicleCatenaXId;
   bamm:optional "true"^^xsd:boolean
-] :anonymizedId).
+] :anonymizedVIN).
+:ClaimedPart a bamm:Entity;
+    bamm:preferredName "Part"@en;
+    bamm:description "one specific part"@en;
+    bamm:properties (:partReplaced :partCausal [
+  bamm:property :amountOfReplacedParts;
+  bamm:optional "true"^^xsd:boolean
+] :replacedPart :sparePart).
 :vehicleCatenaXId a bamm:Property;
     bamm:preferredName "vehicleCatenaXId"@en;
     bamm:description "Catena-X car ID /digital twin of car"@en;
-    bamm:characteristic bamm-c:Text.
-:anonymizedId a bamm:Property;
-    bamm:preferredName "AnonymizedID"@en;
-    bamm:description "link to diagnostic data set created for this claim"@en;
     bamm:characteristic bamm-c:Text.
 :Part a bamm:Entity;
     bamm:preferredName "Part"@en;
@@ -137,6 +144,11 @@
     bamm:preferredName "SupplierID"@en;
     bamm:description "OEM-specific ID of the supplier that manufactured the part that was put out - available if known"@en;
     bamm:characteristic bamm-c:Text.
+:CatenaXIdTrait a bamm-c:Trait;
+    bamm:preferredName "Catena-X ID Trait"@en;
+    bamm:description "Trait to ensure data format for Catena-X ID"@en;
+    bamm-c:baseCharacteristic :UUIDv4;
+    bamm-c:constraint :UUIDv4RegularExpression.
 :partReplaced a bamm:Property;
     bamm:preferredName "PartReplaced"@en;
     bamm:description "flag is set if part was replaced\nTrue: replaced\nFalse: not replaced"@en;
@@ -159,19 +171,14 @@
     bamm:preferredName "ReplacedPart"@en;
     bamm:description "the part which was affected and replaced"@en;
     bamm:characteristic :PartCharacteristic.
-:sparePart a bamm:Property;
-    bamm:preferredName "Spare Part"@en;
-    bamm:description "the part which has been built in"@en;
-    bamm:characteristic :PartCharacteristic.
 :PartCharacteristic a bamm-c:SingleEntity;
     bamm:preferredName "Part Characteristic"@en;
     bamm:description "the characteristics of a part"@en;
     bamm:dataType :Part.
-:CatenaXIdTrait a bamm-c:Trait;
-    bamm:preferredName "Catena-X ID Trait"@en;
-    bamm:description "Trait to ensure data format for Catena-X ID"@en;
-    bamm-c:baseCharacteristic :UUIDv4;
-    bamm-c:constraint :UUIDv4RegularExpression.
+:sparePart a bamm:Property;
+    bamm:preferredName "Spare Part"@en;
+    bamm:description "the part which has been built in"@en;
+    bamm:characteristic :PartCharacteristic.
 :UUIDv4 a bamm:Characteristic;
     bamm:preferredName "UUIDv4"@en;
     bamm:description "A version 4 UUID is a universally unique identifier that is generated using random 32 hexadecimal characters."@en;
@@ -181,14 +188,7 @@
     bamm:description "The provided regular expression ensures that the UUID is composed of five groups of characters separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters (32 hexadecimal characters and 4 hyphens), optionally prefixed by \\\"urn:uuid:\\\" to make it an IRI."@en;
     bamm:see <https://datatracker.ietf.org/doc/html/rfc4122>;
     bamm:value "(^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$)|(^urn:uuid:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$)".
-:ClaimedPart a bamm:Entity;
-    bamm:preferredName "Part"@en;
-    bamm:description "one specific part"@en;
-    bamm:properties (:partReplaced :partCausal [
-  bamm:property :amountOfReplacedParts;
-  bamm:optional "true"^^xsd:boolean
-] :replacedPart :sparePart).
-:qualityTaskIdentifier a bamm:Property;
-    bamm:preferredName "QualityTaskIdentifier"@en;
-    bamm:description "Reference to  Quality Task: A unique identifier. The company creating this quality task sets this identifer. The identifier should contain the BPN to make it unique inside CX network"@en;
+:anonymizedVIN a bamm:Property;
+    bamm:preferredName "Anonymized Vin"@en;
+    bamm:description "OEM-specific hashed VIN; link to car data over pseydomized/hashed VIN or Catena-X unique digital twin identifier"@en;
     bamm:characteristic bamm-c:Text.
