@@ -56,7 +56,7 @@
 
 :ProductDescription a bamm:Aspect;
     bamm:preferredName "Vehicle master data"@en;
-    bamm:description "Master data of one vehicle"@en;
+    bamm:description "Master data of one vehicle - from an end customer view. So this model represents the vehicle as it was sold to the customer. All entities and properties are immutable over the lifetime of the vehicle."@en;
     bamm:properties (:oem :vehicle :body :equipments :production :sale :engines :fuel);
     bamm:operations ();
     bamm:events ().
