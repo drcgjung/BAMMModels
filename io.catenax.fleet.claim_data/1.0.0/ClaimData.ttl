@@ -30,7 +30,7 @@
 ] :repairMileage :repairDate :technicianComment [
   bamm:property :customerComment;
   bamm:optional "true"^^xsd:boolean
-] :claimId :vehicleIdentifiers :listOfParts :qualityTaskIdentifier [
+] :claimId :vehicleIdentifiers :listOfParts :qualityTaskId [
   bamm:property :damageCode;
   bamm:optional "true"^^xsd:boolean
 ]).
@@ -46,7 +46,7 @@
     bamm:exampleValue "10251"^^xsd:positiveInteger.
 :repairDate a bamm:Property;
     bamm:preferredName "RepairDate"@en;
-    bamm:description "references the date when claim was initial reported"@en;
+    bamm:description "references the date when claim was initially reported"@en;
     bamm:characteristic bamm-c:Timestamp;
     bamm:exampleValue "2022-02-04T14:48:54"^^xsd:dateTime.
 :technicianComment a bamm:Property;
@@ -72,11 +72,6 @@
     bamm:preferredName "ListOfParts"@en;
     bamm:description "a list of parts which will be replaced or repaired"@en;
     bamm:characteristic :ListOfPartsCharacteristic.
-:qualityTaskIdentifier a bamm:Property;
-    bamm:preferredName "QualityTaskIdentifier"@en;
-    bamm:description "Reference to  Quality Task: A unique identifier. The company creating this quality task sets this identifer. The identifier should contain the BPN to make it unique inside CX network"@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "13d6ceed9379".
 :damageCode a bamm:Property;
     bamm:preferredName "DamageCode"@en;
     bamm:description "OEM-specific damage code"@en;
@@ -122,9 +117,19 @@
     bamm:description "OEM-specific hashed VIN; link to car data over pseydomized/hashed VIN or Catena-X unique digital twin identifier"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "ABC20654378784512".
+:isPartReplaced a bamm:Property;
+    bamm:preferredName "IsPartReplaced"@en;
+    bamm:description "flag is set if part was replaced\nTrue: replaced\nFalse: not replaced"@en;
+    bamm:characteristic bamm-c:Boolean;
+    bamm:exampleValue "True"^^xsd:boolean.
+:isPartCausal a bamm:Property;
+    bamm:preferredName "IsPartCausal"@en;
+    bamm:description "flag set to True if part was causing the problem\nTrue: part caused the problem\nFalse: part didn't cause the problem\n"@en;
+    bamm:characteristic bamm-c:Boolean;
+    bamm:exampleValue "True"^^xsd:boolean.
 :amountOfReplacedParts a bamm:Property;
     bamm:preferredName "AmountOfReplacedParts"@en;
-    bamm:description "counter for non-serial parts"@en;
+    bamm:description "counter for non-serial parts which have been replaced"@en;
     bamm:characteristic :AmountOfReplacedPartsCharacteristic;
     bamm:exampleValue "2"^^xsd:nonNegativeInteger.
 :replacedPart a bamm:Property;
@@ -135,6 +140,19 @@
     bamm:preferredName "Spare Part"@en;
     bamm:description "the part which has been built in"@en;
     bamm:characteristic :PartCharacteristic.
+:CatenaXIdTrait a bamm-c:Trait;
+    bamm:preferredName "Catena-X ID Trait"@en;
+    bamm:description "Trait to ensure data format for Catena-X ID"@en;
+    bamm-c:baseCharacteristic :UUIDv4;
+    bamm-c:constraint :UUIDv4RegularExpression.
+:AmountOfReplacedPartsCharacteristic a bamm:Characteristic;
+    bamm:preferredName "Amount of replaced Parts"@en;
+    bamm:description "counter for non-serial parts"@en;
+    bamm:dataType xsd:nonNegativeInteger.
+:PartCharacteristic a bamm-c:SingleEntity;
+    bamm:preferredName "Part Characteristic"@en;
+    bamm:description "the characteristics of a part"@en;
+    bamm:dataType :Part.
 :Part a bamm:Entity;
     bamm:preferredName "Part"@en;
     bamm:description "a generic description of part of the car"@en;
@@ -173,11 +191,6 @@
     bamm:description "OEM-specific ID of the supplier that manufactured the part that was put out - available if known"@en;
     bamm:characteristic bamm-c:Text;
     bamm:exampleValue "ZF2064600502".
-:CatenaXIdTrait a bamm-c:Trait;
-    bamm:preferredName "Catena-X ID Trait"@en;
-    bamm:description "Trait to ensure data format for Catena-X ID"@en;
-    bamm-c:baseCharacteristic :UUIDv4;
-    bamm-c:constraint :UUIDv4RegularExpression.
 :UUIDv4 a bamm:Characteristic;
     bamm:preferredName "UUIDv4"@en;
     bamm:description "A version 4 UUID is a universally unique identifier that is generated using random 32 hexadecimal characters."@en;
@@ -187,21 +200,8 @@
     bamm:description "The provided regular expression ensures that the UUID is composed of five groups of characters separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters (32 hexadecimal characters and 4 hyphens), optionally prefixed by \\\"urn:uuid:\\\" to make it an IRI."@en;
     bamm:see <https://datatracker.ietf.org/doc/html/rfc4122>;
     bamm:value "(^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$)|(^urn:uuid:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$)".
-:AmountOfReplacedPartsCharacteristic a bamm:Characteristic;
-    bamm:preferredName "Amount of replaced Parts"@en;
-    bamm:description "counter for non-serial parts"@en;
-    bamm:dataType xsd:nonNegativeInteger.
-:PartCharacteristic a bamm-c:SingleEntity;
-    bamm:preferredName "Part Characteristic"@en;
-    bamm:description "the characteristics of a part"@en;
-    bamm:dataType :Part.
-:isPartReplaced a bamm:Property;
-    bamm:preferredName "IsPartReplaced"@en;
-    bamm:description "flag is set if part was replaced\nTrue: replaced\nFalse: not replaced"@en;
-    bamm:characteristic bamm-c:Boolean;
-    bamm:exampleValue "True"^^xsd:boolean.
-:isPartCausal a bamm:Property;
-    bamm:preferredName "IsPartCausal"@en;
-    bamm:description "flag set to True if part was causing the problem\nTrue: part caused the problem\nFalse: part didn't cause the problem\n"@en;
-    bamm:characteristic bamm-c:Boolean;
-    bamm:exampleValue "True"^^xsd:boolean.
+:qualityTaskId a bamm:Property;
+    bamm:preferredName "QualityTaskID"@en;
+    bamm:description "Reference to  Quality Task: A unique identifier. The company creating this quality task sets this identifer. The identifier should contain the BPN to make it unique inside CX network"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:exampleValue "BPN-811_2022_000001".
