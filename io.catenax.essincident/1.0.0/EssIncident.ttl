@@ -178,7 +178,7 @@
     bamm:preferredName "Incident Description"@en;
     bamm:description "Full text description of an incident in the context of ESS (Environmental and Social Standards)"@en;
     bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "Natural rubber has been stolen from a farm".
+    bamm:exampleValue "Child labour at production site of the rubber producer in Brazil".
 :incidentAttachment a bamm:Property;
     bamm:name "incidentAttachment";
     bamm:preferredName "Incident Attachment"@en;
@@ -218,7 +218,7 @@
     bamm:preferredName "Incident Headline"@en;
     bamm:description "Title/ subject of an incident in the context of ESS (Environmental and Social Standards)"@en;
     bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "Unlawful acquisition of natural rubber from a farm".
+    bamm:exampleValue "Child labour on a rubber producer".
 :productCommodity a bamm:Property;
     bamm:name "productCommodity";
     bamm:preferredName "Product Commodity"@en;
@@ -266,13 +266,13 @@
     bamm:preferredName "ESS Originator Country"@en;
     bamm:description "Country to which an incident in the context of ESS (Environmental and Social Standards) belongs"@en;
     bamm:characteristic :EssOriginatorCountryTrait;
-    bamm:exampleValue "PE".
+    bamm:exampleValue "BR".
 :essOriginatorRegion a bamm:Property;
     bamm:name "essOriginatorRegion";
     bamm:preferredName "ESS Originator Region"@en;
     bamm:description "Region within a country to which an incident in the context of ESS (Environmental and Social Standards) belongs"@en;
     bamm:characteristic :EssOriginatorRegionTrait;
-    bamm:exampleValue "PE-AMA".
+    bamm:exampleValue "BR-AM".
 :essOriginatorCoordinates a bamm:Property;
     bamm:name "essOriginatorCoordinates";
     bamm:preferredName "ESS Originator Geographic data / Coordinates"@en;
@@ -283,7 +283,7 @@
     bamm:preferredName "ESS Originator Company Name"@en;
     bamm:description "Name of a company/ an organisation that is the originator of an incident in the context of ESS (Environmental and Social Standards)"@en;
     bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "Farm A".
+    bamm:exampleValue "Rubbery Ltd.".
 :address a bamm:Property;
     bamm:name "address";
     bamm:preferredName "Address"@en;
@@ -462,7 +462,7 @@
     bamm:preferredName "Incident Subcategory Property"@en;
     bamm:description "Incident Subcategory Property"@en;
     bamm:characteristic :IncidentSubcategories;
-    bamm:exampleValue "Forced eviction".
+    bamm:exampleValue "Child labour".
 :longitude a bamm:Property;
     bamm:name "longitude";
     bamm:preferredName "Longitude"@en;
@@ -480,13 +480,13 @@
     bamm:preferredName "Street"@en;
     bamm:description "Street name (and number) belonging to an address"@en;
     bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "xyz-Road".
+    bamm:exampleValue "Main Road 1".
 :zip a bamm:Property;
     bamm:name "zip";
     bamm:preferredName "Zip"@en;
     bamm:description "Zip code belonging to an address"@en;
     bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "73230".
+    bamm:exampleValue "12345".
 :city a bamm:Property;
     bamm:name "city";
     bamm:preferredName "City"@en;
