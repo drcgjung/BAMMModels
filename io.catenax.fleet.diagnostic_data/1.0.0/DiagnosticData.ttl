@@ -210,7 +210,8 @@
 :anonymizedVIN a bamm:Property;
     bamm:description "OEM-specific hashed VIN; link to car data over pseydomized/hashed VIN or Catena-X unique digital twin identifier"@en;
     bamm:characteristic bamm-c:Text;
-    bamm:preferredName "Anonymized VIN"@en.
+    bamm:preferredName "Anonymized VIN"@en;
+	bamm:exampleValue "3747429FGH382923974682".
 :catenaXId a bamm:Property;
     bamm:description "A fully anonymous Catena-X identifier that is registered in C-X Digital twin registry. This proprty be used for vehicles, parts, workshops, .....\nOptional: Not always available "@en;
     bamm:characteristic :CatenaXIdTrait;
