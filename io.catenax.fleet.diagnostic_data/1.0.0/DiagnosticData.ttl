@@ -175,7 +175,13 @@
     bamm:preferredName "ECU"@en.
 :DiagnosticTroubleCode a bamm:Entity;
     bamm:description "diagnostic trouble codes or short DTCs are used inside ECUs to monitor failures. They were introduced for measuring vehicle emissions. Major DTCs for emissions are standardized by ISO standard ISO 15031-6:2015 - so called OBD2 standard. Over time DTCs were also introduced in other ECUs also besides engine and emission control. Many DTCs are vehicle manufacturer specific.\n"@en;
-    bamm:properties (:ecuSerialPartNumber :dtcHexValue :fullName :fullDescription :occurenceDateTime :state :isMilOn :occurenceMileage :faultPath :faultPathDescription [
+    bamm:properties (:ecuSerialPartNumber [
+  bamm:property :dtcHexValue;
+  bamm:optional "true"^^xsd:boolean
+] :fullName :fullDescription :occurenceDateTime :state [
+  bamm:property :isMilOn;
+  bamm:optional "true"^^xsd:boolean
+] :occurenceMileage :faultPath :faultPathDescription [
   bamm:property :type;
   bamm:optional "true"^^xsd:boolean
 ] [
@@ -211,7 +217,7 @@
     bamm:description "OEM-specific hashed VIN; link to car data over pseydomized/hashed VIN or Catena-X unique digital twin identifier"@en;
     bamm:characteristic bamm-c:Text;
     bamm:preferredName "Anonymized VIN"@en;
-	bamm:exampleValue "3747429FGH382923974682".
+    bamm:exampleValue "3747429FGH382923974682".
 :catenaXId a bamm:Property;
     bamm:description "A fully anonymous Catena-X identifier that is registered in C-X Digital twin registry. This proprty be used for vehicles, parts, workshops, .....\nOptional: Not always available "@en;
     bamm:characteristic :CatenaXIdTrait;
@@ -227,20 +233,6 @@
     bamm:characteristic bamm-c:Text;
     bamm:preferredName "Vehicle software version"@en;
     bamm:exampleValue "3.5.0001.001".
-:CatenaXIdTrait a bamm-c:Trait;
-    bamm:description "Trait to ensure data format for Catena-X ID"@en;
-    bamm:preferredName "Catena-X ID Trait"@en;
-    bamm-c:baseCharacteristic :UUIDv4;
-    bamm-c:constraint :UUIDv4RegularExpression.
-:UUIDv4 a bamm:Characteristic;
-    bamm:description "A version 4 UUID is a universally unique identifier that is generated using random 32 hexadecimal characters."@en;
-    bamm:preferredName "UUIDv4"@en;
-    bamm:dataType xsd:string.
-:UUIDv4RegularExpression a bamm-c:RegularExpressionConstraint;
-    bamm:description "The provided regular expression ensures that the UUID is composed of five groups of characters separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters (32 hexadecimal characters and 4 hyphens), prefixed by \"urn:uuid:\" to make it an IRI."@en;
-    bamm:preferredName "Catena-X Id Regular Expression"@en;
-    bamm:see <https://datatracker.ietf.org/doc/html/rfc4122>;
-    bamm:value "^urn:uuid:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$".
 :workShopId a bamm:Property;
     bamm:description "OEM internal workshop ID"@en;
     bamm:characteristic bamm-c:Text;
@@ -256,95 +248,11 @@
     bamm:characteristic :LongitudeTrait;
     bamm:preferredName "Longitude"@en;
     bamm:exampleValue "48.77765"^^xsd:float.
-:LatitudeTrait a bamm-c:Trait;
-    bamm-c:baseCharacteristic :Latitude;
-    bamm-c:constraint :ConstraintLatitude.
-:LongitudeTrait a bamm-c:Trait;
-    bamm-c:baseCharacteristic :Longitude;
-    bamm-c:constraint :ConstraintLongitude.
-:Latitude a bamm:Characteristic;
-    bamm:description "Latitude of this workshop"@en;
-    bamm:dataType xsd:float.
-:ConstraintLatitude a bamm-c:RangeConstraint;
-    bamm-c:minValue "-90.0"^^xsd:float;
-    bamm-c:maxValue "90.0"^^xsd:float;
-    bamm-c:lowerBoundDefinition bamm-c:AT_LEAST;
-    bamm-c:upperBoundDefinition bamm-c:AT_MOST.
-:Longitude a bamm:Characteristic;
-    bamm:dataType xsd:float.
-:ConstraintLongitude a bamm-c:RangeConstraint;
-    bamm-c:minValue "-180.0"^^xsd:float;
-    bamm-c:maxValue "180.0"^^xsd:float;
-    bamm-c:lowerBoundDefinition bamm-c:AT_LEAST;
-    bamm-c:upperBoundDefinition bamm-c:AT_MOST.
-:conditionId a bamm:Property;
-    bamm:description "OEM-specific: Primary key for this condition consists of unique identifier of env. condition and DTC"@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:preferredName "Id"@en;
-    bamm:exampleValue "DTC1_EnvCond1".
-:conditionCreationDate a bamm:Property;
-    bamm:description "Date and time when this condition/information was created."@en;
-    bamm:characteristic bamm-c:Timestamp;
-    bamm:preferredName "Creation Date"@en;
-    bamm:exampleValue "2022-01-28T14:48:54"^^xsd:dateTime.
-:conditionDescription a bamm:Property;
-    bamm:description "The description of the environment condition/information"@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:preferredName "Description"@en;
-    bamm:exampleValue "RPM".
-:conditionValue a bamm:Property;
-    bamm:description "The numeric value (if applicable) of the stored environment condition at the time of the DTC."@en;
-    bamm:characteristic :Double;
-    bamm:preferredName "Value"@en;
-    bamm:exampleValue "2000.0"^^xsd:double.
-:measurementUnit a bamm:Property;
-    bamm:description "The unit of measurement for the environment condition value."@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:preferredName "DTC fault path"@en;
-    bamm:exampleValue "rpm".
 :ecuSerialPartNumber a bamm:Property;
     bamm:description "serial number of ECU"@en;
     bamm:characteristic bamm-c:Text;
     bamm:preferredName "ECU serial  part number"@en;
     bamm:exampleValue "74343070GHKER73727".
-:dtcHexValue a bamm:Property;
-    bamm:description "Hex value of this DTC"@en;
-    bamm:characteristic :FreezeFrameTrait;
-    bamm:preferredName "Hex"@en;
-    bamm:exampleValue "4337499FF".
-:Double a bamm:Characteristic;
-    bamm:description "Double"@en;
-    bamm:preferredName "Double"@en;
-    bamm:dataType xsd:double.
-:FreezeFrameTrait a bamm-c:Trait;
-    bamm-c:baseCharacteristic :HEXString;
-    bamm-c:constraint :HexRegex.
-:HEXString a bamm:Characteristic;
-    bamm:description "allows characters \"A\"-\"F\", \"a\"-\"f\" and \"0\"-\"9\" in this string"@en;
-    bamm:dataType xsd:string.
-:HexRegex a bamm-c:RegularExpressionConstraint;
-    bamm:description "a freeze frame contains only hex chars 0-9, A-F, a-f. Restricted to 8000 chars\n"@en;
-    bamm:value "^[0-9,A-F,a-f]$".
-:eventId a bamm:Property;
-    bamm:description "OEM-specific: Primary key for this event"@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:preferredName "Id"@en;
-    bamm:exampleValue "ABS_CAL1234".
-:eventCreationDate a bamm:Property;
-    bamm:description "Date and time when this event was created."@en;
-    bamm:characteristic bamm-c:Timestamp;
-    bamm:preferredName "Creation Date"@en;
-    bamm:exampleValue "2022-01-30T14:00:00"^^xsd:dateTime.
-:eventDescription a bamm:Property;
-    bamm:description "The description of the event"@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:preferredName "Description"@en;
-    bamm:exampleValue "Calibration of ABS ecu with calib file - see value".
-:eventValue a bamm:Property;
-    bamm:description "The value of this event."@en;
-    bamm:characteristic bamm-c:Text;
-    bamm:preferredName "Value"@en;
-    bamm:exampleValue "CAL366474-4848".
 :name a bamm:Property;
     bamm:description "name of ecu"@en;
     bamm:characteristic bamm-c:Text;
@@ -385,6 +293,16 @@
     bamm:characteristic bamm-c:Text;
     bamm:preferredName "ECU assembly part number version"@en;
     bamm:exampleValue "0001".
+:readOutDate a bamm:Property;
+    bamm:description "Date when this ECU information was read out from the diagnostic session"@en;
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:preferredName "Read out date"@en;
+    bamm:exampleValue "2022-01-30T14:45:54"^^xsd:dateTime.
+:dtcHexValue a bamm:Property;
+    bamm:description "Hex value of this DTC"@en;
+    bamm:characteristic :FreezeFrameTrait;
+    bamm:preferredName "Hex"@en;
+    bamm:exampleValue "4337499FF".
 :fullName a bamm:Property;
     bamm:description "combined string of DTC name  plus the so called DTC sub type or DTC failure byte. Both string values are concatenated using a \"-\" as separator.\nDTC name is: B|C|P|U + 4 hex chars\nDTC failure byte: 2 hex chars\n\nIn some rare cases this could be just a hex string"@en;
     bamm:characteristic :FullNameTrait;
@@ -440,6 +358,99 @@
     bamm:characteristic :FreezeFrameTrait;
     bamm:preferredName "DTC freeze frame"@en;
     bamm:exampleValue "100148340349340".
+:conditionId a bamm:Property;
+    bamm:description "OEM-specific: Primary key for this condition consists of unique identifier of env. condition and DTC"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:preferredName "Id"@en;
+    bamm:exampleValue "DTC1_EnvCond1".
+:conditionCreationDate a bamm:Property;
+    bamm:description "Date and time when this condition/information was created."@en;
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:preferredName "Creation Date"@en;
+    bamm:exampleValue "2022-01-28T14:48:54"^^xsd:dateTime.
+:conditionDescription a bamm:Property;
+    bamm:description "The description of the environment condition/information"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:preferredName "Description"@en;
+    bamm:exampleValue "RPM".
+:conditionValue a bamm:Property;
+    bamm:description "The numeric value (if applicable) of the stored environment condition at the time of the DTC."@en;
+    bamm:characteristic :Double;
+    bamm:preferredName "Value"@en;
+    bamm:exampleValue "2000.0"^^xsd:double.
+:measurementUnit a bamm:Property;
+    bamm:description "The unit of measurement for the environment condition value."@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:preferredName "DTC fault path"@en;
+    bamm:exampleValue "rpm".
+:eventId a bamm:Property;
+    bamm:description "OEM-specific: Primary key for this event"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:preferredName "Id"@en;
+    bamm:exampleValue "ABS_CAL1234".
+:eventCreationDate a bamm:Property;
+    bamm:description "Date and time when this event was created."@en;
+    bamm:characteristic bamm-c:Timestamp;
+    bamm:preferredName "Creation Date"@en;
+    bamm:exampleValue "2022-01-30T14:00:00"^^xsd:dateTime.
+:eventDescription a bamm:Property;
+    bamm:description "The description of the event"@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:preferredName "Description"@en;
+    bamm:exampleValue "Calibration of ABS ecu with calib file - see value".
+:eventValue a bamm:Property;
+    bamm:description "The value of this event."@en;
+    bamm:characteristic bamm-c:Text;
+    bamm:preferredName "Value"@en;
+    bamm:exampleValue "CAL366474-4848".
+:CatenaXIdTrait a bamm-c:Trait;
+    bamm:description "Trait to ensure data format for Catena-X ID"@en;
+    bamm:preferredName "Catena-X ID Trait"@en;
+    bamm-c:baseCharacteristic :UUIDv4;
+    bamm-c:constraint :UUIDv4RegularExpression.
+:UUIDv4 a bamm:Characteristic;
+    bamm:description "A version 4 UUID is a universally unique identifier that is generated using random 32 hexadecimal characters."@en;
+    bamm:preferredName "UUIDv4"@en;
+    bamm:dataType xsd:string.
+:UUIDv4RegularExpression a bamm-c:RegularExpressionConstraint;
+    bamm:description "The provided regular expression ensures that the UUID is composed of five groups of characters separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters (32 hexadecimal characters and 4 hyphens), prefixed by \"urn:uuid:\" to make it an IRI."@en;
+    bamm:preferredName "Catena-X Id Regular Expression"@en;
+    bamm:see <https://datatracker.ietf.org/doc/html/rfc4122>;
+    bamm:value "^urn:uuid:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$".
+:LatitudeTrait a bamm-c:Trait;
+    bamm-c:baseCharacteristic :Latitude;
+    bamm-c:constraint :ConstraintLatitude.
+:LongitudeTrait a bamm-c:Trait;
+    bamm-c:baseCharacteristic :Longitude;
+    bamm-c:constraint :ConstraintLongitude.
+:Latitude a bamm:Characteristic;
+    bamm:description "Latitude of this workshop"@en;
+    bamm:dataType xsd:float.
+:ConstraintLatitude a bamm-c:RangeConstraint;
+    bamm-c:minValue "-90.0"^^xsd:float;
+    bamm-c:maxValue "90.0"^^xsd:float;
+    bamm-c:lowerBoundDefinition bamm-c:AT_LEAST;
+    bamm-c:upperBoundDefinition bamm-c:AT_MOST.
+:Longitude a bamm:Characteristic;
+    bamm:dataType xsd:float.
+:ConstraintLongitude a bamm-c:RangeConstraint;
+    bamm-c:minValue "-180.0"^^xsd:float;
+    bamm-c:maxValue "180.0"^^xsd:float;
+    bamm-c:lowerBoundDefinition bamm-c:AT_LEAST;
+    bamm-c:upperBoundDefinition bamm-c:AT_MOST.
+:Double a bamm:Characteristic;
+    bamm:description "Double"@en;
+    bamm:preferredName "Double"@en;
+    bamm:dataType xsd:double.
+:FreezeFrameTrait a bamm-c:Trait;
+    bamm-c:baseCharacteristic :HEXString;
+    bamm-c:constraint :HexRegex.
+:HEXString a bamm:Characteristic;
+    bamm:description "allows characters \"A\"-\"F\", \"a\"-\"f\" and \"0\"-\"9\" in this string"@en;
+    bamm:dataType xsd:string.
+:HexRegex a bamm-c:RegularExpressionConstraint;
+    bamm:description "a freeze frame contains only hex chars 0-9, A-F, a-f. Restricted to 8000 chars\n"@en;
+    bamm:value "^[0-9,A-F,a-f]$".
 :FullNameTrait a bamm-c:Trait;
     bamm-c:baseCharacteristic :FullDTCCharacteristic;
     bamm-c:constraint :FullDTCRegEx.
@@ -454,8 +465,3 @@
 :FullDTCRegEx a bamm-c:RegularExpressionConstraint;
     bamm:description "DTC regular expression to ensure B|C|U|P followed by 4 hex chars followed by \"-\" followed by 2 hex chars"@en;
     bamm:value "^[B|C|P|U]{1}[0-9,A-F,a-f]{4}[-]{1}[0-9,A-F,a-f]{2}$".
-:readOutDate a bamm:Property;
-    bamm:description "Date when this ECU information was read out from the diagnostic session"@en;
-    bamm:characteristic bamm-c:Timestamp;
-    bamm:preferredName "Read out date"@en;
-    bamm:exampleValue "2022-01-30T14:45:54"^^xsd:dateTime.
