@@ -321,13 +321,13 @@
     bamm:preferredName "Contact Name"@en;
     bamm:description "Name of a contact."@en;
     bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "Mick McTest".
+    bamm:exampleValue "Testuser".
 :contactMail a bamm:Property;
     bamm:name "contactMail";
     bamm:preferredName "Contact Mail"@en;
     bamm:description "Mail address of a contact"@en;
     bamm:characteristic :ContactMailTrait;
-    bamm:exampleValue "Mick.McTest@yahoo.com".
+    bamm:exampleValue "test@example.com".
 :contactPhone a bamm:Property;
     bamm:name "contactPhone";
     bamm:preferredName "Contact Phone"@en;
