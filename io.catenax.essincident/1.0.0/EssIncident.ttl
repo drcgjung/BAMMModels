@@ -299,13 +299,13 @@
     bamm:preferredName "ESS Originator CX Member"@en;
     bamm:description "Return flag (y/n) that company that causes the ESS incident is a CX member (or not)"@en;
     bamm:characteristic bamm-c:Boolean;
-    bamm:exampleValue "yes"^^xsd:boolean.
+    bamm:exampleValue "true"^^xsd:boolean.
 :essOriginatorBpnAvailable a bamm:Property;
     bamm:name "essOriginatorBpnAvailable";
     bamm:preferredName "ESs Originator BPN available"@en;
     bamm:description "Return flag (y/n) that company that causes the ESS incident has a BPN-L/-S/-A in CX (but no CX membership)"@en;
     bamm:characteristic bamm-c:Boolean;
-    bamm:exampleValue "yes"^^xsd:boolean.
+    bamm:exampleValue "true"^^xsd:boolean.
 :essOriginatorBpnS a bamm:Property;
     bamm:name "essOriginatorBpnS";
     bamm:preferredName "ESS Originator BPN-S"@en;
@@ -564,4 +564,4 @@
     bamm:preferredName "Flag anonymous"@en;
     bamm:description "Flag that Incident issuer wants to be anonymous"@en;
     bamm:characteristic bamm-c:Boolean;
-    bamm:exampleValue "no"^^xsd:boolean.
+    bamm:exampleValue "false"^^xsd:boolean.
