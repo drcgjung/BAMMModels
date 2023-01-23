@@ -1,3 +1,5 @@
+# !!! This Repository has been moved to Eclipse Tractus-X. All future work happens at https://github.com/eclipse-tractusx/sldt-semantic-models !!!
+
 <img src="https://raw.githubusercontent.com/catenax/tractusx/main/portal/code/tractus-x-portal/public/Catena-X_Logo_mit_Zusatz_2021.svg" width="400">
 
 # Aspect Model Repository for Catena-X Project
