@@ -339,7 +339,7 @@
     bamm:preferredName "ESS Incident Issuer Company Name"@en;
     bamm:description "Company name of incident issuer"@en;
     bamm:characteristic bamm-c:Text;
-    bamm:exampleValue "Greenpeace".
+    bamm:exampleValue "UNICEF".
 :IncidentCategoryCharacteristic a bamm-c:Enumeration;
     bamm:name "IncidentCategoryCharacteristic";
     bamm:preferredName "Incident Category Characteristic"@en;
